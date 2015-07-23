@@ -1,6 +1,6 @@
 # Attack-Of-The-Fines-TA15
 
-Technology Accelerator Project 2015
+Entelect Technology Accelerator Project 2015
 
 Team Members:
 - Prinay Panday
