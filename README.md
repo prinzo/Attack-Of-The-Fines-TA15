@@ -7,3 +7,9 @@ Team Members:
 - Kurt Vining
 - Kristina Georgieva
 - Amrit Purshotam
+
+Technology Used:
+- Angular JS
+- C# Web API
+- .Net 4.5
+- MongoDB
