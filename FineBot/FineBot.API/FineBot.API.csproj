@@ -49,7 +49,17 @@
   <ItemGroup>
     <Compile Include="DI\APIInstaller.cs" />
     <Compile Include="DI\Bootstrapper.cs" />
+    <Compile Include="FinesApi\FineApi.cs" />
+    <Compile Include="FinesApi\IFineApi.cs" />
+    <Compile Include="FinesApi\FineModel.cs" />
+    <Compile Include="Mappers\FineMapper.cs" />
+    <Compile Include="Mappers\Interfaces\IFineMapper.cs" />
+    <Compile Include="Mappers\Interfaces\IUserMapper.cs" />
+    <Compile Include="Mappers\UserMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UsersApi\IUserApi.cs" />
+    <Compile Include="UsersApi\UserApi.cs" />
+    <Compile Include="UsersApi\UserModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -13,7 +13,7 @@ namespace FineBot.DataAccess.BaseClasses
         {
             this.memoryStore = new Dictionary<TIdentifier, TEntity>();
         }
-
+        
         public virtual TEntity Get(TIdentifier id)
         {
             if(!this.memoryStore.ContainsKey(id)) return null;
