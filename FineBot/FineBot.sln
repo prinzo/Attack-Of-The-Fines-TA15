@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FineBot.Domain", "FineBot\FineBot.Domain.csproj", "{3FE26CFD-6E3F-41BE-9844-62A05F660E94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FineBot.DataAccess", "FineBot.DataAccess\FineBot.DataAccess.csproj", "{82C10B76-C015-41DA-B5AE-D32D4A42FC9C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FineBot.API", "FineBot.API\FineBot.API.csproj", "{1EDF3522-E2AE-4569-B98B-0FC3B350B523}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FineBot.BotRunner", "FineBot.BotRunner\FineBot.BotRunner.csproj", "{A47C47CD-EAC6-4FA6-847E-BD138C9042C5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3FE26CFD-6E3F-41BE-9844-62A05F660E94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FE26CFD-6E3F-41BE-9844-62A05F660E94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FE26CFD-6E3F-41BE-9844-62A05F660E94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FE26CFD-6E3F-41BE-9844-62A05F660E94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82C10B76-C015-41DA-B5AE-D32D4A42FC9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82C10B76-C015-41DA-B5AE-D32D4A42FC9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82C10B76-C015-41DA-B5AE-D32D4A42FC9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82C10B76-C015-41DA-B5AE-D32D4A42FC9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EDF3522-E2AE-4569-B98B-0FC3B350B523}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EDF3522-E2AE-4569-B98B-0FC3B350B523}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EDF3522-E2AE-4569-B98B-0FC3B350B523}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EDF3522-E2AE-4569-B98B-0FC3B350B523}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A47C47CD-EAC6-4FA6-847E-BD138C9042C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A47C47CD-EAC6-4FA6-847E-BD138C9042C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A47C47CD-EAC6-4FA6-847E-BD138C9042C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A47C47CD-EAC6-4FA6-847E-BD138C9042C5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

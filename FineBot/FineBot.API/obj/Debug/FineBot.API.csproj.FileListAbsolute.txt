@@ -1,0 +1,13 @@
+C:\Dev\finesbot\FineBot\FineBot.API\bin\Debug\FineBot.API.dll
+C:\Dev\finesbot\FineBot\FineBot.API\bin\Debug\FineBot.API.pdb
+C:\Dev\finesbot\FineBot\FineBot.API\bin\Debug\Castle.Core.dll
+C:\Dev\finesbot\FineBot\FineBot.API\bin\Debug\Castle.Windsor.dll
+C:\Dev\finesbot\FineBot\FineBot.API\bin\Debug\Castle.Core.xml
+C:\Dev\finesbot\FineBot\FineBot.API\bin\Debug\Castle.Windsor.xml
+C:\Dev\finesbot\FineBot\FineBot.API\obj\Debug\FineBot.API.csprojResolveAssemblyReference.cache
+C:\Dev\finesbot\FineBot\FineBot.API\obj\Debug\FineBot.API.dll
+C:\Dev\finesbot\FineBot\FineBot.API\obj\Debug\FineBot.API.pdb
+C:\Dev\finesbot\FineBot\FineBot.API\bin\Debug\FineBot.DataAccess.dll
+C:\Dev\finesbot\FineBot\FineBot.API\bin\Debug\FineBot.dll
+C:\Dev\finesbot\FineBot\FineBot.API\bin\Debug\FineBot.DataAccess.pdb
+C:\Dev\finesbot\FineBot\FineBot.API\bin\Debug\FineBot.pdb
