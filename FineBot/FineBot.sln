@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FineBot.BotRunner", "FineBo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FineBot.Tests", "FineBot.Tests\FineBot.Tests.csproj", "{A575B21B-055D-4B6A-8D87-052D0ED94453}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FineBot.WepApi", "FineBot.WepApi\FineBot.WepApi.csproj", "{397E9824-A893-46CA-8A6B-C73E36544106}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{A575B21B-055D-4B6A-8D87-052D0ED94453}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A575B21B-055D-4B6A-8D87-052D0ED94453}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A575B21B-055D-4B6A-8D87-052D0ED94453}.Release|Any CPU.Build.0 = Release|Any CPU
+		{397E9824-A893-46CA-8A6B-C73E36544106}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{397E9824-A893-46CA-8A6B-C73E36544106}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{397E9824-A893-46CA-8A6B-C73E36544106}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{397E9824-A893-46CA-8A6B-C73E36544106}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
