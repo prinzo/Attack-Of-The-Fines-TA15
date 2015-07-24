@@ -16,10 +16,12 @@ Technology Used:
 - Slack
 
 Description:
+
 This project is intended to keep track of Entelect employees' fines.
 It contains a web application and a chat bot for Slack.
 
 Setup Instructions:
+
 To run the web project:
 - Open a command prompt to the web project directory
 - Install the npm packages listed in "Gulp Setup.txt"
