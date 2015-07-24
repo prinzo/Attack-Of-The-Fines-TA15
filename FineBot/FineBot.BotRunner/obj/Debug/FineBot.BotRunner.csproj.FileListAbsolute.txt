@@ -40,3 +40,11 @@ C:\Dev\Attack-Of-The-Fines-TA15\FineBot\FineBot.BotRunner\bin\Debug\Newtonsoft.J
 C:\Dev\Attack-Of-The-Fines-TA15\FineBot\FineBot.BotRunner\bin\Debug\FineBot.pdb
 C:\Dev\Attack-Of-The-Fines-TA15\FineBot\FineBot.BotRunner\bin\Debug\FineBot.DataAccess.pdb
 C:\Dev\Attack-Of-The-Fines-TA15\FineBot\FineBot.BotRunner\obj\Debug\FineBot.BotRunner.csprojResolveAssemblyReference.cache
+C:\Dev\Attack-Of-The-Fines-TA15\FineBot\FineBot.BotRunner\bin\Debug\Flurl.Http.dll
+C:\Dev\Attack-Of-The-Fines-TA15\FineBot\FineBot.BotRunner\bin\Debug\ServiceStack.Text.dll
+C:\Dev\Attack-Of-The-Fines-TA15\FineBot\FineBot.BotRunner\bin\Debug\Flurl.dll
+C:\Dev\Attack-Of-The-Fines-TA15\FineBot\FineBot.BotRunner\bin\Debug\Flurl.Http.pdb
+C:\Dev\Attack-Of-The-Fines-TA15\FineBot\FineBot.BotRunner\bin\Debug\Flurl.Http.xml
+C:\Dev\Attack-Of-The-Fines-TA15\FineBot\FineBot.BotRunner\bin\Debug\ServiceStack.Text.xml
+C:\Dev\Attack-Of-The-Fines-TA15\FineBot\FineBot.BotRunner\bin\Debug\Flurl.pdb
+C:\Dev\Attack-Of-The-Fines-TA15\FineBot\FineBot.BotRunner\bin\Debug\Flurl.xml

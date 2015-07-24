@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace FineBot.API.UsersApi
 {
@@ -12,5 +13,8 @@ namespace FineBot.API.UsersApi
 
         int GetNumberOfFinesForUserById(Guid id);
 
+        UserModel RegisterUser(string slackId);
+
+        List<UserModel> GetLeaderboard(int number);
     }
 }

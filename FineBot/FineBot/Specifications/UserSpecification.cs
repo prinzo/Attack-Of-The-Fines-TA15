@@ -16,5 +16,10 @@ namespace FineBot.Specifications
         {
             return this.And(x => x.SlackId == slackId);
         }
+
+        public ISpecification<User> WithEmailAddress(string email)
+        {
+            return this.And(x => x.EmailAddress == email);
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Text.RegularExpressions;
 using FineBot.API.FinesApi;
 using FineBot.API.UsersApi;
@@ -65,7 +66,7 @@ namespace FineBot.BotRunner.Responders
         {
             foreach(var slackId in userIds)
             {
-                var userModel = this.userApi.GetUserBySlackId(slackId) ?? this.userApi.CreateUserFromSlackId(slackId);
+                var userModel = this.userApi.GetUserBySlackId(slackId);
 
                 this.fineApi.IssueFine(issuer.Id, userModel.Id, new Guid(), reason);
             }
@@ -75,10 +76,6 @@ namespace FineBot.BotRunner.Responders
         {
             var issuer = this.userApi.GetUserBySlackId(context.Message.User.FormattedUserID);
 
-            if(context.Message.User.FormattedUserID == "<@U07UQ17LJ>")
-            {
-                issuer = new UserModel { Id = new Guid() };
-            }
             return issuer;
         }
 

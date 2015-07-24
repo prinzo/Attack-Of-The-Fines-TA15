@@ -7,14 +7,14 @@ using MargieBot.Responders;
 
 namespace FineBot.BotRunner
 {
-    class Program
+    public class Program
     {
         private static IWindsorContainer container;
 
         static void Main(string[] args)
         {
             container = BotRunnerBootstrapper.Init();
-            
+
             Bot bot = new Bot();
 
             foreach(IResponder responder in container.ResolveAll<IResponder>())
@@ -24,10 +24,10 @@ namespace FineBot.BotRunner
 
             bot.RespondsTo("hi").IfBotIsMentioned().With("Stop resisting citizen!");
 
-            var task = bot.Connect(ConfigurationManager.AppSettings["SlackApiKey"]);
+            var task = bot.Connect(ConfigurationManager.AppSettings["BotKey"]);
 
             Console.WriteLine(String.Format("{0}: Bot is runnning, type 'die' to make it die", DateTime.Now));
-
+          
             while(Console.ReadLine() != "die")
             {
                 
@@ -35,5 +35,6 @@ namespace FineBot.BotRunner
 
             container.Dispose();
         }
+
     }
 }

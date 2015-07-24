@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using FineBot.API.Mappers.Interfaces;
+using FineBot.API.UsersApi;
 using FineBot.Entities;
 using FineBot.Interfaces;
 
@@ -25,7 +28,10 @@ namespace FineBot.API.FinesApi
 
             var fine = user.IssueFine(issuerId, reason, seconderId);
 
+            this.userRepository.Save(user);
+
             return this.fineMapper.MapToModel(fine);
         }
+
     }
 }
