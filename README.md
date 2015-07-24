@@ -13,3 +13,8 @@ Technology Used:
 - C# Web API
 - .Net 4.5
 - MongoDB
+
+
+NOTE: If git complains about a path that is too long when checking out, use the following to enable long paths:
+
+git config core.longpaths true
