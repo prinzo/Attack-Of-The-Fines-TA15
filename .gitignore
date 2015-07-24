@@ -19,3 +19,11 @@ Thumbs.db
 obj/
 [Rr]elease*/
 _ReSharper*/
+
+*.obj
+*.exe
+*.pdb
+*.tlb
+*.tlh
+*.lib
+[Tt]est[Rr]esult*
