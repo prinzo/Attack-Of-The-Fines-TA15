@@ -93,5 +93,11 @@ namespace FineBot.API.UsersApi
         {
             return this.userRepository.GetAll().Take(number).OrderByDescending(x => x.Fines.Count).Select(x => this.userMapper.MapToModel(x)).ToList();
         }
+
+        public List<UserModel> GetLeaderboardToday(int number)
+        {
+            return this.userRepository.GetAll().Take(number).OrderByDescending(x => x.Fines.Count).Select(x => this.userMapper.MapToModelWithDate(x, DateTime.Today)).ToList();
+
+        }
     }
 }

@@ -9,6 +9,8 @@ namespace FineBot.Entities
 
         public Guid SeconderId { get; set; }
 
+        public DateTime AwardedDate { get; set; }
+
         public string Reason { get; set; }
 
         public byte[] RedemptionImageBytes { get; set; }

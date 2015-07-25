@@ -16,5 +16,6 @@ namespace FineBot.API.UsersApi
         UserModel RegisterUser(string slackId);
 
         List<UserModel> GetLeaderboard(int number);
+        List<UserModel> GetLeaderboardToday(int number);
     }
 }

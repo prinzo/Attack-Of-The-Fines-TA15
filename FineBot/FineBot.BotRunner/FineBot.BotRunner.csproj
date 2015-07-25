@@ -74,6 +74,7 @@
     <Compile Include="Responders\GiveFineResponder.cs" />
     <Compile Include="Responders\Interfaces\IGiveFineResponder.cs" />
     <Compile Include="Responders\LeaderBoardResponder.cs" />
+    <Compile Include="Responders\LeaderBoardTodayResponder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

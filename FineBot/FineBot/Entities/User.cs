@@ -22,7 +22,8 @@ namespace FineBot.Entities
                        {
                            IssuerId = issuerId,
                            Reason = reason,
-                           SeconderId = seconderId
+                           SeconderId = seconderId,
+                           AwardedDate = DateTime.UtcNow
                        };
 
             this.Fines.Add(fine);
