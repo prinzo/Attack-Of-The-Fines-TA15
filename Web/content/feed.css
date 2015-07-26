@@ -1,0 +1,115 @@
+.fine-container {
+    display: inline-block;
+    align-content: center;
+    align-self: center;
+}
+
+.fine-feed {
+    width: 50%
+}
+
+.profile {
+    float: left
+}
+
+.profile-details {
+    float: right
+}
+
+.fine {
+    float: right
+}
+
+.fine-details {
+    float: left
+}
+
+#platform {
+    font-size: 12
+}
+
+
+#award {
+     font-size: 12
+}
+
+#reason {
+    font-size: 14
+}
+
+.fine-details hr {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+#second {
+    cursor: pointer
+}
+
+#second:hover {
+    color: green
+}
+
+#awarder {
+    cursor: pointer
+}
+
+#awarder {
+    cursor: pointer
+}
+
+#user-name {
+    cursor: pointer
+}
+
+.fine-button-icon {
+    font-size: 50px
+}
+
+#icon-gift {
+    float: left
+}
+
+#icon-glass {
+    float: right
+}
+
+.fine-buttons {
+    display: inline-block;
+}
+
+.fine-button {
+    padding: 10px;
+    cursor: pointer
+}
+
+.fine-button:hover {
+    color: grey
+}
+
+#photo {
+    max-width: 300px;
+    max-height: 300px;
+}
+
+#like {
+    cursor: pointer;
+    padding: 3px;
+}
+
+#like:hover {
+    color: green;
+}
+
+#dislike {
+    cursor: pointer;
+    padding: 3px;
+}
+
+#dislike:hover {
+    color: red;
+}
+
+.payment-action {
+     display: inline-block;
+}

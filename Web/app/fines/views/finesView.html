@@ -1,4 +1,26 @@
+<div class="" ng-controller="Fines as fc">
+    
 <div ng-include="'common/navBar.html'"></div>
+<div ng-include="'common/common-imports.html'"></div>
+<link rel="stylesheet" href="/Web/content/feed.css">
+
+<center>
+    <div class="fine-buttons">
+        <button ng-click="fc.AwardFine()" class="fine-button" id="icon-gift" >
+            <div class = "glyphicon glyphicon-gift fine-button-icon" ></div>
+            <div>Award Fine</div>
+        </button>
+        <div class="fine-button" id="icon-glass">
+            <div class = "glyphicon glyphicon-glass fine-button-icon"></div>
+            <div>Pay Fine</div>
+        </div>
+    </div>
+</center>
+
 <div class="panel panel-primary" ng-controller="Fines as FC">
-This is the fines control
+    <!-- Test data -->
+    <div class ="fine-feed" ng-include="'app/fines/views/newFineFeed.html'"></div>
+    <div class ="fine-feed" ng-include="'app/fines/views/paidFineFeed.html'"></div>
+    <div class ="fine-feed" ng-include="'app/fines/views/newFineFeed.html'"></div>
 </div>
+ 
