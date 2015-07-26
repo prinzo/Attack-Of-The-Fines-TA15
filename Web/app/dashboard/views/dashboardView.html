@@ -1,6 +1,7 @@
 <div ng-include="'common/navBar.html'"></div>
-<div  ng-controller="Dashboard as DC">
+<div  ng-controller="Dashboard as vm">
 
     <h2 align="center">Fines Dashboard</h2>
-    
+                  <highchart id="chart1" config="vm.chartConfig" class="span9" ></highchart>
+
 </div>

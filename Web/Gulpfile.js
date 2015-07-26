@@ -80,7 +80,7 @@ gulp.task('browserify', function () {
 
 gulp.task('watch', ['build'], function () {
     // Watch our scripts
-    gulp.watch(['*.html', 'app/**/*.html', 'app/**/*.js'], ['build' 
+    gulp.watch(['*.html', 'app/**/*.html', 'app/**/*.js', 'common/*.html'], ['build' 
   ]);
 });
 
