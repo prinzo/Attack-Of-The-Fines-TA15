@@ -1,4 +1,35 @@
 <div ng-include="'common/navBar.html'"></div>
-<div class="panel panel-primary" ng-controller="Dashboard as DC">
-This is the dashboard control
-</div>
+<div ng-controller="Dashboard as vm">
+    <ol class="breadcrumb">
+        <li><a href="#Fines"><i class="fa fa-home"></i></a>
+        </li>
+        <li class="active">Dashboard</li>
+    </ol>
+
+    <div class="row">
+        <div class="col-sm-6">
+
+            <div class="panel ">
+                <highchart config="vm.chartConfigDay" class=""></highchart>
+
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel ">
+                <highchart id="chart1" config="vm.chartConfig" class="span5"></highchart>
+
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel">
+                <highchart style="width:100%;margin: 0 auto" id="chart1" config="vm.chartConfigDistribution" ></highchart>
+
+            </div>
+
+        </div>
+    </div>

@@ -1,6 +1,12 @@
 <div class="" ng-controller="Fines as fc">
+
+<ol class="breadcrumb">
+  <li><a href="#Fines"><i class="fa fa-home"></i></a></li>
+  <li class="active">News Feed</li>
+</ol>
     
 <div ng-include="'common/navBar.html'"></div>
+
 <div ng-include="'common/common-imports.html'"></div>
 <link rel="stylesheet" href="/Web/content/feed.css">
 
@@ -23,4 +29,3 @@
     <div class ="fine-feed" ng-include="'app/fines/views/paidFineFeed.html'"></div>
     <div class ="fine-feed" ng-include="'app/fines/views/newFineFeed.html'"></div>
 </div>
- 
