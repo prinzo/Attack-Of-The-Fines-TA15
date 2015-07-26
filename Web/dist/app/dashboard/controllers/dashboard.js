@@ -8,37 +8,10 @@
         var vm = this;
 
         vm.chartTypes = [
-            {
-                "id": "line",
-                "title": "Line"
-            },
-            {
-                "id": "spline",
-                "title": "Smooth line"
-            },
-            {
-                "id": "area",
-                "title": "Area"
-            },
-            {
-                "id": "areaspline",
-                "title": "Smooth area"
-            },
-            {
-                "id": "column",
-                "title": "Column"
-            },
+ 
             {
                 "id": "bar",
                 "title": "Bar"
-            },
-            {
-                "id": "pie",
-                "title": "Pie"
-            },
-            {
-                "id": "scatter",
-                "title": "Scatter"
             }
   ];
 
@@ -46,68 +19,13 @@
             {
                 "id": "Solid",
                 "title": "Solid"
-            },
-            {
-                "id": "ShortDash",
-                "title": "ShortDash"
-            },
-            {
-                "id": "ShortDot",
-                "title": "ShortDot"
-            },
-            {
-                "id": "ShortDashDot",
-                "title": "ShortDashDot"
-            },
-            {
-                "id": "ShortDashDotDot",
-                "title": "ShortDashDotDot"
-            },
-            {
-                "id": "Dot",
-                "title": "Dot"
-            },
-            {
-                "id": "Dash",
-                "title": "Dash"
-            },
-            {
-                "id": "LongDash",
-                "title": "LongDash"
-            },
-            {
-                "id": "DashDot",
-                "title": "DashDot"
-            },
-            {
-                "id": "LongDashDot",
-                "title": "LongDashDot"
-            },
-            {
-                "id": "LongDashDotDot",
-                "title": "LongDashDotDot"
             }
   ];
 
         vm.chartSeries = [
             {
-                "name": "Some data",
+                "name": "Fine Count",
                 "data": [1, 2, 4, 7, 3]
-            },
-            {
-                "name": "Some data 3",
-                "data": [3, 1, null, 5, 2],
-                connectNulls: true
-            },
-            {
-                "name": "Some data 2",
-                "data": [5, 2, 2, 3, 5],
-                type: "column"
-            },
-            {
-                "name": "My Super Column",
-                "data": [1, 1, 2, 3, 2],
-                type: "column"
             }
   ];
 
@@ -130,17 +48,24 @@
         vm.chartConfig = {
             options: {
                 chart: {
-                    type: 'areaspline'
+                    type: 'bar'
                 },
-                plotOptions: {
-                    series: {
-                        stacking: ''
-                    }
-                }
+           
             },
             series: vm.chartSeries,
+                    xAxis: {
+                            categories: ['Prinay', 'Amrit', 'Kurt', 'Kristina', 'Kuben'],
+                            title: {
+                                text: 'Employee'
+                            }
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Number of Fines'
+                            }
+                        },
             title: {
-                text: 'Hello'
+                text: 'Leaderboard for 2015'
             },
             credits: {
                 enabled: true
