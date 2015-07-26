@@ -2,9 +2,9 @@
     "use strict";
     angular
         .module("entelectFines")
-        .controller("Dashboard", [Dashboard]);
+        .controller("Dashboard", ['$timeout', Dashboard]);
 
-    function Dashboard() {
+    function Dashboard($timeout) {
         var vm = this;
 
         vm.chartTypes = [
@@ -62,6 +62,11 @@
                     renderTo: "panel",
                     type: 'bar'
                 },
+                func: function (chart) {
+                    $timeout(function () {
+                        chart.reflow();
+                    }, 0);
+                },
 
             },
             series: vm.chartSeries,
@@ -92,6 +97,11 @@
                     backgroundColor: "#f4f4f4",
                     plotShadow: true,
                     type: 'bar'
+                },
+                func: function (chart) {
+                    $timeout(function () {
+                        chart.reflow();
+                    }, 0);
                 },
 
             },
@@ -127,6 +137,11 @@
                 },
 
             },
+            func: function (chart) {
+                $timeout(function () {
+                    chart.reflow();
+                }, 0);
+            },
             series: vm.chartSeriesDistribution,
 
             xAxis: {
@@ -149,6 +164,9 @@
             loading: false,
             size: {}
         }
+
+
+
 
     }
 }());
