@@ -1,18 +1,12 @@
 ﻿using System.Web;
 using System.Web.Http;
+using System.Web.Http.Dispatcher;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Castle.MicroKernel.Lifestyle;
-using Castle.MicroKernel.Registration;
-using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using FineBot.API.DI;
-using FineBot.API.UsersApi;
-using FineBot.DataAccess.BaseClasses;
-using FineBot.Entities;
-using FineBot.Interfaces;
 using FineBot.WepApi.DI;
 
 namespace FineBot.WepApi
@@ -27,12 +21,12 @@ namespace FineBot.WepApi
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-            ConfigureWindsor(GlobalConfiguration.Configuration);
-            WebApiConfig.Register(GlobalConfiguration.Configuration,container);
+            WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            BootstrapContainer();
         }
 
         protected void Application_End()
@@ -44,26 +38,12 @@ namespace FineBot.WepApi
 
         private static void BootstrapContainer()
         {
-            container = Bootstrapper.Init();
-            container.Install(FromAssembly.This());
+            container = WebApiBootstrapper.Init();
 
             var controllerFactory = new WindsorControllerFactory(container.Kernel);
 
             ControllerBuilder.Current.SetControllerFactory(controllerFactory);
-            var dependencyResolver = new WindsorDependencyResolver(container);
-           
-        }
-
-        public static void ConfigureWindsor(HttpConfiguration configuration)
-        {
-            container =Bootstrapper.Init();
-
-            container.Install(FromAssembly.This());
-    
-
-            container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel, true));
-            var dependencyResolver = new WindsorDependencyResolver(container);
-            configuration.DependencyResolver = dependencyResolver;
+            GlobalConfiguration.Configuration.Services.Replace(typeof(IHttpControllerActivator),new WindsorCompositionRoot(container));
         }
     }
 }

@@ -8,9 +8,7 @@ namespace FineBot.WepApi.DI
     {
         public static IWindsorContainer Init()
         {
-            var container = API.DI.Bootstrapper.Init();
-
-            container.Install(FromAssembly.Containing<ApiInstaller>());
+            var container = Bootstrapper.Init();
 
             container.Install(FromAssembly.This());
 

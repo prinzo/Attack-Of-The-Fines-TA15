@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
-using System.Web.Http.Dispatcher;
+﻿using System.Web.Http;
 using Castle.Windsor;
-using FineBot.WepApi.DI;
 
 namespace FineBot.WepApi
 {
     public static class WebApiConfig
     {
-        public static void Register(HttpConfiguration config, IWindsorContainer container)
+        public static void Register(HttpConfiguration config)
         {
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
@@ -26,15 +21,6 @@ namespace FineBot.WepApi
             // To disable tracing in your application, please comment out or remove the following line of code
             // For more information, refer to: http://www.asp.net/web-api
             config.EnableSystemDiagnosticsTracing();
-            RegisterControllerActivator(container);
-
-
-        }
-
-        private static void RegisterControllerActivator(IWindsorContainer container)
-        {
-            GlobalConfiguration.Configuration.Services.Replace(typeof(IHttpControllerActivator),
-                new WindsorCompositionRoot(container));
         }
     }
 }
