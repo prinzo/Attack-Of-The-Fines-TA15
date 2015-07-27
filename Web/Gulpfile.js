@@ -7,7 +7,7 @@ var gulp = require('gulp'),
 reload = require('gulp-livereload');
 runSequence = require('run-sequence');
 
-gulp.task('buildme', ['build:content', 'build:common', 'build:scripts', 'build:index', 'livereload'], function () {
+gulp.task('buildme', ['build:content','build:font', 'build:common', 'build:scripts', 'build:index', 'livereload'], function () {
     gulp.src(['app/**/*.js', 'app/**/*.html'])
         .pipe(gulp.dest('dist/app'))
         .on('error', gutil.log);
@@ -39,6 +39,13 @@ gulp.task('build:index', function () {
 gulp.task('build:content', function () {
     gulp.src(['content/*.css', 'content/*.png', 'content/*.scss', 'content/*.map'])
         .pipe(gulp.dest('dist/content'))
+        .on('error', gutil.log);
+
+});
+
+gulp.task('build:font', function () {
+    gulp.src(['fonts/*.eot', 'fonts/*.svg', 'fonts/*.ttf', 'fonts/*.woff','fonts/*.woff2'])
+        .pipe(gulp.dest('dist/fonts'))
         .on('error', gutil.log);
 
 });
