@@ -9,11 +9,11 @@ namespace FineBot.API.UsersApi
 
         UserModel GetUserBySlackId(string slackId);
 
-        UserModel CreateUserFromSlackId(string slackUserId);
+        UserModel GetUserByEmail(string email);
 
         int GetNumberOfFinesForUserById(Guid id);
 
-        UserModel RegisterUser(string slackId);
+        UserModel RegisterUserBySlackId(string slackId);
 
         List<UserModel> GetLeaderboard(int number);
         List<UserModel> GetLeaderboardToday(int number);

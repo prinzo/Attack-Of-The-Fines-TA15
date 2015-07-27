@@ -39,18 +39,30 @@ namespace FineBot.API.UsersApi
 
             if(user == null)
             {
-                return this.RegisterUser(slackId);
+                return this.RegisterUserBySlackId(slackId);
             }
 
             return this.userMapper.MapToModel(user);
         }
 
-        public UserModel CreateUserFromSlackId(string slackUserId)
+        public UserModel GetUserByEmail(string email)
+        {
+            var user = this.userRepository.Find(new UserSpecification().WithEmailAddress(email));
+
+            if (user == null)
+            {
+                return this.RegisterUserByEmail(email);
+            }
+
+            return this.userMapper.MapToModel(user);
+        }
+
+        private UserModel RegisterUserByEmail(string email)
         {
             User newUser = new User
-                           {
-                               SlackId = slackUserId
-                           };
+            {
+                EmailAddress = email
+            };
 
             var user = this.userRepository.Save(newUser);
 
@@ -64,7 +76,7 @@ namespace FineBot.API.UsersApi
             return user.Fines.Count;
         }
 
-        public UserModel RegisterUser(string slackId)
+        public UserModel RegisterUserBySlackId(string slackId)
         {
             var info = this.memberInfoApi.GetMemberInformation(slackId.Substring(2, slackId.Length - 3));
 
