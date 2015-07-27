@@ -6,7 +6,7 @@
         ["ngResource"])
         .constant("appSettings",
         {
-            serverPath: "http://localhost:52263"
+            serverPath: "http://entelect.finesapi.local"
         });
 
 }());

@@ -20,10 +20,17 @@ namespace FineBot.WepApi.Controllers
             this.fineApi = fineApi;
         }
 
+        [HttpGet]
         public List<UserModel> GetLeaderBoard()
         {
             var leaderboardUser = userApi.GetLeaderboard(10);
             return leaderboardUser;
+        }
+
+        [HttpGet]
+        public List<UserModel> GetLeaderboardToday()
+        {
+            return userApi.GetLeaderboardToday(10);
         }
 
         // GET api/dashboard/5
