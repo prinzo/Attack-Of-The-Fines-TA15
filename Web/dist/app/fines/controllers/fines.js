@@ -2,13 +2,19 @@
     "use strict";
     angular
     .module("entelectFines")
-    .controller("Fines", [Fines]);
+    .controller("Fines", ['toaster', 'ngBootbox', Fines]);
 
-    function Fines() {
+    function Fines(toaster, $ngBootbox) {
         var vm = this;
+        
+        vm.AwardFine = AwardFine;
         
         function AwardFine() {
             toaster.pop('success', "Award Fine", "This will be a modal to award fines");
+            
+            $ngBootbox.alert("Hello world!", function() {
+              Example.show("Hello world callback");
+            });
         }
         
         function PayFine() {
@@ -26,7 +32,7 @@
         function LikeFinePayment() {
             toaster.pop('success', "Like", "This will like the payment of a fine");
         }
-        
+         
         function DislikeFinePayment() {
             toaster.pop('success', "Dislike", "This will dislike the payment of a fine");
         }

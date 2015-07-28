@@ -1,12 +1,14 @@
 
 
 var app = angular.module("entelectFines",
-	["common.services", "ngRoute","toaster","highcharts-ng"]);
+	["common.services", "ngRoute","toaster","highcharts-ng", 'ngBootbox']);
 
 
 
-app.config(['$routeProvider',
-	function($routeProvider) {
+app.config(['$routeProvider','$bootboxProvider',
+	function($routeProvider, $bootboxProvider) {
+        $bootboxProvider.setDefaults({ locale: "es" });
+        
 		$routeProvider.
 		when('/Fines', {
 			templateUrl: 'app/fines/views/finesView.html',
@@ -39,5 +41,7 @@ app.config(['$routeProvider',
 		otherwise({
 			redirectTo: '/Login'
 		});
+        
+        
 
 	}]);
