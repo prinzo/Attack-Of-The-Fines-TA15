@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Text.RegularExpressions;
 using FineBot.API.FinesApi;
 using FineBot.API.UsersApi;
 using FineBot.BotRunner.Extensions;
@@ -57,7 +55,7 @@ namespace FineBot.BotRunner.Responders
                 multiple = "s";
             }
 
-            botMessage.Text = String.Format("Fine{1} awarded to {0}!", String.Join(", ", userIds), multiple);
+            botMessage.Text = String.Format("Fine{1} awarded to {0}! Somebody needs to second!", String.Join(", ", userIds), multiple);
             
             return botMessage;
         }
@@ -68,7 +66,7 @@ namespace FineBot.BotRunner.Responders
             {
                 var userModel = this.userApi.GetUserBySlackId(slackId);
 
-                this.fineApi.IssueFine(issuer.Id, userModel.Id, new Guid(), reason);
+                this.fineApi.IssueFine(issuer.Id, userModel.Id, reason);
             }
         }
 

@@ -31,7 +31,7 @@ namespace FineBot.BotRunner.Responders
 
             foreach(var userModel in leaderboard)
             {
-                builder.AppendLine(String.Format("{0} - {1}", userModel.SlackId, userModel.FineCount));
+                builder.AppendLine(String.Format("{0} - {1}", userModel.SlackId, userModel.AwardedFineCount));
             }
 
             return new BotMessage{Text = builder.ToString()};

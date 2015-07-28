@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FineBot.Abstracts;
 using FineBot.API.Mappers.Interfaces;
 using FineBot.API.MemberInfo;
 using FineBot.Entities;
@@ -30,7 +31,7 @@ namespace FineBot.API.UsersApi
         {
             var user = this.userRepository.Get(id);
 
-            return this.userMapper.MapToModel(user);
+            return this.userMapper.MapToModelShallow(user);
         }
 
         public UserModel GetUserBySlackId(string slackId)
@@ -42,7 +43,7 @@ namespace FineBot.API.UsersApi
                 return this.RegisterUserBySlackId(slackId);
             }
 
-            return this.userMapper.MapToModel(user);
+            return this.userMapper.MapToModelShallow(user);
         }
 
         public UserModel GetUserByEmail(string email)
@@ -54,7 +55,7 @@ namespace FineBot.API.UsersApi
                 return this.RegisterUserByEmail(email);
             }
 
-            return this.userMapper.MapToModel(user);
+            return this.userMapper.MapToModelShallow(user);
         }
 
         private UserModel RegisterUserByEmail(string email)
@@ -66,7 +67,7 @@ namespace FineBot.API.UsersApi
 
             var user = this.userRepository.Save(newUser);
 
-            return this.userMapper.MapToModel(user);
+            return this.userMapper.MapToModelShallow(user);
         }
 
         public int GetNumberOfFinesForUserById(Guid id)
@@ -78,7 +79,8 @@ namespace FineBot.API.UsersApi
 
         public UserModel RegisterUserBySlackId(string slackId)
         {
-            var info = this.memberInfoApi.GetMemberInformation(slackId.Substring(2, slackId.Length - 3));
+            var cleanSlackId = slackId.StartsWith("<") ? slackId.Substring(2, slackId.Length - 3) : slackId;
+            var info = this.memberInfoApi.GetMemberInformation(cleanSlackId);
 
             var foundUser = this.userRepository.Find(new UserSpecification().WithEmailAddress(info.profile.email));
 
@@ -87,7 +89,7 @@ namespace FineBot.API.UsersApi
                 foundUser.SlackId = slackId;
                 this.userRepository.Save(foundUser);
 
-                return this.userMapper.MapToModel(foundUser);
+                return this.userMapper.MapToModelShallow(foundUser);
             }
 
             User newUser = new User
@@ -98,18 +100,25 @@ namespace FineBot.API.UsersApi
 
             var user = this.userRepository.Save(newUser);
 
-            return this.userMapper.MapToModel(user);
+            return this.userMapper.MapToModelShallow(user);
         }
         
         public List<UserModel> GetLeaderboard(int number)
         {
-            return this.userRepository.GetAll().Take(number).OrderByDescending(x => x.Fines.Count).Select(x => this.userMapper.MapToModel(x)).ToList();
+            return this.userRepository.GetAll().Take(number).OrderByDescending(x => x.Fines.Count).Select(x => this.userMapper.MapToModelShallow(x)).ToList();
         }
 
         public List<UserModel> GetLeaderboardToday(int number)
         {
             return this.userRepository.GetAll().Take(number).OrderByDescending(x => x.Fines.Count).Select(x => this.userMapper.MapToModelWithDate(x, DateTime.Today)).ToList();
 
+        }
+
+        public List<UserModel> GetUsersWithPendingFines()
+        {
+            var users = this.userRepository.FindAll(new Specification<User>(u => u.Fines.Any(f => f.SeconderId == null)));
+
+            return users.Select(u => this.userMapper.MapToModel(u)).ToList();
         }
     }
 }

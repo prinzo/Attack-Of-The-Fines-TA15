@@ -1,5 +1,6 @@
 ﻿using FineBot.API.FinesApi;
 using FineBot.API.Mappers.Interfaces;
+using FineBot.API.UsersApi;
 using FineBot.Entities;
 
 namespace FineBot.API.Mappers
@@ -13,8 +14,24 @@ namespace FineBot.API.Mappers
                        IssuerId = fine.IssuerId,
                        Reason = fine.Reason,
                        RedemptionImageBytes = fine.RedemptionImageBytes,
-                       SeconderId = fine.SeconderId
+                       SeconderId = fine.SeconderId,
+                       Pending = fine.Pending,
+                       AwardedDate = fine.AwardedDate
                    };
+        }
+
+        public FineWithUserModel MapToModelWithUser(Fine fine, UserModel shallowUserModel)
+        {
+            return new FineWithUserModel
+            {
+                IssuerId = fine.IssuerId,
+                Reason = fine.Reason,
+                RedemptionImageBytes = fine.RedemptionImageBytes,
+                SeconderId = fine.SeconderId,
+                Pending = fine.Pending,
+                AwardedDate = fine.AwardedDate,
+                User = shallowUserModel
+            };
         }
     }
 }

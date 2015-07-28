@@ -4,6 +4,7 @@ using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using FineBot.DataAccess.BaseClasses;
+using FineBot.DataAccess.Mappings;
 using FineBot.Interfaces;
 using MongoDB.Driver;
 
@@ -22,6 +23,7 @@ namespace FineBot.DataAccess.DI
             if(Convert.ToBoolean(ConfigurationManager.AppSettings["PersistData"] ?? "false"))
             {
                 container.Register(Component.For(typeof(IRepository<,>)).ImplementedBy(typeof(MongoRepository<,>)).LifestyleTransient());    
+                 MongoMappings.SetupMappings();
             }
             else
             {

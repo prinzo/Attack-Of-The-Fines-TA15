@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using FineBot.API.FinesApi;
 
 namespace FineBot.API.UsersApi
 {
@@ -7,6 +9,8 @@ namespace FineBot.API.UsersApi
         public Guid Id { get; set; }
         public string SlackId { get; set; }
         public string EmailAddress { get; set; }
-        public int FineCount { get; set; }
+        public int AwardedFineCount { get; set; }
+        public int PendingFineCount { get; set; }
+        public List<FineModel> Fines { get; set; }
     }
 }

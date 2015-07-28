@@ -68,6 +68,7 @@
     <Compile Include="DI\APIInstaller.cs" />
     <Compile Include="DI\Bootstrapper.cs" />
     <Compile Include="FinesApi\FineApi.cs" />
+    <Compile Include="FinesApi\FineWithUserModel.cs" />
     <Compile Include="FinesApi\IFineApi.cs" />
     <Compile Include="FinesApi\FineModel.cs" />
     <Compile Include="Mappers\FineMapper.cs" />

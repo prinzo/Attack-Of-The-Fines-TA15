@@ -6,10 +6,14 @@ namespace FineBot.API.FinesApi
     {
         public Guid IssuerId { get; set; }
 
-        public Guid SeconderId { get; set; }
+        public Guid? SeconderId { get; set; }
+
+        public bool Pending { get; set; }
 
         public string Reason { get; set; }
 
         public byte[] RedemptionImageBytes { get; set; }
+
+        public DateTime AwardedDate { get; set; }
     }
 }
