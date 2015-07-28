@@ -2,10 +2,42 @@
     "use strict";
     angular
         .module("entelectFines")
-        .controller("Dashboard", ['$timeout', Dashboard]);
+        .controller("Dashboard", ["dashboardResource", "$timeout", Dashboard]);
 
-    function Dashboard($timeout) {
+    function Dashboard(dashboardResource, $timeout) {
         var vm = this;
+        var seriesData = [];
+        var categories = [];
+        var seriesToday = [];
+        var categoriesToday = [];
+
+        GetOverallLeaderboard();
+        GetLeaderboardToday();
+
+        function GetOverallLeaderboard() {
+            var promise = dashboardResource.query({
+                action: "GetLeaderboard"
+            });
+            promise.$promise.then(function (data) {
+                for (var j = 0; j < data.length; j++) {
+                    seriesData.push(data[j].FineCount);
+                    categories.push(data[j].EmailAddress);
+                }
+            });
+        }
+
+
+        function GetLeaderboardToday() {
+            var promise = dashboardResource.query({
+                action: "GetLeaderboardToday"
+            });
+            promise.$promise.then(function (data) {
+                for (var j = 0; j < data.length; j++) {
+                    seriesToday.push(data[j].FineCount);
+                    categoriesToday.push(data[j].EmailAddress);
+                }
+            });
+        }
 
         vm.chartTypes = [
 
@@ -25,12 +57,20 @@
         vm.chartSeries = [
             {
                 "name": "Fine Count",
-                "data": [1, 2, 4, 7, 3],
+                "data": seriesData,
                 "color": "green"
 
             }
   ];
 
+        vm.chartSeriesToday = [
+            {
+                "name": "Fine Count",
+                "data": seriesToday,
+                "color": "green"
+
+            }
+  ];
         vm.chartSeriesDistribution = [
             {
                 "name": "Fine Count",
@@ -71,7 +111,7 @@
             },
             series: vm.chartSeries,
             xAxis: {
-                categories: ['Prinay', 'Amrit', 'Kurt', 'Kristina', 'Kuben'],
+                categories: categories,
                 title: {
                     text: 'Employee'
                 }
@@ -105,9 +145,9 @@
                 },
 
             },
-            series: vm.chartSeries,
+            series: vm.chartSeriesToday,
             xAxis: {
-                categories: ['Prinay', 'Amrit', 'Kurt', 'Kristina', 'Kuben'],
+                categories: categoriesToday,
                 title: {
                     text: 'Employee'
                 }

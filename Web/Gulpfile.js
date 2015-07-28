@@ -7,7 +7,7 @@ var gulp = require('gulp'),
 reload = require('gulp-livereload');
 runSequence = require('run-sequence');
 
-gulp.task('buildme', ['build:content','build:font', 'build:common', 'build:scripts', 'build:index', 'livereload'], function () {
+gulp.task('buildme', ['build:content', 'build:font', 'build:common', 'build:resources', 'build:scripts', 'build:index', 'livereload'], function () {
     gulp.src(['app/**/*.js', 'app/**/*.html'])
         .pipe(gulp.dest('dist/app'))
         .on('error', gutil.log);
@@ -15,8 +15,8 @@ gulp.task('buildme', ['build:content','build:font', 'build:common', 'build:scrip
 
 });
 
-gulp.task('build', function() {
-runSequence('buildme', 'livereload');
+gulp.task('build', function () {
+    runSequence('buildme', 'livereload');
 });
 gulp.task('livereload', function () {
     reload.changed();
@@ -25,6 +25,13 @@ gulp.task('livereload', function () {
 gulp.task('build:common', function () {
     gulp.src(['common/*.js', 'common/*.html'])
         .pipe(gulp.dest('dist/common'))
+        .on('error', gutil.log);
+
+});
+
+gulp.task('build:resources', function () {
+    gulp.src(['common/resources/*.js'])
+        .pipe(gulp.dest('dist/common/resources'))
         .on('error', gutil.log);
 
 });
@@ -44,7 +51,7 @@ gulp.task('build:content', function () {
 });
 
 gulp.task('build:font', function () {
-    gulp.src(['fonts/*.eot', 'fonts/*.svg', 'fonts/*.ttf', 'fonts/*.woff','fonts/*.woff2'])
+    gulp.src(['fonts/*.eot', 'fonts/*.svg', 'fonts/*.ttf', 'fonts/*.woff', 'fonts/*.woff2'])
         .pipe(gulp.dest('dist/fonts'))
         .on('error', gutil.log);
 
@@ -67,8 +74,8 @@ gulp.task('clean', function () {
 gulp.task('lint', function () {
     gulp.src('./app/**/*.js')
         .pipe(jshint())
-        // You can look into pretty reporters as well, but that's another story
-        .pipe(jshint.reporter('default'));
+    // You can look into pretty reporters as well, but that's another story
+    .pipe(jshint.reporter('default'));
 });
 
 // Browserify task
@@ -79,15 +86,15 @@ gulp.task('browserify', function () {
             insertGlobals: true,
             debug: true
         }))
-        // Bundle to a single file
-        .pipe(concat('bundle.js'))
-        // Output it to our dist folder
-        .pipe(gulp.dest('dist/js'));
+    // Bundle to a single file
+    .pipe(concat('bundle.js'))
+    // Output it to our dist folder
+    .pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('watch', ['build'], function () {
     // Watch our scripts
-    gulp.watch(['*.html', 'app/**/*.html', 'app/**/*.js', 'common/*.html'], ['build' 
+    gulp.watch(['*.html', 'app/**/*.html', 'app/**/*.js', 'common/*.html'], ['build'
   ]);
 });
 
