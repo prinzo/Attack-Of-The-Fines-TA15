@@ -20,10 +20,6 @@ app.config(['$routeProvider',
 			templateUrl: 'app/dashboard/views/dashboardView.html',
 			controller: 'Dashboard'
 		}).
-		when('/FineAwards', {
-			templateUrl: 'app/fines/views/fineAwardsView.html',
-			controller: 'Dashboard'
-		}).
 		when('/Settings', {
 			templateUrl: 'app/settings/views/settingsView.html',
 			controller: 'Settings'

@@ -6,15 +6,13 @@
 
     function Fines(toaster, $ngBootbox) {
         var vm = this;
-        
+                        
         vm.AwardFine = AwardFine;
         
         function AwardFine() {
             toaster.pop('success', "Award Fine", "This will be a modal to award fines");
             
-            $ngBootbox.alert("modal text", function() {
-              Example.show("Hello world callback");
-            });
+                       
         }
         
         function PayFine() {

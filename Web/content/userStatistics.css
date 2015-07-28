@@ -1,0 +1,25 @@
+#userFinesLineGraph { 
+    margin: 0 auto;
+}
+
+#userName {
+    font-size: 30px
+}
+
+.statisticTitle {
+    font-size: 14px
+}
+
+.statistic {
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.statisticGroupLeft {
+    float: left;
+}
+
+.statisticGroupRight {
+    float: right;
+}
