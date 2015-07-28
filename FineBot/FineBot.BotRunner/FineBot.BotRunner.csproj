@@ -78,6 +78,7 @@
     <Compile Include="Responders\LeaderBoardTodayResponder.cs" />
     <Compile Include="Responders\SeconderResponder.cs" />
     <Compile Include="Responders\ShowResponder.cs" />
+    <Compile Include="Responders\YouTubeResponder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

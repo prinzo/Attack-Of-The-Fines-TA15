@@ -24,7 +24,7 @@ namespace FineBot.BotRunner.Responders
 
         public bool CanRespond(ResponseContext context)
         {
-            return context.Message.MentionsBot 
+            return context.Message.MentionsBot
                 && !context.BotHasResponded 
                 && context.Message.Text.ToLower().Contains("fine");
         }
