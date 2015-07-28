@@ -2,9 +2,9 @@
     "use strict";
     angular
         .module("entelectFines")
-        .controller("Dashboard", ["dashboardResource", "$timeout", Dashboard]);
+        .controller("Dashboard", ["dashboardResource", "$timeout", "$interval", "$window", Dashboard]);
 
-    function Dashboard(dashboardResource, $timeout) {
+    function Dashboard(dashboardResource, $timeout, $interval, $window) {
         var vm = this;
         var seriesData = [];
         var categories = [];
@@ -14,13 +14,21 @@
         GetOverallLeaderboard();
         GetLeaderboardToday();
 
+        $interval(GetOverallLeaderboard, 60000);
+        $interval(GetLeaderboardToday, 60000);
+
+
+     
         function GetOverallLeaderboard() {
+            seriesData.length = 0;
+            categories.length = 0;
             var promise = dashboardResource.query({
                 action: "GetLeaderboard"
             });
             promise.$promise.then(function (data) {
+
                 for (var j = 0; j < data.length; j++) {
-                    seriesData.push(data[j].FineCount);
+                    seriesData.push(data[j].AwardedFineCount);
                     categories.push(data[j].EmailAddress);
                 }
             });
@@ -28,12 +36,14 @@
 
 
         function GetLeaderboardToday() {
+              seriesToday.length = 0;
+            categoriesToday.length = 0;
             var promise = dashboardResource.query({
                 action: "GetLeaderboardToday"
             });
             promise.$promise.then(function (data) {
                 for (var j = 0; j < data.length; j++) {
-                    seriesToday.push(data[j].FineCount);
+                    seriesToday.push(data[j].AwardedFineCount);
                     categoriesToday.push(data[j].EmailAddress);
                 }
             });

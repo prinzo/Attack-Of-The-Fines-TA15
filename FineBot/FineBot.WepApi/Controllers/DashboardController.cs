@@ -33,10 +33,10 @@ namespace FineBot.WepApi.Controllers
             return userApi.GetLeaderboardToday(10);
         }
 
-        // GET api/dashboard/5
-        public string Get(int id)
+        [HttpGet]
+        public List<UserModel> GetUsersWithPendingFines()
         {
-            return "value";
+            return userApi.GetUsersWithPendingFines();
         }
 
         public void IssueFineTester()
@@ -44,14 +44,6 @@ namespace FineBot.WepApi.Controllers
             fineApi.IssueFine(new Guid("9f909fc1-405d-43ff-8b9d-381160892c61"), new Guid("e8f891fb-eff6-4787-bd02-636e5edd93b6"), "test");
         }
 
-        // PUT api/dashboard/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/dashboard/5
-        public void Delete(int id)
-        {
-        }
+        
     }
 }
