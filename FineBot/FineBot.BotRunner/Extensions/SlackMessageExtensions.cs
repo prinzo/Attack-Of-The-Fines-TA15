@@ -20,5 +20,11 @@ namespace FineBot.BotRunner.Extensions
 
             return usernames.Where(username => !username.Contains(usernameToExclude)).ToList();
         }
+
+        public static bool IsYouTubeLink(this SlackMessage message)
+        {
+            var youtubeRegex = new Regex(@"(youtube.com\/watch\?|youtu.be\/)", RegexOptions.Compiled);
+            return youtubeRegex.IsMatch(message.Text);
+        }
     }
 }

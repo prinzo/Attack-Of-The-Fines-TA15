@@ -2,13 +2,19 @@
     "use strict";
     angular
     .module("entelectFines")
-    .controller("Fines", [Fines]);
+    .controller("Fines", ['toaster', '$ngBootbox', Fines]);
 
-    function Fines() {
+    function Fines(toaster, $ngBootbox) {
         var vm = this;
+        
+        vm.AwardFine = AwardFine;
         
         function AwardFine() {
             toaster.pop('success', "Award Fine", "This will be a modal to award fines");
+            
+            $ngBootbox.alert("I'm A motherfucking modal in a motherfucking angular app made by the UI hater!!!!!!", function() {
+              Example.show("Hello world callback");
+            });
         }
         
         function PayFine() {

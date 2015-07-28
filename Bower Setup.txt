@@ -1,0 +1,2 @@
+1. Install Bower through node (make sure it's globally) : npm install -g bower
+3. Run the following command $ bower install --save-dev ngBootbox

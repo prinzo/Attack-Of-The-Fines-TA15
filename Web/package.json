@@ -19,6 +19,7 @@
   "trailing": true,
   "smarttabs": true,
   "devDependencies": {
+    "bootbox": "^4.4.0",
     "browserify": "^11.0.0",
     "connect-livereload": "^0.5.3",
     "express": "^4.13.1",
