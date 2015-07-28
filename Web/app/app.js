@@ -1,7 +1,7 @@
 
 
 var app = angular.module("entelectFines",
-	["common.services", "ngRoute","toaster","highcharts-ng"]);
+	["common.services", "ngRoute","toaster","highcharts-ng", "ngBootbox"]);
 
 
 

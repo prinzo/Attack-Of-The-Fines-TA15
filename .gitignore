@@ -30,3 +30,6 @@ _ReSharper*/
 
 [Nn]ode_[Mm]odules*/
 node_modules*/
+
+[Bb]ower_[Cc]omponents*/
+bower_components*/
