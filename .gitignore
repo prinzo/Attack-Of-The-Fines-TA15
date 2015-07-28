@@ -27,3 +27,6 @@ _ReSharper*/
 *.tlh
 *.lib
 [Tt]est[Rr]esult*
+
+[Nn]ode_[Mm]odules*/
+node_modules*/
