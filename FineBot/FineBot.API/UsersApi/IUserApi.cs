@@ -16,6 +16,7 @@ namespace FineBot.API.UsersApi
         UserModel RegisterUserBySlackId(string slackId);
 
         List<UserModel> GetLeaderboard(int number);
+
         List<UserModel> GetLeaderboardToday(int number);
 
         List<UserModel> GetUsersWithPendingFines();
