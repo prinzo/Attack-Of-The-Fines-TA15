@@ -1,5 +1,5 @@
-<div>
-    <form role="form">
+<div ng-controller="FineAwards as vm">
+    <form role="form" ng-submit="vm.AwardFine()">
       <div class="form-group">
         <label for="personFined">Person to fine: </label>
         <input class="form-control" id="personFined">
