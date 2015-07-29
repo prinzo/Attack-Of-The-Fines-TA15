@@ -107,7 +107,7 @@
         vm.chartConfig = {
             options: {
                 chart: {
-                    backgroundColor: "#f4f4f4",
+                    backgroundColor: "#FFFFFF",
                     plotShadow: true,
                     renderTo: "panel",
                     type: 'bar'
@@ -144,7 +144,7 @@
         vm.chartConfigDay = {
             options: {
                 chart: {
-                    backgroundColor: "#f4f4f4",
+                    backgroundColor: "#FFFFFF",
                     plotShadow: true,
                     type: 'bar'
                 },
@@ -180,7 +180,7 @@
         vm.chartConfigDistribution = {
             options: {
                 chart: {
-                    backgroundColor: "#f4f4f4",
+                    backgroundColor: "#FFFFFF",
                     plotShadow: true,
                     renderTo: 'panel',
                     type: 'line'

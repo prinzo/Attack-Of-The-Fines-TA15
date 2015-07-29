@@ -20,7 +20,7 @@
                 chart: {
                     backgroundColor: "#f4f4f4",
                     plotShadow: true,
-                    renderTo: 'panel',
+                    renderTo: 'userFinesLineGraph',
                     type: 'column'
                 },
 
