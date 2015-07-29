@@ -16,13 +16,13 @@ namespace FineBot.Entities
 
         public List<Fine> Fines { get; set; }
 
-        public Fine IssueFine(Guid issuerId, string reason)
+        public Fine IssueFine(Guid issuerId, string reason, Guid? seconderId = null)
         {
            var fine = new Fine
                        {
                            IssuerId = issuerId,
                            Reason = reason,
-                           SeconderId = null,
+                           SeconderId = seconderId,
                            AwardedDate = DateTime.UtcNow
                        };
 
