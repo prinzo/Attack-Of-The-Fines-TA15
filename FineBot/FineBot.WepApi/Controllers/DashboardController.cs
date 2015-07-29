@@ -39,6 +39,8 @@ namespace FineBot.WepApi.Controllers
             return userApi.GetUsersWithPendingFines();
         }
 
+     
+
         public void IssueFineTester()
         {
             fineApi.IssueFine(new Guid("9f909fc1-405d-43ff-8b9d-381160892c61"), new Guid("e8f891fb-eff6-4787-bd02-636e5edd93b6"), "test");
