@@ -65,5 +65,24 @@ namespace FineBot.API.FinesApi
 
             return this.fineMapper.MapToModelWithUser(fineToBeSeconded, this.userMapper.MapToModelShallow(oldestPendingFine.user));
         }
+
+        public FineWithUserModel SecondNewestPendingFine(Guid userId)
+        {
+            var pendingFines = from user in this.userRepository.FindAll(new UserSpecification().WithPendingFines())
+                from fine in user.Fines
+                select new {user, fine};
+
+            var newestPendingFine = pendingFines.OrderByDescending(x => x.fine.AwardedDate).FirstOrDefault();
+
+            if (newestPendingFine == null) return null;
+
+            Fine fineToBeSeconded = newestPendingFine.user.Fines.Where(x => x.Pending).OrderByDescending(x => x.AwardedDate).First();
+
+            fineToBeSeconded.Second(userId);
+
+            this.userRepository.Save(newestPendingFine.user);
+            
+            return this.fineMapper.MapToModelWithUser(fineToBeSeconded, this.userMapper.MapToModelShallow(newestPendingFine.user));
+        }
     }
 }

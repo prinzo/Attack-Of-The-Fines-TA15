@@ -26,5 +26,13 @@ namespace FineBot.BotRunner.Extensions
             var youtubeRegex = new Regex(@"(youtube.com\/watch\?|youtu.be\/)", RegexOptions.Compiled);
             return youtubeRegex.IsMatch(message.Text);
         }
+
+        public static List<string> GetYouTubeLinksFromMessage(this SlackMessage message)
+        {
+            var youtubeLinkList = new List<string>();
+            if (!message.IsYouTubeLink()) return youtubeLinkList;
+
+            return youtubeLinkList;
+        } 
     }
 }
