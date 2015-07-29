@@ -6,6 +6,7 @@ using FineBot.API.Mappers.Interfaces;
 using FineBot.API.UsersApi;
 using FineBot.Entities;
 using FineBot.Interfaces;
+using FineBot.Specifications;
 
 namespace FineBot.API.FinesApi
 {
@@ -39,7 +40,7 @@ namespace FineBot.API.FinesApi
 
         public List<FineModel> GetAllPendingFines()
         {
-            var fines = from user in this.userRepository.FindAll(new Specification<User>(x => x.Fines.Any(f => f.Pending)))
+            var fines = from user in this.userRepository.FindAll(new UserSpecification().WithPendingFines())
                 from fine in user.Fines
                 select this.fineMapper.MapToModel(fine);
 
@@ -48,7 +49,7 @@ namespace FineBot.API.FinesApi
 
         public FineWithUserModel SecondOldestPendingFine(Guid userId)
         {
-            var pendingFines = from user in this.userRepository.FindAll(new Specification<User>(x => x.Fines.Any(f => f.SeconderId == null)))
+            var pendingFines = from user in this.userRepository.FindAll(new UserSpecification().WithPendingFines())
                 from fine in user.Fines
                 select new {user, fine};
 
