@@ -1,41 +1,53 @@
 <div class="" ng-controller="UserStatistics as vm">
-    
+
     <link rel="stylesheet" href="/content/userStatistics.css">
-    
+
     <div id="header">
         <div>
-           <span id="userName">The Cat</span>
+            <span id="userName">The Cat</span>
         </div>
     </div>
-    
-    <div class="col-md-12">
-        <div class="well col-md-6 text-center statisticGroupLeft">
-            <span class="statistic">2</span>
-            <div class="statisticTitle">Fines received this month</div> 
+
+    <div class="row col-md-12">
+        <div class="col-md-6">
+            <div class=" well text-center ">
+                <span class="statistic">2</span>
+                <div class="statisticTitle">Fines received this month</div>
+            </div>
         </div>
-        
-        <div class="well col-md-6 text-center statisticGroupRight">
-            <span class="statistic">23</span>
-            <div class="statisticTitle">Total fines ever received</div>
+
+        <div class="col-md-6">
+            <div class="well text-center ">
+                <span class="statistic">23</span>
+                <div class="statisticTitle">Total fines ever received</div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row col-md-12">
+        <div class="col-md-6">
+
+            <div class="well text-center ">
+                <span class="statistic">2</span>
+                <div class="statisticTitle">Fines paid this month  </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+
+            <div class=" well text-center ">
+                <span class="statistic">2</span>
+                <div class="statisticTitle">Total fines ever paid</div>
+            </div>
         </div>
     </div>
-    
-    <div class="col-md-12"> 
-        <div class="well col-md-6 text-center statisticGroupLeft" >
-            <span class="statistic">2</span>
-            <div class="statisticTitle">Fines paid this month</div>
-        </div>
-        <div class="well col-md-6 text-center statisticGroupRight">
-            <span class="statistic">2</span> 
-            <div class="statisticTitle">Total fines ever paid</div>
-        </div>
-    </div> 
 
     <div id="finesGraph">
         <div class="row">
             <div class="col-sm-12">
                 <div class="panel">
-                    <highchart id="userFinesLineGraph" config="vm.chartConfigDistribution" ></highchart>
+                    <highchart id="userFinesLineGraph" config="vm.chartConfigDistribution"></highchart>
                 </div>
             </div>
         </div>
