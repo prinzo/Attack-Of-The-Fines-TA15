@@ -9,6 +9,7 @@ namespace FineBot.API.UsersApi
         public Guid Id { get; set; }
         public string SlackId { get; set; }
         public string EmailAddress { get; set; }
+        public string DisplayName { get; set; }
         public int AwardedFineCount { get; set; }
         public int PendingFineCount { get; set; }
         public List<FineModel> Fines { get; set; }

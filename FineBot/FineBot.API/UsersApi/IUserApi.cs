@@ -11,6 +11,8 @@ namespace FineBot.API.UsersApi
 
         UserModel GetUserByEmail(string email);
 
+        UserModel UpdateUser(UserModel userModel);
+
         int GetNumberOfFinesForUserById(Guid id);
 
         UserModel RegisterUserBySlackId(string slackId);

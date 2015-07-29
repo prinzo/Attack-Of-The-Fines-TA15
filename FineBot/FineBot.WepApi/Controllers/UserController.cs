@@ -22,5 +22,11 @@ namespace FineBot.WepApi.Controllers
         {
             return userApi.GetUserByEmail(email);
         }
+
+        [HttpPost]
+        public UserModel UpdateUser([FromBody] UserModel userModel)
+        {
+            return userApi.UpdateUser(userModel);
+        }
     }
 }

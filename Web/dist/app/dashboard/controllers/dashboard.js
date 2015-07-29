@@ -17,8 +17,6 @@
         $interval(GetOverallLeaderboard, 60000);
         $interval(GetLeaderboardToday, 60000);
 
-
-     
         function GetOverallLeaderboard() {
             seriesData.length = 0;
             categories.length = 0;
@@ -36,7 +34,7 @@
 
 
         function GetLeaderboardToday() {
-              seriesToday.length = 0;
+            seriesToday.length = 0;
             categoriesToday.length = 0;
             var promise = dashboardResource.query({
                 action: "GetLeaderboardToday"

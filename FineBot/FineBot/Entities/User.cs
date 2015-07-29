@@ -13,7 +13,7 @@ namespace FineBot.Entities
 
         public string EmailAddress { get; set; }
         public string SlackId { get; set; }
-
+        public string DisplayName { get; set; }
         public List<Fine> Fines { get; set; }
 
         public Fine IssueFine(Guid issuerId, string reason, Guid? seconderId = null)
