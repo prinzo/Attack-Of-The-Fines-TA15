@@ -84,7 +84,7 @@ namespace FineBot.API.UsersApi
             var domainName = email.Split('@');
             var splitName = domainName[0].Split('.');
             var name = splitName[0];
-            var surname = splitName.Contains(".") ? splitName[1] : "N/A";
+            var surname = domainName[0].Contains(".") ? splitName[1] : "N/A";
             var nameAndSurname = new[]{name, surname};
             return nameAndSurname;
         }
