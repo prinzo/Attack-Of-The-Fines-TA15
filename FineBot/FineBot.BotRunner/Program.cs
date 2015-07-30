@@ -27,7 +27,12 @@ namespace FineBot.BotRunner
             var task = bot.Connect(ConfigurationManager.AppSettings["BotKey"]);
 
             Console.WriteLine(String.Format("{0}: Bot is runnning, type 'die' to make it die", DateTime.Now));
-          
+            
+            var seconderbot = new Bot();
+            var seconderTask = seconderbot.Connect(ConfigurationManager.AppSettings["SeconderBotKey"]);
+
+            Console.WriteLine(String.Format("{0}: Finebot's second cousin is also also running. Some say he can't die.", DateTime.Now));
+
             while(Console.ReadLine() != "die")
             {
                 
