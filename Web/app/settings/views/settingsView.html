@@ -11,7 +11,7 @@
             <h3 align="center"><b>Personal Information</b></h3>
             <br>
             <div class="row" align="center">
-                <img src="content/batman.jpg" style="padding:1px;border:thick solid black;" width ="250" border="5">
+                <img src="content/batman.jpg" style="padding:1px;border:thick solid black;" width="250" border="5">
             </div>
             <br>
             <div class="row" align="center">
@@ -27,11 +27,11 @@
             <div class="row" align="center">
                 <div class="col-sm-6">
                     <label>Email:</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" ng-model="SC.user.EmailAddress">
                 </div>
                 <div class="col-sm-6">
                     <label>Slack Tag:</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" ng-model="SC.user.SlackId">
                 </div>
             </div>
             <div class="row" align="center">
@@ -54,8 +54,16 @@
                 </div>
                 <div class="col-sm-6">
                     <label>Display Name:</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" ng-model="SC.user.DisplayName">
                 </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-6 pull-right">
+                    <button class="btn btn-primary" ng-click="SC.UpdateUser()">Update</button>
+
+                </div>
+
             </div>
             <br>
         </div>

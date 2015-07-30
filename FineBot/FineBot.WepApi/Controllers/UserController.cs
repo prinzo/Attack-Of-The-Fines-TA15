@@ -24,7 +24,7 @@ namespace FineBot.WepApi.Controllers
         }
 
         [HttpPost]
-        public UserModel UpdateUser([FromBody] UserModel userModel)
+        public UserModel UpdateUser([FromBody]UserModel userModel)
         {
             return userApi.UpdateUser(userModel);
         }
