@@ -19,10 +19,16 @@ namespace FineBot.WepApi.Controllers
             this.userApi = userApi;
         }
 
-
+        [HttpGet]
         public UserModel GetUserByEmail(string email)
         {
             return userApi.GetUserByEmail(email);
+        }
+
+        [HttpGet]
+        public string[] GetUserNameAndSurname(string email)
+        {
+            return userApi.GetUserNameAndSurnameFromEmail(email);
         }
 
         [HttpPost]
