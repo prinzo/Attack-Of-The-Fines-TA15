@@ -19,7 +19,7 @@ Thumbs.db
 obj/
 [Rr]elease*/
 _ReSharper*/
-
+common.services.js
 *.obj
 *.exe
 *.pdb

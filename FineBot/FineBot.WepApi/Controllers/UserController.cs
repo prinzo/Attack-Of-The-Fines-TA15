@@ -4,10 +4,12 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using FineBot.API.UsersApi;
 
 namespace FineBot.WepApi.Controllers
 {
+    [EnableCors("*","*","*")]
     public class UserController : ApiController
     {
         private readonly IUserApi userApi;

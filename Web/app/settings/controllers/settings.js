@@ -2,9 +2,9 @@
     "use strict";
     angular
         .module("entelectFines")
-        .controller("Settings", ["userResource", Settings]);
+        .controller("Settings", ["userResource", "toaster", Settings]);
 
-    function Settings(userResource) {
+    function Settings(userResource, toaster) {
         var scope = this;
 
         scope.email = "amrit.purshotam@entelect.co.za";
@@ -37,12 +37,13 @@
 
 
             var promise = userResource.save({
-                action: "UpdateUser",
-                userModel: userModel
-            });
+                    action: "UpdateUser"
+                },
+                userModel
+            );
 
             promise.$promise.then(function (data) {
-                console.log("Updated User");
+                toaster.pop('success', 'Update Successful', 'User was updated successfully');
                 scope.user = data;
             });
         }

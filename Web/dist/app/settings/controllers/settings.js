@@ -2,9 +2,9 @@
     "use strict";
     angular
         .module("entelectFines")
-        .controller("Settings", ["userResource", Settings]);
+        .controller("Settings", ["userResource", "toaster", Settings]);
 
-    function Settings(userResource) {
+    function Settings(userResource, toaster) {
         var scope = this;
 
         scope.email = "amrit.purshotam@entelect.co.za";
@@ -19,8 +19,11 @@
                 email: scope.email
             });
             promise.$promise.then(function (data) {
-                scope.user = data;
-            });
+                    scope.user = data;
+                },
+                function () {
+                    toaster.error('Error', 'Failed to retrieve User Information');
+                });
         }
 
         function UpdateUser() {
@@ -37,14 +40,18 @@
 
 
             var promise = userResource.save({
-                action: "UpdateUser",
-                userModel: userModel
-            });
+                    action: "UpdateUser"
+                },
+                userModel
+            );
 
             promise.$promise.then(function (data) {
-                console.log("Updated User");
-                scope.user = data;
-            });
+                    toaster.pop('success', 'Update Successful', 'User was updated successfully');
+                    scope.user = data;
+                },
+                function () {
+                    toaster.error('Error', 'Failed to update User');
+                });
         }
     }
 }());
