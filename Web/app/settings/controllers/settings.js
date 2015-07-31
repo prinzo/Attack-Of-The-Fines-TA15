@@ -20,9 +20,8 @@
         GetUserNameAndSurname();
 
         function GetUser() {
-            console.log(scope.email);
-
             var user = localStorageService.get('user');
+            console.log(user);
             var promise = userResource.get({
                 action: "GetUserByEmail",
                 email: scope.email
