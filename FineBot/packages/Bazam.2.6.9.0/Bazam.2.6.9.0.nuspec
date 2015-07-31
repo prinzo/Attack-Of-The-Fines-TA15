@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Bazam</id>
+    <version>2.6.9.0</version>
+    <title>Bazam</title>
+    <authors>Jammerware,  Inc.</authors>
+    <owners>Jammerware,  Inc.</owners>
+    <projectUrl>https://github.com/jammerware/bazam</projectUrl>
+    <iconUrl>https://drive.google.com/file/d/0BwPTjHn2z0umZnJaM215Yy1CLVE/view?usp=sharing</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A helpful (if not exactly laser-focused) toolbox library for .NET.</description>
+    <releaseNotes>Refactored XmlPal to use generics for developer-friendliness. The non-generic converter methods now return nullable primitives.</releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>.NET Toolbox</tags>
+    <dependencies>
+      <dependency id="Newtonsoft.Json" version="6.0.8" />
+    </dependencies>
+  </metadata>
+</package>

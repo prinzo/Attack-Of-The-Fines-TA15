@@ -13,7 +13,7 @@
 </head>
 
 <body ng-app="entelectFines">
-    <toaster-container toaster-options="{'time-out': 1500}"></toaster-container>
+    <toaster-container toaster-options="{'time-out': 3000}"></toaster-container>
     <div class="col-sm-12">
         <div ng-view></div>
     </div>
@@ -48,6 +48,10 @@
     <script src="app/fines/controllers/fines.js"></script>
     <script src="app/users/controllers/users.js"></script>
     <script src="app/fines/controllers/userStatistics.js"></script>
+
+    <!--Filters-->
+    <script src="app/settings/filters/capitalFilter.js"></script>
+
 
 </body>
 

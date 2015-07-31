@@ -79,6 +79,16 @@ namespace FineBot.API.UsersApi
             return this.userMapper.MapToModelShallow(user);
         }
 
+        public string[] GetUserNameAndSurnameFromEmail(string email)
+        {
+            var domainName = email.Split('@');
+            var splitName = domainName[0].Split('.');
+            var name = splitName[0];
+            var surname = domainName[0].Contains(".") ? splitName[1] : "N/A";
+            var nameAndSurname = new[]{name, surname};
+            return nameAndSurname;
+        }
+
         public int GetNumberOfFinesForUserById(Guid id)
         {
             var user = this.userRepository.Get(id);

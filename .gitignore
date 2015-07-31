@@ -19,7 +19,7 @@ Thumbs.db
 obj/
 [Rr]elease*/
 _ReSharper*/
-
+common.services.js
 *.obj
 *.exe
 *.pdb
@@ -33,3 +33,4 @@ node_modules*/
 
 [Bb]ower_[Cc]omponents*/
 bower_components*/
+Web/common/common.services.js
