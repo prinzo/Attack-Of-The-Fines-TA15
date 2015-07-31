@@ -1,39 +1,49 @@
-
-
-var app = angular.module("entelectFines",
-	["common.services", "ngRoute","toaster","highcharts-ng", "ngBootbox"]);
+var app = angular.module("entelectFines", ["common.services", "ngRoute", "toaster", "highcharts-ng", "ngBootbox", "LocalStorageModule"]);
 
 
 
 app.config(['$routeProvider',
-	function($routeProvider) {
-		$routeProvider.
-		when('/Fines', {
-			templateUrl: 'app/fines/views/finesView.html',
-			controller: 'Fines'
-		}).
-		when('/Users', {
-			templateUrl: 'app/users/views/usersView.html',
-			controller: 'Users'
-		}).
-		when('/Dashboard', {
-			templateUrl: 'app/dashboard/views/dashboardView.html',
-			controller: 'Dashboard'
-		}).
-		when('/Settings', {
-			templateUrl: 'app/settings/views/settingsView.html',
-			controller: 'Settings'
-		}).
-		when('/Support', {
-			templateUrl: 'app/support/views/supportView.html',
-			controller: 'Support'
-		}).
-		when('/Login', {
-			templateUrl: 'app/login/views/loginView.html',
-			controller: 'Login'
-		}).
-		otherwise({
-			redirectTo: '/Login'
-		});
+ function ($routeProvider) {
+        $routeProvider.
+        when('/Fines', {
+            templateUrl: 'app/fines/views/finesView.html',
+            controller: ''
+        }).
+        when('/Users', {
+            templateUrl: 'app/users/views/usersView.html',
+            controller: ''
+        }).
+        when('/Dashboard', {
+            templateUrl: 'app/dashboard/views/dashboardView.html',
+            controller: ''
+        }).
+        when('/Settings', {
+            templateUrl: 'app/settings/views/settingsView.html',
+            controller: ''
+        }).
+        when('/Support', {
+            templateUrl: 'app/support/views/supportView.html',
+            controller: ''
+        }).
+        when('/Login', {
+            templateUrl: 'app/login/views/loginView.html',
+            controller: ''
+        }).
+        otherwise({
+            redirectTo: '/Login'
+        });
 
-	}]);
+ }])
+    .config(['localStorageServiceProvider',
+            function (localStorageServiceProvider) {
+            localStorageServiceProvider.setPrefix('localUser');
+}]);
+
+app.run(function ($rootScope, localStorageService, $location) {
+    $rootScope.checkUser = function () {
+        if (localStorageService.get('user') == null) {
+            $location.path("/Login");
+        }
+    }
+
+})

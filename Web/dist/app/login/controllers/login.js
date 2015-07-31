@@ -2,11 +2,17 @@
     "use strict";
     angular
         .module("entelectFines")
-        .controller("Login", ["$location", "toaster", Login]);
+        .controller("Login", ["$location",
+                              "toaster",
+                              "localStorageService",
+                              Login]);
 
-    function Login($location, toaster) {
+    function Login($location, toaster, localStorageService) {
         var vm = this;
-
+        localStorageService.clearAll();
+        if (localStorageService.get('user') == null) {
+            toaster.error('User Not Signed In', 'Please Login To Access Site');
+        }
         vm.loggedIn = false;
         vm.login = login;
         vm.username = "";
@@ -14,10 +20,20 @@
         vm.correctName = "test@test.com";
         vm.correctPassword = "test";
 
+
         function login() {
+
             if (vm.username === vm.correctName && vm.password === vm.correctPassword) {
-                vm.loggedIn = true;
-                console.log(vm.loggedIn);
+                var user = localStorageService.get('user');
+
+                if (user == null) {
+                    user = {
+                        username: vm.username,
+                        password: vm.password
+                    };
+                }
+
+                localStorageService.set('user', user);
                 $location.path("/Fines");
                 toaster.pop('success', "Login Success", "Successfully Logged In");
 

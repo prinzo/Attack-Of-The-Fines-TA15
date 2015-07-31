@@ -2,10 +2,17 @@
     "use strict";
     angular
         .module("entelectFines")
-        .controller("Dashboard", ["dashboardResource", "$timeout", "$interval", "$window", Dashboard]);
+        .controller("Dashboard", ["dashboardResource",
+                                  "$timeout",
+                                  "$interval",
+                                  "$window",
+                                  "localStorageService",
+                                  "$rootScope",
+                                  Dashboard]);
 
-    function Dashboard(dashboardResource, $timeout, $interval, $window) {
+    function Dashboard(dashboardResource, $timeout, $interval, $window, localStorageService, $rootScope) {
         var vm = this;
+        $rootScope.checkUser();
         var seriesData = [];
         var categories = [];
         var seriesToday = [];
@@ -16,6 +23,7 @@
 
         $interval(GetOverallLeaderboard, 60000);
         $interval(GetLeaderboardToday, 60000);
+
 
         function GetOverallLeaderboard() {
             seriesData.length = 0;

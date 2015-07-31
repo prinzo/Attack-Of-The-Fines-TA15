@@ -1,12 +1,14 @@
 (function () {
     "use strict";
     angular
-    .module("entelectFines")
-    .controller("UserStatistics", ["dashboardResource", "$timeout", UserStatistics]);
+        .module("entelectFines")
+        .controller("UserStatistics", ["dashboardResource",
+                                   "$timeout",
+                                   UserStatistics]);
 
     function UserStatistics(dashboardResource, $timeout) {
         var vm = this;
-                 
+
         vm.chartSeriesDistribution = [
             {
                 "name": "Fine Count",
@@ -14,7 +16,7 @@
                 "color": "green"
             }
         ];
-            
+
         vm.chartConfigDistribution = {
             options: {
                 chart: {
@@ -52,7 +54,7 @@
             loading: false,
             size: {}
         }
-        
+
 
     }
 }());
