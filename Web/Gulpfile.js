@@ -44,7 +44,7 @@ gulp.task('build:index', function () {
 });
 
 gulp.task('build:content', function () {
-    gulp.src(['content/*.css', 'content/*.png', 'content/*.scss', 'content/*.map'])
+    gulp.src(['content/*.css', 'content/*.png', 'content/*.scss', 'content/*.map', 'content/*.js'])
         .pipe(gulp.dest('dist/content'))
         .on('error', gutil.log);
 
