@@ -7,27 +7,27 @@ app.config(['$routeProvider',
         $routeProvider.
         when('/Fines', {
             templateUrl: 'app/fines/views/finesView.html',
-            controller: 'Fines'
+            controller: ''
         }).
         when('/Users', {
             templateUrl: 'app/users/views/usersView.html',
-            controller: 'Users'
+            controller: ''
         }).
         when('/Dashboard', {
             templateUrl: 'app/dashboard/views/dashboardView.html',
-            controller: 'Dashboard'
+            controller: ''
         }).
         when('/Settings', {
             templateUrl: 'app/settings/views/settingsView.html',
-            controller: 'Settings'
+            controller: ''
         }).
         when('/Support', {
             templateUrl: 'app/support/views/supportView.html',
-            controller: 'Support'
+            controller: ''
         }).
         when('/Login', {
             templateUrl: 'app/login/views/loginView.html',
-            controller: 'Login'
+            controller: ''
         }).
         otherwise({
             redirectTo: '/Login'

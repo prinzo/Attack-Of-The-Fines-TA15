@@ -16,11 +16,12 @@
         scope.Name = '';
         scope.Surname = '';
         scope.UpdateUser = UpdateUser;
-
         GetUser();
         GetUserNameAndSurname();
 
         function GetUser() {
+            console.log(scope.email);
+
             var user = localStorageService.get('user');
             var promise = userResource.get({
                 action: "GetUserByEmail",
