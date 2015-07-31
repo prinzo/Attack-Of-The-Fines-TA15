@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using FineBot.API.LdapApi;
 using FineBot.API.UsersApi;
 
 namespace FineBot.WepApi.Controllers
@@ -13,10 +14,14 @@ namespace FineBot.WepApi.Controllers
     public class UserController : ApiController
     {
         private readonly IUserApi userApi;
+        private readonly ILdapApi ldapApi;
 
-        public UserController(IUserApi userApi)
+        public UserController(
+            IUserApi userApi,
+            ILdapApi ldapApi)
         {
             this.userApi = userApi;
+            this.ldapApi = ldapApi;
         }
 
         [HttpGet]
@@ -25,6 +30,19 @@ namespace FineBot.WepApi.Controllers
             return userApi.GetUserByEmail(email);
         }
 
+        [HttpGet]
+        public List<UserModel> GetAllDomainUsers(string domainName, string password)
+        {
+            return ldapApi.GetAllDomainUsers(domainName, password);
+        }
+
+        [HttpGet]
+        public UserModel AuthenticateUser(string domainName, string password)
+        {
+            var ldapUser = ldapApi.AuthenticateAgainstDomain(domainName, password);
+            var slackUser = GetUserByEmail(ldapUser.EmailAddress);
+            return ldapApi.MapSlackModelToLdapModel(ldapUser, slackUser);
+        }
         [HttpGet]
         public string[] GetUserNameAndSurname(string email)
         {
