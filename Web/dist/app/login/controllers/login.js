@@ -2,9 +2,9 @@
     "use strict";
     angular
         .module("entelectFines")
-        .controller("Login", ["$location", "toaster", Login]);
+        .controller("Login", ["$location", "toaster", "localStorageService", Login]);
 
-    function Login($location, toaster) {
+    function Login($location, toaster, localStorageService) {
         var vm = this;
 
         vm.loggedIn = false;
@@ -13,11 +13,21 @@
         vm.password = "";
         vm.correctName = "test@test.com";
         vm.correctPassword = "test";
+        localStorageService.clearAll();
 
         function login() {
+
             if (vm.username === vm.correctName && vm.password === vm.correctPassword) {
-                vm.loggedIn = true;
-                console.log(vm.loggedIn);
+                var user = localStorageService.get('user');
+
+                if (user == null) {
+                    user = {
+                        username: vm.username,
+                        password: vm.password
+                    };
+                }
+
+                localStorageService.set('user', user);
                 $location.path("/Fines");
                 toaster.pop('success', "Login Success", "Successfully Logged In");
 

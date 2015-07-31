@@ -2,9 +2,9 @@
     "use strict";
     angular
         .module("entelectFines")
-        .controller("Settings", ["userResource", "toaster", Settings]);
+        .controller("Settings", ["userResource", "toaster", "localStorageService", Settings]);
 
-    function Settings(userResource, toaster) {
+    function Settings(userResource, toaster, localStorageService) {
         var scope = this;
         scope.email = "prinay.panday@entelect.co.za";
         scope.user = [];
@@ -16,6 +16,8 @@
         GetUserNameAndSurname();
 
         function GetUser() {
+            var user = localStorageService.get('user');
+            console.log(user.username);
             var promise = userResource.get({
                 action: "GetUserByEmail",
                 email: scope.email
