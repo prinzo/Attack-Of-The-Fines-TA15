@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Drawing;
+using FineBot.Abstracts;
 
 namespace FineBot.Entities
 {
-    public class Fine
+    public class Fine : GuidIdentifiedEntity
     {
         public Guid IssuerId { get; set; }
 

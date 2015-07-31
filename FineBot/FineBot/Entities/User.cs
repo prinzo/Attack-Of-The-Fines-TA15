@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using FineBot.Abstracts;
 
 namespace FineBot.Entities
@@ -15,6 +16,16 @@ namespace FineBot.Entities
         public string SlackId { get; set; }
         public string DisplayName { get; set; }
         public List<Fine> Fines { get; set; }
+
+        public Fine GetFineById(Guid id)
+        {
+            return this.Fines.FirstOrDefault(f => f.Id == id);
+        }
+
+        public Fine GetOldestPendingFine()
+        {
+            return this.Fines.OrderBy(f => f.AwardedDate).FirstOrDefault(f => f.Pending);
+        }
 
         public Fine IssueFine(Guid issuerId, string reason, Guid? seconderId = null)
         {

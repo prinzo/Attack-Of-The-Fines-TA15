@@ -1,20 +1,18 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Configuration;
 using FineBot.Interfaces;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using MongoDB.Driver.Linq;
 
 namespace FineBot.DataAccess.BaseClasses
 {
     public class MongoRepository<TEntity, TIdentifier> : IRepository<TEntity, TIdentifier> where TEntity : class, IEntity<TIdentifier>
     {
-        private IMongoDatabase database;
+        private readonly IMongoDatabase database;
 
         public MongoRepository(IMongoClient client)
         {
-            //TODO: put this in config
-            this.database = client.GetDatabase("fines");
+            this.database = client.GetDatabase(ConfigurationManager.AppSettings["MongoDatabase"]);
         }
 
         public TEntity Get(TIdentifier id)
