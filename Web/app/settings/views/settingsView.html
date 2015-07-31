@@ -17,31 +17,41 @@
             <div class="row" align="center">
                 <div class="col-sm-6 offset1">
                     <label>Name:</label>
-                    <input type="text" class="form-control" ng-value="SC.Name | CapitalFilter" readonly>
+                    <input type="text" class="form-control" ng-model ="SC.user.Name" readonly style="text-align:center">
                 </div>
                 <div class="col-sm-6">
                     <label>Surname:</label>
-                    <input type="text" class="form-control" ng-value="SC.Surname | CapitalFilter" readonly>
+                    <input type="text" class="form-control" ng-model="SC.user.Surname" readonly style="text-align:center">
                 </div>
             </div>
             <div class="row" align="center">
                 <div class="col-sm-6">
                     <label>Email:</label>
-                    <input type="text" class="form-control" ng-model="SC.user.EmailAddress" readonly>
+                    <input type="text" class="form-control" ng-model="SC.user.EmailAddress" readonly style="text-align:center">
                 </div>
                 <div class="col-sm-6">
                     <label>Slack Tag:</label>
-                    <input type="text" class="form-control" ng-model="SC.user.SlackId" readonly>
+                    <input type="text" class="form-control" ng-model="SC.user.SlackId" readonly style="text-align:center">
                 </div>
             </div>
             <div class="row" align="center">
                 <div class="col-sm-6">
                     <label>Position:</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" ng-model="SC.user.Title" readonly style="text-align:center">
                 </div>
                 <div class="col-sm-6">
-                    <label>Client:</label>
-                    <input type="text" class="form-control">
+                    <label>Mobile:</label>
+                    <input type="text" class="form-control" ng-model="SC.user.Mobile" readonly style="text-align:center">
+                </div>
+            </div>
+            <div class="row" align="center">
+                <div class="col-sm-6">
+                    <label>Received Fines:</label>
+                    <input type="text" class="form-control" ng-model="SC.user.AwardedFineCount" readonly style="text-align:center">
+                </div>
+                <div class="col-sm-6">
+                    <label>Pending Fines:</label>
+                    <input type="text" class="form-control" ng-model="SC.user.PendingFineCount" readonly style="text-align:center">
                 </div>
             </div>
             <br>

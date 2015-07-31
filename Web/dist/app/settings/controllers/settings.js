@@ -17,21 +17,9 @@
         scope.Surname = '';
         scope.UpdateUser = UpdateUser;
         GetUser();
-        GetUserNameAndSurname();
 
         function GetUser() {
-            var user = localStorageService.get('user');
-            console.log(user);
-            var promise = userResource.get({
-                action: "GetUserByEmail",
-                email: scope.email
-            });
-            promise.$promise.then(function (data) {
-                    scope.user = data;
-                },
-                function () {
-                    toaster.error('Error', 'Failed to retrieve User Information');
-                });
+            scope.user = localStorageService.get('user'); 
         }
 
         function UpdateUser() {
@@ -58,18 +46,6 @@
                 });
         }
 
-        function GetUserNameAndSurname() {
-            var promise = userResource.query({
-                action: "GetUserNameAndSurname",
-                email: scope.email
-            });
-            promise.$promise.then(function (data) {
-                    scope.Name = data[0];
-                    scope.Surname = data[1];
-                },
-                function () {
-                    toaster.error('Error', 'Failed to retrieve User Information');
-                });
-        }
+
     }
 }());
