@@ -23,6 +23,7 @@ namespace FineBot.BotRunner
             }
 
             bot.RespondsTo("hi").IfBotIsMentioned().With("Stop resisting citizen!");
+            bot.CreateResponder(x => !x.BotHasResponded, rc => "My responses are limited, you must ask the right question...");
 
             var task = bot.Connect(ConfigurationManager.AppSettings["BotKey"]);
 

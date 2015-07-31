@@ -25,8 +25,9 @@ namespace FineBot.BotRunner.Responders
         public bool CanRespond(ResponseContext context)
         {
             return context.Message.MentionsBot
-                && !context.BotHasResponded 
-                && context.Message.Text.ToLower().Contains("fine");
+                && !context.BotHasResponded
+                && !(context.Message.MatchesRegEx(@"pay"))
+                && context.Message.MatchesRegEx(@"fine");
         }
 
         public BotMessage GetResponse(ResponseContext context)
