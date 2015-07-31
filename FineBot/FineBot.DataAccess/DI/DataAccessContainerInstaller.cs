@@ -23,7 +23,7 @@ namespace FineBot.DataAccess.DI
             if(Convert.ToBoolean(ConfigurationManager.AppSettings["PersistData"] ?? "false"))
             {
                 container.Register(Component.For(typeof(IRepository<,>)).ImplementedBy(typeof(MongoRepository<,>)).LifestyleTransient());    
-                 MongoMappings.SetupMappings();
+                MongoMappings.SetupMappings();
             }
             else
             {

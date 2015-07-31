@@ -49,21 +49,19 @@ namespace FineBot.API.FinesApi
 
         public FineWithUserModel SecondOldestPendingFine(Guid userId)
         {
-            var pendingFines = from user in this.userRepository.FindAll(new UserSpecification().WithPendingFines())
-                from fine in user.Fines
-                select new {user, fine};
+            var pendingFines = this.userRepository.FindAll(new UserSpecification().WithPendingFines());
 
-            var oldestPendingFine = pendingFines.OrderBy(x => x.fine.AwardedDate).FirstOrDefault();
+            var userWithOldestPendingFine = pendingFines.OrderBy(x => x.GetOldestPendingFine().AwardedDate).FirstOrDefault();
 
-            if(oldestPendingFine == null) return null;
+            if(userWithOldestPendingFine == null) return null;
 
-            Fine fineToBeSeconded = oldestPendingFine.user.Fines.Where(x => x.Pending).OrderBy(x => x.AwardedDate).First();
+            Fine fineToBeSeconded = userWithOldestPendingFine.GetOldestPendingFine();
 
             fineToBeSeconded.Second(userId);
 
-            this.userRepository.Save(oldestPendingFine.user);
+            this.userRepository.Save(userWithOldestPendingFine);
 
-            return this.fineMapper.MapToModelWithUser(fineToBeSeconded, this.userMapper.MapToModelShallow(oldestPendingFine.user));
+            return this.fineMapper.MapToModelWithUser(fineToBeSeconded, this.userMapper.MapToModelShallow(userWithOldestPendingFine));
         }
 
         public FineWithUserModel SecondNewestPendingFine(Guid userId)

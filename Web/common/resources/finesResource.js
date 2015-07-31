@@ -11,7 +11,7 @@
         ]);
 
     function finesResource($resource, appSettings) {
-        return $resource(appSettings.serverPath + "/api/fines/IssueFine");
+         return $resource(appSettings.serverPath + "/api/fines/:action/:id");
 
     }
 }());
