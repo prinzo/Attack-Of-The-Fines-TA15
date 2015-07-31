@@ -4,14 +4,12 @@
         .module("entelectFines")
         .controller("Fines", ['toaster', '$ngBootbox',
                               'localStorageService',
-                              '$location',
+                              '$rootScope',
                               Fines]);
 
-    function Fines(toaster, $ngBootbox, localStorageService, $location) {
+    function Fines(toaster, $ngBootbox, localStorageService, $rootScope) {
         var vm = this;
-        if (localStorageService.get('user') == null) {
-            $location.path("/Login");
-        }
+        $rootScope.checkUser();
         vm.AwardFine = AwardFine;
 
         function AwardFine() {

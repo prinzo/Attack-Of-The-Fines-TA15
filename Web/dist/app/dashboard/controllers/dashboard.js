@@ -7,16 +7,12 @@
                                   "$interval",
                                   "$window",
                                   "localStorageService",
-                                  "$location",
+                                  "$rootScope",
                                   Dashboard]);
 
-    function Dashboard(dashboardResource, $timeout, $interval, $window, localStorageService, $location) {
+    function Dashboard(dashboardResource, $timeout, $interval, $window, localStorageService, $rootScope) {
         var vm = this;
-
-        if (localStorageService.get('user') == null) {
-            $location.path("/Login");
-        }
-
+        $rootScope.checkUser();
         var seriesData = [];
         var categories = [];
         var seriesToday = [];

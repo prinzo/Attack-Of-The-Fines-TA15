@@ -36,5 +36,14 @@ app.config(['$routeProvider',
  }])
     .config(['localStorageServiceProvider',
             function (localStorageServiceProvider) {
-                localStorageServiceProvider.setPrefix('localUser');
+            localStorageServiceProvider.setPrefix('localUser');
 }]);
+
+app.run(function ($rootScope, localStorageService, $location) {
+    $rootScope.checkUser = function () {
+        if (localStorageService.get('user') == null) {
+            $location.path("/Login");
+        }
+    }
+
+})

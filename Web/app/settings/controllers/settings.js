@@ -5,15 +5,12 @@
         .controller("Settings", ["userResource",
                                  "toaster",
                                  "localStorageService",
-                                 "$location",
+                                 "$rootScope",
                                  Settings]);
 
-    function Settings(userResource, toaster, localStorageService, $location) {
+    function Settings(userResource, toaster, localStorageService, $rootScope) {
         var scope = this;
-
-        if (localStorageService.get('user') == null) {
-            $location.path("/Login");
-        }
+        $rootScope.checkUser();
         scope.email = "prinay.panday@entelect.co.za";
         scope.user = [];
         scope.Name = '';

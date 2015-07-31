@@ -1,10 +1,12 @@
 (function () {
     "use strict";
     angular
-    .module("entelectFines")
-    .controller("Support", [Support]);
+        .module("entelectFines")
+        .controller("Support", ['$rootScope',
+                 Support]);
 
-    function Support() {
+    function Support($rootScope) {
+        $rootScope.checkUser();
         var vm = this;
 
     }

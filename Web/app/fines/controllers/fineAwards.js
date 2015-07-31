@@ -5,14 +5,12 @@
         .controller("FineAwards", ['toaster',
                                    'finesResource',
                                    'localStorageService',
-                                   '$location',
+                                   '$rootScope',
                                    FineAwards]);
 
-    function FineAwards(toaster, finesResource, localStorageService, $location) {
+    function FineAwards(toaster, finesResource, localStorageService, $rootScope) {
         var vm = this;
-        if (localStorageService.get('user') == null) {
-            $location.path("/Login");
-        }
+        $rootScope.checkUser();
         vm.AwardFine = function () {
 
             var newFineModel = {
