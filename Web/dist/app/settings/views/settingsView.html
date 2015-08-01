@@ -12,14 +12,31 @@
             <br>
             <div class="row" align="center">
                 <img src="content/batman.jpg" style="padding:1px;border:thick solid black;" width="250" border="5">
+                <br>
+                <label class="control-label">Update Image</label>
+                <br>
+                <div class="input-group">
+                    <input class="form-control" type="file" nv-file-select uploader="SC.uploader" ng-click="SC.uploader.clearQueue()" />
+                </div>
+                <br>
+                <div class="form-group" ng-repeat="uploadItem in SC.uploader.queue">
+                    <div class="col-sm-10">
+
+                        <div class="input-group">
+                            <p class="form-control-static" ng-hide="SC.uploadButtonVisible">{{uploadItem.file.name}}&nbsp;
+                                <div ng-thumb="{ file: uploadItem.file, height: 100 }">
+                                    <button class="btn btn-primary btn-xs" ng-hide="SC.uploadButtonVisible" request-spinner ng-click="SC.upload(uploadItem)">
+                                        <i class="fa fa-upload"></i> &nbsp;Upload
+                                    </button>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="input-group">
-                <input class="form-control-static" type="file" nv-file-select uploader="SC.uploader" ng-click="SC.uploader.clearQueue()" />
-            </div>
+
             <br>
-            <button class="btn btn-primary btn-xs" ng-hide="fileUpload.uploadButtonVisible" request-spinner ng-click="fileUpload.upload(uploadItem)">
-                <i class="fa fa-upload"></i> &nbsp;Upload
-            </button>
+
             <div class="row" align="center">
                 <div class="col-sm-6 offset1">
                     <label>Name:</label>
