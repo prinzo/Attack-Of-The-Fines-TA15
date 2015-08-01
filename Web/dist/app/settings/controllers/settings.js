@@ -6,15 +6,17 @@
                                  "toaster",
                                  "localStorageService",
                                  "$rootScope",
+                                 "FileUploader",
                                  Settings]);
 
-    function Settings(userResource, toaster, localStorageService, $rootScope) {
+    function Settings(userResource, toaster, localStorageService, $rootScope, FileUploader) {
         var scope = this;
         $rootScope.checkUser();
         scope.email = "prinay.panday@entelect.co.za";
         scope.user = [];
         scope.Name = '';
         scope.Surname = '';
+        scope.uploader = new FileUploader();
         scope.UpdateUser = UpdateUser;
         GetUser();
 

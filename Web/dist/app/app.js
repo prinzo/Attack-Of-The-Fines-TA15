@@ -1,4 +1,10 @@
-var app = angular.module("entelectFines", ["common.services", "ngRoute", "toaster", "highcharts-ng", "ngBootbox", "LocalStorageModule"]);
+var app = angular.module("entelectFines", ["common.services",
+                         "ngRoute",
+                         "toaster",
+                          "highcharts-ng",
+                          "ngBootbox",
+                          "LocalStorageModule",
+                                          "angularFileUpload"]);
 
 
 
