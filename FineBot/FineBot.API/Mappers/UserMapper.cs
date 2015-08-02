@@ -26,7 +26,8 @@ namespace FineBot.API.Mappers
                        EmailAddress = user.EmailAddress,
                        DisplayName = user.DisplayName,
                        AwardedFineCount = user.Fines.Count(x => !x.Pending),
-                       PendingFineCount = user.Fines.Count(x => x.Pending)
+                       PendingFineCount = user.Fines.Count(x => x.Pending),
+                       Image = user.Image
                    };
         }
 
@@ -49,6 +50,7 @@ namespace FineBot.API.Mappers
                 SlackId = user.SlackId,
                 EmailAddress = user.EmailAddress,
                 DisplayName = user.DisplayName,
+                Image = user.Image,
                 AwardedFineCount = user.Fines.Count(x => x.AwardedDate.ToShortDateString() == DateTime.Today.ToShortDateString())
             };
         }

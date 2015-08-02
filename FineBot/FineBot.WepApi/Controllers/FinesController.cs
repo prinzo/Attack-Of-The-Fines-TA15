@@ -24,9 +24,9 @@ namespace FineBot.WepApi.Controllers
         [HttpPost]
         public bool IssueFine(NewFineModel newFine)
         {
-            //FineModel fineModel = fineApi.IssueFine(new Guid(newFine.IssuerId), new Guid(newFine.RecipientId), newFine.Reason);
+            FineModel fineModel = fineApi.IssueFine(new Guid(newFine.IssuerId), new Guid(newFine.RecipientId), newFine.Reason);
 
-           // return fineModel != null;
+            return fineModel != null;
 
             //todo figure out why json isn't being passed
             return true;

@@ -6,10 +6,10 @@
                                  "toaster",
                                  "localStorageService",
                                  "$rootScope",
-                                 "FileUploader",
+                                 "$scope",
                                  Settings]);
 
-    function Settings(userResource, toaster, localStorageService, $rootScope, FileUploader) {
+    function Settings(userResource, toaster, localStorageService, $rootScope, $scope) {
         var scope = this;
         $rootScope.checkUser();
         scope.email = "prinay.panday@entelect.co.za";
@@ -17,26 +17,57 @@
         scope.Name = '';
         scope.Surname = '';
         scope.uploadButtonVisible = false;
+        scope.uploadImage = uploadImage;
+        $scope.Image = '';
 
-        scope.uploader = new FileUploader();
+
         scope.UpdateUser = UpdateUser;
-        scope.upload = upload;
         GetUser();
 
 
-        scope.uploader.onSuccessItem = function (fileItem, response) {
-            toaster.success('File uploaded successfully', 'Successful Upload');
-            scope.uploadButtonVisible = true;
+        var handleFileSelect = function (evt) {
+
+            var file = evt.currentTarget.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function (evt) {
+                var img = new Image();
+                img.src = evt.target.result;
+
+                $scope.$apply(function (scope) {
+                    $scope.Image = evt.target.result;
+                });
+            };
+
+            reader.readAsDataURL(file);
+            scope.showUpload = true;
+            scope.showImage = true;
+
         };
 
-        scope.uploader.onProgressItem = function () {
-            scope.uploadButtonVisible = true;
+        angular.element(document.querySelector('#fileInput')).on('change', handleFileSelect);
 
-        };
-
-        function upload(uploadItem) {
-            scope.uploadButtonVisible = false;
-            uploadItem.upload();
+        function uploadImage() {
+            var userModel = {
+                Id: scope.user.Id,
+                Image: $scope.Image
+            };
+            var promise = userResource.save({
+                    action: "UpdateUserImage"
+                },
+                userModel
+            );
+            promise.$promise.then(function (data) {
+                    toaster.pop('success', 'Update Successful', 'User image updated successfully');
+                    scope.showUpload = false;
+                    scope.showImage = false;
+                    scope.user.Image = data.Image;
+                    localStorageService.clearAll();
+                    localStorageService.set('user', scope.user);
+                },
+                function () {
+                    toaster.error('Error', 'Failed to update User image');
+                });
         }
 
         function GetUser() {
