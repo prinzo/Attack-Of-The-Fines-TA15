@@ -10,7 +10,17 @@
 
     function FineAwards(toaster, finesResource, localStorageService, $rootScope) {
         var vm = this;
+        
         $rootScope.checkUser();
+        
+        vm.users = [
+                {name : "Kristina Georgieva"},
+                {name : "Prinay Panday"},
+                {name : "Kurt Vining"},
+                {name : "Amrit Purshotam"}
+            ];
+        
+        
         vm.AwardFine = function () {
 
             var newFineModel = {
@@ -27,12 +37,12 @@
 
             promise.$promise.then(function (data) {
                     toaster.pop('success', "Fine Awarded", "Fine awarded successfully");
-                },
+                },  
                 function () {
                     toaster.error('Error', 'Failed to award fine');
                 });
         }
 
-
+        
     }
 }());

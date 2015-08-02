@@ -4,7 +4,8 @@ var app = angular.module("entelectFines", ["common.services",
                           "highcharts-ng",
                           "ngBootbox",
                           "LocalStorageModule",
-                                          "angularFileUpload"]);
+                          "angularFileUpload",
+                           "angucomplete-alt"]);
 
 
 

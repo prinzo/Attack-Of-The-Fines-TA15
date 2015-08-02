@@ -1,13 +1,26 @@
+
 <div ng-controller="FineAwards as vm">
     <form role="form" ng-submit="vm.AwardFine()">
       <div class="form-group">
-        <label for="personFined">Person to fine: </label>
-        <input class="form-control" id="personFined">
+        <label for="personFinedLabel">Person to fine: </label>
+          
+          <angucomplete-alt id="ex1"
+              placeholder="Search for user"
+              pause="100"
+              selected-object="selectedUser"
+              local-data="vm.users"
+              search-fields="name"
+              title-field="name"
+              minlength="1"
+              input-class="form-control form-control-small"/> 
+          
       </div>
       <div class="form-group">
-        <label for="reason">Reason:</label>
+        <label for="reasonLabel">Reason:</label>
         <input class="form-control" id="reason">
       </div>
       <button type="submit" class="btn btn-default">Submit</button>
     </form>
 </div>
+
+ 

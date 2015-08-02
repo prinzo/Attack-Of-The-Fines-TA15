@@ -25,6 +25,7 @@ namespace FineBot.API.FinesApi
             this.userRepository = userRepository;
             this.fineMapper = fineMapper;
             this.userMapper = userMapper;
+
         }
 
         public FineModel IssueFine(Guid issuerId, Guid recipientId, string reason)
