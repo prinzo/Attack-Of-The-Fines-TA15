@@ -13,6 +13,8 @@ namespace FineBot.API.UsersApi
 
         UserModel UpdateUser(UserModel userModel);
 
+        void UpdateUserImage(Guid userId, string image);
+
         string[] GetUserNameAndSurnameFromEmail(string email);
 
         int GetNumberOfFinesForUserById(Guid id);

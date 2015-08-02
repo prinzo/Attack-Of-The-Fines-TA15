@@ -14,6 +14,7 @@ namespace FineBot.API.UsersApi
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Mobile { get; set; }
+        public string Image { get; set; }
         public int AwardedFineCount { get; set; }
         public int PendingFineCount { get; set; }
         public List<FineModel> Fines { get; set; }

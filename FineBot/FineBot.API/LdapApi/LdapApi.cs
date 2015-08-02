@@ -85,7 +85,7 @@ namespace FineBot.API.LdapApi
             ldapModel.AwardedFineCount = slackModel.AwardedFineCount;
             ldapModel.PendingFineCount = slackModel.PendingFineCount;
             ldapModel.Fines = slackModel.Fines;
-
+            ldapModel.Image = slackModel.Image;
             return ldapModel;
         }
     }

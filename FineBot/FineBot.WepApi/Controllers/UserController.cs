@@ -10,7 +10,7 @@ using FineBot.API.UsersApi;
 
 namespace FineBot.WepApi.Controllers
 {
-    [EnableCors("*","*","*")]
+    [EnableCors("*", "*", "*")]
     public class UserController : ApiController
     {
         private readonly IUserApi userApi;
@@ -40,7 +40,7 @@ namespace FineBot.WepApi.Controllers
         public UserModel AuthenticateUser(string domainName, string password)
         {
             var ldapUser = ldapApi.AuthenticateAgainstDomain(domainName, password);
-            var slackUser = GetUserByEmail(ldapUser.EmailAddress);
+            var slackUser = userApi.GetUserByEmail(ldapUser.EmailAddress);
             return ldapApi.MapSlackModelToLdapModel(ldapUser, slackUser);
         }
         [HttpGet]
@@ -53,6 +53,13 @@ namespace FineBot.WepApi.Controllers
         public UserModel UpdateUser([FromBody]UserModel userModel)
         {
             return userApi.UpdateUser(userModel);
+        }
+
+        [HttpPost]
+        public UserModel UpdateUserImage([FromBody]UserModel userModel)
+        {
+            userApi.UpdateUserImage(userModel.Id, userModel.Image);
+            return userModel;
         }
     }
 }
