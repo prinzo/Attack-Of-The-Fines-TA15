@@ -9,16 +9,16 @@
         </div>
         <div class="col-md-7 fine">
             <div class ="fine-details">
-                <h3>
-                    <a id="icon-gift"
+                <div class="feed-title">
+                    <a id="user-statistics-link"
                         ng-bootbox-title="User Statistics"
                         ng-bootbox-custom-dialog="User Statistics"
                         ng-bootbox-custom-dialog-template="app/fines/views/modals/userStatistics.tpl.html"
                         id="user-name"> 
-                    The Cat </a> &nbsp; has received a fine
-                </h3>
-                <p id="reason">for purring too loud</p>
-                <div id="other">
+                    The Cat </a> has received a fine
+                </div>
+                <p class="feed-data" id="reason">for purring too loud</p>
+                <div class="other">
                     <span id="platform">via Slack</span>
                     <span id="award">from <a id="awarder">The Dog</a></span>
                 </div>
@@ -26,5 +26,5 @@
                 <span><div id="second" class="glyphicon glyphicon-ok"/></span>
             </div>
         </div>
-    </div>
+    </div> 
 </div>
