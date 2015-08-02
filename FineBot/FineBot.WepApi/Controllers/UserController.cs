@@ -43,6 +43,7 @@ namespace FineBot.WepApi.Controllers
             var slackUser = GetUserByEmail(ldapUser.EmailAddress);
             return ldapApi.MapSlackModelToLdapModel(ldapUser, slackUser);
         }
+
         [HttpGet]
         public string[] GetUserNameAndSurname(string email)
         {
@@ -53,6 +54,11 @@ namespace FineBot.WepApi.Controllers
         public UserModel UpdateUser([FromBody]UserModel userModel)
         {
             return userApi.UpdateUser(userModel);
+        }
+
+        [HttpGet]
+        public List<UserModel> GetAllUsers() {
+            return userApi.GetAllUsers();
         }
     }
 }

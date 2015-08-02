@@ -52,5 +52,14 @@ namespace FineBot.API.Mappers
                 AwardedFineCount = user.Fines.Count(x => x.AwardedDate.ToShortDateString() == DateTime.Today.ToShortDateString())
             };
         }
+
+        public UserModel MapToModelSmall(User user) {
+            if (user == null) return null;
+
+            return new UserModel {
+                Id = user.Id,
+                DisplayName = user.DisplayName
+            };
+        }
     }
 }

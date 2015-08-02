@@ -24,5 +24,7 @@ namespace FineBot.API.UsersApi
         List<UserModel> GetLeaderboardToday(int number);
 
         List<UserModel> GetUsersWithPendingFines();
+
+        List<UserModel> GetAllUsers();
     }
 }

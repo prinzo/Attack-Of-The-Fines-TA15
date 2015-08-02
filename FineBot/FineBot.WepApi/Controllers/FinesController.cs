@@ -29,7 +29,7 @@ namespace FineBot.WepApi.Controllers
            // return fineModel != null;
 
             //todo figure out why json isn't being passed
-            //return true;
+            return true;
         }
 
         [HttpGet]
@@ -37,6 +37,6 @@ namespace FineBot.WepApi.Controllers
            
             return true;
         }
-        
+                
     }
 }

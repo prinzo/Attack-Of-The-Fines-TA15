@@ -10,5 +10,6 @@ namespace FineBot.API.Mappers.Interfaces
         UserModel MapToModelWithDate(User user, DateTime date);
 
         UserModel MapToModel(User user);
+        UserModel MapToModelSmall(User user);
     }
 }

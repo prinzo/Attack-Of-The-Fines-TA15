@@ -25,6 +25,7 @@ namespace FineBot.API.UsersApi
             this.userRepository = userRepository;
             this.userMapper = userMapper;
             this.memberInfoApi = memberInfoApi;
+
         }
 
         public UserModel GetUserById(Guid id)
@@ -138,6 +139,12 @@ namespace FineBot.API.UsersApi
             var users = this.userRepository.FindAll(new Specification<User>(u => u.Fines.Any(f => f.SeconderId == null)));
 
             return users.Select(u => this.userMapper.MapToModel(u)).ToList();
+        }
+
+        public List<UserModel> GetAllUsers() {
+            var users = this.userRepository.FindAll(new Specification<User>());
+
+            return users.Select(u => this.userMapper.MapToModelSmall(u)).ToList();
         }
     }
 }

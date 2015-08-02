@@ -4,23 +4,21 @@
         .module("entelectFines")
         .controller("FineAwards", ['toaster',
                                    'finesResource',
+                                   'userResource',
                                    'localStorageService',
                                    '$rootScope',
                                    FineAwards]);
 
-    function FineAwards(toaster, finesResource, localStorageService, $rootScope) {
+    function FineAwards(toaster, finesResource, userResource, localStorageService, $rootScope) {
         var vm = this;
         
         $rootScope.checkUser();
         
-        vm.users = [
-                {name : "Kristina Georgieva"},
-                {name : "Prinay Panday"},
-                {name : "Kurt Vining"},
-                {name : "Amrit Purshotam"}
-            ];
-        
-        
+        vm.users = userResource.query({
+                    action: "GetAllUsers"
+                }
+            );
+            
         vm.AwardFine = function () {
 
             var newFineModel = {
