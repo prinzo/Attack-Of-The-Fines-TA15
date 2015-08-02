@@ -60,6 +60,8 @@ namespace FineBot.WepApi.Controllers
         public List<UserModel> GetAllUsers() {
             return userApi.GetAllUsers();
 
+        }
+
         [HttpPost]
         public UserModel UpdateUserImage([FromBody]UserModel userModel)
         {
