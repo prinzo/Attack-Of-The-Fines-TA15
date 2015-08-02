@@ -3,6 +3,7 @@
 	<s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=211A60EC7A8745B38EBE1635C3BB79EE/@KeyIndexDefined">True</s:Boolean>
 	<s:Int64 x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=211A60EC7A8745B38EBE1635C3BB79EE/GroupingIndex/@EntryValue">4</s:Int64>
 	
+	
 	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=211A60EC7A8745B38EBE1635C3BB79EE/Name/@EntryValue">GivenANewUser_IssueFine_WithoutSeconder_IssuesANewPendingFine</s:String>
 	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=211A60EC7A8745B38EBE1635C3BB79EE/XmlSerializedElements/@EntryValue">&lt;Session&gt;&lt;Elements /&gt;&lt;/Session&gt;</s:String>
 	</wpf:ResourceDictionary>
