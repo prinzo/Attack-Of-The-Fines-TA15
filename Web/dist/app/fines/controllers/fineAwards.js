@@ -18,7 +18,7 @@
                     action: "GetAllUsers"
                 }
             );
-            
+             
         vm.AwardFine = function () {
 
             var newFineModel = {
