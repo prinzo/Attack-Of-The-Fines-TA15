@@ -2,7 +2,7 @@
     "use strict";
     angular
         .module("entelectFines")
-        .controller("FinaPayments", ['toaster',
+        .controller("FinePayments", ['toaster',
                                    'finesResource',
                                    'userResource',
                                    'localStorageService',
