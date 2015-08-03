@@ -1,13 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.DirectoryServices;
+using FineBot.API.Mappers.Interfaces;
 using FineBot.API.UsersApi;
+using FineBot.Entities;
+using FineBot.Interfaces;
+using FineBot.Specifications;
 
 namespace FineBot.API.LdapApi
 {
     public class LdapApi : ILdapApi
     {
+        private readonly IRepository<User, Guid> userRepository;
+        private readonly IUserMapper userMapper;
+        //TODO: Move to config
         private const string LDAP = "LDAP://192.168.2.3";
+
+        public LdapApi(
+            IRepository<User, Guid> userRepository,
+            IUserMapper userMapper
+            )
+        {
+            this.userRepository = userRepository;
+            this.userMapper = userMapper;
+        }
 
         public List<UserModel> GetAllDomainUsers(string domainName, string password)
         {
@@ -51,8 +67,6 @@ namespace FineBot.API.LdapApi
             return domainUsers;
         }
 
-  
-
         public UserModel AuthenticateAgainstDomain(string domainName, string password)
         {
             try
@@ -60,14 +74,32 @@ namespace FineBot.API.LdapApi
                 var directoryEntry = new DirectoryEntry(LDAP, domainName, password);
                 var searchAdForUser = new DirectorySearcher(directoryEntry) { Filter = "(&(objectClass=user)(anr=" + domainName + "))" };
                 var retrievedUser = searchAdForUser.FindOne();
-                var userModel = new UserModel()
+
+                var ldapEmailAddress = retrievedUser.Properties["mail"][0].ToString();
+
+                var existingUser = this.userRepository.Find(new UserSpecification().WithEmailAddress(ldapEmailAddress));
+
+                if(existingUser == null)
                 {
-                    Title = retrievedUser.Properties["title"][0].ToString(),
-                    Mobile = retrievedUser.Properties["mobile"][0].ToString(),
-                    EmailAddress = retrievedUser.Properties["mail"][0].ToString(),
-                    Name = retrievedUser.Properties["givenname"][0].ToString(),
-                    Surname = retrievedUser.Properties["sn"][0].ToString()
-                };
+                    existingUser = new User { EmailAddress = ldapEmailAddress };
+                }
+
+                existingUser.DisplayName = String.Format("{0}{1}", retrievedUser.Properties["givenname"][0],
+                    retrievedUser.Properties["sn"][0]);
+
+                this.userRepository.Save(existingUser);
+
+                var userModel = this.userMapper.MapToModel(existingUser);
+
+                //    new UserModel()
+                //{
+                //    Title = retrievedUser.Properties["title"][0].ToString(),
+                //    Mobile = retrievedUser.Properties["mobile"][0].ToString(),
+                //    EmailAddress = ldapEmailAddress,
+                //    Name = retrievedUser.Properties["givenname"][0].ToString(),
+                //    Surname = retrievedUser.Properties["sn"][0].ToString()
+                //};
+               
                 return userModel;
             }
             catch (DirectoryServicesCOMException ex)
