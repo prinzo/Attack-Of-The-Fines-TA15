@@ -8,7 +8,8 @@
 }
 
 .profile {
-    float: left
+    float: left;
+    padding-right: 1px;
 }
 
 
@@ -23,7 +24,8 @@
 }
 
 .fine {
-    float: right
+    float: right;
+    padding-left: 1px;
 }
 
 .fine-details {
