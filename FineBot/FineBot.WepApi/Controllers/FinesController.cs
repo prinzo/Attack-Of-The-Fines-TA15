@@ -30,9 +30,8 @@ namespace FineBot.WepApi.Controllers
         }
 
         [HttpGet]
-        public bool Hello() {
-           
-            return true;
+        public List<FeedFineModel> GetFines() {
+            return fineApi.GetLatestSetOfFines(0, 10);
         }
                 
     }

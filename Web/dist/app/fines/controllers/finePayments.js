@@ -20,7 +20,7 @@
             );
             
         vm.PayFine = function () {
-            
+             
             toaster.pop('success', "Fine Paid", "Fine paid successfully");
             
         }

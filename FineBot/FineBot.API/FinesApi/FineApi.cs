@@ -83,5 +83,16 @@ namespace FineBot.API.FinesApi
             
             return this.fineMapper.MapToModelWithUser(fineToBeSeconded, this.userMapper.MapToModelShallow(newestPendingFine.user));
         }
+
+        public List<FeedFineModel> GetLatestSetOfFines(int index, int pageSize) {
+            var fines = (from user in this.userRepository.GetAll()//.OrderByDesc(x => x.AwardedDate)
+                        from fine in user.Fines
+                        select this.fineMapper.MapToFeedModel(fine, 
+                                               this.userRepository.Find(new UserSpecification().WithId(fine.IssuerId)),
+                                               user))
+                        .Skip(index).Take(pageSize);
+
+            return fines.ToList();
+        }
     }
 }

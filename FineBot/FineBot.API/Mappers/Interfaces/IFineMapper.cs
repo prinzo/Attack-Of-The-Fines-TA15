@@ -9,5 +9,7 @@ namespace FineBot.API.Mappers.Interfaces
         FineModel MapToModel(Fine fine);
 
         FineWithUserModel MapToModelWithUser(Fine fine, UserModel shallowUserModel);
+
+        FeedFineModel MapToFeedModel(Fine fine, User issuer, User receiver);
     }
 }
