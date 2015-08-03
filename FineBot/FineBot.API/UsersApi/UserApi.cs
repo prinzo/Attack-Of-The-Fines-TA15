@@ -74,7 +74,8 @@ namespace FineBot.API.UsersApi
             user.Image = image;
             userRepository.Save(user);
         }
-        private UserModel RegisterUserByEmail(string email)
+
+        public UserModel RegisterUserByEmail(string email)
         {
             User newUser = new User
             {

@@ -14,17 +14,21 @@
         
         $rootScope.checkUser();
         
+        var currentUser = localStorageService.get('user');
+        vm.selectedUser;
+        vm.reason = "";
+        
         vm.users = userResource.query({
                     action: "GetAllUsers"
                 }
             );
-             
+                     
         vm.AwardFine = function () {
-
+                        
             var newFineModel = {
-                IssuerId: '9f909fc1-405d-43ff-8b9d-381160892c61',
-                RecipientId: 'e8f891fb-eff6-4787-bd02-636e5edd93b6',
-                Reason: 'test'
+                IssuerId: currentUser.Id,
+                RecipientId: vm.selectedUser["originalObject"].Id,
+                Reason: vm.reason
             };
 
             var promise = finesResource.save({

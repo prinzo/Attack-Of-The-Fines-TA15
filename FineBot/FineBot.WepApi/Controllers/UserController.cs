@@ -68,5 +68,6 @@ namespace FineBot.WepApi.Controllers
             userApi.UpdateUserImage(userModel.Id, userModel.Image);
             return userModel;
         }
+
     }
 }

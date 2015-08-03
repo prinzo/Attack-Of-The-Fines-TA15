@@ -28,5 +28,7 @@ namespace FineBot.API.UsersApi
         List<UserModel> GetUsersWithPendingFines();
 
         List<UserModel> GetAllUsers();
+
+        UserModel RegisterUserByEmail(string email);
     }
 }
