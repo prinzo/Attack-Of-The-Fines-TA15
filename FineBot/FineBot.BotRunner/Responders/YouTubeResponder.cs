@@ -53,7 +53,6 @@ namespace FineBot.BotRunner.Responders
             builder.Append(context.Message.User.FormattedUserID);
             builder.Append(" ");
             builder.Append(reason);
-            builder.Append(". Hope it was worth it!");
 
             return new BotMessage{ Text = builder.ToString() };
         }

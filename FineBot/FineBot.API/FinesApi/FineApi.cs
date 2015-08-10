@@ -53,13 +53,10 @@ namespace FineBot.API.FinesApi
             var pendingFines = this.userRepository.FindAll(new UserSpecification().WithPendingFines());
 
             var userWithOldestPendingFine = pendingFines.OrderBy(x => x.GetOldestPendingFine().AwardedDate).FirstOrDefault();
-
             if(userWithOldestPendingFine == null) return null;
 
             Fine fineToBeSeconded = userWithOldestPendingFine.GetOldestPendingFine();
-
             fineToBeSeconded.Second(userId);
-
             this.userRepository.Save(userWithOldestPendingFine);
 
             return this.fineMapper.MapToModelWithUser(fineToBeSeconded, this.userMapper.MapToModelShallow(userWithOldestPendingFine));
@@ -67,21 +64,16 @@ namespace FineBot.API.FinesApi
 
         public FineWithUserModel SecondNewestPendingFine(Guid userId)
         {
-            var pendingFines = from user in this.userRepository.FindAll(new UserSpecification().WithPendingFines())
-                from fine in user.Fines
-                select new {user, fine};
+            var pendingFines = this.userRepository.FindAll(new UserSpecification().WithPendingFines());
 
-            var newestPendingFine = pendingFines.OrderByDescending(x => x.fine.AwardedDate).FirstOrDefault();
+            var userWithNewestPendingFine = pendingFines.OrderByDescending(x => x.GetNewestPendingFine().AwardedDate).FirstOrDefault();
+            if (userWithNewestPendingFine == null) return null;
 
-            if (newestPendingFine == null) return null;
-
-            Fine fineToBeSeconded = newestPendingFine.user.Fines.Where(x => x.Pending).OrderByDescending(x => x.AwardedDate).First();
-
+            var fineToBeSeconded = userWithNewestPendingFine.GetNewestPendingFine();
             fineToBeSeconded.Second(userId);
-
-            this.userRepository.Save(newestPendingFine.user);
+            this.userRepository.Save(userWithNewestPendingFine);
             
-            return this.fineMapper.MapToModelWithUser(fineToBeSeconded, this.userMapper.MapToModelShallow(newestPendingFine.user));
+            return this.fineMapper.MapToModelWithUser(fineToBeSeconded, this.userMapper.MapToModelShallow(userWithNewestPendingFine));
         }
 
         public List<FeedFineModel> GetLatestSetOfFines(int index, int pageSize) {
