@@ -3,6 +3,7 @@ using System.Linq;
 using FineBot.API.Mappers.Interfaces;
 using FineBot.API.UsersApi;
 using FineBot.Entities;
+using FineBot.API.Extensions;
 
 namespace FineBot.API.Mappers
 {
@@ -52,6 +53,51 @@ namespace FineBot.API.Mappers
                 DisplayName = user.DisplayName,
                 Image = user.Image,
                 AwardedFineCount = user.Fines.Count(x => x.AwardedDate.ToShortDateString() == DateTime.Today.ToShortDateString())
+            };
+        }
+
+        public UserModel MapToModelForThisWeek(User user)
+        {
+            if (user == null) return null;
+
+            return new UserModel
+            {
+                Id = user.Id,
+                SlackId = user.SlackId,
+                EmailAddress = user.EmailAddress,
+                DisplayName = user.DisplayName,
+                Image = user.Image,
+                AwardedFineCount = user.Fines.Count(x => x.AwardedDate >= DateTime.Now.StartOfWeek())
+            };
+        }
+
+        public UserModel MapToModelForThisMonth(User user)
+        {
+            if (user == null) return null;
+
+            return new UserModel
+            {
+                Id = user.Id,
+                SlackId = user.SlackId,
+                EmailAddress = user.EmailAddress,
+                DisplayName = user.DisplayName,
+                Image = user.Image,
+                AwardedFineCount = user.Fines.Count(x => x.AwardedDate >= DateTime.Now.StartOfMonth())
+            };
+        }
+
+        public UserModel MapToModelForThisYear(User user)
+        {
+            if (user == null) return null;
+
+            return new UserModel
+            {
+                Id = user.Id,
+                SlackId = user.SlackId,
+                EmailAddress = user.EmailAddress,
+                DisplayName = user.DisplayName,
+                Image = user.Image,
+                AwardedFineCount = user.Fines.Count(x => x.AwardedDate >= DateTime.Now.StartOfYear())
             };
         }
 
