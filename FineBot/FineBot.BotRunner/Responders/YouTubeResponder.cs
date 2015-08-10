@@ -34,7 +34,8 @@ namespace FineBot.BotRunner.Responders
             }
 
             var youtubeLinkList = context.Message.GetYouTubeLinkList();
-            const string reason = "for sharing the following YouTube video(s) --> ";
+            const string reasonForOneVideo = "for sharing the following YouTube video --> ";
+            const string reasonForManyVideos = "for sharing the following YouTube videos --> ";
 
             var builder = new StringBuilder();
             builder.Append("<@");
@@ -42,11 +43,12 @@ namespace FineBot.BotRunner.Responders
             builder.Append(">: fine ");
             builder.Append(context.Message.User.FormattedUserID);
             builder.Append(" ");
-            builder.Append(reason);
+            if (youtubeLinkList.Count == 1) builder.Append(reasonForOneVideo);
+            else if (youtubeLinkList.Count > 1) builder.Append(reasonForManyVideos);
 
             for (var i = 0; i < youtubeLinkList.Count; i++)
             {
-                this.FineRecipient(context.Message.User.FormattedUserID, issuer, reason);
+                this.FineRecipient(context.Message.User.FormattedUserID, issuer, reasonForOneVideo + youtubeLinkList[i]);
                 var seconder = this.userApi.GetUserBySlackId(context.Message.User.FormattedUserID);
                 FineWithUserModel secondedFine = this.fineApi.SecondNewestPendingFine(seconder.Id);
                 
