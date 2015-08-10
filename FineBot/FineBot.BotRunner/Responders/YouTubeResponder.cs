@@ -33,7 +33,8 @@ namespace FineBot.BotRunner.Responders
                     "<@" + context.BotUserID + ">")};
             }
 
-            const string reason = "for a YouTube link";
+            var youtubeLink = context.Message.GetUrlFromMessage();
+            const string reason = "for sharing the following YouTube video --> ";
 
             this.FineRecipient(context.Message.User.FormattedUserID, issuer, reason);
 
@@ -53,6 +54,7 @@ namespace FineBot.BotRunner.Responders
             builder.Append(context.Message.User.FormattedUserID);
             builder.Append(" ");
             builder.Append(reason);
+            builder.Append(youtubeLink);
 
             return new BotMessage{ Text = builder.ToString() };
         }

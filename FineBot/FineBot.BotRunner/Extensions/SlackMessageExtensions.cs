@@ -32,12 +32,12 @@ namespace FineBot.BotRunner.Extensions
             return youtubeRegex.IsMatch(message.Text);
         }
 
-        public static List<string> GetYouTubeLinksFromMessage(this SlackMessage message)
+        public static string GetUrlFromMessage(this SlackMessage message)
         {
-            var youtubeLinkList = new List<string>();
-            if (!message.IsYouTubeLink()) return youtubeLinkList;
-
-            return youtubeLinkList;
-        } 
+            var urlRegex = new Regex(@"<(http|https):\/\/.[^<>]*>");
+            var match = urlRegex.Match(message.Text);
+            var url = match.Value;
+            return url;
+        }
     }
 }
