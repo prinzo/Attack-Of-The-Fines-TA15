@@ -10,7 +10,16 @@ namespace FineBot.API.Extensions
     {
         public static DateTime StartOfWeek(this DateTime dateTime)
         {
-            int difference = DayOfWeek.Monday - dateTime.DayOfWeek;
+            var difference = 0;
+            if (dateTime.DayOfWeek == DayOfWeek.Sunday)
+            {
+                difference = (int) DayOfWeek.Monday - 7;
+            }
+            else
+            {
+                difference = DayOfWeek.Monday - dateTime.DayOfWeek;
+            }
+            
             return dateTime.AddDays(difference).Date;
         }
 

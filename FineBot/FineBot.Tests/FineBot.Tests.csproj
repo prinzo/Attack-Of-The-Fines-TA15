@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\Extensions\DateTimeExtensionsTests.cs" />
     <Compile Include="API\FinesApiTests.cs" />
     <Compile Include="BotRunnerTests\ExtensionsTests\SlackMessageExtensionsTests.cs" />
     <Compile Include="DomainTests\UserTests.cs" />
