@@ -60,13 +60,11 @@ namespace FineBot.API.UsersApi
             return this.userMapper.MapToModelShallow(user);
         }
 
-        public UserModel UpdateUser(UserModel userModel)
+        public void UpdateUser(UserModel userModel)
         {
             var user = this.userRepository.Get(userModel.Id);
             user.DisplayName = userModel.DisplayName;
             this.userRepository.Save(user);
-
-            return this.userMapper.MapToModelShallow(user);
         }
 
         public void UpdateUserImage(Guid userId, string image)

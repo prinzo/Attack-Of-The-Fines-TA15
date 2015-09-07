@@ -53,7 +53,8 @@ namespace FineBot.WepApi.Controllers
         [HttpPost]
         public UserModel UpdateUser([FromBody]UserModel userModel)
         {
-            return userApi.UpdateUser(userModel);
+            userApi.UpdateUser(userModel);
+            return userModel;
         }
 
         [HttpGet]
