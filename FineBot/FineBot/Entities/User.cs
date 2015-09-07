@@ -28,6 +28,11 @@ namespace FineBot.Entities
             return this.Fines.OrderBy(f => f.AwardedDate).FirstOrDefault(f => f.Pending);
         }
 
+        public Fine GetNewestPendingFine()
+        {
+            return this.Fines.OrderByDescending(x => x.AwardedDate).FirstOrDefault(x => x.Pending);
+        }
+
         public Fine IssueFine(Guid issuerId, string reason, Guid? seconderId = null)
         {
            var fine = new Fine

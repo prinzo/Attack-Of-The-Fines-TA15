@@ -27,5 +27,6 @@ namespace FineBot.Specifications
         {
             return this.And(f => f.Fines.Any(x => x.SeconderId == null));
         }
+
     }
 }

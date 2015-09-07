@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using FineBot.Abstracts;
 using FineBot.API.Mappers.Interfaces;
 using FineBot.API.MemberInfo;
@@ -74,7 +75,8 @@ namespace FineBot.API.UsersApi
             user.Image = image;
             userRepository.Save(user);
         }
-        private UserModel RegisterUserByEmail(string email)
+
+        public UserModel RegisterUserByEmail(string email)
         {
             User newUser = new User
             {
@@ -139,6 +141,36 @@ namespace FineBot.API.UsersApi
             return this.userRepository.GetAll().Take(number).OrderByDescending(x => x.Fines.Count).Select(x => this.userMapper.MapToModelWithDate(x, DateTime.Today)).ToList();
 
         }
+
+        public List<UserModel> GetLeaderboardForThisWeek(int number)
+        {
+            return
+                this.userRepository.GetAll()
+                    .Take(number)
+                    .OrderByDescending(x => x.Fines.Count)
+                    .Select(x => this.userMapper.MapToModelForThisWeek(x))
+                    .ToList();
+        }
+
+        public List<UserModel> GetLeaderboardForThisMonth(int number)
+        {
+            return
+                this.userRepository.GetAll()
+                    .Take(number)
+                    .OrderByDescending(x => x.Fines.Count)
+                    .Select(x => this.userMapper.MapToModelForThisMonth(x))
+                    .ToList();
+        }
+
+        public List<UserModel> GetLeaderboardForThisYear(int number)
+        {
+            return
+                this.userRepository.GetAll()
+                    .Take(number)
+                    .OrderByDescending(x => x.Fines.Count)
+                    .Select(x => this.userMapper.MapToModelForThisYear(x))
+                    .ToList();
+        } 
 
         public List<UserModel> GetUsersWithPendingFines()
         {

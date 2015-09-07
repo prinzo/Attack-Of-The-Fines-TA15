@@ -7,7 +7,7 @@
           <angucomplete-alt id="ex1"
               placeholder="Search for user"
               pause="100"
-              selected-object="selectedUser"
+              selected-object="vm.selectedUser"
               local-data="vm.users"
               search-fields="DisplayName"
               title-field="DisplayName"
@@ -17,7 +17,7 @@
       </div>
       <div class="form-group">
         <label for="reasonLabel">Reason:</label>
-        <input class="form-control" id="reason">
+        <input class="form-control" id="reason" ng-model="vm.reason">
       </div>
       <button type="submit" class="btn btn-default">Submit</button>
     </form>

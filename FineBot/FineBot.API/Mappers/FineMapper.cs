@@ -33,5 +33,17 @@ namespace FineBot.API.Mappers
                 User = shallowUserModel
             };
         }
+
+        public FeedFineModel MapToFeedModel(Fine fine, User issuer, User receiver) {
+            return new FeedFineModel {
+                IssuerId = fine.IssuerId,
+                Reason = fine.Reason,
+                SeconderId = fine.SeconderId,
+                Pending = fine.Pending,
+                AwardedDate = fine.AwardedDate,
+                IssuerDisplayName = issuer.DisplayName,
+                ReceiverDisplayName = receiver.DisplayName
+            };
+        }
     }
 }

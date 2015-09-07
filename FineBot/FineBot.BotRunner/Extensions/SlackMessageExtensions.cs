@@ -28,15 +28,21 @@ namespace FineBot.BotRunner.Extensions
 
         public static bool IsYouTubeLink(this SlackMessage message)
         {
-            var youtubeRegex = new Regex(@"(youtube.com\/watch\?|youtu.be\/)", RegexOptions.Compiled);
-            return youtubeRegex.IsMatch(message.Text);
+            return message.Text.IsYouTubeLink();
         }
 
-        public static List<string> GetYouTubeLinksFromMessage(this SlackMessage message)
+        public static List<string> GetYouTubeLinkList(this SlackMessage message)
         {
             var youtubeLinkList = new List<string>();
             if (!message.IsYouTubeLink()) return youtubeLinkList;
 
+            var urlRegex = new Regex(@"<(http|https):\/\/.[^<>]*>", RegexOptions.Compiled);
+            var matches = urlRegex.Matches(message.Text);
+            foreach (Match match in matches)
+            {
+                if(match.Value.IsYouTubeLink())
+                    youtubeLinkList.Add(match.Value);
+            }
             return youtubeLinkList;
         } 
     }

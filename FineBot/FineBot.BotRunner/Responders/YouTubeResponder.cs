@@ -33,18 +33,9 @@ namespace FineBot.BotRunner.Responders
                     "<@" + context.BotUserID + ">")};
             }
 
-            const string reason = "for a YouTube link";
-
-            this.FineRecipient(context.Message.User.FormattedUserID, issuer, reason);
-
-            var seconder = this.userApi.GetUserBySlackId(context.Message.User.FormattedUserID);
-
-            FineWithUserModel secondedFine = this.fineApi.SecondNewestPendingFine(seconder.Id);
-
-            if (secondedFine == null)
-            {
-                return new BotMessage { Text = String.Format("Sorry {0}, there are no pending fines to second", context.Message.User.FormattedUserID) };
-            }
+            var youtubeLinkList = context.Message.GetYouTubeLinkList();
+            const string reasonForOneVideo = "for sharing the following YouTube video --> ";
+            const string reasonForManyVideos = "for sharing the following YouTube videos --> ";
 
             var builder = new StringBuilder();
             builder.Append("<@");
@@ -52,9 +43,34 @@ namespace FineBot.BotRunner.Responders
             builder.Append(">: fine ");
             builder.Append(context.Message.User.FormattedUserID);
             builder.Append(" ");
-            builder.Append(reason);
-            builder.Append(". Hope it was worth it!");
+            if (youtubeLinkList.Count == 1) builder.Append(reasonForOneVideo);
+            else if (youtubeLinkList.Count > 1) builder.Append(reasonForManyVideos);
 
+            for (var i = 0; i < youtubeLinkList.Count; i++)
+            {
+                this.FineRecipient(context.Message.User.FormattedUserID, issuer, reasonForOneVideo + youtubeLinkList[i]);
+                var seconder = this.userApi.GetUserBySlackId(context.Message.User.FormattedUserID);
+                FineWithUserModel secondedFine = this.fineApi.SecondNewestPendingFine(seconder.Id);
+                
+                builder.Append(youtubeLinkList[i]);
+
+                if (youtubeLinkList.Count == 2 && i == 0)
+                {
+                    builder.Append(" and ");
+                }
+                else if (youtubeLinkList.Count > 2)
+                {
+                    if (i < youtubeLinkList.Count - 2)
+                    {
+                        builder.Append(", ");
+                    }
+                    else if (i == youtubeLinkList.Count - 2)
+                    {
+                        builder.Append(", and ");
+                    }
+                }
+            }
+            
             return new BotMessage{ Text = builder.ToString() };
         }
 

@@ -74,6 +74,7 @@
     <Compile Include="DI\BotInstaller.cs" />
     <Compile Include="Extensions\SlackMessageExtensions.cs" />
     <Compile Include="Models\SlackMessageAttachmentModel.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Models\SlackRawMessageModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,7 +82,6 @@
     <Compile Include="Responders\HelpResponder.cs" />
     <Compile Include="Responders\Interfaces\IGiveFineResponder.cs" />
     <Compile Include="Responders\LeaderBoardResponder.cs" />
-    <Compile Include="Responders\LeaderBoardTodayResponder.cs" />
     <Compile Include="Responders\PayFineResponder.cs" />
     <Compile Include="Responders\SeconderResponder.cs" />
     <Compile Include="Responders\ShowResponder.cs" />

@@ -11,5 +11,9 @@ namespace FineBot.API.Mappers.Interfaces
 
         UserModel MapToModel(User user);
         UserModel MapToModelSmall(User user);
+
+        UserModel MapToModelForThisWeek(User user);
+        UserModel MapToModelForThisMonth(User user);
+        UserModel MapToModelForThisYear(User user);
     }
 }

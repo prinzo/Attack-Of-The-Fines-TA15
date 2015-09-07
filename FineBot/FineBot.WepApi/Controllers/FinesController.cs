@@ -27,15 +27,11 @@ namespace FineBot.WepApi.Controllers
             FineModel fineModel = fineApi.IssueFine(new Guid(newFine.IssuerId), new Guid(newFine.RecipientId), newFine.Reason);
 
             return fineModel != null;
-
-            //todo figure out why json isn't being passed
-            return true;
         }
 
         [HttpGet]
-        public bool Hello() {
-           
-            return true;
+        public List<FeedFineModel> GetFines() {
+            return fineApi.GetLatestSetOfFines(0, 10);
         }
                 
     }

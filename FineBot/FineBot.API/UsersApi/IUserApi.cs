@@ -25,8 +25,16 @@ namespace FineBot.API.UsersApi
 
         List<UserModel> GetLeaderboardToday(int number);
 
+        List<UserModel> GetLeaderboardForThisWeek(int number);
+
+        List<UserModel> GetLeaderboardForThisMonth(int number);
+
+        List<UserModel> GetLeaderboardForThisYear(int number);
+
         List<UserModel> GetUsersWithPendingFines();
 
         List<UserModel> GetAllUsers();
+
+        UserModel RegisterUserByEmail(string email);
     }
 }

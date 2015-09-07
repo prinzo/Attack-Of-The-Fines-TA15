@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FineBot.API.UsersApi;
@@ -23,11 +24,37 @@ namespace FineBot.BotRunner.Responders
 
         public BotMessage GetResponse(ResponseContext context)
         {
-            var leaderboard = this.userApi.GetLeaderboard(10);
+            //today, this week, this month, this year, all time
+            var builder = new StringBuilder();
+            var leaderboard = new List<UserModel>();
+            const int sizeOfLeaderBoard = 10;
 
-            StringBuilder builder = new StringBuilder();
-
-            builder.AppendLine("Fines Leaderboard:");
+            var text = context.Message.Text.ToLower();
+            if (text.Contains("today"))
+            {
+                builder.AppendLine("Leaderboard for today");
+                leaderboard = this.userApi.GetLeaderboardToday(sizeOfLeaderBoard);
+            }
+            else if (text.Contains("this week"))
+            {
+                builder.AppendLine("Leaderboard for this week");
+                leaderboard = this.userApi.GetLeaderboardForThisWeek(sizeOfLeaderBoard);
+            }
+            else if (text.Contains("this month"))
+            {
+                builder.AppendLine("Leaderboard for this month");
+                leaderboard = this.userApi.GetLeaderboardForThisMonth(sizeOfLeaderBoard);
+            }
+            else if (text.Contains("this year"))
+            {
+                builder.AppendLine("Fines Leaderboard for this year");
+                leaderboard = this.userApi.GetLeaderboardForThisYear(sizeOfLeaderBoard);
+            }
+            else
+            {
+                builder.AppendLine("Fines Leaderboard All Time:");
+                leaderboard = this.userApi.GetLeaderboard(sizeOfLeaderBoard);
+            }
 
             foreach(var userModel in leaderboard)
             {
