@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using FineBot.Abstracts;
 
 namespace FineBot.Entities
@@ -22,13 +21,24 @@ namespace FineBot.Entities
 
         public string Reason { get; set; }
 
-        public byte[] RedemptionImageBytes { get; set; }
+        public byte[] PaymentImageBytes { get; set; }
 
-        public Image RedemptionImage { get; set; }
+        public bool Outstanding 
+        {
+            get
+            {
+                return this.PaymentImageBytes == null;
+            }
+        }
 
         public void Second(Guid userId)
         {
             this.SeconderId = userId;
+        }
+
+        public void Pay(byte[] image)
+        {
+            this.PaymentImageBytes = image;
         }
     }
 }

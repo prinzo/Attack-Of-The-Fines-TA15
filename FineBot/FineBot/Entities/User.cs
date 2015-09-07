@@ -42,5 +42,17 @@ namespace FineBot.Entities
 
             return fine;
         }
+
+        public void PayFines(int number, byte[] image)
+        {
+            var orderedFines = this.Fines.Where(x => x.Outstanding).OrderBy(x => x.AwardedDate).ToList();
+
+            var limit = Math.Max(number, orderedFines.Count());
+
+            for(int i = 0; i < limit; i++)
+            {
+                orderedFines[i].Pay(image);
+            }
+        }
     }
 }

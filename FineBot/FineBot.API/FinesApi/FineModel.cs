@@ -12,7 +12,7 @@ namespace FineBot.API.FinesApi
 
         public string Reason { get; set; }
 
-        public byte[] RedemptionImageBytes { get; set; }
+        public byte[] PaymentImageBytes { get; set; }
 
         public DateTime AwardedDate { get; set; }
     }

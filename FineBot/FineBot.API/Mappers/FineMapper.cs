@@ -13,7 +13,7 @@ namespace FineBot.API.Mappers
                    {
                        IssuerId = fine.IssuerId,
                        Reason = fine.Reason,
-                       RedemptionImageBytes = fine.RedemptionImageBytes,
+                       PaymentImageBytes = fine.PaymentImageBytes,
                        SeconderId = fine.SeconderId,
                        Pending = fine.Pending,
                        AwardedDate = fine.AwardedDate
@@ -26,7 +26,7 @@ namespace FineBot.API.Mappers
             {
                 IssuerId = fine.IssuerId,
                 Reason = fine.Reason,
-                RedemptionImageBytes = fine.RedemptionImageBytes,
+                PaymentImageBytes = fine.PaymentImageBytes,
                 SeconderId = fine.SeconderId,
                 Pending = fine.Pending,
                 AwardedDate = fine.AwardedDate,

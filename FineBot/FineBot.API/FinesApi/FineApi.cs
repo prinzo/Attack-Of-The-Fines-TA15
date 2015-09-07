@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FineBot.Abstracts;
 using FineBot.API.Mappers.Interfaces;
-using FineBot.API.UsersApi;
 using FineBot.Entities;
 using FineBot.Interfaces;
 using FineBot.Specifications;
@@ -82,6 +80,15 @@ namespace FineBot.API.FinesApi
             this.userRepository.Save(newestPendingFine.user);
             
             return this.fineMapper.MapToModelWithUser(fineToBeSeconded, this.userMapper.MapToModelShallow(newestPendingFine.user));
+        }
+
+        public void PayFines(Guid userId, int number, byte[] image)
+        {
+            var user = this.userRepository.Get(userId);
+
+            user.PayFines(number, image);
+
+            this.userRepository.Save(user);
         }
     }
 }
