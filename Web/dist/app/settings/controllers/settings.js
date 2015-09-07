@@ -92,6 +92,8 @@
             promise.$promise.then(function (data) {
                     toaster.pop('success', 'Update Successful', 'User was updated successfully');
                     scope.user = data;
+                    localStorageService.clearAll();
+                    localStorageService.set('user', scope.user);
                 },
                 function () {
                     toaster.error('Error', 'Failed to update User');
