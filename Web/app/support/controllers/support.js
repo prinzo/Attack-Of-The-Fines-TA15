@@ -7,7 +7,7 @@
 
     function Support($rootScope) {
         $rootScope.checkUser();
-        var vm = this;
-
+        var scope = this;
+        
     }
 }());

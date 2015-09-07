@@ -8,99 +8,102 @@
 
     <div class="col-sm-6 center">
         <div class="panel panel-primary">
-            <h3 align="center"><b>Personal Information</b></h3>
-            <br>
-            <div class="row" align="center">
-                <img ng-src="{{SC.user.Image}}" style="padding:1px;border:thick solid black;" width="250" border="5">
+            <div class="panel-body">
+                <h3 align="center"><b>Personal Information</b></h3>
                 <br>
-                <br>
-                <div class="form-group">
+                <div class="row" align="center">
+                    <img ng-src="{{SC.user.Image}}" style="padding:1px;border:thick solid black;" width="250" border="5">
+                    <br>
+                    <br>
+                    <div class="form-group">
 
-                    <div class="input-group">
-                        <input type="file" id="fileInput" class="form-control" />
-                    </div>
-
-                </div>
-                <br>
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="cropArea col-sm-3" ng-show="false" style="width:256px; height:256px">
-                            <img-crop image="myImage" area-type="square" result-image="myCroppedImage"></img-crop>
+                        <div class="input-group">
+                            <input type="file" id="fileInput" class="form-control" />
                         </div>
-                        <img ng-show="SC.showImage" ng-src="{{Image}}" style="padding:1px;border:thick solid black;" width="250" />
+
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="cropArea col-sm-3" ng-show="false" style="width:256px; height:256px">
+                                <img-crop image="myImage" area-type="square" result-image="myCroppedImage"></img-crop>
+                            </div>
+                            <img ng-show="SC.showImage" ng-src="{{Image}}" style="padding:1px;border:thick solid black;" width="250" />
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <button type="submit" ng-show="SC.showUpload" ng-click="SC.uploadImage(myCroppedImage)" request-spinner class="btn btn-primary pull-right">
+                            <i class="fa fa-upload"></i>&nbsp;Upload Image
+                        </button>
                     </div>
                 </div>
-                <div class="input-group">
-                    <button type="submit" ng-show="SC.showUpload" ng-click="SC.uploadImage(myCroppedImage)" request-spinner class="btn btn-primary pull-right">
-                        <i class="fa fa-upload"></i>&nbsp;Upload Image
-                    </button>
-                </div>
-            </div>
 
-            <br>
+                <br>
 
-            <div class="row" align="center">
-                <div class="col-sm-6 offset1">
-                    <label>Name:</label>
-                    <input type="text" class="form-control" ng-model="SC.user.Name" readonly style="text-align:center">
+                <div class="row" align="center">
+                    <div class="col-sm-6 offset1">
+                        <label>Name:</label>
+                        <input type="text" class="form-control" ng-model="SC.user.Name" readonly style="text-align:center">
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Surname:</label>
+                        <input type="text" class="form-control" ng-model="SC.user.Surname" readonly style="text-align:center">
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <label>Surname:</label>
-                    <input type="text" class="form-control" ng-model="SC.user.Surname" readonly style="text-align:center">
+                <div class="row" align="center">
+                    <div class="col-sm-6">
+                        <label>Email:</label>
+                        <input type="text" class="form-control" ng-model="SC.user.EmailAddress" readonly style="text-align:center">
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Slack Tag:</label>
+                        <input type="text" class="form-control" ng-model="SC.user.SlackId" readonly style="text-align:center">
+                    </div>
                 </div>
-            </div>
-            <div class="row" align="center">
-                <div class="col-sm-6">
-                    <label>Email:</label>
-                    <input type="text" class="form-control" ng-model="SC.user.EmailAddress" readonly style="text-align:center">
+                <div class="row" align="center">
+                    <div class="col-sm-6">
+                        <label>Position:</label>
+                        <input type="text" class="form-control" ng-model="SC.user.Title" readonly style="text-align:center">
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Mobile:</label>
+                        <input type="text" class="form-control" ng-model="SC.user.Mobile" readonly style="text-align:center">
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <label>Slack Tag:</label>
-                    <input type="text" class="form-control" ng-model="SC.user.SlackId" readonly style="text-align:center">
+                <div class="row" align="center">
+                    <div class="col-sm-6">
+                        <label>Received Fines:</label>
+                        <input type="text" class="form-control" ng-model="SC.user.AwardedFineCount" readonly style="text-align:center">
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Pending Fines:</label>
+                        <input type="text" class="form-control" ng-model="SC.user.PendingFineCount" readonly style="text-align:center">
+                    </div>
                 </div>
-            </div>
-            <div class="row" align="center">
-                <div class="col-sm-6">
-                    <label>Position:</label>
-                    <input type="text" class="form-control" ng-model="SC.user.Title" readonly style="text-align:center">
+                <br>
+                <h3 align="center"><b>User Preferences</b></h3>
+                <br>
+                <div class="row" align="center">
+                    <div class="col-sm-6">
+                        <label>Email Notifications</label>
+                        <input type="checkbox" class="">
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Display Name:</label>
+                        <input type="text" class="form-control" ng-model="SC.user.DisplayName">
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <label>Mobile:</label>
-                    <input type="text" class="form-control" ng-model="SC.user.Mobile" readonly style="text-align:center">
-                </div>
-            </div>
-            <div class="row" align="center">
-                <div class="col-sm-6">
-                    <label>Received Fines:</label>
-                    <input type="text" class="form-control" ng-model="SC.user.AwardedFineCount" readonly style="text-align:center">
-                </div>
-                <div class="col-sm-6">
-                    <label>Pending Fines:</label>
-                    <input type="text" class="form-control" ng-model="SC.user.PendingFineCount" readonly style="text-align:center">
-                </div>
-            </div>
-            <br>
-            <h3 align="center"><b>User Preferences</b></h3>
-            <br>
-            <div class="row" align="center">
-                <div class="col-sm-6">
-                    <label>Email Notifications</label>
-                    <input type="checkbox" class="">
-                </div>
-                <div class="col-sm-6">
-                    <label>Display Name:</label>
-                    <input type="text" class="form-control" ng-model="SC.user.DisplayName">
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-sm-6 pull-right">
-                    <button class="btn btn-primary" ng-click="SC.UpdateUser()">Update</button>
+                <br>
+                <div class="row">
+                    <div class="col-sm-6 pull-right">
+                        <button class="btn btn-primary" ng-click="SC.UpdateUser()">Update</button>
+
+                    </div>
 
                 </div>
-
+                <br>
             </div>
-            <br>
+
         </div>
     </div>
 

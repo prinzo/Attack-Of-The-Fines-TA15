@@ -1,8 +1,41 @@
 <div ng-include="'common/navBar.html'"></div>
 <ol class="breadcrumb">
-  <li><a href="#Fines"><i class="fa fa-home"></i></a></li>
-  <li class="active">Support</li>
+    <li><a href="#Fines"><i class="fa fa-home"></i></a>
+    </li>
+    <li class="active">Support</li>
 </ol>
-<div class="panel panel-primary" ng-controller="Support as SC">
-This is the Support control
+<div class="col-sm-6 center">
+
+    <div class="panel panel-primary" ng-controller="Support as SC">
+        <div class="panel-body">
+            <h3 align="center"><b>Support Tickets</b></h3>
+            <h4><b>My Support Tickets</b></h4>
+            <div class="row">
+            <div class="col-sm-12">
+                
+                <table class="table table-bordered table-hover table-condensed ">
+                <thead>
+                    <tr>
+                    <td>Date Created</td>
+                        <td>Type</td>
+                        <td>Message</td>
+                        <td>Status</td>
+                        <td>Assigned To</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Today</td>
+                        <td>Bug</td>
+                        <td>Fix it!</td>
+                        <td>Open</td>
+                        <td>Prinay</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
