@@ -85,11 +85,16 @@ namespace FineBot.API.FinesApi
             return fines.ToList();
         }
 
-        public void PayFines(Guid userId, int number, byte[] image)
+        public void PayFines(Guid userId, int number, PaymentImageModel paymentImage)
+        {
+            this.PayFines(userId, number, paymentImage.ImageBytes, paymentImage.MimeType, paymentImage.FileName);
+        }
+
+        public void PayFines(Guid userId, int number, byte[] image, string mimeType, string fileName)
         {
             var user = this.userRepository.Get(userId);
 
-            user.PayFines(number, image);
+            user.PayFines(number, image, mimeType, fileName);
 
             this.userRepository.Save(user);
         }

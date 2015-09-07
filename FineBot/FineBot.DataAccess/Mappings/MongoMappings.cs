@@ -12,6 +12,7 @@ namespace FineBot.DataAccess.Mappings
                     {
                         cm.AutoMap();
                         cm.UnmapMember(m => m.Pending);
+                        cm.SetIgnoreExtraElements(true);
                     }
                 );
         }

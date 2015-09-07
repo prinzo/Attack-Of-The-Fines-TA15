@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Text.RegularExpressions;
 using FineBot.API.FinesApi;
 using FineBot.API.UsersApi;
@@ -41,20 +42,37 @@ namespace FineBot.BotRunner.Responders
 
             var number = this.GetNumberOfFinesPaid(context);
 
-            var image = this.GetImage(context.Message);
+            PaymentImageModel paymentImage = this.GetImage(context.Message);
 
-            this.fineApi.PayFines(user.Id, number, image);
+            this.fineApi.PayFines(user.Id, number, paymentImage);
 
             string s = Convert.ToInt32(number) > 1 ? "s" : string.Empty;
 
             return new BotMessage { Text = String.Format("{0} fine{1} paid for {2}!", number, s, user.SlackId) };
         }
 
-        private byte[] GetImage(SlackMessage message)
+        private PaymentImageModel GetImage(SlackMessage message)
         {
-            var jsonObject = new JsonSerializer<SlackRawMessageModel>().DeserializeFromString(message.RawData);
+            var rawMessageModel = new JsonSerializer<SlackRawMessageModel>().DeserializeFromString(message.RawData);
 
-            return new byte[1];
+            if(rawMessageModel.file == null || string.IsNullOrEmpty(rawMessageModel.file.url))
+            {
+                return null;
+            }
+
+            byte[] data;
+
+            using (WebClient client = new WebClient())
+            {
+                data = client.DownloadData(rawMessageModel.file.url);
+            }
+
+            return new PaymentImageModel
+                   {
+                       FileName = rawMessageModel.file.name,
+                       ImageBytes = data,
+                       MimeType = rawMessageModel.file.mimetype
+                   };
         }
 
         private int GetNumberOfFinesPaid(ResponseContext context)

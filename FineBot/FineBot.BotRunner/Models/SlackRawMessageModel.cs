@@ -2,6 +2,6 @@
 {
     public class SlackRawMessageModel
     {
-         
+         public SlackMessageFileModel file { get; set; }
     }
 }

@@ -48,7 +48,7 @@ namespace FineBot.Entities
             return fine;
         }
 
-        public void PayFines(int number, byte[] image)
+        public void PayFines(int number, byte[] image, string mimeType, string fileName)
         {
             var orderedFines = this.Fines.Where(x => x.Outstanding).OrderBy(x => x.AwardedDate).ToList();
 
@@ -56,7 +56,7 @@ namespace FineBot.Entities
 
             for(int i = 0; i < limit; i++)
             {
-                orderedFines[i].Pay(image);
+                orderedFines[i].Pay(image, mimeType, fileName);
             }
         }
     }

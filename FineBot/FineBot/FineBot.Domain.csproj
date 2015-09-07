@@ -62,6 +62,7 @@
     <Compile Include="DI\Bootstrapper.cs" />
     <Compile Include="DI\Installers\DomainInstaller.cs" />
     <Compile Include="Entities\Fine.cs" />
+    <Compile Include="Entities\PaymentImage.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Enums\Severity.cs" />
     <Compile Include="ExtensionMethods\EnumExtensions.cs" />

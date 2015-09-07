@@ -75,6 +75,7 @@
     <Compile Include="Extensions\SlackMessageExtensions.cs" />
     <Compile Include="Models\SlackMessageAttachmentModel.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Models\SlackMessageFileModel.cs" />
     <Compile Include="Models\SlackRawMessageModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

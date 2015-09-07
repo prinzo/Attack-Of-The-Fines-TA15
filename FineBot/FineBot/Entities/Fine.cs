@@ -21,13 +21,13 @@ namespace FineBot.Entities
 
         public string Reason { get; set; }
 
-        public byte[] PaymentImageBytes { get; set; }
+        public PaymentImage PaymentImage { get; set; }
 
         public bool Outstanding 
         {
             get
             {
-                return this.PaymentImageBytes == null;
+                return this.PaymentImage == null;
             }
         }
 
@@ -36,9 +36,9 @@ namespace FineBot.Entities
             this.SeconderId = userId;
         }
 
-        public void Pay(byte[] image)
+        public void Pay(byte[] image, string mimeType, string fileName)
         {
-            this.PaymentImageBytes = image;
+            this.PaymentImage = new PaymentImage(image, mimeType, fileName);
         }
     }
 }
