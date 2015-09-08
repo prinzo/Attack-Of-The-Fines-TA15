@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using FineBot.API.UsersApi;
 
 namespace FineBot.API.FinesApi
 {

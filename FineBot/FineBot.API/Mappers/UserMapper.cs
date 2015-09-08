@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
+using FineBot.API.Extensions;
 using FineBot.API.Mappers.Interfaces;
 using FineBot.API.UsersApi;
 using FineBot.Entities;
-using FineBot.API.Extensions;
 
 namespace FineBot.API.Mappers
 {

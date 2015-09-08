@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.DirectoryServices;
 using FineBot.API.Mappers.Interfaces;
 using FineBot.API.UsersApi;
+using FineBot.DataAccess.DataModels;
 using FineBot.Entities;
 using FineBot.Interfaces;
 using FineBot.Specifications;
@@ -11,13 +12,13 @@ namespace FineBot.API.LdapApi
 {
     public class LdapApi : ILdapApi
     {
-        private readonly IRepository<User, Guid> userRepository;
+        private readonly IRepository<User, UserDataModel, Guid> userRepository;
         private readonly IUserMapper userMapper;
         //TODO: Move to config
         private const string LDAP = "LDAP://192.168.2.3";
 
         public LdapApi(
-            IRepository<User, Guid> userRepository,
+            IRepository<User, UserDataModel, Guid> userRepository,
             IUserMapper userMapper
             )
         {

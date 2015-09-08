@@ -62,7 +62,15 @@
   <ItemGroup>
     <Compile Include="BaseClasses\MemoryRepository.cs" />
     <Compile Include="BaseClasses\MongoRepository.cs" />
+    <Compile Include="DataModels\FineDataModel.cs" />
+    <Compile Include="DataModels\PaymentImageDataModel.cs" />
+    <Compile Include="DataModels\UserDataModel.cs" />
     <Compile Include="DI\DataAccessContainerInstaller.cs" />
+    <Compile Include="Mappers\FineDataMapper.cs" />
+    <Compile Include="Mappers\Interfaces\IDataMapper.cs" />
+    <Compile Include="Mappers\Interfaces\IFineDataMapper.cs" />
+    <Compile Include="Mappers\Interfaces\IUserDataMapper.cs" />
+    <Compile Include="Mappers\UserMapper.cs" />
     <Compile Include="Mappings\MongoMappings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

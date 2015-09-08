@@ -1,4 +1,5 @@
-﻿using FineBot.Entities;
+﻿using FineBot.DataAccess.DataModels;
+using FineBot.Entities;
 using MongoDB.Bson.Serialization;
 
 namespace FineBot.DataAccess.Mappings
@@ -7,12 +8,10 @@ namespace FineBot.DataAccess.Mappings
     {
         public static void SetupMappings()
         {
-            BsonClassMap.RegisterClassMap<Fine>(
+            BsonClassMap.RegisterClassMap<FineDataModel>(
                     cm =>
                     {
                         cm.AutoMap();
-                        cm.UnmapMember(m => m.Pending);
-                        cm.SetIgnoreExtraElements(true);
                     }
                 );
         }
