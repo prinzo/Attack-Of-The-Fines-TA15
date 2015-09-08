@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FineBot.API.Mappers.Interfaces;
+using FineBot.DataAccess.DataModels;
 using FineBot.Entities;
 using FineBot.Interfaces;
 using FineBot.Specifications;
@@ -10,12 +11,12 @@ namespace FineBot.API.FinesApi
 {
     public class FineApi : IFineApi
     {
-        private readonly IRepository<User, Guid> userRepository;
+        private readonly IRepository<User, UserDataModel, Guid> userRepository;
         private readonly IFineMapper fineMapper;
         private readonly IUserMapper userMapper;
 
         public FineApi(
-            IRepository<User, Guid> userRepository,
+            IRepository<User, UserDataModel, Guid> userRepository,
             IFineMapper fineMapper,
             IUserMapper userMapper
             )
@@ -43,7 +44,7 @@ namespace FineBot.API.FinesApi
                 from fine in user.Fines
                 select this.fineMapper.MapToModel(fine);
 
-            return fines.ToList();
+            return Enumerable.ToList(fines);
         }
 
         public FineWithUserModel SecondOldestPendingFine(Guid userId)
@@ -75,12 +76,11 @@ namespace FineBot.API.FinesApi
         }
 
         public List<FeedFineModel> GetLatestSetOfFines(int index, int pageSize) {
-            var fines = (from user in this.userRepository.GetAll()//.OrderByDesc(x => x.AwardedDate)
-                        from fine in user.Fines
-                        select this.fineMapper.MapToFeedModel(fine, 
-                                               this.userRepository.Find(new UserSpecification().WithId(fine.IssuerId)),
-                                               user))
-                        .Skip(index).Take(pageSize);
+            var fines = Enumerable.Skip((from user in this.userRepository.GetAll()//.OrderByDesc(x => x.AwardedDate)
+                            from fine in user.Fines
+                            select this.fineMapper.MapToFeedModel(fine, 
+                                this.userRepository.Find(new UserSpecification().WithId(fine.IssuerId)),
+                                user)), index).Take(pageSize);
 
             return fines.ToList();
         }

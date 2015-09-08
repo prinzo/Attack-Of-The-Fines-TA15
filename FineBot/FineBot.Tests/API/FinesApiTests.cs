@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FineBot.API.FinesApi;
 using FineBot.API.Mappers.Interfaces;
 using FineBot.API.UsersApi;
+using FineBot.DataAccess.DataModels;
 using FineBot.Entities;
 using FineBot.Interfaces;
 using NUnit.Framework;
@@ -18,7 +19,7 @@ namespace FineBot.Tests.API
         public void SecondOldestPendingFine_SecondsCorrectFine()
         {
             // Arrange:
-            IRepository<User, Guid> userRepository = MockRepository.GenerateMock<IRepository<User, Guid>>();
+            IRepository<User, UserDataModel, Guid> userRepository = MockRepository.GenerateMock<IRepository<User, UserDataModel, Guid>>();
             IFineMapper fineMapper = MockRepository.GenerateMock<IFineMapper>();
             IUserMapper userMapper = MockRepository.GenerateMock<IUserMapper>();
 
