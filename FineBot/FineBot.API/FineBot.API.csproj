@@ -50,6 +50,10 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="RestSharp, Version=104.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="ServiceStack.Text, Version=4.0.42.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ServiceStack.Text.4.0.42\lib\net40\ServiceStack.Text.dll</HintPath>
       <Private>True</Private>
@@ -64,6 +68,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TrelloNet">
+      <HintPath>..\packages\TrelloNet.Temp.Fork.0.6.2\lib\net40-Client\TrelloNet.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DI\APIInstaller.cs" />
@@ -88,6 +95,8 @@
     <Compile Include="MemberInfo\ProfileModel.cs" />
     <Compile Include="MemberInfo\UserInfoResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TrelloApi\ITrelloApi.cs" />
+    <Compile Include="TrelloApi\TrelloApi.cs" />
     <Compile Include="UsersApi\IUserApi.cs" />
     <Compile Include="UsersApi\UserApi.cs" />
     <Compile Include="UsersApi\UserModel.cs" />
