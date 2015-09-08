@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using FineBot.API.LdapApi;
-using FineBot.API.TrelloApi;
+using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
 
 namespace FineBot.WepApi.Controllers
@@ -16,12 +16,12 @@ namespace FineBot.WepApi.Controllers
     {
         private readonly IUserApi userApi;
         private readonly ILdapApi ldapApi;
-        private readonly ITrelloApi trelloApi;
+        private readonly ISupportApi trelloApi;
 
         public UserController(
             IUserApi userApi,
             ILdapApi ldapApi,
-            ITrelloApi trelloApi)
+            ISupportApi trelloApi)
         {
             this.userApi = userApi;
             this.ldapApi = ldapApi;

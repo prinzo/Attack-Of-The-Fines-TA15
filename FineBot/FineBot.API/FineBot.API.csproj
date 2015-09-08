@@ -95,8 +95,8 @@
     <Compile Include="MemberInfo\ProfileModel.cs" />
     <Compile Include="MemberInfo\UserInfoResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TrelloApi\ITrelloApi.cs" />
-    <Compile Include="TrelloApi\TrelloApi.cs" />
+    <Compile Include="SupportApi\ISupportApi.cs" />
+    <Compile Include="SupportApi\SupportApi.cs" />
     <Compile Include="UsersApi\IUserApi.cs" />
     <Compile Include="UsersApi\UserApi.cs" />
     <Compile Include="UsersApi\UserModel.cs" />

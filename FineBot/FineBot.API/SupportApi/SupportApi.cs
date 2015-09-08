@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using TrelloNet;
 
-namespace FineBot.API.TrelloApi
+namespace FineBot.API.SupportApi
 {
-    public class TrelloApi : ITrelloApi
+    public class SupportApi : ISupportApi
     {
         public void AddNewCardToSupport()
         {
