@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FineBot.API.Mappers.Interfaces;
 using FineBot.DataAccess.DataModels;
@@ -47,6 +48,12 @@ namespace FineBot.API.SupportApi
             supportTicketRepository.Save(supportTicket);
 
             return supportTicketMapper.MapToModel(supportTicket);
+        }
+
+        public List<SupportTicketModel> GetAllSupportTickets()
+        {
+            var supportTickets = supportTicketRepository.GetAll().ToList();
+            return supportTicketMapper.MapAllToModel(supportTickets);
         }
     }
 }

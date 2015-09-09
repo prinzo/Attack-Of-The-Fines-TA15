@@ -37,5 +37,10 @@ namespace FineBot.API.Mappers
                 UserId = supportTicketModel.UserId
             };
         }
+
+        public List<SupportTicketModel> MapAllToModel(List<SupportTicket> supportTickets)
+        {
+            return supportTickets.Select(MapToModel).ToList();
+        }
     }
 }

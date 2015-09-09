@@ -17,6 +17,13 @@ namespace FineBot.WepApi.Controllers
             this.supportApi = supportApi;
         }
 
+        [HttpGet]
+        public List<SupportTicketModel> GetAllSupportTickets()
+        {
+            return supportApi.GetAllSupportTickets();
+        }
+        
+        
         [HttpPost]
         public string CreateSupportTicket(SupportTicketModel supportTicketModel)
         {

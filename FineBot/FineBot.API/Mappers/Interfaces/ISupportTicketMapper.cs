@@ -12,5 +12,6 @@ namespace FineBot.API.Mappers.Interfaces
     {
         SupportTicketModel MapToModel(SupportTicket supportTicket);
         SupportTicket MapToDomain(SupportTicketModel supportTicketModel);
+        List<SupportTicketModel> MapAllToModel(List<SupportTicket> supportTickets);
     }
 }
