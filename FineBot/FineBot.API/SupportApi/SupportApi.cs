@@ -29,12 +29,14 @@ namespace FineBot.API.SupportApi
             trello.Authorize("0bc833ffc2b77959f6707d1e6ef56724f76ef748f150836d0d4654feb62c270c");
             var myBoard = trello.Boards.WithId("55b244f75471c89c417c616f");
             var supportList = trello.Lists.ForBoard(myBoard).FirstOrDefault(x => x.Name == "Support");
+
             var card = new NewCard(supportTicketModel.Subject, supportList) 
             {
                 Desc = supportTicketModel.Message + Environment.NewLine + 
                 "Status: " + ((Status)supportTicketModel.Status).ToDescription() + Environment.NewLine + 
                 "Type: " + ((SupportType)supportTicketModel.Type).ToDescription()
             };
+
             trello.Cards.Add(card);
         }
 
