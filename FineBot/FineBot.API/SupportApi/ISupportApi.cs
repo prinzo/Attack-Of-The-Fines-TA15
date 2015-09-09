@@ -11,5 +11,6 @@ namespace FineBot.API.SupportApi
         SupportTicketModel CreateSupportTicket(SupportTicketModel supportTicketModel);
         List<SupportTicketModel> GetAllSupportTickets();
         List<SupportTicketModel> GetSupportTicketsForUser(Guid userId);
+        SupportTicketModel UpdateTicketStatus(SupportTicketModel supportTicketModel);
     }
 }

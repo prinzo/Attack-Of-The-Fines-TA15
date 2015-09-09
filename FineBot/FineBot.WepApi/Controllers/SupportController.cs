@@ -28,6 +28,13 @@ namespace FineBot.WepApi.Controllers
         {
             return supportApi.GetSupportTicketsForUser(userId);
         }
+
+        [HttpPost]
+        public SupportTicketModel UpdateTicketStatus(SupportTicketModel supportTicketModel)
+        {
+            return supportApi.UpdateTicketStatus(supportTicketModel);
+        }
+
         [HttpPost]
         public string CreateSupportTicket(SupportTicketModel supportTicketModel)
         {

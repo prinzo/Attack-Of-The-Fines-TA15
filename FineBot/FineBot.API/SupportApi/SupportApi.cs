@@ -61,5 +61,14 @@ namespace FineBot.API.SupportApi
             var supportTickets = supportTicketRepository.GetAll().Where(x => x.UserId == userId).ToList();
             return supportTicketMapper.MapAllToModel(supportTickets);
         }
+
+        public SupportTicketModel UpdateTicketStatus(SupportTicketModel supportTicketModel)
+        {
+            var supportTicket = supportTicketRepository.Get(supportTicketModel.Id);
+            supportTicket.Status = supportTicketModel.Status;
+            supportTicketRepository.Save(supportTicket);
+
+            return supportTicketMapper.MapToModel(supportTicket);
+        }
     }
 }
