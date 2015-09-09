@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using FineBot.API.LdapApi;
+using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
 
 namespace FineBot.WepApi.Controllers
@@ -15,13 +16,16 @@ namespace FineBot.WepApi.Controllers
     {
         private readonly IUserApi userApi;
         private readonly ILdapApi ldapApi;
+        private readonly ISupportApi trelloApi;
 
         public UserController(
             IUserApi userApi,
-            ILdapApi ldapApi)
+            ILdapApi ldapApi,
+            ISupportApi trelloApi)
         {
             this.userApi = userApi;
             this.ldapApi = ldapApi;
+            this.trelloApi = trelloApi;
         }
 
         [HttpGet]
@@ -48,6 +52,21 @@ namespace FineBot.WepApi.Controllers
         public string[] GetUserNameAndSurname(string email)
         {
             return userApi.GetUserNameAndSurnameFromEmail(email);
+        }
+
+        [HttpPost]
+        public string AddTrelloCard()
+        {
+            try
+            {
+                trelloApi.AddNewCardToSupport();
+            }
+            catch (Exception ex){
+                
+                throw new Exception(ex.Message);
+            }
+
+            return "Support Card Successfully Added";
         }
 
         [HttpPost]

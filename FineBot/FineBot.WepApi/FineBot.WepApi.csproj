@@ -188,6 +188,7 @@
     <Compile Include="Controllers\FinesController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SupportController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DI\WebApiInstaller.cs" />
     <Compile Include="DI\WebApiBootstrapper.cs" />
