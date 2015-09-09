@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using FineBot.Infrastructure;
 
 namespace FineBot.API.FinesApi
 {
@@ -13,10 +14,10 @@ namespace FineBot.API.FinesApi
 
         FineWithUserModel SecondNewestPendingFine(Guid userId);
 
-        void PayFines(Guid userId, int number, byte[] image, string mimeType, string fileName);
+        ValidationResult PayFines(Guid userId, int number, byte[] image, string mimeType, string fileName);
 
         List<FeedFineModel> GetLatestSetOfFines(int index, int pageSize);
 
-        void PayFines(Guid userId, int number, PaymentImageModel paymentImage);
+        ValidationResult PayFines(Guid userId, int number, PaymentImageModel paymentImage);
     }
 }

@@ -18,6 +18,14 @@ namespace FineBot.Infrastructure
             }
         }
 
+        public bool HasErrors 
+        {
+            get
+            {
+                return this.ValidationMessages.Any(x => x.Severity == Severity.Error);
+            }
+        }
+
         public string GetMessages(Predicate<Severity> predicate)
         {
             var messages = this.ValidationMessages.Where(x => predicate(x.Severity));
@@ -30,6 +38,18 @@ namespace FineBot.Infrastructure
             }
 
             return sb.ToString();
+        }
+
+        public ValidationResult AddMessage(Severity severity, string message)
+        {
+            if(this.ValidationMessages == null)
+            {
+                this.ValidationMessages = new List<ValidationMessage>();
+            }
+
+            this.ValidationMessages.Add(new ValidationMessage(message, severity));
+
+            return this;
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using FineBot.API.Mappers.Interfaces;
 using FineBot.DataAccess.DataModels;
 using FineBot.Entities;
+using FineBot.Infrastructure;
 using FineBot.Interfaces;
 using FineBot.Specifications;
 
@@ -85,18 +86,20 @@ namespace FineBot.API.FinesApi
             return fines.ToList();
         }
 
-        public void PayFines(Guid userId, int number, PaymentImageModel paymentImage)
+        public ValidationResult PayFines(Guid userId, int number, PaymentImageModel paymentImage)
         {
-            this.PayFines(userId, number, paymentImage.ImageBytes, paymentImage.MimeType, paymentImage.FileName);
+            return this.PayFines(userId, number, paymentImage.ImageBytes, paymentImage.MimeType, paymentImage.FileName);
         }
 
-        public void PayFines(Guid userId, int number, byte[] image, string mimeType, string fileName)
+        public ValidationResult PayFines(Guid userId, int number, byte[] image, string mimeType, string fileName)
         {
             var user = this.userRepository.Get(userId);
 
-            user.PayFines(number, image, mimeType, fileName);
+            ValidationResult result = user.PayFines(number, image, mimeType, fileName);
 
             this.userRepository.Save(user);
+
+            return result;
         }
     }
 }

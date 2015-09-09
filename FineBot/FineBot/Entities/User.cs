@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FineBot.Abstracts;
+using FineBot.Infrastructure;
 
 namespace FineBot.Entities
 {
@@ -48,7 +49,7 @@ namespace FineBot.Entities
             return fine;
         }
 
-        public void PayFines(int number, byte[] image, string mimeType, string fileName)
+        public ValidationResult PayFines(int number, byte[] image, string mimeType, string fileName)
         {
             var orderedFines = this.Fines.Where(x => x.Outstanding).OrderBy(x => x.AwardedDate).ToList();
 
@@ -58,6 +59,8 @@ namespace FineBot.Entities
             {
                 orderedFines[i].Pay(image, mimeType, fileName);
             }
+
+            return new ValidationResult();
         }
     }
 }

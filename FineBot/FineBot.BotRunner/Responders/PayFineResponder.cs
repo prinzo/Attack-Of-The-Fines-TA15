@@ -44,7 +44,7 @@ namespace FineBot.BotRunner.Responders
 
             PaymentImageModel paymentImage = this.GetImage(context.Message);
 
-            this.fineApi.PayFines(user.Id, number, paymentImage);
+            //var result = this.fineApi.PayFines(user.Id, number, paymentImage);
 
             string s = Convert.ToInt32(number) > 1 ? "s" : string.Empty;
 

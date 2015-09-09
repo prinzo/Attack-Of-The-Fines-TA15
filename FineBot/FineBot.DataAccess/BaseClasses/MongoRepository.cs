@@ -9,12 +9,12 @@ namespace FineBot.DataAccess.BaseClasses
 {
     public class MongoRepository<TEntity, TData, TIdentifier> : IRepository<TEntity, TData, TIdentifier> where TEntity : class, IEntity<TIdentifier>
     {
-        private readonly IDataMapper<TData, TEntity> dataMapper;
+        private readonly IDataModelMapper<TData, TEntity> dataModelMapper;
         private readonly IMongoDatabase database;
 
-        public MongoRepository(IMongoClient client, IDataMapper<TData, TEntity> dataMapper)
+        public MongoRepository(IMongoClient client, IDataModelMapper<TData, TEntity> dataModelMapper)
         {
-            this.dataMapper = dataMapper;
+            this.dataModelMapper = dataModelMapper;
             this.database = client.GetDatabase(ConfigurationManager.AppSettings["MongoDatabase"]);
         }
 

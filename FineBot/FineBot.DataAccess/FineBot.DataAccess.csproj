@@ -60,21 +60,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseClasses\DataModelMapper.cs" />
     <Compile Include="BaseClasses\MemoryRepository.cs" />
     <Compile Include="BaseClasses\MongoRepository.cs" />
     <Compile Include="DataModels\FineDataModel.cs" />
     <Compile Include="DataModels\PaymentImageDataModel.cs" />
     <Compile Include="DataModels\UserDataModel.cs" />
     <Compile Include="DI\DataAccessContainerInstaller.cs" />
-    <Compile Include="Mappers\FineDataMapper.cs" />
-    <Compile Include="Mappers\Interfaces\IDataMapper.cs" />
-    <Compile Include="Mappers\Interfaces\IFineDataMapper.cs" />
-    <Compile Include="Mappers\Interfaces\IUserDataMapper.cs" />
-    <Compile Include="Mappers\UserMapper.cs" />
+    <Compile Include="Mappers\FineDataModelMapper.cs" />
+    <Compile Include="Mappers\Interfaces\IDataModelMapper.cs" />
+    <Compile Include="Mappers\UserDataModelMapper.cs" />
     <Compile Include="Mappings\MongoMappings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,7 @@
 ﻿using System;
 using FineBot.Abstracts;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace FineBot.DataAccess.DataModels
 {
@@ -14,5 +16,8 @@ namespace FineBot.DataAccess.DataModels
         public string Reason { get; set; }
 
         public PaymentImageDataModel PaymentImageDataModel { get; set; }
+
+        [BsonExtraElements]
+        public BsonDocument CatchAll { get; set; }
     }
 }
