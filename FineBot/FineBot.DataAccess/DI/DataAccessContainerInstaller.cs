@@ -26,6 +26,8 @@ namespace FineBot.DataAccess.DI
 
             container.Register(Component.For(typeof(IDataModelMapper<UserDataModel,User>)).ImplementedBy(typeof(UserDataModelMapper)).LifestyleTransient());
             container.Register(Component.For(typeof(IDataModelMapper<FineDataModel,Fine>)).ImplementedBy(typeof(FineDataModelMapper)).LifestyleTransient());
+            container.Register(Component.For(typeof(IDataModelMapper<SupportTicketDataModel, SupportTicket>)).ImplementedBy(typeof(SupportTicketDataModelMapper)).LifestyleTransient());
+
 
             if (Convert.ToBoolean(ConfigurationManager.AppSettings["PersistData"] ?? "false"))
             {

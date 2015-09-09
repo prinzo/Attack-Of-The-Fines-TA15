@@ -63,8 +63,11 @@
     <Compile Include="DI\Installers\DomainInstaller.cs" />
     <Compile Include="Entities\Fine.cs" />
     <Compile Include="Entities\PaymentImage.cs" />
+    <Compile Include="Entities\SupportTicket.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Enums\Severity.cs" />
+    <Compile Include="Enums\Status.cs" />
+    <Compile Include="Enums\SupportType.cs" />
     <Compile Include="ExtensionMethods\EnumExtensions.cs" />
     <Compile Include="ExtensionMethods\ExpressionExtensions.cs" />
     <Compile Include="Infrastructure\Guard.cs" />

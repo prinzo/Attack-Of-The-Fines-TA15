@@ -65,10 +65,12 @@
     <Compile Include="BaseClasses\MongoRepository.cs" />
     <Compile Include="DataModels\FineDataModel.cs" />
     <Compile Include="DataModels\PaymentImageDataModel.cs" />
+    <Compile Include="DataModels\SupportTicketDataModel.cs" />
     <Compile Include="DataModels\UserDataModel.cs" />
     <Compile Include="DI\DataAccessContainerInstaller.cs" />
     <Compile Include="Mappers\FineDataModelMapper.cs" />
     <Compile Include="Mappers\Interfaces\IDataModelMapper.cs" />
+    <Compile Include="Mappers\SupportTicketDataModelMapper.cs" />
     <Compile Include="Mappers\UserDataModelMapper.cs" />
     <Compile Include="Mappings\MongoMappings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
