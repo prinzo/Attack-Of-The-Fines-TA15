@@ -22,7 +22,8 @@ namespace FineBot.WepApi.Controllers
         {
             try
             {
-                supportApi.CreateSupportTicket(supportTicketModel);
+                var supportTicket = supportApi.CreateSupportTicket(supportTicketModel);
+                supportApi.AddNewCardToSupport(supportTicket);
             }
             catch (Exception ex)
             {
