@@ -1,0 +1,57 @@
+<div ng-controller="SupportTicket as scope">
+    <div ng-include="'common/navBar.html'"></div>
+    <ol class="breadcrumb">
+        <li><a href="#Fines"><i class="fa fa-home"></i></a>
+        </li>
+        <li><a href="#Support">Support</a>
+
+            <li class="active">Create Support Ticket</li>
+    </ol>
+    <div class="col-sm-6 center">
+        <div class="panel panel-primary" ng-controller="Support as SC">
+            <div class="panel-body">
+                <h3 align="center"><b>Create Support Ticket</b></h3>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label>Subject</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" ng-model="scope.subject" id="inputEmail3" placeholder="Subject" required="">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label>Ticket Type:</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <select class="form-control" name="multipleSelect" id="multipleSelect" ng-model="scope.type">
+                            <option value="">Please select a ticket type</option>
+                            <option value="1">Bug</option>
+                            <option value="2">Query</option>
+                            <option value="3">Suggestion</option>
+                            <option value="4">General</option>
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label>Message:</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <textarea class="form-control" ng-model="scope.message" cols="20" rows="3"></textarea>
+                    </div>
+                </div>
+                <br>
+                <div class="row pull-right">
+                    <div class="col-sm-12 pull-right">
+                        <button class="btn btn-primary" ng-click="scope.CreateSupportTicket()"><i class="fa fa-floppy-o"></i> Create Ticket</button>
+                        <button class="btn btn-danger"><i class="fa fa-times"></i> Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
