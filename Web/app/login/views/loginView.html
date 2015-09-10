@@ -1,34 +1,38 @@
 <div class="" ng-controller="Login as vm">
-<div class="container" >
-    <div class="row">
-    	<br><br><br>
-        <div class="col-sm-4 col-sm-offset-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading"> <strong class="">Login</strong>
+    <div class="container">
+        <div class="row">
+            <br>
+            <br>
+            <br>
+            <div class="col-sm-4 col-sm-offset-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"> <strong class="">Login</strong>
 
-                </div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-3 control-label">Email</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" ng-model="vm.username" id="inputEmail3" placeholder="Email" required="">
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">Email</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" ng-model="vm.username" id="inputEmail3" placeholder="Email" required="">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-3 control-label">Password</label>
-                            <div class="col-sm-9">
-                                <input type="password" class="form-control" id="inputPassword3" ng-model="vm.password" placeholder="Password" required="">
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-3 control-label">Password</label>
+                                <div class="col-sm-9">
+                                    <input type="password" class="form-control" id="inputPassword3" ng-model="vm.password" placeholder="Password" required="">
+                                </div>
                             </div>
-                        </div>
-                  
-                        <div class="form-group last">
-                            <div class="col-sm-offset-3 col-sm-9">
-                                <button ng-click="vm.login()" class="btn btn-success btn-sm">Sign in</button>
+
+                            <div class="form-group last">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button ng-click="vm.login()" class="btn btn-success btn-sm">Sign in</button>
+                                </div>
                             </div>
-                        </div>
-                    </form>
-                </div>
+                        </form>
+                        <br>
+                        <span us-spinner spinner-key="spinner-1"></span> 
+                    </div>
                 </div>
             </div>
         </div>

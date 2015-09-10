@@ -5,7 +5,8 @@ var app = angular.module("entelectFines", ["common.services",
                           "ngBootbox",
                           "LocalStorageModule",
                           "angularFileUpload",
-                           "angucomplete-alt"]);
+                           "angucomplete-alt",
+                           "angularSpinner"]);
 
 
 

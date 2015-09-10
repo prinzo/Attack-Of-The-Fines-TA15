@@ -7,7 +7,7 @@ var gulp = require('gulp'),
 reload = require('gulp-livereload');
 runSequence = require('run-sequence');
 
-gulp.task('buildme', ['build:content', 'build:font', 'build:common', 'build:resources', 'build:scripts', 'build:index', 'livereload'], function () {
+gulp.task('buildme', ['build:content', 'build:font', 'build:common', 'build:resources', 'build:scripts', 'build:index', 'build:bower', 'livereload'], function () {
     gulp.src(['app/**/*.js', 'app/**/*.html'])
         .pipe(gulp.dest('dist/app'))
         .on('error', gutil.log);
@@ -46,6 +46,13 @@ gulp.task('build:index', function () {
 gulp.task('build:content', function () {
     gulp.src(['content/*.css', 'content/*.png', 'content/*.scss', 'content/*.map', 'content/*.js'])
         .pipe(gulp.dest('dist/content'))
+        .on('error', gutil.log);
+
+});
+
+gulp.task('build:bower', function () {
+    gulp.src(['bower_components/**/*.js'])
+        .pipe(gulp.dest('dist/bower_components'))
         .on('error', gutil.log);
 
 });
