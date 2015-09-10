@@ -3,10 +3,12 @@
 	<s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=6E552129CA134A76A4267CA13EB0D20A/@KeyIndexDefined">True</s:Boolean>
 	<s:Int64 x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=6E552129CA134A76A4267CA13EB0D20A/GroupingIndex/@EntryValue">4</s:Int64>
 	
+	
 	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=6E552129CA134A76A4267CA13EB0D20A/Name/@EntryValue">ApiDependenciesResolve</s:String>
 	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=6E552129CA134A76A4267CA13EB0D20A/XmlSerializedElements/@EntryValue">&lt;Session&gt;&lt;Elements /&gt;&lt;/Session&gt;</s:String>
 	<s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=B3569FE0881A4988978398C8514BDAAF/@KeyIndexDefined">True</s:Boolean>
 	<s:Int64 x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=B3569FE0881A4988978398C8514BDAAF/GroupingIndex/@EntryValue">4</s:Int64>
+	
 	
 	
 	
@@ -29,6 +31,7 @@
 	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=61BBB2BF694E4C73BAFCC90264392B24/XmlSerializedElements/@EntryValue">&lt;Session&gt;&lt;Elements /&gt;&lt;/Session&gt;</s:String>
 	<s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=FEEC055993F84E55875CD056C8ACFFAA/@KeyIndexDefined">True</s:Boolean>
 	<s:Int64 x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=FEEC055993F84E55875CD056C8ACFFAA/GroupingIndex/@EntryValue">4</s:Int64>
+	
 	
 	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=FEEC055993F84E55875CD056C8ACFFAA/Name/@EntryValue">All Tests in FineBot</s:String>
 	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=FEEC055993F84E55875CD056C8ACFFAA/XmlSerializedElements/@EntryValue">&lt;Session&gt;&lt;Elements /&gt;&lt;/Session&gt;</s:String>

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using FineBot.API.Mappers.Interfaces;
 using FineBot.API.SupportApi;
 using FineBot.Entities;
+using FineBot.Enums;
+using FineBot.ExtensionMethods;
 
 namespace FineBot.API.Mappers
 {
@@ -20,7 +22,9 @@ namespace FineBot.API.Mappers
                 Subject = supportTicket.Subject,
                 Message = supportTicket.Message,
                 Status = supportTicket.Status,
+                StatusDescription = ((Status)supportTicket.Status).ToDescription(),
                 Type = supportTicket.Type,
+                TypeDescription = ((SupportType)supportTicket.Type).ToDescription(),
                 UserId = supportTicket.UserId
             };
         }
