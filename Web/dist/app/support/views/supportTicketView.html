@@ -12,45 +12,47 @@
             <div class="panel-body">
                 <h3 align="center"><b>Create Support Ticket</b></h3>
                 <form>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <label>Subject</label>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label>Subject</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="subject" ng-model="scope.subject" id="inputEmail3" placeholder="Subject" required="required">
+                        </div>
                     </div>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control" name="subject" ng-model="scope.subject" id="inputEmail3" placeholder="Subject" required="required">
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label>Ticket Type:</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <select class="form-control" ng-init="scope.type=2" name="multipleSelect" id="multipleSelect" ng-model="scope.type">
+                                <option value=1>Bug</option>
+                                <option value=2>Query</option>
+                                <option value=3>Suggestion</option>
+                                <option value=4>General</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <label>Ticket Type:</label>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label>Message:</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <textarea placeholder="Enter your message..." class="form-control" name="message" ng-model="scope.message" cols="20" rows="3" required></textarea>
+                        </div>
                     </div>
-                    <div class="col-sm-6">
-                        <select  class="form-control" ng-init="scope.type=2" name="multipleSelect" id="multipleSelect" ng-model="scope.type" >
-                            <option value=1>Bug</option>
-                            <option value=2>Query</option>
-                            <option value=3>Suggestion</option>
-                            <option value=4>General</option>
-                        </select>
+                    <br>
+                    <div class="row pull-right">
+                        <div class="col-sm-12 pull-right">
+                            <button class="btn btn-primary" ng-click="scope.CreateSupportTicket()"><i class="fa fa-floppy-o"></i> Create Ticket</button>
+                            <a href="#Support" class="btn btn-danger"><i class="fa fa-times"></i> Cancel</a>
+                        </div>
                     </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <label>Message:</label>
-                    </div>
-                    <div class="col-sm-9">
-                        <textarea placeholder="Enter your message..."class="form-control" name="message" ng-model="scope.message" cols="20" rows="3" required></textarea>
-                    </div>
-                </div>
-                <br>
-                <div class="row pull-right">
-                    <div class="col-sm-12 pull-right">
-                        <button class="btn btn-primary" ng-click="scope.CreateSupportTicket()"><i class="fa fa-floppy-o"></i> Create Ticket</button>
-                        <button class="btn btn-danger"><i class="fa fa-times"></i> Cancel</button>
-                    </div>
-                </div>
-                    </form>
+                </form>
+                <span us-spinner spinner-key="spinner-1"></span> 
+
             </div>
 
         </div>
@@ -58,19 +60,19 @@
 </div>
 
 <script>
-jQuery(document).ready(function($) {
-    var intputElements = document.getElementsByTagName("INPUT");
-    for (var i = 0; i < intputElements.length; i++) {
-        intputElements[i].oninvalid = function (e) {
-            e.target.setCustomValidity("");
-            if (!e.target.validity.valid) {
-                if (e.target.name == "subject") {
-                    e.target.setCustomValidity("Please enter a subject");
-                } else if(e.target.name =="message"){
-                    e.target.setCustomValidity("Please enter a message.");
+    jQuery(document).ready(function ($) {
+        var intputElements = document.getElementsByTagName("INPUT");
+        for (var i = 0; i < intputElements.length; i++) {
+            intputElements[i].oninvalid = function (e) {
+                e.target.setCustomValidity("");
+                if (!e.target.validity.valid) {
+                    if (e.target.name == "subject") {
+                        e.target.setCustomValidity("Please enter a subject");
+                    } else if (e.target.name == "message") {
+                        e.target.setCustomValidity("Please enter a message.");
+                    }
                 }
             }
         }
-    }
-});
+    });
 </script>

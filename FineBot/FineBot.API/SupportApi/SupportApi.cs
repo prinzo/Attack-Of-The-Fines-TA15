@@ -44,6 +44,7 @@ namespace FineBot.API.SupportApi
         public SupportTicketModel CreateSupportTicket(SupportTicketModel supportTicketModel)
         {
             var supportTicket = supportTicketMapper.MapToDomain(supportTicketModel);
+            supportTicket.CreatedDate = DateTime.UtcNow;
             supportTicket.Status = (int) Status.Open;
             supportTicketRepository.Save(supportTicket);
 
