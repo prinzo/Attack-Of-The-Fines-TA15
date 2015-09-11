@@ -1,5 +1,4 @@
 ﻿using FineBot.DataAccess.DataModels;
-using FineBot.Entities;
 using MongoDB.Bson.Serialization;
 
 namespace FineBot.DataAccess.Mappings
@@ -12,6 +11,7 @@ namespace FineBot.DataAccess.Mappings
                     cm =>
                     {
                         cm.AutoMap();
+                        cm.SetIgnoreExtraElements(true);
                     }
                 );
         }
