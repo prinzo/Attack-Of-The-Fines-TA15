@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using FineBot.Infrastructure;
+using FineBot.Common.Infrastructure;
 
 namespace FineBot.API.FinesApi
 {
@@ -18,6 +18,6 @@ namespace FineBot.API.FinesApi
 
         List<FeedFineModel> GetLatestSetOfFines(int index, int pageSize);
 
-        ValidationResult PayFines(Guid userId, int number, PaymentImageModel paymentImage);
+        ValidationResult PayFines(Guid userId, Guid payerId, int number, PaymentImageModel paymentImage);
     }
 }

@@ -1,8 +1,8 @@
 using System;
-using FineBot.Enums;
-using FineBot.ExtensionMethods;
+using FineBot.Common.Enums;
+using FineBot.Common.ExtensionMethods;
 
-namespace FineBot.Infrastructure
+namespace FineBot.Common.Infrastructure
 {
     public class ValidationMessage
     {

@@ -98,6 +98,10 @@
       <Project>{1edf3522-e2ae-4569-b98b-0fc3b350b523}</Project>
       <Name>FineBot.API</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FineBot.Common\FineBot.Common.csproj">
+      <Project>{3CCA787A-4963-4DE0-8BFA-403A6858F02B}</Project>
+      <Name>FineBot.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

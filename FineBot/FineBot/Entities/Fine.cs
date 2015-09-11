@@ -9,6 +9,8 @@ namespace FineBot.Entities
 
         public Guid? SeconderId { get; set; }
 
+        public Guid? PayerId { get; set; }
+
         public bool Pending 
         {
             get
@@ -36,8 +38,9 @@ namespace FineBot.Entities
             this.SeconderId = userId;
         }
 
-        public void Pay(byte[] image, string mimeType, string fileName)
+        public void Pay(Guid payerId, byte[] image, string mimeType, string fileName)
         {
+            this.PayerId = payerId;
             this.PaymentImage = new PaymentImage(image, mimeType, fileName);
         }
     }

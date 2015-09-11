@@ -97,6 +97,10 @@
       <Project>{a47c47cd-eac6-4fa6-847e-bd138c9042c5}</Project>
       <Name>FineBot.BotRunner</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FineBot.Common\FineBot.Common.csproj">
+      <Project>{3CCA787A-4963-4DE0-8BFA-403A6858F02B}</Project>
+      <Name>FineBot.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FineBot.DataAccess\FineBot.DataAccess.csproj">
       <Project>{82C10B76-C015-41DA-B5AE-D32D4A42FC9C}</Project>
       <Name>FineBot.DataAccess</Name>

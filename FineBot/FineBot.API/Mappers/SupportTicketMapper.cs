@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FineBot.API.Mappers.Interfaces;
 using FineBot.API.SupportApi;
+using FineBot.Common.ExtensionMethods;
 using FineBot.Entities;
 using FineBot.Enums;
-using FineBot.ExtensionMethods;
 
 namespace FineBot.API.Mappers
 {

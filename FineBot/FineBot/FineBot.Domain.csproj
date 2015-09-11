@@ -65,15 +65,11 @@
     <Compile Include="Entities\PaymentImage.cs" />
     <Compile Include="Entities\SupportTicket.cs" />
     <Compile Include="Entities\User.cs" />
-    <Compile Include="Enums\Severity.cs" />
     <Compile Include="Enums\Status.cs" />
     <Compile Include="Enums\SupportType.cs" />
-    <Compile Include="ExtensionMethods\EnumExtensions.cs" />
     <Compile Include="ExtensionMethods\ExpressionExtensions.cs" />
     <Compile Include="Infrastructure\Guard.cs" />
     <Compile Include="Infrastructure\ParameterRebinder.cs" />
-    <Compile Include="Infrastructure\ValidationMessage.cs" />
-    <Compile Include="Infrastructure\ValidationResult.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\ISpecification.cs" />
@@ -84,7 +80,12 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\FineBot.Common\FineBot.Common.csproj">
+      <Project>{3cca787a-4963-4de0-8bfa-403a6858f02b}</Project>
+      <Name>FineBot.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

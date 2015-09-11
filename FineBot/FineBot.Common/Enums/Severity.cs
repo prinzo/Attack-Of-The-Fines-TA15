@@ -1,4 +1,4 @@
-﻿namespace FineBot.Enums
+﻿namespace FineBot.Common.Enums
 {
     public enum Severity
     {

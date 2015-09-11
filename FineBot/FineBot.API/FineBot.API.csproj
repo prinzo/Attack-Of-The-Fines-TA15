@@ -109,6 +109,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FineBot.Common\FineBot.Common.csproj">
+      <Project>{3cca787a-4963-4de0-8bfa-403a6858f02b}</Project>
+      <Name>FineBot.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FineBot.DataAccess\FineBot.DataAccess.csproj">
       <Project>{82c10b76-c015-41da-b5ae-d32d4a42fc9c}</Project>
       <Name>FineBot.DataAccess</Name>

@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Reflection;
 
-namespace FineBot.ExtensionMethods
+namespace FineBot.Common.ExtensionMethods
 {
     public static class EnumExtensions
     {

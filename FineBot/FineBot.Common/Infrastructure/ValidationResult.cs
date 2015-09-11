@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using FineBot.Enums;
+using FineBot.Common.Enums;
 
-namespace FineBot.Infrastructure
+namespace FineBot.Common.Infrastructure
 {
     public class ValidationResult
     {

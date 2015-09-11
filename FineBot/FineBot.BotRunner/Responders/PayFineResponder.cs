@@ -6,6 +6,8 @@ using FineBot.API.FinesApi;
 using FineBot.API.UsersApi;
 using FineBot.BotRunner.Extensions;
 using FineBot.BotRunner.Models;
+using FineBot.Common.Enums;
+using FineBot.Common.Infrastructure;
 using MargieBot.Models;
 using MargieBot.Responders;
 using ServiceStack.Text;
@@ -40,15 +42,32 @@ namespace FineBot.BotRunner.Responders
         {
             var user = this.GetUser(context);
 
+            var payer = this.userApi.GetUserBySlackId(context.Message.User.FormattedUserID);
+
             var number = this.GetNumberOfFinesPaid(context);
 
             PaymentImageModel paymentImage = this.GetImage(context.Message);
 
-            //var result = this.fineApi.PayFines(user.Id, number, paymentImage);
+            if(paymentImage == null)
+            {
+                return this.GetErrorResponse(new ValidationResult().AddMessage(Severity.Error, "You must upload an image to pay fines!"));
+            }
+
+            ValidationResult result = this.fineApi.PayFines(user.Id, payer.Id, number, paymentImage);
+
+            if(result.HasErrors)
+            {
+                return this.GetErrorResponse(result);
+            }
 
             string s = Convert.ToInt32(number) > 1 ? "s" : string.Empty;
 
             return new BotMessage { Text = String.Format("{0} fine{1} paid for {2}!", number, s, user.SlackId) };
+        }
+
+        private BotMessage GetErrorResponse(ValidationResult result)
+        {
+            return new BotMessage{Text = String.Format("There was a problem with your request: {0}", result.FullTrace)};
         }
 
         private PaymentImageModel GetImage(SlackMessage message)

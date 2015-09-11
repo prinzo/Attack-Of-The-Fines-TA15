@@ -5,11 +5,9 @@ using Castle.MicroKernel;
 using Castle.MicroKernel.Handlers;
 using Castle.Windsor;
 using Castle.Windsor.Diagnostics;
-using Castle.Windsor.Installer;
 using FineBot.API.DI;
-using FineBot.DI.Installers;
-using FineBot.Enums;
-using FineBot.Infrastructure;
+using FineBot.Common.Enums;
+using FineBot.Common.Infrastructure;
 using NUnit.Framework;
 using SharpTestsEx;
 

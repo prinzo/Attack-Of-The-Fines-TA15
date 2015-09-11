@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FineBot.API.Mappers.Interfaces;
+using FineBot.Common.ExtensionMethods;
 using FineBot.DataAccess.DataModels;
 using FineBot.Entities;
 using FineBot.Enums;
