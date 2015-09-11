@@ -14,10 +14,10 @@ namespace FineBot.API.FinesApi
 
         FineWithUserModel SecondNewestPendingFine(Guid userId);
 
-        ValidationResult PayFines(Guid userId, int number, byte[] image, string mimeType, string fileName);
+        ValidationResult PayFines(Guid userId, Guid payerId, int number, PaymentImageModel paymentImage);
 
         List<FeedFineModel> GetLatestSetOfFines(int index, int pageSize);
 
-        ValidationResult PayFines(Guid userId, Guid payerId, int number, PaymentImageModel paymentImage);
+        ValidationResult PayFines(Guid userId, Guid payerId, int number, byte[] image, string mimeType, string fileName);
     }
 }

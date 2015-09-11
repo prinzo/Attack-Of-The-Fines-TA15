@@ -8,6 +8,11 @@ namespace FineBot.Common.Infrastructure
 {
     public class ValidationResult
     {
+        public ValidationResult()
+        {
+            this.ValidationMessages = new List<ValidationMessage>();
+        }
+
         public List<ValidationMessage> ValidationMessages;
 
         public string FullTrace
