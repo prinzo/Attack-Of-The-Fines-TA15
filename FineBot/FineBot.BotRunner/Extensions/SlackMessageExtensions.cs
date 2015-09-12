@@ -44,6 +44,13 @@ namespace FineBot.BotRunner.Extensions
                     youtubeLinkList.Add(match.Value);
             }
             return youtubeLinkList;
-        } 
+        }
+
+        public static bool IsWhatIsAFine(this SlackMessage message)
+        {
+            var lowercaseText = message.Text.ToLower();
+            return (lowercaseText.Contains("what is a fine") || lowercaseText.Contains("whats a fine") ||
+                    lowercaseText.Contains("what's a fine"));
+        }
     }
 }

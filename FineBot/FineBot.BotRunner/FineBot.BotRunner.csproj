@@ -79,6 +79,7 @@
     <Compile Include="Responders\PayFineResponder.cs" />
     <Compile Include="Responders\SeconderResponder.cs" />
     <Compile Include="Responders\ShowResponder.cs" />
+    <Compile Include="Responders\WhatIsAFineResponder.cs" />
     <Compile Include="Responders\YouTubeResponder.cs" />
   </ItemGroup>
   <ItemGroup>
