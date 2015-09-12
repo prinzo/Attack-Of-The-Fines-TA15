@@ -6,9 +6,10 @@
                               "toaster",
                               "localStorageService",
                               "userResource",
+                              "usSpinnerService",
                               Login]);
 
-    function Login($location, toaster, localStorageService, userResource) {
+    function Login($location, toaster, localStorageService, userResource, usSpinnerService) {
         var vm = this;
         localStorageService.clearAll();
         if (localStorageService.get('user') == null) {
@@ -20,6 +21,7 @@
         vm.password = "";
 
         function login() {
+            startSpin();
             var promise = userResource.get({
                 action: "AuthenticateUser",
                 domainName: vm.username,
@@ -33,8 +35,17 @@
                     toaster.pop('success', "Login Success", "Successfully Logged In");
                 },
                 function () {
+                    stopSpin();
                     toaster.pop('error', "Login Failure", "Incorrect Login Details");
                 });
+        }
+
+        function startSpin() {
+            usSpinnerService.spin('spinner-1');
+        }
+
+        function stopSpin() {
+            usSpinnerService.stop('spinner-1');
         }
     }
 }());

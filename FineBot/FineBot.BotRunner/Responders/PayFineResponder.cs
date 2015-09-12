@@ -1,14 +1,33 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Text.RegularExpressions;
+using FineBot.API.FinesApi;
+using FineBot.API.UsersApi;
 using FineBot.BotRunner.Extensions;
+using FineBot.BotRunner.Models;
+using FineBot.Common.Enums;
+using FineBot.Common.Infrastructure;
 using MargieBot.Models;
 using MargieBot.Responders;
+using ServiceStack.Text;
 
 namespace FineBot.BotRunner.Responders
 {
     public class PayFineResponder : IResponder
     {
+        private readonly IUserApi userApi;
+        private readonly IFineApi fineApi;
+
+        public PayFineResponder(
+            IUserApi userApi,
+            IFineApi fineApi
+            )
+        {
+            this.userApi = userApi;
+            this.fineApi = fineApi;
+        }
+
         public bool CanRespond(ResponseContext context)
         {
             return !context.BotHasResponded
@@ -21,9 +40,63 @@ namespace FineBot.BotRunner.Responders
 
         public BotMessage GetResponse(ResponseContext context)
         {
-            var regex = new Regex(@"pay ([0-9]+) fines? for", RegexOptions.Compiled);
+            var user = this.GetUser(context);
 
-            var users = context.Message.GetUserIdsFromMessageExcluding(context.BotUserID);
+            var payer = this.userApi.GetUserBySlackId(context.Message.User.FormattedUserID);
+
+            var number = this.GetNumberOfFinesPaid(context);
+
+            PaymentImageModel paymentImage = this.GetImage(context.Message);
+
+            if(paymentImage == null)
+            {
+                return this.GetErrorResponse(new ValidationResult().AddMessage(Severity.Error, "You must upload an image to pay fines!"));
+            }
+
+            ValidationResult result = this.fineApi.PayFines(user.Id, payer.Id, number, paymentImage);
+
+            if(result.HasErrors)
+            {
+                return this.GetErrorResponse(result);
+            }
+
+            string s = Convert.ToInt32(number) > 1 ? "s" : string.Empty;
+
+            return new BotMessage { Text = String.Format("{0} fine{1} paid for {2}!", number, s, user.SlackId) };
+        }
+
+        private BotMessage GetErrorResponse(ValidationResult result)
+        {
+            return new BotMessage{Text = String.Format("There was a problem with your request: {0}", result.FullTrace)};
+        }
+
+        private PaymentImageModel GetImage(SlackMessage message)
+        {
+            var rawMessageModel = new JsonSerializer<SlackRawMessageModel>().DeserializeFromString(message.RawData);
+
+            if(rawMessageModel.file == null || string.IsNullOrEmpty(rawMessageModel.file.url))
+            {
+                return null;
+            }
+
+            byte[] data;
+
+            using (WebClient client = new WebClient())
+            {
+                data = client.DownloadData(rawMessageModel.file.url);
+            }
+
+            return new PaymentImageModel
+                   {
+                       FileName = rawMessageModel.file.name,
+                       ImageBytes = data,
+                       MimeType = rawMessageModel.file.mimetype
+                   };
+        }
+
+        private int GetNumberOfFinesPaid(ResponseContext context)
+        {
+            var regex = new Regex(@"pay ([0-9]+) fines? for", RegexOptions.Compiled);
 
             var number = context.Message.GetRegexMatch(regex).Groups[1].Value;
 
@@ -32,9 +105,16 @@ namespace FineBot.BotRunner.Responders
                 number = "1";
             }
 
-            string s = Convert.ToInt32(number) > 1 ? "s" : string.Empty;
+            return Convert.ToInt32(number);
+        }
 
-            return new BotMessage{ Text = String.Format("{0} fine{1} paid for {2}!", number, s, users.First()) };
+        private UserModel GetUser(ResponseContext context)
+        {
+            var users = context.Message.GetUserIdsFromMessageExcluding(context.BotUserID);
+
+            var user = this.userApi.GetUserBySlackId(users.First());
+
+            return user;
         }
     }
 }

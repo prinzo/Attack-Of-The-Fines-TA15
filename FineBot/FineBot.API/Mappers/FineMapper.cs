@@ -13,10 +13,25 @@ namespace FineBot.API.Mappers
                    {
                        IssuerId = fine.IssuerId,
                        Reason = fine.Reason,
-                       RedemptionImageBytes = fine.RedemptionImageBytes,
+                       PaymentImageBytes = this.MapPaymentImage(fine.PaymentImage),
                        SeconderId = fine.SeconderId,
                        Pending = fine.Pending,
                        AwardedDate = fine.AwardedDate
+                   };
+        }
+
+        private PaymentImageModel MapPaymentImage(PaymentImage paymentImage)
+        {
+            if(paymentImage == null)
+            {
+                return null;
+            }
+
+            return new PaymentImageModel
+                   {
+                       FileName = paymentImage.FileName,
+                       ImageBytes = paymentImage.ImageBytes,
+                       MimeType = paymentImage.MimeType
                    };
         }
 
@@ -26,7 +41,7 @@ namespace FineBot.API.Mappers
             {
                 IssuerId = fine.IssuerId,
                 Reason = fine.Reason,
-                RedemptionImageBytes = fine.RedemptionImageBytes,
+                PaymentImageBytes = this.MapPaymentImage(fine.PaymentImage),
                 SeconderId = fine.SeconderId,
                 Pending = fine.Pending,
                 AwardedDate = fine.AwardedDate,

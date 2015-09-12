@@ -76,13 +76,8 @@
 
         function UpdateUser() {
             var userModel = {
-                Id: scope.user.Id,
-                SlackId: scope.user.SlackId,
-                EmailAddress: scope.user.EmailAddress,
-                DisplayName: scope.user.DisplayName,
-                AwardedFineCount: scope.user.AwardedFineCount,
-                PendingFineCount: scope.user.PendingFineCount,
-                Fines: null
+                Id: scope.user.Id,             
+                DisplayName: scope.user.DisplayName           
             };
             var promise = userResource.save({
                     action: "UpdateUser"
@@ -91,7 +86,9 @@
             );
             promise.$promise.then(function (data) {
                     toaster.pop('success', 'Update Successful', 'User was updated successfully');
-                    scope.user = data;
+                    scope.user.DisplayName = data.DisplayName;
+                    localStorageService.clearAll();
+                    localStorageService.set('user', scope.user);
                 },
                 function () {
                     toaster.error('Error', 'Failed to update User');

@@ -11,7 +11,7 @@ namespace FineBot.API.UsersApi
 
         UserModel GetUserByEmail(string email);
 
-        UserModel UpdateUser(UserModel userModel);
+        void UpdateUser(UserModel userModel);
 
         void UpdateUserImage(Guid userId, string image);
 

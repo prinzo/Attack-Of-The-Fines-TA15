@@ -48,8 +48,12 @@
       <HintPath>..\packages\MargieBot.1.1.4.1\lib\net45\MargieBot.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Text, Version=4.0.42.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Text.4.0.42\lib\net40\ServiceStack.Text.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -69,7 +73,10 @@
     <Compile Include="DI\BotRunnerBootstrapper.cs" />
     <Compile Include="DI\BotInstaller.cs" />
     <Compile Include="Extensions\SlackMessageExtensions.cs" />
+    <Compile Include="Models\SlackMessageAttachmentModel.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Models\SlackMessageFileModel.cs" />
+    <Compile Include="Models\SlackRawMessageModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Responders\GiveFineResponder.cs" />
@@ -91,6 +98,10 @@
     <ProjectReference Include="..\FineBot.API\FineBot.API.csproj">
       <Project>{1edf3522-e2ae-4569-b98b-0fc3b350b523}</Project>
       <Name>FineBot.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FineBot.Common\FineBot.Common.csproj">
+      <Project>{3CCA787A-4963-4DE0-8BFA-403A6858F02B}</Project>
+      <Name>FineBot.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

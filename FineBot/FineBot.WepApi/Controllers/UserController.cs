@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using FineBot.API.LdapApi;
+using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
 
 namespace FineBot.WepApi.Controllers
@@ -50,10 +51,13 @@ namespace FineBot.WepApi.Controllers
             return userApi.GetUserNameAndSurnameFromEmail(email);
         }
 
+
+
         [HttpPost]
         public UserModel UpdateUser([FromBody]UserModel userModel)
         {
-            return userApi.UpdateUser(userModel);
+            userApi.UpdateUser(userModel);
+            return userModel;
         }
 
         [HttpGet]

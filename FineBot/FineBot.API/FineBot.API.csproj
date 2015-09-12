@@ -46,9 +46,13 @@
       <HintPath>..\packages\Flurl.Http.0.6.3\lib\net45\Flurl.Http.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="RestSharp, Version=104.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Text, Version=4.0.42.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ServiceStack.Text.4.0.42\lib\net40\ServiceStack.Text.dll</HintPath>
@@ -64,6 +68,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TrelloNet">
+      <HintPath>..\packages\TrelloNet.Temp.Fork.0.6.2\lib\net40-Client\TrelloNet.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DI\APIInstaller.cs" />
@@ -74,11 +81,14 @@
     <Compile Include="FinesApi\FineWithUserModel.cs" />
     <Compile Include="FinesApi\IFineApi.cs" />
     <Compile Include="FinesApi\FineModel.cs" />
+    <Compile Include="FinesApi\PaymentImageModel.cs" />
     <Compile Include="LdapApi\ILdapApi.cs" />
     <Compile Include="LdapApi\LdapApi.cs" />
     <Compile Include="Mappers\FineMapper.cs" />
     <Compile Include="Mappers\Interfaces\IFineMapper.cs" />
+    <Compile Include="Mappers\Interfaces\ISupportTicketMapper.cs" />
     <Compile Include="Mappers\Interfaces\IUserMapper.cs" />
+    <Compile Include="Mappers\SupportTicketMapper.cs" />
     <Compile Include="Mappers\UserMapper.cs" />
     <Compile Include="MemberInfo\IMemberInfoApi.cs" />
     <Compile Include="MemberInfo\MemberInfoApi.cs" />
@@ -87,14 +97,22 @@
     <Compile Include="MemberInfo\ProfileModel.cs" />
     <Compile Include="MemberInfo\UserInfoResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SupportApi\ISupportApi.cs" />
+    <Compile Include="SupportApi\SupportApi.cs" />
+    <Compile Include="SupportApi\SupportTicketModel.cs" />
     <Compile Include="UsersApi\IUserApi.cs" />
     <Compile Include="UsersApi\UserApi.cs" />
     <Compile Include="UsersApi\UserModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FineBot.Common\FineBot.Common.csproj">
+      <Project>{3cca787a-4963-4de0-8bfa-403a6858f02b}</Project>
+      <Name>FineBot.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FineBot.DataAccess\FineBot.DataAccess.csproj">
       <Project>{82c10b76-c015-41da-b5ae-d32d4a42fc9c}</Project>
       <Name>FineBot.DataAccess</Name>

@@ -17,16 +17,20 @@
     <div class="col-sm-12">
         <div ng-view></div>
     </div>
-    
+
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    
+
     <!-- Library Scripts -->
     <script src="scripts/angular.js"></script>
     <script src="Scripts/angular-resource.js"></script>
     <script src="Scripts/angular-route.js"></script>
 
+
     <!-- Application Script -->
+
     <script src="app/app.js"></script>
+    <script src="bower_components/spin.js/spin.js"></script>
+    <script src="bower_components/angular-spinner/angular-spinner.js"></script>
     <script src="Scripts/angular-animate.js"></script>
     <script src="Scripts/toaster.js"></script>
     <script src="Scripts/bootstrap.js"></script>
@@ -39,14 +43,17 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="Scripts/angucomplete-alt.js"></script>
+
     <link rel="stylesheet" href="content/angucomplete-alt.css">
-    
+
     <!-- Services -->
     <script src="common/common.services.js"></script>
     <script src="common/resources/dashboardResource.js"></script>
     <script src="common/resources/finesResource.js"></script>
     <script src="common/resources/userResource.js"></script>
-    
+    <script src="common/resources/supportResource.js"></script>
+
+
     <!-- Controllers -->
     <script src="app/login/controllers/login.js"></script>
     <script src="app/dashboard/controllers/dashboard.js"></script>
@@ -54,6 +61,7 @@
     <script src="app/fines/controllers/finePayments.js"></script>
     <script src="app/settings/controllers/settings.js"></script>
     <script src="app/support/controllers/support.js"></script>
+    <script src="app/support/controllers/supportTicket.js"></script>
     <script src="app/fines/controllers/fines.js"></script>
     <script src="app/users/controllers/users.js"></script>
     <script src="app/fines/controllers/userStatistics.js"></script>

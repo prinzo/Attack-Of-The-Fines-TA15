@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using Castle.Windsor;
+using FineBot.API.UsersApi;
 using FineBot.BotRunner.DI;
 using MargieBot;
 using MargieBot.Responders;

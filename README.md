@@ -14,6 +14,7 @@
 - .Net 4.5
 - MongoDB
 - Slack
+- Trello
 
 ### Description:
 

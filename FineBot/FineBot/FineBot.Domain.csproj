@@ -42,8 +42,8 @@
       <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -62,14 +62,14 @@
     <Compile Include="DI\Bootstrapper.cs" />
     <Compile Include="DI\Installers\DomainInstaller.cs" />
     <Compile Include="Entities\Fine.cs" />
+    <Compile Include="Entities\PaymentImage.cs" />
+    <Compile Include="Entities\SupportTicket.cs" />
     <Compile Include="Entities\User.cs" />
-    <Compile Include="Enums\Severity.cs" />
-    <Compile Include="ExtensionMethods\EnumExtensions.cs" />
+    <Compile Include="Enums\Status.cs" />
+    <Compile Include="Enums\SupportType.cs" />
     <Compile Include="ExtensionMethods\ExpressionExtensions.cs" />
     <Compile Include="Infrastructure\Guard.cs" />
     <Compile Include="Infrastructure\ParameterRebinder.cs" />
-    <Compile Include="Infrastructure\ValidationMessage.cs" />
-    <Compile Include="Infrastructure\ValidationResult.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\ISpecification.cs" />
@@ -77,9 +77,15 @@
     <Compile Include="Specifications\UserSpecification.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\FineBot.Common\FineBot.Common.csproj">
+      <Project>{3cca787a-4963-4de0-8bfa-403a6858f02b}</Project>
+      <Name>FineBot.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

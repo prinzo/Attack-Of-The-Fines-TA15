@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using FineBot.Abstracts;
+using FineBot.Common.Enums;
+using FineBot.Common.Infrastructure;
+using FineBot.Infrastructure;
 
 namespace FineBot.Entities
 {
@@ -46,6 +49,25 @@ namespace FineBot.Entities
             this.Fines.Add(fine);
 
             return fine;
+        }
+
+        public ValidationResult PayFines(Guid payerId, int number, byte[] image, string mimeType, string fileName)
+        {
+            if(payerId == this.Id)
+            {
+                return new ValidationResult().AddMessage(Severity.Error, "You cannot pay your own fines!");
+            }
+
+            var orderedFines = this.Fines.Where(x => x.Outstanding).OrderBy(x => x.AwardedDate).ToList();
+
+            var limit = Math.Max(number, orderedFines.Count());
+
+            for(int i = 0; i < limit; i++)
+            {
+                orderedFines[i].Pay(payerId, image, mimeType, fileName);
+            }
+
+            return new ValidationResult();
         }
     }
 }

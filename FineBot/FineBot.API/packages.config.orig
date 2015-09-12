@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<packages>
+  <package id="Castle.Core" version="3.3.0" targetFramework="net45" />
+  <package id="Castle.Windsor" version="3.3.0" targetFramework="net45" />
+  <package id="Flurl" version="1.0.9" targetFramework="net45" />
+  <package id="Flurl.Http" version="0.6.3" targetFramework="net45" />
+<<<<<<< HEAD
+  <package id="Newtonsoft.Json" version="7.0.1" targetFramework="net45" />
+=======
+  <package id="Newtonsoft.Json" version="6.0.3" targetFramework="net45" />
+  <package id="RestSharp" version="104.4.0" targetFramework="net45" />
+>>>>>>> origin/master
+  <package id="ServiceStack.Text" version="4.0.42" targetFramework="net45" />
+  <package id="TrelloNet.Temp.Fork" version="0.6.2" targetFramework="net45" />
+</packages>

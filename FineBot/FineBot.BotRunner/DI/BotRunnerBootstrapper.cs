@@ -8,7 +8,7 @@ namespace FineBot.BotRunner.DI
     {
         public static IWindsorContainer Init()
         {
-            var container = API.DI.Bootstrapper.Init();
+            var container = Bootstrapper.Init();
 
             container.Install(FromAssembly.Containing<ApiInstaller>());
 

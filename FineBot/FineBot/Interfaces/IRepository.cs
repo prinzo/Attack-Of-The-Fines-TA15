@@ -2,7 +2,7 @@
 
 namespace FineBot.Interfaces
 {
-    public interface IRepository<TEntity, in TIdentifier>
+    public interface IRepository<TEntity, TData, in TIdentifier>
     {
         TEntity Get(TIdentifier id);
 

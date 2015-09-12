@@ -5,7 +5,8 @@ var app = angular.module("entelectFines", ["common.services",
                           "ngBootbox",
                           "LocalStorageModule",
                           "angularFileUpload",
-                           "angucomplete-alt"]);
+                           "angucomplete-alt",
+                           "angularSpinner"]);
 
 
 
@@ -36,8 +37,12 @@ app.config(['$routeProvider',
             templateUrl: 'app/login/views/loginView.html',
             controller: ''
         }).
+           when('/CreateSupportTicket', {
+            templateUrl: 'app/support/views/supportTicketView.html',
+            controller: ''
+        }).
         otherwise({
-            redirectTo: '/Login'
+            redirectTo: '/CreateSupportTicket'
         });
 
  }])

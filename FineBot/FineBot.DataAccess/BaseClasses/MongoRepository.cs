@@ -1,17 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
+using FineBot.DataAccess.Mappers.Interfaces;
 using FineBot.Interfaces;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace FineBot.DataAccess.BaseClasses
 {
-    public class MongoRepository<TEntity, TIdentifier> : IRepository<TEntity, TIdentifier> where TEntity : class, IEntity<TIdentifier>
+    public class MongoRepository<TEntity, TData, TIdentifier> : IRepository<TEntity, TData, TIdentifier> where TEntity : class, IEntity<TIdentifier>
     {
+        private readonly IDataModelMapper<TData, TEntity> dataModelMapper;
         private readonly IMongoDatabase database;
 
-        public MongoRepository(IMongoClient client)
+        public MongoRepository(IMongoClient client, IDataModelMapper<TData, TEntity> dataModelMapper)
         {
+            this.dataModelMapper = dataModelMapper;
             this.database = client.GetDatabase(ConfigurationManager.AppSettings["MongoDatabase"]);
         }
 

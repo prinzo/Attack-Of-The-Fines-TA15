@@ -5,7 +5,7 @@ using FineBot.Interfaces;
 
 namespace FineBot.DataAccess.BaseClasses
 {
-    public class MemoryRepository<TEntity, TIdentifier> : IRepository<TEntity, TIdentifier> where TEntity : class, IEntity<TIdentifier>
+    public class MemoryRepository<TEntity, TData, TIdentifier> : IRepository<TEntity, TData, TIdentifier> where TEntity : class, IEntity<TIdentifier>
     {
         private readonly Dictionary<TIdentifier, TEntity> memoryStore;
 
