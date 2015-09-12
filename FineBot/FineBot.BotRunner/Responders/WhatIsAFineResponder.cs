@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using FineBot.BotRunner.Extensions;
@@ -17,7 +18,7 @@ namespace FineBot.BotRunner.Responders
 
         public BotMessage GetResponse(ResponseContext context)
         {
-            
+             return new BotMessage{Text = "in progress"};
         }
     }
 }
