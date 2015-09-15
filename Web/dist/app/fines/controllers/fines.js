@@ -21,14 +21,17 @@
             );
         
         promise.$promise.then(function (data) {
+                        
             for(var d = 0; d < data.length; d++) {
                 toaster.pop('success', "got fine", "fine is: " + data[d].ReceiverDisplayName);
             }
+            
             vm.fines = data;
         },
                               
         function () {
             toaster.pop('error', "Fine Feed Failure", "No Fines were found");
         });
+        
     }
 }());

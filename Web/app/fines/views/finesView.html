@@ -24,9 +24,40 @@
         <div class="panel panel-primary">
             <!-- Test data -->
 
-            <div class="fine-feed" ng-include="'app/fines/views/newFineFeed.html'"></div>
+            <div ng-repeat="fine in fc.fines">
+                <div class="row">
+                    <div class="col-md-5 profile">
+                        <div class="profile-details">
+                            <span id="profile-picture">
+                                <img class="profile-picture" src="http://www.free-avatars.com/data/media/37/cat_avatar_0597.jpg"/>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-7 fine">
+                        <div class ="fine-details">
+                            <div class="feed-title">
+                                <a id="user-statistics-link"
+                                    ng-bootbox-title="User Statistics"
+                                    ng-bootbox-custom-dialog="User Statistics"
+                                    ng-bootbox-custom-dialog-template="app/fines/views/modals/userStatistics.tpl.html"
+                                    id="user-name"> 
+                                {{fine.ReceiverDisplayName}} </a> has received a fine
+                            </div>
+                            <p class="feed-data" id="reason">for {{fine.Reason}}</p>
+                            <div class="other">
+                                <span id="platform">via {{fine.Platform || 'Web front end'}} </span>
+                                <span id="award">from <a id="awarder">{{fine.IssuerDisplayName}}</a></span>
+                            </div>
+                            <hr/>
+                            <span><div id="second" class="glyphicon glyphicon-ok"/></span>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            
+            <!--<div class="fine-feed" ng-include="'app/fines/views/newFineFeed.html'"></div>
             <div class="fine-feed" ng-include="'app/fines/views/paidFineFeed.html'"></div>
-            <div class="fine-feed" ng-include="'app/fines/views/newFineFeed.html'"></div>
+            <div class="fine-feed" ng-include="'app/fines/views/newFineFeed.html'"></div>-->
         </div>
 
     </div>
