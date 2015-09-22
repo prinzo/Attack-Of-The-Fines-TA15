@@ -51,6 +51,7 @@ namespace FineBot.API.Mappers
 
         public FeedFineModel MapToFeedModel(Fine fine, User issuer, User receiver) {
             return new FeedFineModel {
+                Id = fine.Id,
                 IssuerId = fine.IssuerId,
                 Reason = fine.Reason,
                 SeconderId = fine.SeconderId,

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Http;
 using FineBot.API.FinesApi;
+using FineBot.API.Mappers;
 using FineBot.API.UsersApi;
 using FineBot.WepApi.Models;
 
@@ -22,16 +23,16 @@ namespace FineBot.WepApi.Controllers
         }
 
         [HttpPost]
-        public bool IssueFine(NewFineModel newFine)
+        public FeedFineModel IssueFine(NewFineModel newFine)
         {
-            FineModel fineModel = fineApi.IssueFine(new Guid(newFine.IssuerId), new Guid(newFine.RecipientId), newFine.Reason);
+            FeedFineModel fineModel = this.fineApi.IssueFineFromFeed(new Guid(newFine.IssuerId), new Guid(newFine.RecipientId), newFine.Reason);
 
-            return fineModel != null;
+            return fineModel;
         }
 
         [HttpGet]
-        public List<FeedFineModel> GetFines() {
-            return fineApi.GetLatestSetOfFines(0, 10);
+        public FeedFineModel[] GetFines() {
+            return this.fineApi.GetLatestSetOfFines(0, 10).ToArray();
         }
                 
     }

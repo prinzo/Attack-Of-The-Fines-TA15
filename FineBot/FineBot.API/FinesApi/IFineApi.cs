@@ -8,6 +8,8 @@ namespace FineBot.API.FinesApi
     {
         FineModel IssueFine(Guid issuerId, Guid recipientId, string reason);
 
+        FeedFineModel IssueFineFromFeed(Guid issuerId, Guid recipientId, string reason);
+
         List<FineModel> GetAllPendingFines();
 
         FineWithUserModel SecondOldestPendingFine(Guid userId);

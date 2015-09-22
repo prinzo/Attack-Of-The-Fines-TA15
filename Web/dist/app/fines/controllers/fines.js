@@ -6,14 +6,20 @@
                               'localStorageService',
                               'finesResource',
                               '$rootScope',
+                              'userResource',
+                              '$timeout',
                               Fines]);
 
-    function Fines(toaster, $ngBootbox, localStorageService, finesResource, $rootScope) {
+    function Fines(toaster, $ngBootbox, localStorageService, finesResource, $rootScope, userResource, $timeout) {
         var vm = this;
         
+         vm.dialogOptions = {
+                            $scope : vm
+                       }
+         
         $rootScope.checkUser();
         
-        vm.fines = {};
+        $rootScope.fines = {};
         
         var promise = finesResource.query({
                     action: "GetFines"
@@ -26,12 +32,14 @@
                 toaster.pop('success', "got fine", "fine is: " + data[d].ReceiverDisplayName);
             }
             
-            vm.fines = data;
+            $rootScope.fines = data;
         },
                               
         function () {
             toaster.pop('error', "Fine Feed Failure", "No Fines were found");
         });
+        
+        
         
     }
 }());

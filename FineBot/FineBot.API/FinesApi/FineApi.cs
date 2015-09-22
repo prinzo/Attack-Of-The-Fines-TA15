@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FineBot.Abstracts;
 using FineBot.API.Mappers.Interfaces;
 using FineBot.Common.Infrastructure;
 using FineBot.DataAccess.DataModels;
@@ -38,6 +39,19 @@ namespace FineBot.API.FinesApi
             this.userRepository.Save(user);
 
             return this.fineMapper.MapToModel(fine);
+        }
+
+        public FeedFineModel IssueFineFromFeed(Guid issuerId, Guid recipientId, string reason) {
+            var user = this.userRepository.Get(recipientId);
+
+            var fine = user.IssueFine(issuerId, reason);
+
+            this.userRepository.Save(user);
+
+            User issuer = this.userRepository.Find(new Specification<User>(x => x.Id == issuerId));
+            User recipient = this.userRepository.Find(new Specification<User>(x => x.Id == recipientId));
+
+            return this.fineMapper.MapToFeedModel(fine, issuer, recipient);
         }
 
         public List<FineModel> GetAllPendingFines()

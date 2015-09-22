@@ -2,6 +2,8 @@
 
 namespace FineBot.API.FinesApi {
     public class FeedFineModel {
+        public Guid Id { get; set; }
+
         public Guid IssuerId { get; set; }
 
         public string IssuerDisplayName { get; set; }

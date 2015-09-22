@@ -10,7 +10,8 @@
     <div class="col-sm-6 center">
         <center>
             <div class="fine-buttons">
-                <div class="fine-button" id="icon-gift" ng-bootbox-title="Award Fine" ng-bootbox-custom-dialog="Award a fine" ng-bootbox-custom-dialog-template="app/fines/views/modals/awardFine.tpl.html">
+                <div class="fine-button" id="icon-gift" ng-bootbox-title="Award Fine" ng-bootbox-custom-dialog="Award a fine" ng-bootbox-custom-dialog-template="app/fines/views/modals/awardFine.tpl.html"
+                                                        ng-bootbox-options="vm.dialogOptions">
                     <div class="glyphicon glyphicon-gift fine-button-icon"></div>
                     <div class="fine-button-title">Award Fine</div>
                 </div>
@@ -24,7 +25,7 @@
         <div class="panel panel-primary">
             <!-- Test data -->
 
-            <div ng-repeat="fine in fc.fines">
+            <div ng-repeat="fine in fines track by fine.Id | orderBy:'-fine.AwardedDate'">
                 <div class="row">
                     <div class="col-md-5 profile">
                         <div class="profile-details">

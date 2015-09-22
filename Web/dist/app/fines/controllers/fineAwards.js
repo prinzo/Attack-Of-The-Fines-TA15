@@ -3,18 +3,19 @@
     angular
         .module("entelectFines")
         .controller("FineAwards", ['toaster',
+                                   '$ngBootbox',
+                                   "$timeout",
                                    'finesResource',
                                    'userResource',
                                    'localStorageService',
                                    '$rootScope',
+                                   '$q',
                                    FineAwards]);
 
-    function FineAwards(toaster, finesResource, userResource, localStorageService, $rootScope) {
+    function FineAwards(toaster, $ngBootbox, $timeout, finesResource, userResource, localStorageService, $rootScope, $q) {
         var vm = this;
         
-        $rootScope.checkUser();
-        
-        var currentUser = localStorageService.get('user');
+    var currentUser = localStorageService.get('user'); 
         vm.selectedUser;
         vm.reason = "";
         
@@ -39,12 +40,20 @@
 
             promise.$promise.then(function (data) {
                     toaster.pop('success', "Fine Awarded", "Fine awarded successfully");
+                    
+                
+                    $timeout(function(){
+                       var defer = $q.defer();
+                    
+                       $ngBootbox.hideAll();
+                        
+                        $rootScope.fines.push(data);
+                    });
                 },  
                 function () {
                     toaster.error('Error', 'Failed to award fine');
                 });
         }
-
         
     }
 }());
