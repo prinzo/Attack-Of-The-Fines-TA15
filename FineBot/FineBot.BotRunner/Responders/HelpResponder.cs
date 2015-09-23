@@ -1,10 +1,11 @@
 ﻿using System.Text;
+using FineBot.BotRunner.Responders.Interfaces;
 using MargieBot.Models;
 using MargieBot.Responders;
 
 namespace FineBot.BotRunner.Responders
 {
-    public class HelpResponder : IResponder
+    public class HelpResponder : IFineBotResponder
     {
         public bool CanRespond(ResponseContext context)
         {

@@ -3,12 +3,13 @@ using System.Text;
 using FineBot.API.FinesApi;
 using FineBot.API.UsersApi;
 using FineBot.BotRunner.Extensions;
+using FineBot.BotRunner.Responders.Interfaces;
 using MargieBot.Models;
 using MargieBot.Responders;
 
 namespace FineBot.BotRunner.Responders
 {
-    public class YouTubeResponder : IResponder
+    public class YouTubeResponder : IFineBotResponder
     {
         private readonly IUserApi userApi;
         private readonly IFineApi fineApi;

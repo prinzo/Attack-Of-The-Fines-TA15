@@ -2,12 +2,13 @@
 using System.Linq;
 using System.Text;
 using FineBot.API.UsersApi;
+using FineBot.BotRunner.Responders.Interfaces;
 using MargieBot.Models;
 using MargieBot.Responders;
 
 namespace FineBot.BotRunner.Responders
 {
-    public class ShowResponder : IResponder
+    public class ShowResponder : IFineBotResponder
     {
         private readonly IUserApi userApi;
 

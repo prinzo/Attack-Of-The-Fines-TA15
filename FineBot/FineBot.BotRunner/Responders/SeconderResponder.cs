@@ -1,12 +1,13 @@
 ﻿using System;
 using FineBot.API.FinesApi;
 using FineBot.API.UsersApi;
+using FineBot.BotRunner.Responders.Interfaces;
 using MargieBot.Models;
 using MargieBot.Responders;
 
 namespace FineBot.BotRunner.Responders
 {
-    public class SeconderResponder : IResponder
+    public class SeconderResponder : IFineBotResponder
     {
         private readonly IFineApi fineApi;
         private readonly IUserApi userApi;
@@ -23,6 +24,7 @@ namespace FineBot.BotRunner.Responders
         public bool CanRespond(ResponseContext context)
         {
             return !context.BotHasResponded
+                && !context.UserNameCache[context.Message.User.ID].Equals("finebotssecondcousin")
                 && context.Message.Text.ToLower().Contains("seconded");
         }
 

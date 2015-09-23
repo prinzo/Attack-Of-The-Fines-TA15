@@ -8,7 +8,7 @@ using MargieBot.Models;
 
 namespace FineBot.BotRunner.Responders
 {
-    public class GiveFineResponder : IGiveFineResponder
+    public class GiveFineResponder : IFineBotResponder
     {
         private readonly IUserApi userApi;
         private readonly IFineApi fineApi;

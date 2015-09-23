@@ -6,6 +6,7 @@ using FineBot.API.FinesApi;
 using FineBot.API.UsersApi;
 using FineBot.BotRunner.Extensions;
 using FineBot.BotRunner.Models;
+using FineBot.BotRunner.Responders.Interfaces;
 using FineBot.Common.Enums;
 using FineBot.Common.Infrastructure;
 using MargieBot.Models;
@@ -14,7 +15,7 @@ using ServiceStack.Text;
 
 namespace FineBot.BotRunner.Responders
 {
-    public class PayFineResponder : IResponder
+    public class PayFineResponder : IFineBotResponder
     {
         private readonly IUserApi userApi;
         private readonly IFineApi fineApi;

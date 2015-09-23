@@ -3,6 +3,7 @@ using System.Configuration;
 using Castle.Windsor;
 using FineBot.API.UsersApi;
 using FineBot.BotRunner.DI;
+using FineBot.BotRunner.Responders.Interfaces;
 using MargieBot;
 using MargieBot.Responders;
 
@@ -16,23 +17,24 @@ namespace FineBot.BotRunner
         {
             container = BotRunnerBootstrapper.Init();
 
-            Bot bot = new Bot();
-
-            foreach(IResponder responder in container.ResolveAll<IResponder>())
+            var fineBot = new Bot();
+            foreach (IFineBotResponder responder in container.ResolveAll<IFineBotResponder>())
             {
-                bot.Responders.Add(responder);    
+                fineBot.Responders.Add(responder);
             }
 
-            bot.RespondsTo("hi").IfBotIsMentioned().With("Stop resisting citizen!");
-            bot.CreateResponder(x => !x.BotHasResponded, rc => "My responses are limited, you must ask the right question...");
+            fineBot.RespondsTo("hi").IfBotIsMentioned().With("Stop resisting citizen!");
+            fineBot.CreateResponder(x => !x.BotHasResponded, rc => "My responses are limited, you must ask the right question...");
 
-            var task = bot.Connect(ConfigurationManager.AppSettings["BotKey"]);
-
+            var task = fineBot.Connect(ConfigurationManager.AppSettings["BotKey"]);
             Console.WriteLine(String.Format("{0}: Bot is runnning, type 'die' to make it die", DateTime.Now));
             
-            var seconderbot = new Bot();
-            var seconderTask = seconderbot.Connect(ConfigurationManager.AppSettings["SeconderBotKey"]);
-
+            var secondCousinBot = new Bot();
+            foreach (ISecondCousinResponder responder in container.ResolveAll<ISecondCousinResponder>())
+            {
+                secondCousinBot.Responders.Add(responder);
+            }
+            var seconderTask = secondCousinBot.Connect(ConfigurationManager.AppSettings["SeconderBotKey"]);
             Console.WriteLine(String.Format("{0}: Finebot's second cousin is also also running. Some say he can't die.", DateTime.Now));
 
             while(Console.ReadLine() != "die")

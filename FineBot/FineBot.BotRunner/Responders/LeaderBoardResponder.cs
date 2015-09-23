@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FineBot.API.UsersApi;
+using FineBot.BotRunner.Responders.Interfaces;
 using MargieBot.Models;
 using MargieBot.Responders;
 
 namespace FineBot.BotRunner.Responders
 {
-    public class LeaderBoardResponder : IResponder
+    public class LeaderBoardResponder : IFineBotResponder
     {
         private readonly IUserApi userApi;
 
