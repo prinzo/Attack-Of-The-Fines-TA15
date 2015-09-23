@@ -92,13 +92,39 @@ namespace FineBot.API.FinesApi
         }
 
         public List<FeedFineModel> GetLatestSetOfFines(int index, int pageSize) {
-            var fines = Enumerable.Skip((from user in this.userRepository.GetAll()//.OrderByDesc(x => x.AwardedDate)
-                            from fine in user.Fines
-                            select this.fineMapper.MapToFeedModel(fine, 
-                                this.userRepository.Find(new UserSpecification().WithId(fine.IssuerId)),
-                                user)), index).Take(pageSize);
+            var fines = (from user in this.userRepository.GetAll()//.OrderByDesc(x => x.AwardedDate)
+                from fine in user.Fines
+                select 
+                    this.fineMapper.MapToFeedModel(fine, 
+                    this.userRepository.Find(new UserSpecification().WithId(fine.IssuerId)),
+                    user) 
+                        
+                )
+                        .OrderByDescending(x => x.ModifiedDate)
+                        .Skip(index)
+                        .Take(pageSize);
 
-            return fines.ToList();
+            var paidFines = fines.Where(x => x.PayerId != null);
+            var unpaidFines = fines.Where(x => x.PayerId == null).ToList();
+
+            /*
+             * This is weird I know, but it's necessary as a paid fine and a new fine can be the same object.
+             * We need to both be displayed on the feed if the awarded fine is new enough to make it to the top of the feed.
+             * For example I award a fine to Amrit for walking too much now and he pays it in an hour. Both the paid and new
+             * fine should still display int the feed.
+             */
+            foreach(var paidFine in paidFines)
+            {
+                if(paidFine.AwardedDate > fines.Min(x => x.AwardedDate))
+                {
+                    FeedFineModel newFine = new FeedFineModel();
+                    newFine.BuildNewFineFeedModelFromExistingModel(paidFine);
+
+                    unpaidFines.Add(newFine);
+                }
+            }
+
+            return paidFines.Union(unpaidFines).OrderByDescending(x => x.ModifiedDate).Take(pageSize).ToList();
         }
 
         public ValidationResult PayFines(Guid userId, Guid payerId, int number, PaymentImageModel paymentImage)

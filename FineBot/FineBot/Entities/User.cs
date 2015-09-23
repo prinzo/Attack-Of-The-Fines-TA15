@@ -43,7 +43,8 @@ namespace FineBot.Entities
                            IssuerId = issuerId,
                            Reason = reason,
                            SeconderId = seconderId,
-                           AwardedDate = DateTime.UtcNow
+                           AwardedDate = DateTime.UtcNow,
+                           ModifiedDate = DateTime.UtcNow
                        };
 
             this.Fines.Add(fine);
@@ -65,6 +66,7 @@ namespace FineBot.Entities
             for(int i = 0; i < limit; i++)
             {
                 orderedFines[i].Pay(payerId, image, mimeType, fileName);
+                orderedFines[i].ModifiedDate = DateTime.UtcNow;
             }
 
             return new ValidationResult();

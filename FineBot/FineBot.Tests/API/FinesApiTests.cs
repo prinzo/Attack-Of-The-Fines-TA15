@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using FineBot.API.FinesApi;
+using FineBot.API.Mappers;
 using FineBot.API.Mappers.Interfaces;
 using FineBot.API.UsersApi;
+using FineBot.BotRunner.Responders;
 using FineBot.DataAccess.DataModels;
 using FineBot.Entities;
 using FineBot.Interfaces;
@@ -44,6 +47,169 @@ namespace FineBot.Tests.API
 
             userRepository.AssertWasCalled(x => x.Save(user));
             fineMapper.AssertWasCalled(x => x.MapToModelWithUser(fine, userModel));
+        }
+
+        [Test]
+        public void GivenAListOfNewFines_When_RetrievingLatestFinesForFeed_Then_TheFinesShouldBeRetrieved() {
+            IRepository<User, UserDataModel, Guid> userRepository = MockRepository.GenerateMock<IRepository<User, UserDataModel, Guid>>();
+
+            Guid guid1 = new Guid();
+            Guid guid2 = new Guid();
+
+            userRepository.Stub(x => x.Find(null)).IgnoreArguments().Return(new User() { Id = guid2 });
+
+            userRepository.Stub(x => x.GetAll()).Return(new List<User>
+                                                        {
+                                                            new User(){Id = guid2},
+                                                            new User()
+                                                            {
+                                                                Id = guid1,
+                                                                Fines = new List<Fine>
+                                                                        {
+                                                                            new Fine()
+                                                                            {
+                                                                                Id = new Guid(),
+                                                                                AwardedDate = DateTime.Now,
+                                                                                ModifiedDate = DateTime.Now,
+                                                                                IssuerId = guid2
+                                                                            },
+                                                                            new Fine()
+                                                                            {
+                                                                                Id = new Guid(),
+                                                                                AwardedDate = DateTime.Now,
+                                                                                ModifiedDate = DateTime.Now,
+                                                                                IssuerId = guid2
+                                                                            },
+                                                                            new Fine()
+                                                                            {
+                                                                                Id = new Guid(),
+                                                                                AwardedDate = DateTime.Now,
+                                                                                ModifiedDate = DateTime.Now,
+                                                                                IssuerId = guid2
+                                                                            }
+                                                                        }
+                                                            }
+                                                        });
+
+            FineApi fineApi = new FineApi(userRepository, new FineMapper(), new UserMapper(new FineMapper()));
+
+            List<FeedFineModel> finesList = fineApi.GetLatestSetOfFines(0, 10);
+
+            Assert.That(finesList.Count == 3);
+        }
+
+        [Test]
+        public void GivenAListOfRecentPaidAndNewFines_When_RetrievingLatestFinesForFeed_Then_AllShouldBeRetrieved() {
+            IRepository<User, UserDataModel, Guid> userRepository = MockRepository.GenerateMock<IRepository<User, UserDataModel, Guid>>();
+
+            Guid guid1 = new Guid();
+            Guid guid2 = new Guid();
+
+            userRepository.Stub(x => x.Find(null)).IgnoreArguments().Return(new User() { Id = guid2 });
+
+            userRepository.Stub(x => x.GetAll()).Return(new List<User>
+                                                        {
+                                                            new User(){Id = guid2},
+                                                            new User()
+                                                            {
+                                                                Id = guid1,
+                                                                Fines = new List<Fine>
+                                                                        {
+                                                                            new Fine()
+                                                                            {
+                                                                                Id = new Guid(),
+                                                                                AwardedDate = new DateTime(2015,09,20),
+                                                                                ModifiedDate = new DateTime(2015,09,21),
+                                                                                IssuerId = guid2,
+                                                                                PaidDate = new DateTime(2015,09,21),
+                                                                                PayerId = guid2
+                                                                            },
+                                                                            new Fine()
+                                                                            {
+                                                                                Id = new Guid(),
+                                                                                AwardedDate = new DateTime(2015,09,22),
+                                                                                ModifiedDate = new DateTime(2015,09,23),
+                                                                                IssuerId = guid2,
+                                                                                PaidDate = new DateTime(2015,09,23),
+                                                                                PayerId = guid2
+                                                                            },
+                                                                            new Fine()
+                                                                            {
+                                                                                Id = new Guid(),
+                                                                                AwardedDate = new DateTime(2015,09,10),
+                                                                                ModifiedDate = new DateTime(2015,09,10),
+                                                                                IssuerId = guid2
+                                                                            }
+                                                                        }
+                                                            }
+                                                        });
+
+            FineApi fineApi = new FineApi(userRepository, new FineMapper(), new UserMapper(new FineMapper()));
+
+            List<FeedFineModel> finesList = fineApi.GetLatestSetOfFines(0, 10);
+
+            Assert.That(finesList.Count == 5);
+        }
+
+        [Test]
+        public void GivenALimitedListOfRecentPaidAndNewFines_When_RetrievingLatestFinesForFeed_Then_TheLatestOfBothShouldBeRetrieved() {
+            IRepository<User, UserDataModel, Guid> userRepository = MockRepository.GenerateMock<IRepository<User, UserDataModel, Guid>>();
+
+            Guid userGuid1 = Guid.NewGuid();
+            Guid userGuid2 = Guid.NewGuid(); 
+
+            Guid fineId1 = Guid.NewGuid(); 
+            Guid fineId2 = Guid.NewGuid(); 
+            Guid fineId3 = Guid.NewGuid(); 
+
+            userRepository.Stub(x => x.Find(null)).IgnoreArguments().Return(new User() { Id = userGuid2 });
+
+            userRepository.Stub(x => x.GetAll()).Return(new List<User>
+                                                        {
+                                                            new User(){Id = userGuid2},
+                                                            new User()
+                                                            {
+                                                                Id = userGuid1,
+                                                                Fines = new List<Fine>
+                                                                        {
+                                                                            new Fine()
+                                                                            {
+                                                                                Id = fineId1,
+                                                                                AwardedDate = new DateTime(2015,09,20),
+                                                                                ModifiedDate = new DateTime(2015,09,21),
+                                                                                IssuerId = userGuid2,
+                                                                                PaidDate = new DateTime(2015,09,21),
+                                                                                PayerId = userGuid2
+                                                                            },
+                                                                            new Fine()
+                                                                            {
+                                                                                Id = fineId2,
+                                                                                AwardedDate = new DateTime(2015,09,22),
+                                                                                ModifiedDate = new DateTime(2015,09,23),
+                                                                                IssuerId = userGuid2
+                                                                            },
+                                                                            new Fine()
+                                                                            {
+                                                                                Id = fineId3,
+                                                                                AwardedDate = new DateTime(2015,09,10),
+                                                                                ModifiedDate = new DateTime(2015,09,24),
+                                                                                IssuerId = userGuid2,
+                                                                                PaidDate = new DateTime(2015,09,24),
+                                                                                PayerId = userGuid2
+                                                                            }
+                                                                        }
+                                                            }
+                                                        });
+
+            FineApi fineApi = new FineApi(userRepository, new FineMapper(), new UserMapper(new FineMapper()));
+
+            List<FeedFineModel> finesList = fineApi.GetLatestSetOfFines(0, 3);
+
+            Assert.That(finesList.Count == 3);
+            Assert.AreEqual(1, finesList.Count(x => x.Id == fineId1));
+            Assert.AreEqual(1, finesList.Count(x => x.Id == fineId2));
+            Assert.AreEqual(1, finesList.Count(x => x.Id == fineId3));
+            Assert.AreEqual(2, finesList.Count(x => x.IsPaid));
         }
     }
 }

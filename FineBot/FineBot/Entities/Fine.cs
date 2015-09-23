@@ -21,9 +21,13 @@ namespace FineBot.Entities
 
         public DateTime AwardedDate { get; set; }
 
+        public DateTime PaidDate { get; set; }
+
         public string Reason { get; set; }
 
         public PaymentImage PaymentImage { get; set; }
+
+        public DateTime ModifiedDate { get; set; }
 
         public bool Outstanding 
         {
@@ -42,6 +46,7 @@ namespace FineBot.Entities
         {
             this.PayerId = payerId;
             this.PaymentImage = new PaymentImage(image, mimeType, fileName);
+            this.PaidDate = new DateTime();
         }
     }
 }

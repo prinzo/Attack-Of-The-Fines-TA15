@@ -58,7 +58,11 @@ namespace FineBot.API.Mappers
                 Pending = fine.Pending,
                 AwardedDate = fine.AwardedDate,
                 IssuerDisplayName = issuer.DisplayName,
-                ReceiverDisplayName = receiver.DisplayName
+                ReceiverDisplayName = receiver.DisplayName,
+                PaidDate = fine.PaidDate,
+                PayerId = fine.PayerId,
+                PaymentImage = fine.PaymentImage,
+                ModifiedDate = fine.ModifiedDate
             };
         }
     }

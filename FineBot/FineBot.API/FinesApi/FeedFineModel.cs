@@ -1,4 +1,5 @@
 ﻿using System;
+using FineBot.Entities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -7,6 +8,8 @@ namespace FineBot.API.FinesApi {
         public Guid Id { get; set; }
 
         public Guid IssuerId { get; set; }
+
+        public Guid? PayerId { get; set; }
 
         public string IssuerDisplayName { get; set; }
 
@@ -24,7 +27,38 @@ namespace FineBot.API.FinesApi {
 
         public DateTime AwardedDate { get; set; }
 
+        public DateTime? PaidDate { get; set; }
+
         public byte[] ProfilePicture { get; set; }
+
+        public DateTime ModifiedDate { get; set; }
+
+        public PaymentImage PaymentImage { get; set; }
+
+        public bool IsPaid
+        {
+            get
+            {
+                return this.PayerId.HasValue;
+            }
+        }
+
+        public void BuildNewFineFeedModelFromExistingModel(FeedFineModel feedFineModel)
+        {
+            this.Id = feedFineModel.Id;
+            this.IssuerId = feedFineModel.IssuerId;
+            this.Reason = feedFineModel.Reason;
+            this.SeconderId = feedFineModel.SeconderId;
+            this.Pending = feedFineModel.Pending;
+            this.AwardedDate = feedFineModel.AwardedDate;
+            this.IssuerDisplayName = feedFineModel.IssuerDisplayName;
+            this.ReceiverDisplayName = feedFineModel.ReceiverDisplayName;
+            this.PaidDate = null;
+            this.PayerId = null;
+            this.PaymentImage = null;
+            this.ModifiedDate = feedFineModel.AwardedDate;
+        }
+
     }
 
 }
