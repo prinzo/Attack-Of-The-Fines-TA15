@@ -9,6 +9,6 @@ namespace FineBot.DataAccess.DataModels {
 
         public PaymentImageDataModel PaymentImage { get; set; }
 
-        public Guid? PayerId { get; set; }
+        public Guid PayerId { get; set; }
     }
 }

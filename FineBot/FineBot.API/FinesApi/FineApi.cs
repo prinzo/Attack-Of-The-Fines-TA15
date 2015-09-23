@@ -95,41 +95,38 @@ namespace FineBot.API.FinesApi
         }
 
         public List<FeedFineModel> GetLatestSetOfFines(int index, int pageSize) {
-            var fines = (from user in this.userRepository.GetAll()
+            var newFines = (from user in this.userRepository.GetAll()
                 from fine in user.Fines
+                where fine.Pending
                 select 
                     this.fineMapper.MapToFeedModel(fine, 
                     this.userRepository.Find(new UserSpecification().WithId(fine.IssuerId)),
-                    user,
-                    fine.PaymentId != null ? this.paymentRepository.Find(new PaymentSpecification().WithId(fine.PaymentId.Value)) : null
+                    user
                     ) 
                         
                 )
-                        .OrderByDescending(x => x.ModifiedDate)
-                        .Skip(index)
-                        .Take(pageSize);
+                .OrderByDescending(x => x.ModifiedDate)
+                .Skip(index)
+                .Take(pageSize);
 
-            var paidFines = fines.Where(x => x.PayerId != null);
-            var unpaidFines = fines.Where(x => x.PayerId == null).ToList();
+            var paidFines = (from user in this.userRepository.GetAll()
+                from fine in user.Fines
+                where fine.PaymentId.HasValue
+                select
+                    this.fineMapper.MapPaymentToFeedModel(
+                        this.paymentRepository.Find(new PaymentSpecification().WithId(fine.PaymentId.Value)),
+                        this.userRepository.Find(new UserSpecification().WithId(fine.IssuerId)),
+                        user
+                        )
 
-            /*
-             * This is weird I know, but it's necessary as a paid fine and a new fine can be the same object.
-             * We need to both be displayed on the feed if the awarded fine is new enough to make it to the top of the feed.
-             * For example I award a fine to Amrit for walking too much now and he pays it in an hour. Both the paid and new
-             * fine should still display int the feed.
-             */
-            foreach(var paidFine in paidFines)
-            {
-                if(paidFine.AwardedDate > fines.Min(x => x.AwardedDate))
-                {
-                    FeedFineModel newFine = new FeedFineModel();
-                    newFine.BuildNewFineFeedModelFromExistingModel(paidFine);
+                )
+                .GroupBy(x => x.Id)
+                .Select(x => x.First())
+                .OrderByDescending(x => x.ModifiedDate)
+                .Skip(index)
+                .Take(pageSize);
 
-                    unpaidFines.Add(newFine);
-                }
-            }
-
-            return paidFines.Union(unpaidFines).OrderByDescending(x => x.ModifiedDate).Take(pageSize).ToList();
+            return paidFines.Union(newFines).OrderByDescending(x => x.ModifiedDate).Take(pageSize).ToList();
         }
 
         public ValidationResult PayFines(Guid userId, Guid payerId, int number, PaymentImageModel paymentImage)

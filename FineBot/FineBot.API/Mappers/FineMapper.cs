@@ -86,5 +86,18 @@ namespace FineBot.API.Mappers
 
             return fineModel;
         }
+
+        public FeedFineModel MapPaymentToFeedModel(Payment payment, User issuer, User receiver) {
+            return new FeedFineModel {
+                Id = payment.Id,
+                IssuerDisplayName = issuer.DisplayName,
+                ReceiverDisplayName = receiver.DisplayName,
+                PaidDate = payment.PaidDate,
+                ModifiedDate = payment.PaidDate,
+                PayerId = payment.PayerId,
+                PaymentImage = payment.PaymentImage
+            };
+        }
+
     }
 }

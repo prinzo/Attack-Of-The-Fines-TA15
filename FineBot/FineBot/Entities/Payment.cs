@@ -13,7 +13,7 @@ namespace FineBot.Entities
 
         public PaymentImage PaymentImage { get; set; }
 
-        public Guid? PayerId { get; set; }
+        public Guid PayerId { get; set; }
 
         public Payment(Guid payerId, byte[] image, string mimeType, string fileName)
         {

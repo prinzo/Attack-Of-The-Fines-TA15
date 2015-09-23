@@ -168,7 +168,7 @@ namespace FineBot.Tests.API
         public void GivenALimitedListOfRecentPaidAndNewFines_When_RetrievingLatestFinesForFeed_Then_TheLatestOfBothShouldBeRetrieved() {
             IRepository<User, UserDataModel, Guid> userRepository = MockRepository.GenerateMock<IRepository<User, UserDataModel, Guid>>();
             IRepository<Payment, PaymentDataModel, Guid> paymentRepository = MockRepository.GenerateMock<IRepository<Payment, PaymentDataModel, Guid>>();
-
+            
             Guid userGuid1 = Guid.NewGuid();
             Guid userGuid2 = Guid.NewGuid(); 
 
@@ -176,10 +176,10 @@ namespace FineBot.Tests.API
             Guid fineId2 = Guid.NewGuid(); 
             Guid fineId3 = Guid.NewGuid();
 
-            Guid paymentId1 = Guid.NewGuid();
-            Guid paymentId2 = Guid.NewGuid(); 
+            Guid paymentId2 = Guid.NewGuid();
 
-            userRepository.Stub(x => x.Find(null)).IgnoreArguments().Return(new User() { Id = userGuid2 });
+            User user = new User() { Id = userGuid2 }; 
+            userRepository.Stub(x => x.Find(null)).IgnoreArguments().Return(user);
 
             paymentRepository.Stub(x => x.Find(null)).IgnoreArguments().Return(new Payment() {
                 Id = paymentId2,
@@ -190,7 +190,7 @@ namespace FineBot.Tests.API
             
             userRepository.Stub(x => x.GetAll()).Return(new List<User>
                                                         {
-                                                            new User(){Id = userGuid2},
+                                                            user,
                                                             new User()
                                                             {
                                                                 Id = userGuid1,
@@ -201,8 +201,7 @@ namespace FineBot.Tests.API
                                                                                 Id = fineId1,
                                                                                 AwardedDate = new DateTime(2015,09,20),
                                                                                 ModifiedDate = new DateTime(2015,09,21),
-                                                                                IssuerId = userGuid2,
-                                                                                PaymentId = paymentId1
+                                                                                IssuerId = userGuid2
                                                                             },
                                                                             new Fine()
                                                                             {
@@ -228,10 +227,11 @@ namespace FineBot.Tests.API
             List<FeedFineModel> finesList = fineApi.GetLatestSetOfFines(0, 3);
 
             Assert.That(finesList.Count == 3);
-            Assert.AreEqual(1, finesList.Count(x => x.Id == fineId1));
+            Assert.AreEqual(0, finesList.Count(x => x.Id == fineId1));
             Assert.AreEqual(1, finesList.Count(x => x.Id == fineId2));
             Assert.AreEqual(1, finesList.Count(x => x.Id == fineId3));
-            Assert.AreEqual(2, finesList.Count(x => x.IsPaid));
+            Assert.AreEqual(1, finesList.Count(x => x.Id == paymentId2));
+            Assert.AreEqual(1, finesList.Count(x => x.IsPaid));
         }
     }
 }
