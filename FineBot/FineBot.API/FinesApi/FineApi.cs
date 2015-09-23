@@ -15,16 +15,19 @@ namespace FineBot.API.FinesApi
     public class FineApi : IFineApi
     {
         private readonly IRepository<User, UserDataModel, Guid> userRepository;
+        private readonly IRepository<Payment, PaymentDataModel, Guid> paymentRepository;
         private readonly IFineMapper fineMapper;
         private readonly IUserMapper userMapper;
 
         public FineApi(
             IRepository<User, UserDataModel, Guid> userRepository,
+            IRepository<Payment, PaymentDataModel, Guid> paymentRepository,
             IFineMapper fineMapper,
             IUserMapper userMapper
             )
         {
             this.userRepository = userRepository;
+            this.paymentRepository = paymentRepository;
             this.fineMapper = fineMapper;
             this.userMapper = userMapper;
 
@@ -92,12 +95,14 @@ namespace FineBot.API.FinesApi
         }
 
         public List<FeedFineModel> GetLatestSetOfFines(int index, int pageSize) {
-            var fines = (from user in this.userRepository.GetAll()//.OrderByDesc(x => x.AwardedDate)
+            var fines = (from user in this.userRepository.GetAll()
                 from fine in user.Fines
                 select 
                     this.fineMapper.MapToFeedModel(fine, 
                     this.userRepository.Find(new UserSpecification().WithId(fine.IssuerId)),
-                    user) 
+                    user,
+                    fine.PaymentId != null ? this.paymentRepository.Find(new PaymentSpecification().WithId(fine.PaymentId.Value)) : null
+                    ) 
                         
                 )
                         .OrderByDescending(x => x.ModifiedDate)
@@ -136,7 +141,18 @@ namespace FineBot.API.FinesApi
         {
             var user = this.userRepository.Get(userId);
 
-            ValidationResult result = user.PayFines(payerId, number, image, mimeType, fileName);
+            Payment payment = new Payment(payerId, image, mimeType, fileName);
+
+            ValidationResult result = payment.ValidatePaymentForUser(user);
+
+            if(result != null)
+            {
+                return result;
+            }
+
+            payment = this.paymentRepository.Save(payment);
+
+            result = user.PayFines(payment, number);
 
             this.userRepository.Save(user);
 

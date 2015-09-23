@@ -2,6 +2,7 @@
 using FineBot.DataAccess.DataModels;
 using FineBot.DataAccess.Mappers.Interfaces;
 using FineBot.Entities;
+using MongoDB.Driver;
 
 namespace FineBot.DataAccess.Mappers
 {
@@ -13,7 +14,7 @@ namespace FineBot.DataAccess.Mappers
                    {
                        IssuerId = fine.IssuerId,
                        Reason = fine.Reason,
-                       PaymentImageDataModel = this.MapPaymentImageToModel(fine.PaymentImage),
+                       PaymentId = fine.PaymentId,
                        SeconderId = fine.SeconderId,
                        AwardedDate = fine.AwardedDate
                    };
@@ -26,12 +27,13 @@ namespace FineBot.DataAccess.Mappers
                        Id = model.Id,
                        AwardedDate = model.AwardedDate,
                        Reason = model.Reason,
-                       PaymentImage = this.MapPaymentImageToDomain(model.PaymentImageDataModel),
+                       PaymentId = model.PaymentId,
                        IssuerId = model.IssuerId,
                        SeconderId = model.SeconderId
                    };
         }
 
+       
         private PaymentImageDataModel MapPaymentImageToModel(PaymentImage paymentImage)
         {
             if(paymentImage == null)
@@ -59,6 +61,30 @@ namespace FineBot.DataAccess.Mappers
                 FileName = model.FileName,
                 ImageBytes = model.ImageBytes,
                 MimeType = model.MimeType
+            };
+        }
+
+        private PaymentDataModel MapPaymentToModel(Payment payment) {
+            if (payment == null) {
+                return null;
+            }
+
+            return new PaymentDataModel() {
+                PayerId = payment.PayerId,
+                PaymentImage = this.MapPaymentImageToModel(payment.PaymentImage),
+                PaidDate = payment.PaidDate
+            };
+        }
+
+        private Payment MapPaymentToDomain(PaymentDataModel payment) {
+            if (payment == null) {
+                return null;
+            }
+
+            return new Payment() {
+                PayerId = payment.PayerId,
+                PaymentImage = this.MapPaymentImageToDomain(payment.PaymentImage),
+                PaidDate = payment.PaidDate
             };
         }
     }

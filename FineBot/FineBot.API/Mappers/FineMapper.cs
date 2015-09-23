@@ -9,11 +9,16 @@ namespace FineBot.API.Mappers
     {
         public FineModel MapToModel(Fine fine)
         {
+            return this.MapToModel(fine, null);
+        }
+
+        public FineModel MapToModel(Fine fine, Payment payment)
+        {
             return new FineModel
                    {
                        IssuerId = fine.IssuerId,
                        Reason = fine.Reason,
-                       PaymentImageBytes = this.MapPaymentImage(fine.PaymentImage),
+                       PaymentImageBytes = payment != null ? this.MapPaymentImage(payment.PaymentImage) : null,
                        SeconderId = fine.SeconderId,
                        Pending = fine.Pending,
                        AwardedDate = fine.AwardedDate
@@ -37,11 +42,16 @@ namespace FineBot.API.Mappers
 
         public FineWithUserModel MapToModelWithUser(Fine fine, UserModel shallowUserModel)
         {
+            return this.MapToModelWithUser(fine, shallowUserModel, null);
+        }
+
+        public FineWithUserModel MapToModelWithUser(Fine fine, UserModel shallowUserModel, Payment payment)
+        {
             return new FineWithUserModel
             {
                 IssuerId = fine.IssuerId,
                 Reason = fine.Reason,
-                PaymentImageBytes = this.MapPaymentImage(fine.PaymentImage),
+                PaymentImageBytes = payment != null ? this.MapPaymentImage(payment.PaymentImage) : null,
                 SeconderId = fine.SeconderId,
                 Pending = fine.Pending,
                 AwardedDate = fine.AwardedDate,
@@ -49,8 +59,13 @@ namespace FineBot.API.Mappers
             };
         }
 
-        public FeedFineModel MapToFeedModel(Fine fine, User issuer, User receiver) {
-            return new FeedFineModel {
+        public FeedFineModel MapToFeedModel(Fine fine, User issuer, User receiver)
+        {
+            return this.MapToFeedModel(fine, issuer, receiver, null);
+        }
+
+        public FeedFineModel MapToFeedModel(Fine fine, User issuer, User receiver, Payment payment) {
+            FeedFineModel fineModel = new FeedFineModel {
                 Id = fine.Id,
                 IssuerId = fine.IssuerId,
                 Reason = fine.Reason,
@@ -59,11 +74,17 @@ namespace FineBot.API.Mappers
                 AwardedDate = fine.AwardedDate,
                 IssuerDisplayName = issuer.DisplayName,
                 ReceiverDisplayName = receiver.DisplayName,
-                PaidDate = fine.PaidDate,
-                PayerId = fine.PayerId,
-                PaymentImage = fine.PaymentImage,
                 ModifiedDate = fine.ModifiedDate
             };
+            
+            if(payment != null)
+            {
+                fineModel.PaidDate = payment.PaidDate;
+                fineModel.PayerId = payment.PayerId;
+                fineModel.PaymentImage = payment.PaymentImage;
+            }
+
+            return fineModel;
         }
     }
 }

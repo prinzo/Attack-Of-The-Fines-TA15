@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FineBot.Abstracts;
 using FineBot.API.FinesApi;
 using FineBot.API.Mappers;
 using FineBot.API.Mappers.Interfaces;
@@ -9,6 +10,8 @@ using FineBot.BotRunner.Responders;
 using FineBot.DataAccess.DataModels;
 using FineBot.Entities;
 using FineBot.Interfaces;
+using FineBot.Specifications;
+using MongoDB.Driver;
 using NUnit.Framework;
 using Rhino.Mocks;
 using SharpTestsEx;
@@ -23,6 +26,7 @@ namespace FineBot.Tests.API
         {
             // Arrange:
             IRepository<User, UserDataModel, Guid> userRepository = MockRepository.GenerateMock<IRepository<User, UserDataModel, Guid>>();
+            IRepository<Payment, PaymentDataModel, Guid> paymentRepository = MockRepository.GenerateMock<IRepository<Payment, PaymentDataModel, Guid>>();
             IFineMapper fineMapper = MockRepository.GenerateMock<IFineMapper>();
             IUserMapper userMapper = MockRepository.GenerateMock<IUserMapper>();
 
@@ -34,7 +38,7 @@ namespace FineBot.Tests.API
             var userModel = new UserModel();
             userMapper.Stub(x => x.MapToModelShallow(user)).Return(userModel);
 
-            FineApi fineApi = new FineApi(userRepository, fineMapper, userMapper);
+            FineApi fineApi = new FineApi(userRepository, paymentRepository, fineMapper, userMapper);
 
             // Pre-Assert:
             fine.Pending.Should().Be.True();
@@ -52,6 +56,7 @@ namespace FineBot.Tests.API
         [Test]
         public void GivenAListOfNewFines_When_RetrievingLatestFinesForFeed_Then_TheFinesShouldBeRetrieved() {
             IRepository<User, UserDataModel, Guid> userRepository = MockRepository.GenerateMock<IRepository<User, UserDataModel, Guid>>();
+            IRepository<Payment, PaymentDataModel, Guid> paymentRepository = MockRepository.GenerateMock<IRepository<Payment, PaymentDataModel, Guid>>();
 
             Guid guid1 = new Guid();
             Guid guid2 = new Guid();
@@ -91,7 +96,7 @@ namespace FineBot.Tests.API
                                                             }
                                                         });
 
-            FineApi fineApi = new FineApi(userRepository, new FineMapper(), new UserMapper(new FineMapper()));
+            FineApi fineApi = new FineApi(userRepository, paymentRepository, new FineMapper(), new UserMapper(new FineMapper()));
 
             List<FeedFineModel> finesList = fineApi.GetLatestSetOfFines(0, 10);
 
@@ -101,18 +106,28 @@ namespace FineBot.Tests.API
         [Test]
         public void GivenAListOfRecentPaidAndNewFines_When_RetrievingLatestFinesForFeed_Then_AllShouldBeRetrieved() {
             IRepository<User, UserDataModel, Guid> userRepository = MockRepository.GenerateMock<IRepository<User, UserDataModel, Guid>>();
+            IRepository<Payment, PaymentDataModel, Guid> paymentRepository = MockRepository.GenerateMock<IRepository<Payment, PaymentDataModel, Guid>>();
 
-            Guid guid1 = new Guid();
-            Guid guid2 = new Guid();
+            Guid paymentId1 = Guid.NewGuid();
+            Guid paymentId2 = Guid.NewGuid();
 
-            userRepository.Stub(x => x.Find(null)).IgnoreArguments().Return(new User() { Id = guid2 });
+            Guid userGuid1 = Guid.NewGuid();
+            Guid userGuid2 = Guid.NewGuid();
+
+            userRepository.Stub(x => x.Find(null)).IgnoreArguments().Return(new User() { Id = userGuid2 });
+            
+            paymentRepository.Stub(x => x.Find(null)).IgnoreArguments().Return(new Payment() {
+                Id = paymentId2,
+                PaidDate = new DateTime(2015, 09, 24),
+                PayerId = userGuid2
+            });
 
             userRepository.Stub(x => x.GetAll()).Return(new List<User>
                                                         {
-                                                            new User(){Id = guid2},
+                                                            new User(){Id = userGuid2},
                                                             new User()
                                                             {
-                                                                Id = guid1,
+                                                                Id = userGuid1,
                                                                 Fines = new List<Fine>
                                                                         {
                                                                             new Fine()
@@ -120,31 +135,29 @@ namespace FineBot.Tests.API
                                                                                 Id = new Guid(),
                                                                                 AwardedDate = new DateTime(2015,09,20),
                                                                                 ModifiedDate = new DateTime(2015,09,21),
-                                                                                IssuerId = guid2,
-                                                                                PaidDate = new DateTime(2015,09,21),
-                                                                                PayerId = guid2
+                                                                                IssuerId = userGuid2,
+                                                                                PaymentId =  paymentId1
                                                                             },
                                                                             new Fine()
                                                                             {
                                                                                 Id = new Guid(),
                                                                                 AwardedDate = new DateTime(2015,09,22),
                                                                                 ModifiedDate = new DateTime(2015,09,23),
-                                                                                IssuerId = guid2,
-                                                                                PaidDate = new DateTime(2015,09,23),
-                                                                                PayerId = guid2
+                                                                                IssuerId = userGuid2,
+                                                                                PaymentId = paymentId2
                                                                             },
                                                                             new Fine()
                                                                             {
                                                                                 Id = new Guid(),
                                                                                 AwardedDate = new DateTime(2015,09,10),
                                                                                 ModifiedDate = new DateTime(2015,09,10),
-                                                                                IssuerId = guid2
+                                                                                IssuerId = userGuid2
                                                                             }
                                                                         }
                                                             }
                                                         });
 
-            FineApi fineApi = new FineApi(userRepository, new FineMapper(), new UserMapper(new FineMapper()));
+            FineApi fineApi = new FineApi(userRepository, paymentRepository, new FineMapper(), new UserMapper(new FineMapper()));
 
             List<FeedFineModel> finesList = fineApi.GetLatestSetOfFines(0, 10);
 
@@ -154,16 +167,27 @@ namespace FineBot.Tests.API
         [Test]
         public void GivenALimitedListOfRecentPaidAndNewFines_When_RetrievingLatestFinesForFeed_Then_TheLatestOfBothShouldBeRetrieved() {
             IRepository<User, UserDataModel, Guid> userRepository = MockRepository.GenerateMock<IRepository<User, UserDataModel, Guid>>();
+            IRepository<Payment, PaymentDataModel, Guid> paymentRepository = MockRepository.GenerateMock<IRepository<Payment, PaymentDataModel, Guid>>();
 
             Guid userGuid1 = Guid.NewGuid();
             Guid userGuid2 = Guid.NewGuid(); 
 
             Guid fineId1 = Guid.NewGuid(); 
             Guid fineId2 = Guid.NewGuid(); 
-            Guid fineId3 = Guid.NewGuid(); 
+            Guid fineId3 = Guid.NewGuid();
+
+            Guid paymentId1 = Guid.NewGuid();
+            Guid paymentId2 = Guid.NewGuid(); 
 
             userRepository.Stub(x => x.Find(null)).IgnoreArguments().Return(new User() { Id = userGuid2 });
 
+            paymentRepository.Stub(x => x.Find(null)).IgnoreArguments().Return(new Payment() {
+                Id = paymentId2,
+                PaidDate = new DateTime(2015, 09, 24),
+                PayerId = userGuid2
+            });
+
+            
             userRepository.Stub(x => x.GetAll()).Return(new List<User>
                                                         {
                                                             new User(){Id = userGuid2},
@@ -178,8 +202,7 @@ namespace FineBot.Tests.API
                                                                                 AwardedDate = new DateTime(2015,09,20),
                                                                                 ModifiedDate = new DateTime(2015,09,21),
                                                                                 IssuerId = userGuid2,
-                                                                                PaidDate = new DateTime(2015,09,21),
-                                                                                PayerId = userGuid2
+                                                                                PaymentId = paymentId1
                                                                             },
                                                                             new Fine()
                                                                             {
@@ -194,14 +217,13 @@ namespace FineBot.Tests.API
                                                                                 AwardedDate = new DateTime(2015,09,10),
                                                                                 ModifiedDate = new DateTime(2015,09,24),
                                                                                 IssuerId = userGuid2,
-                                                                                PaidDate = new DateTime(2015,09,24),
-                                                                                PayerId = userGuid2
+                                                                                PaymentId = paymentId2
                                                                             }
                                                                         }
                                                             }
                                                         });
 
-            FineApi fineApi = new FineApi(userRepository, new FineMapper(), new UserMapper(new FineMapper()));
+            FineApi fineApi = new FineApi(userRepository, paymentRepository, new FineMapper(), new UserMapper(new FineMapper()));
 
             List<FeedFineModel> finesList = fineApi.GetLatestSetOfFines(0, 3);
 

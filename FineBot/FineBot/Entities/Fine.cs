@@ -1,5 +1,6 @@
 ﻿using System;
 using FineBot.Abstracts;
+using MongoDB.Driver;
 
 namespace FineBot.Entities
 {
@@ -8,9 +9,7 @@ namespace FineBot.Entities
         public Guid IssuerId { get; set; }
 
         public Guid? SeconderId { get; set; }
-
-        public Guid? PayerId { get; set; }
-
+        
         public bool Pending 
         {
             get
@@ -18,22 +17,18 @@ namespace FineBot.Entities
                 return this.SeconderId == null;
             }
         }
-
+        
         public DateTime AwardedDate { get; set; }
 
-        public DateTime PaidDate { get; set; }
+        public Guid? PaymentId { get; set; }
 
         public string Reason { get; set; }
-
-        public PaymentImage PaymentImage { get; set; }
-
+        
         public DateTime ModifiedDate { get; set; }
 
-        public bool Outstanding 
-        {
-            get
-            {
-                return this.PaymentImage == null;
+        public bool Outstanding {
+            get {
+                return this.PaymentId == null;
             }
         }
 
@@ -42,11 +37,10 @@ namespace FineBot.Entities
             this.SeconderId = userId;
         }
 
-        public void Pay(Guid payerId, byte[] image, string mimeType, string fileName)
+        public void Pay(Guid id)
         {
-            this.PayerId = payerId;
-            this.PaymentImage = new PaymentImage(image, mimeType, fileName);
-            this.PaidDate = new DateTime();
+            this.PaymentId = id;
+            this.ModifiedDate = DateTime.UtcNow;
         }
     }
 }

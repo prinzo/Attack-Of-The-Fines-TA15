@@ -64,6 +64,7 @@
     <Compile Include="BaseClasses\MemoryRepository.cs" />
     <Compile Include="BaseClasses\MongoRepository.cs" />
     <Compile Include="DataModels\FineDataModel.cs" />
+    <Compile Include="DataModels\PaymentDataModel.cs" />
     <Compile Include="DataModels\PaymentImageDataModel.cs" />
     <Compile Include="DataModels\SupportTicketDataModel.cs" />
     <Compile Include="DataModels\UserDataModel.cs" />
