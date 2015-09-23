@@ -29,7 +29,7 @@
         promise.$promise.then(function (data) {
                         
             for(var d = 0; d < data.length; d++) {
-                toaster.pop('success', "got fine", "fine is: " + data[d].ReceiverDisplayName);
+                toaster.pop('success', "got fine", "fine is: " + data[d].ReceiverDisplayName + " awarderd on the: " + data[d].AwardedDate);
             }
             
             $rootScope.fines = data;

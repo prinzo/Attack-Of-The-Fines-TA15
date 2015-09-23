@@ -25,7 +25,7 @@
         <div class="panel panel-primary">
             <!-- Test data -->
 
-            <div ng-repeat="fine in fines track by fine.Id | orderBy:'-fine.AwardedDate'">
+            <div ng-repeat="fine in fines | orderBy:'AwardedDate':true | limitTo: 10 track by fine.Id ">
                 <div class="row">
                     <div class="col-md-5 profile">
                         <div class="profile-details">

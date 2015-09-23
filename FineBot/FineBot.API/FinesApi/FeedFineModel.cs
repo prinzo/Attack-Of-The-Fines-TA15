@@ -1,4 +1,6 @@
 ﻿using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace FineBot.API.FinesApi {
     public class FeedFineModel {
@@ -24,4 +26,5 @@ namespace FineBot.API.FinesApi {
 
         public byte[] ProfilePicture { get; set; }
     }
+
 }
