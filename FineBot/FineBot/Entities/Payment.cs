@@ -2,13 +2,12 @@
 using FineBot.Common.Enums;
 using FineBot.Common.Infrastructure;
 using Newtonsoft.Json.Bson;
+using FineBot.Abstracts;
 
 namespace FineBot.Entities
 {
-    public class Payment
+    public class Payment : GuidIdentifiedEntity
     {
-        public Guid Id { get; set; }
-
         public DateTime PaidDate { get; set; }
 
         public PaymentImage PaymentImage { get; set; }

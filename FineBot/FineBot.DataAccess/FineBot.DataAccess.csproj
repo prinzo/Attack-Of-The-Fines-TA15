@@ -69,6 +69,7 @@
     <Compile Include="DataModels\SupportTicketDataModel.cs" />
     <Compile Include="DataModels\UserDataModel.cs" />
     <Compile Include="DI\DataAccessContainerInstaller.cs" />
+    <Compile Include="Mappers\PaymentDataModelMapper.cs" />
     <Compile Include="Mappers\FineDataModelMapper.cs" />
     <Compile Include="Mappers\Interfaces\IDataModelMapper.cs" />
     <Compile Include="Mappers\SupportTicketDataModelMapper.cs" />

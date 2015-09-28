@@ -23,10 +23,11 @@
         </center>
 
         <div class="panel panel-primary">
-            <!-- Test data -->
+            <!-- New Fines -->
 
-            <div ng-repeat="fine in fines | orderBy:'AwardedDate':true | limitTo: 10 track by fine.Id ">
-                <div class="row">
+            <div ng-repeat="fine in fines | orderBy:'AwardedDate':true | limitTo: 10">
+                
+                <div ng-if="fine.IsPaid == false" class="row">
                     <div class="col-md-5 profile">
                         <div class="profile-details">
                             <span id="profile-picture">
@@ -54,6 +55,37 @@
                         </div>
                     </div>
                 </div> 
+                
+               <!-- Payments --> 
+                
+                
+                <div ng-if="fine.IsPaid == true" class="row">
+                    <div class="col-md-5 profile">
+                        <div class="profile-details">
+                            <span id="profile-picture">
+                                <img class="profile-picture" src="http://www.free-avatars.com/data/media/37/cat_avatar_0597.jpg"/>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-7 fine">
+                        <div class ="fine-details">
+                            <div class="feed-title">
+                                <a id="user-name">
+                                    {{fine.ReceiverDisplayName}}
+                                </a> 
+                                has paid <span id="total-fines">1</span> fine
+                            </div>
+                            <!--<div><img id="photo" src="data:{{fine.PaymentImage.MimeType}};base64,{{fine.PaymentImage.ImageBytes}}"/></div>-->
+                            <hr/>
+
+                            <div class="payment-action"><div id="like" class="glyphicon glyphicon-thumbs-up"/></div>
+                            <div class="payment-action"><div id="dislike" class="glyphicon glyphicon-thumbs-down"/></div>
+                        </div>
+
+                    </div>
+                </div> 
+
+                
             </div>
             
             <!--<div class="fine-feed" ng-include="'app/fines/views/newFineFeed.html'"></div>

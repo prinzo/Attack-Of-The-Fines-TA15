@@ -27,7 +27,7 @@
 
             <div ng-repeat="fine in fines | orderBy:'AwardedDate':true | limitTo: 10">
                 
-                <div ng-if="fine.isPaid == false" class="row">
+                <div ng-if="fine.IsPaid == false" class="row">
                     <div class="col-md-5 profile">
                         <div class="profile-details">
                             <span id="profile-picture">
@@ -58,7 +58,8 @@
                 
                <!-- Payments --> 
                 
-                <div class="row">
+                
+                <div ng-if="fine.IsPaid == true" class="row">
                     <div class="col-md-5 profile">
                         <div class="profile-details">
                             <span id="profile-picture">
@@ -74,7 +75,7 @@
                                 </a> 
                                 has paid <span id="total-fines">1</span> fine
                             </div>
-                            <div><img id="photo" src="data:{{fine.PaymentImage.MimeType}};base64,{{fine.PaymentImage.ImageBytes}}"/></div>
+                            <!--<div><img id="photo" src="data:{{fine.PaymentImage.MimeType}};base64,{{fine.PaymentImage.ImageBytes}}"/></div>-->
                             <hr/>
 
                             <div class="payment-action"><div id="like" class="glyphicon glyphicon-thumbs-up"/></div>
@@ -82,7 +83,7 @@
                         </div>
 
                     </div>
-                </div>
+                </div> 
 
                 
             </div>

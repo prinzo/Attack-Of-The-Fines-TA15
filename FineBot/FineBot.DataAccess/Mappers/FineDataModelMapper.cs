@@ -33,59 +33,5 @@ namespace FineBot.DataAccess.Mappers
                    };
         }
 
-       
-        private PaymentImageDataModel MapPaymentImageToModel(PaymentImage paymentImage)
-        {
-            if(paymentImage == null)
-            {
-                return null;
-            }
-
-            return new PaymentImageDataModel
-                   {
-                       FileName = paymentImage.FileName,
-                       ImageBytes = paymentImage.ImageBytes,
-                       MimeType = paymentImage.MimeType
-                   };
-        }
-
-        private PaymentImage MapPaymentImageToDomain(PaymentImageDataModel model)
-        {
-            if (model == null)
-            {
-                return null;
-            }
-
-            return new PaymentImage
-            {
-                FileName = model.FileName,
-                ImageBytes = model.ImageBytes,
-                MimeType = model.MimeType
-            };
-        }
-
-        private PaymentDataModel MapPaymentToModel(Payment payment) {
-            if (payment == null) {
-                return null;
-            }
-
-            return new PaymentDataModel() {
-                PayerId = payment.PayerId,
-                PaymentImage = this.MapPaymentImageToModel(payment.PaymentImage),
-                PaidDate = payment.PaidDate
-            };
-        }
-
-        private Payment MapPaymentToDomain(PaymentDataModel payment) {
-            if (payment == null) {
-                return null;
-            }
-
-            return new Payment() {
-                PayerId = payment.PayerId,
-                PaymentImage = this.MapPaymentImageToDomain(payment.PaymentImage),
-                PaidDate = payment.PaidDate
-            };
-        }
     }
 }

@@ -117,7 +117,7 @@ namespace FineBot.Tests.API
             userRepository.Stub(x => x.Find(null)).IgnoreArguments().Return(new User() { Id = userGuid2 });
             
             paymentRepository.Stub(x => x.Find(null)).IgnoreArguments().Return(new Payment() {
-                Id = paymentId2,
+                Identifier = paymentId2,
                 PaidDate = new DateTime(2015, 09, 24),
                 PayerId = userGuid2
             });
