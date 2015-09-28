@@ -95,7 +95,8 @@ namespace FineBot.API.Mappers
                 PaidDate = payment.PaidDate,
                 ModifiedDate = payment.PaidDate,
                 PayerId = payment.PayerId,
-                PaymentImage = payment.PaymentImage
+                PaymentImage = payment.PaymentImage,
+                AwardedDate = payment.PaidDate
             };
         }
 

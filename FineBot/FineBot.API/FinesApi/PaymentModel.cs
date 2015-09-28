@@ -14,6 +14,5 @@ namespace FineBot.API.FinesApi {
 
         public int TotalFinesPaid { get; set; }
 
-        public DateTime DatePaid { get; set; }
     }
 }

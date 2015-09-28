@@ -18,7 +18,7 @@ namespace FineBot.Entities
         {
             this.PayerId = payerId;
             this.PaymentImage = new PaymentImage(image, mimeType, fileName);
-            this.PaidDate = new DateTime();
+            this.PaidDate = DateTime.Now;
         } 
 
         public Payment() {}

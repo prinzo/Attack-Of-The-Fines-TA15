@@ -40,7 +40,7 @@
             );
 
             promise.$promise.then(function (data) {
-                    toaster.pop('success', "Fine Awarded", "Fine awarded successfully");
+                    toaster.pop('success', "Payment Awarded", "Payment awarded successfully");
                     
                 
                     $timeout(function(){
@@ -56,7 +56,6 @@
                 });
             
         }
-
         
     }
 }());
