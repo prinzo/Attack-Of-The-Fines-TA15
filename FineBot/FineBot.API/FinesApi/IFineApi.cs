@@ -21,5 +21,7 @@ namespace FineBot.API.FinesApi
         List<FeedFineModel> GetLatestSetOfFines(int index, int pageSize);
 
         ValidationResult PayFines(Guid userId, Guid payerId, int number, byte[] image, string mimeType, string fileName);
+
+        FeedFineModel PayFines(PaymentModel paymentModel, out ValidationResult validation);
     }
 }

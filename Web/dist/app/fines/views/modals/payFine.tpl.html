@@ -1,12 +1,12 @@
 <div ng-controller="FinePayments as vm">
-    <form role="form">
+    <form role="form" ng-submit="vm.PayFine()">
       <div class="form-group">
         <label for="personPaying">Person whose fine is being paid:</label>
           
         <angucomplete-alt id="ex1"
               placeholder="Search for user"
               pause="100"
-              selected-object="selectedUser"
+              selected-object="vm.selectedUser"
               local-data="vm.users"
               search-fields="DisplayName"
               title-field="DisplayName"
@@ -16,7 +16,7 @@
       </div>
       <div class="form-group">
         <label for="totalFines">Total fines being paid:</label>
-        <input type="number" class="form-control" min="1" max="5">
+        <input type="number" class="form-control" min="1" max="5" ng-model="vm.TotalFinesPaid">
       </div>
       <div class="form-group">
         <label for="proof">Proof:</label>

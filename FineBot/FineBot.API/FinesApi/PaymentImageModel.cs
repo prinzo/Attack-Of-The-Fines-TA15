@@ -9,7 +9,5 @@ namespace FineBot.API.FinesApi
         public string MimeType { get; set; }
 
         public string FileName { get; set; }
-
-        public DateTime PaidDate { get; set; }
     }
 }

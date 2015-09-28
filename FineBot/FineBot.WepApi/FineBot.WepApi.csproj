@@ -198,6 +198,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\NewFineModel.cs" />
+    <Compile Include="Models\NewPaymentModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -326,6 +327,10 @@
     <ProjectReference Include="..\FineBot.API\FineBot.API.csproj">
       <Project>{1edf3522-e2ae-4569-b98b-0fc3b350b523}</Project>
       <Name>FineBot.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FineBot.Common\FineBot.Common.csproj">
+      <Project>{3cca787a-4963-4de0-8bfa-403a6858f02b}</Project>
+      <Name>FineBot.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

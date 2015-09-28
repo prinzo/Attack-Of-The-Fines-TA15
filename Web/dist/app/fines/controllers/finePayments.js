@@ -3,13 +3,16 @@
     angular
         .module("entelectFines")
         .controller("FinePayments", ['toaster',
+                                   '$ngBootbox',
+                                   "$timeout",
                                    'finesResource',
                                    'userResource',
                                    'localStorageService',
                                    '$rootScope',
-                                   FinaPayments]);
+                                   '$q',
+                                   FinePayments]);
 
-    function FinaPayments(toaster, finesResource, userResource, localStorageService, $rootScope) {
+    function FinePayments(toaster, $ngBootbox, $timeout, finesResource, userResource, localStorageService, $rootScope, $q) {
         var vm = this;
         
         $rootScope.checkUser();
@@ -18,10 +21,39 @@
                     action: "GetAllUsers"
                 }
             );
+        
+        var currentUser = localStorageService.get('user'); 
             
         vm.PayFine = function () {
              
-            toaster.pop('success', "Fine Paid", "Fine paid successfully");
+            var newPaymentModel = {
+                PayerId: currentUser.Id,
+                RecipientId: vm.selectedUser["originalObject"].Id,
+                TotalFinesPaid: vm.TotalFinesPaid,
+                Image : null
+            };
+
+            var promise = finesResource.save({
+                    action: "IssuePayment"
+                },
+                newPaymentModel
+            );
+
+            promise.$promise.then(function (data) {
+                    toaster.pop('success', "Fine Awarded", "Fine awarded successfully");
+                    
+                
+                    $timeout(function(){
+                       var defer = $q.defer();
+                    
+                       $ngBootbox.hideAll();
+                        
+                        $rootScope.fines.push(data);
+                    });
+                },  
+                function () {
+                    toaster.error('Error', 'Failed to award fine');
+                });
             
         }
 

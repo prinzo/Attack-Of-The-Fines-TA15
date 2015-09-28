@@ -155,5 +155,30 @@ namespace FineBot.API.FinesApi
 
             return result;
         }
+
+        public FeedFineModel PayFines(PaymentModel paymentModel, out ValidationResult validation) {
+            var user = this.userRepository.Find(new UserSpecification().WithId(paymentModel.RecipientId));
+            var payer = this.userRepository.Find(new UserSpecification().WithId(paymentModel.PayerId));
+
+            Payment payment = new Payment(paymentModel.PayerId, paymentModel.Image, null, null);
+
+            validation = payment.ValidatePaymentForUser(user);
+
+            if (validation != null) {
+                return null;
+            }
+
+            payment = this.paymentRepository.Save(payment);
+
+            validation = user.PayFines(payment, paymentModel.TotalFinesPaid);
+
+            this.userRepository.Save(user);
+
+            return this.fineMapper.MapPaymentToFeedModel(
+                        payment,
+                        payer,
+                        user
+                        );
+        }
     }
 }

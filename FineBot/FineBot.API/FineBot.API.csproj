@@ -91,6 +91,7 @@
     <Compile Include="FinesApi\IFineApi.cs" />
     <Compile Include="FinesApi\FineModel.cs" />
     <Compile Include="FinesApi\PaymentImageModel.cs" />
+    <Compile Include="FinesApi\PaymentModel.cs" />
     <Compile Include="LdapApi\ILdapApi.cs" />
     <Compile Include="LdapApi\LdapApi.cs" />
     <Compile Include="Mappers\FineMapper.cs" />

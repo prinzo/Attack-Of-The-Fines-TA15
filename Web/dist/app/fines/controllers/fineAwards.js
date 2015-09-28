@@ -15,7 +15,8 @@
     function FineAwards(toaster, $ngBootbox, $timeout, finesResource, userResource, localStorageService, $rootScope, $q) {
         var vm = this;
         
-    var currentUser = localStorageService.get('user'); 
+        var currentUser = localStorageService.get('user'); 
+        
         vm.selectedUser;
         vm.reason = "";
         
