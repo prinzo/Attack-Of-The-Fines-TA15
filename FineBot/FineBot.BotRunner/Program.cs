@@ -18,7 +18,8 @@ namespace FineBot.BotRunner
             container = BotRunnerBootstrapper.Init();
 
             var fineBot = new Bot();
-            foreach (IFineBotResponder responder in container.ResolveAll<IFineBotResponder>())
+            var fineBotResponders = container.ResolveAll<IFineBotResponder>();
+            foreach (IFineBotResponder responder in fineBotResponders)
             {
                 fineBot.Responders.Add(responder);
             }
@@ -30,7 +31,8 @@ namespace FineBot.BotRunner
             Console.WriteLine(String.Format("{0}: Bot is runnning, type 'die' to make it die", DateTime.Now));
             
             var secondCousinBot = new Bot();
-            foreach (ISecondCousinResponder responder in container.ResolveAll<ISecondCousinResponder>())
+            var secondCousinResponders = container.ResolveAll<ISecondCousinResponder>();
+            foreach (ISecondCousinResponder responder in secondCousinResponders)
             {
                 secondCousinBot.Responders.Add(responder);
             }
