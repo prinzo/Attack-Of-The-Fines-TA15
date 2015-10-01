@@ -29,6 +29,7 @@ namespace FineBot.Tests.API
             IRepository<Payment, PaymentDataModel, Guid> paymentRepository = MockRepository.GenerateMock<IRepository<Payment, PaymentDataModel, Guid>>();
             IFineMapper fineMapper = MockRepository.GenerateMock<IFineMapper>();
             IUserMapper userMapper = MockRepository.GenerateMock<IUserMapper>();
+            IPaymentMapper paymentMapper = MockRepository.GenerateMock<IPaymentMapper>();
 
             var fine = new Fine{AwardedDate = DateTime.Now};
             var user = new User{Fines = new List<Fine>{fine, new Fine{AwardedDate = DateTime.Now.AddMinutes(1)}}};
@@ -38,7 +39,7 @@ namespace FineBot.Tests.API
             var userModel = new UserModel();
             userMapper.Stub(x => x.MapToModelShallow(user)).Return(userModel);
 
-            FineApi fineApi = new FineApi(userRepository, paymentRepository, fineMapper, userMapper);
+            FineApi fineApi = new FineApi(userRepository, paymentRepository, fineMapper, userMapper, paymentMapper);
 
             // Pre-Assert:
             fine.Pending.Should().Be.True();
@@ -96,7 +97,7 @@ namespace FineBot.Tests.API
                                                             }
                                                         });
 
-            FineApi fineApi = new FineApi(userRepository, paymentRepository, new FineMapper(), new UserMapper(new FineMapper()));
+            FineApi fineApi = new FineApi(userRepository, paymentRepository, new FineMapper(), new UserMapper(new FineMapper()), MockRepository.GenerateMock<IPaymentMapper>());
 
             List<FeedFineModel> finesList = fineApi.GetLatestSetOfFines(0, 10);
 
@@ -157,7 +158,7 @@ namespace FineBot.Tests.API
                                                             }
                                                         });
 
-            FineApi fineApi = new FineApi(userRepository, paymentRepository, new FineMapper(), new UserMapper(new FineMapper()));
+            FineApi fineApi = new FineApi(userRepository, paymentRepository, new FineMapper(), new UserMapper(new FineMapper()), MockRepository.GenerateMock<IPaymentMapper>());
 
             List<FeedFineModel> finesList = fineApi.GetLatestSetOfFines(0, 10);
 
@@ -222,7 +223,7 @@ namespace FineBot.Tests.API
                                                             }
                                                         });
 
-            FineApi fineApi = new FineApi(userRepository, paymentRepository, new FineMapper(), new UserMapper(new FineMapper()));
+            FineApi fineApi = new FineApi(userRepository, paymentRepository, new FineMapper(), new UserMapper(new FineMapper()), MockRepository.GenerateMock<IPaymentMapper>());
 
             List<FeedFineModel> finesList = fineApi.GetLatestSetOfFines(0, 3);
 

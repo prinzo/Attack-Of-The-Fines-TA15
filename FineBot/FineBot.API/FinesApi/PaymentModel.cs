@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FineBot.API.FinesApi {
     public class PaymentModel {
@@ -14,5 +10,7 @@ namespace FineBot.API.FinesApi {
 
         public int TotalFinesPaid { get; set; }
 
+        public string ImageFileName { get; set; }
+        public string MimeType { get; set; }
     }
 }

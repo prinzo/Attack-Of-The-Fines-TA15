@@ -96,8 +96,10 @@
     <Compile Include="LdapApi\LdapApi.cs" />
     <Compile Include="Mappers\FineMapper.cs" />
     <Compile Include="Mappers\Interfaces\IFineMapper.cs" />
+    <Compile Include="Mappers\Interfaces\IPaymentMapper.cs" />
     <Compile Include="Mappers\Interfaces\ISupportTicketMapper.cs" />
     <Compile Include="Mappers\Interfaces\IUserMapper.cs" />
+    <Compile Include="Mappers\PaymentMapper.cs" />
     <Compile Include="Mappers\SupportTicketMapper.cs" />
     <Compile Include="Mappers\UserMapper.cs" />
     <Compile Include="MemberInfo\IMemberInfoApi.cs" />

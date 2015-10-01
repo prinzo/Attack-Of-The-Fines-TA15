@@ -18,19 +18,21 @@ namespace FineBot.API.FinesApi
         private readonly IRepository<Payment, PaymentDataModel, Guid> paymentRepository;
         private readonly IFineMapper fineMapper;
         private readonly IUserMapper userMapper;
+        private readonly IPaymentMapper paymentMapper;
 
         public FineApi(
             IRepository<User, UserDataModel, Guid> userRepository,
             IRepository<Payment, PaymentDataModel, Guid> paymentRepository,
             IFineMapper fineMapper,
-            IUserMapper userMapper
+            IUserMapper userMapper,
+            IPaymentMapper paymentMapper
             )
         {
             this.userRepository = userRepository;
             this.paymentRepository = paymentRepository;
             this.fineMapper = fineMapper;
             this.userMapper = userMapper;
-
+            this.paymentMapper = paymentMapper;
         }
 
         public FineModel IssueFine(Guid issuerId, Guid recipientId, string reason)
@@ -179,6 +181,13 @@ namespace FineBot.API.FinesApi
                         payer,
                         user
                         );
+        }
+
+        public PaymentModel GetSimplePaymentModelById(Guid paymentModelId)
+        {
+            var payment = this.paymentRepository.Get(paymentModelId);
+
+            return this.paymentMapper.MapToSimpleModel(payment);
         }
     }
 }

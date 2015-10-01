@@ -23,6 +23,7 @@ namespace FineBot.BotRunner.Responders
 
             builder.AppendLine("@FinesBot fine @<slack user>: Award a fine to a slack user, you can fine multiple people at once.");
             builder.AppendLine("seconded!: Second the oldest awarded fine that was not seconded.");
+            builder.AppendLine("@FinesBot pay <number of fines> for @<slack user>: Pay the specified number of fines for the specified user. Note: You must include an image of the fine payment and may not pay your own fines!");
             builder.AppendLine("@FinesBot leaderboard: Show a leaderboard of the top ten users with the most fines.");
             builder.AppendLine("@FinesBot leaderboard today: Show a leaderboard of the top ten users with the most fines for the current day.");
             builder.AppendLine("@FinesBot leaderboard this week: Show a leaderboard of the top ten users with the most fines for the current week starting Monday.");
