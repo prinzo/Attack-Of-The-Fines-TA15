@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="DI\BotRunnerBootstrapper.cs" />
     <Compile Include="DI\BotInstaller.cs" />
+    <Compile Include="Extensions\ResponseContextExtensions.cs" />
     <Compile Include="Extensions\SlackMessageExtensions.cs" />
     <Compile Include="Models\SlackMessageAttachmentModel.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />

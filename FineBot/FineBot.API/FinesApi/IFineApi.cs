@@ -25,5 +25,7 @@ namespace FineBot.API.FinesApi
         FeedFineModel PayFines(PaymentModel paymentModel, out ValidationResult validation);
 
         PaymentModel GetSimplePaymentModelById(Guid paymentModelId);
+
+        void IssueAutoFine(Guid issuerId, Guid recipientId, Guid seconderId, string reason);
     }
 }

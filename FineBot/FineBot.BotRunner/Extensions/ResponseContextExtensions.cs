@@ -9,7 +9,7 @@ namespace FineBot.BotRunner.Extensions
 {
     public static class ResponseContextExtensions
     {
-        public static string FormattedBotUserId(this ResponseContext context)
+        public static string FormattedBotUserID(this ResponseContext context)
         {
             var builder = new StringBuilder();
             builder.Append("<@");

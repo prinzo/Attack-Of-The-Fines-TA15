@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using FineBot.Abstracts;
 using FineBot.API.Mappers.Interfaces;
 using FineBot.Common.Infrastructure;
@@ -44,6 +45,16 @@ namespace FineBot.API.FinesApi
             this.userRepository.Save(user);
 
             return this.fineMapper.MapToModel(fine);
+        }
+
+        public void IssueAutoFine(Guid issuerId, Guid recipientId, Guid seconderId, string reason)
+        {
+            var user = userRepository.Get(recipientId);
+            var fine = user.IssueFine(issuerId, reason);
+            userRepository.Save(user);
+
+            var seconder = userRepository.Get(seconderId);
+            SecondNewestPendingFine(seconder.Id);
         }
 
         public FeedFineModel IssueFineFromFeed(Guid issuerId, Guid recipientId, string reason) {
