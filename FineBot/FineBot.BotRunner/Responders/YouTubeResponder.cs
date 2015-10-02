@@ -39,7 +39,7 @@ namespace FineBot.BotRunner.Responders
             builder.Append(" ");
             builder.Append(youtubeLinkList.Count == 1 ? reasonForOneVideo : reasonForManyVideos);
 
-            var issuer = userApi.GetUserBySlackId(context.BotUserID);
+            var issuer = userApi.GetUserBySlackId(context.FormattedBotUserID());
             var recipient = userApi.GetUserBySlackId(context.Message.User.FormattedUserID);
             var seconder = recipient;
 

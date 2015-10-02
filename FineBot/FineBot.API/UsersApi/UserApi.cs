@@ -121,7 +121,8 @@ namespace FineBot.API.UsersApi
             User newUser = new User
                         {
                             EmailAddress = info.profile.email,
-                            SlackId = slackId
+                            SlackId = slackId,
+                            DisplayName = info.name
                         };
 
             var user = this.userRepository.Save(newUser);
