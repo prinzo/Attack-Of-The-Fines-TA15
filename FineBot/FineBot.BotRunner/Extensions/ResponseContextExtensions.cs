@@ -18,5 +18,10 @@ namespace FineBot.BotRunner.Extensions
             
             return builder.ToString();
         }
+
+        public static bool IsMessageFromUser(this ResponseContext context, string username)
+        {
+            return context.UserNameCache[context.Message.User.ID].Equals(username);
+        }
     }
 }
