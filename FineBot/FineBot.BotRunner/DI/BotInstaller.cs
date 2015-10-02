@@ -22,7 +22,7 @@ namespace FineBot.BotRunner.DI
             container.Register(Component.For<IFineBotResponder>().ImplementedBy<PayFineResponder>());
             container.Register(Component.For<IFineBotResponder>().ImplementedBy<SeconderResponder>());
             container.Register(Component.For<IFineBotResponder>().ImplementedBy<ShowResponder>());
-            container.Register(Component.For<IFineBotResponder>().ImplementedBy<WhatIsAFineResponder>());
+            container.Register(Component.For<IFineBotResponder>().ImplementedBy<CommonReplyResponder>());
             container.Register(Component.For<IFineBotResponder>().ImplementedBy<YouTubeResponder>());
             container.Register(Component.For<ISecondCousinResponder>().ImplementedBy<SecondAutofineResponder>());
         }
