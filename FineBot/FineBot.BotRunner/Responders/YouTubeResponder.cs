@@ -34,7 +34,7 @@ namespace FineBot.BotRunner.Responders
             
             var builder = new StringBuilder();
             builder.Append(context.FormattedBotUserID());
-            builder.Append(": fine ");
+            builder.Append(": auto-fine ");
             builder.Append(context.Message.User.FormattedUserID);
             builder.Append(" ");
             builder.Append(youtubeLinkList.Count == 1 ? reasonForOneVideo : reasonForManyVideos);

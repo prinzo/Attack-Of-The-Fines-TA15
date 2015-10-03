@@ -24,7 +24,7 @@ namespace FineBot.BotRunner.Responders
         {
             return !context.BotHasResponded
                    && context.IsMessageFromUser("finesbot")
-                   && context.Message.Text.ToLower().Contains("fine");
+                   && context.Message.Text.ToLower().Contains("auto-fine");
         }
 
         public BotMessage GetResponse(ResponseContext context)
