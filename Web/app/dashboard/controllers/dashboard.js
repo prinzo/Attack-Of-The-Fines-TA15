@@ -35,7 +35,7 @@
 
                 for (var j = 0; j < data.length; j++) {
                     seriesData.push(data[j].AwardedFineCount);
-                    categories.push(data[j].EmailAddress);
+                    categories.push(data[j].DisplayName);
                 }
             });
         }
@@ -50,7 +50,7 @@
             promise.$promise.then(function (data) {
                 for (var j = 0; j < data.length; j++) {
                     seriesToday.push(data[j].AwardedFineCount);
-                    categoriesToday.push(data[j].EmailAddress);
+                    categoriesToday.push(data[j].DisplayName);
                 }
             });
         }
