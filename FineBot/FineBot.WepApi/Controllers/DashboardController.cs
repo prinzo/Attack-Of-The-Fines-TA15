@@ -34,6 +34,18 @@ namespace FineBot.WepApi.Controllers
         }
 
         [HttpGet]
+        public List<UserModel> GetLeaderboardForWeek()
+        {
+            return userApi.GetLeaderboardForThisWeek(10);
+        }
+
+        [HttpGet]
+        public List<UserModel> GetLeaderboardForMonth()
+        {
+            return userApi.GetLeaderboardForThisMonth(10);
+        }
+        
+        [HttpGet]
         public List<UserModel> GetUsersWithPendingFines()
         {
             return userApi.GetUsersWithPendingFines();

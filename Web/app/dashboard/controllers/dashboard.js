@@ -17,12 +17,18 @@
         var categories = [];
         var seriesToday = [];
         var categoriesToday = [];
+        var seriesWeek = [];
+        var categoriesWeek = [];
+
 
         GetOverallLeaderboard();
         GetLeaderboardToday();
-
+        GetLeaderboardWeek();
+        
         $interval(GetOverallLeaderboard, 60000);
         $interval(GetLeaderboardToday, 60000);
+        $interval(GetLeaderboardWeek, 60000);
+
 
 
         function GetOverallLeaderboard() {
@@ -40,6 +46,20 @@
             });
         }
 
+        function GetLeaderboardWeek() {
+            seriesWeek.length = 0;
+            categoriesWeek.length = 0;
+            var promise = dashboardResource.query({
+                action: "GetLeaderboardForWeek"
+            });
+            promise.$promise.then(function (data) {
+
+                for (var j = 0; j < data.length; j++) {
+                    seriesWeek.push(data[j].AwardedFineCount);
+                    categoriesWeek.push(data[j].DisplayName);
+                }
+            });
+        }
 
         function GetLeaderboardToday() {
             seriesToday.length = 0;
@@ -83,6 +103,15 @@
             {
                 "name": "Fine Count",
                 "data": seriesToday,
+                "color": "green"
+
+            }
+  ];
+
+        vm.chartSeriesWeek = [
+            {
+                "name": "Fine Count",
+                "data": seriesWeek,
                 "color": "green"
 
             }
@@ -182,6 +211,43 @@
             loading: false,
             size: {}
         }
+
+        vm.chartConfigWeek = {
+            options: {
+                chart: {
+                    backgroundColor: "#FFFFFF",
+                    plotShadow: true,
+                    type: 'bar'
+                },
+                func: function (chart) {
+                    $timeout(function () {
+                        chart.reflow();
+                    }, 0);
+                },
+
+            },
+            series: vm.chartSeriesWeek,
+            xAxis: {
+                categories: categoriesWeek,
+                title: {
+                    text: 'Employee'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Number of Fines'
+                }
+            },
+            title: {
+                text: 'Leaderboard for Week - Top 5'
+            },
+            credits: {
+                enabled: true
+            },
+            loading: false,
+            size: {}
+        }
+
 
         vm.chartConfigDistribution = {
             options: {
