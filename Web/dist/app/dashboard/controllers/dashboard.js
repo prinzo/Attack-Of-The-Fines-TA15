@@ -19,15 +19,18 @@
         var categoriesToday = [];
         var seriesWeek = [];
         var categoriesWeek = [];
-
+        var seriesMonth = [];
+        var categoriesMonth = [];
 
         GetOverallLeaderboard();
         GetLeaderboardToday();
         GetLeaderboardWeek();
-        
+        GetLeaderboardMonth();
+
         $interval(GetOverallLeaderboard, 60000);
         $interval(GetLeaderboardToday, 60000);
         $interval(GetLeaderboardWeek, 60000);
+        $interval(GetLeaderboardMonth, 60000);
 
 
 
@@ -42,6 +45,21 @@
                 for (var j = 0; j < data.length; j++) {
                     seriesData.push(data[j].AwardedFineCount);
                     categories.push(data[j].DisplayName);
+                }
+            });
+        }
+
+        function GetLeaderboardMonth() {
+            seriesMonth.length = 0;
+            categoriesMonth.length = 0;
+            var promise = dashboardResource.query({
+                action: "GetLeaderboardForMonth"
+            });
+            promise.$promise.then(function (data) {
+
+                for (var j = 0; j < data.length; j++) {
+                    seriesMonth.push(data[j].AwardedFineCount);
+                    categoriesMonth.push(data[j].DisplayName);
                 }
             });
         }
@@ -94,7 +112,7 @@
             {
                 "name": "Fine Count",
                 "data": seriesData,
-                "color": "green"
+                "color": "blue"
 
             }
   ];
@@ -103,7 +121,7 @@
             {
                 "name": "Fine Count",
                 "data": seriesToday,
-                "color": "green"
+                "color": "blue"
 
             }
   ];
@@ -112,7 +130,15 @@
             {
                 "name": "Fine Count",
                 "data": seriesWeek,
-                "color": "green"
+                "color": "blue"
+
+            }
+  ];
+        vm.chartSeriesMonth = [
+            {
+                "name": "Fine Count",
+                "data": seriesMonth,
+                "color": "blue"
 
             }
   ];
@@ -120,7 +146,7 @@
             {
                 "name": "Fine Count",
                 "data": [1, 2, 4, 7, 3, 8, 12, 4, 6, 7, 22, 30],
-                "color": "green"
+                "color": "blue"
             }
   ];
         vm.chartStack = [
@@ -167,7 +193,7 @@
                 }
             },
             title: {
-                text: 'Leaderboard for 2015 - Top 5'
+                text: 'Yearly Leaderboard- Top 5'
             },
             credits: {
                 enabled: true
@@ -203,7 +229,7 @@
                 }
             },
             title: {
-                text: 'Leaderboard for Today - Top 5'
+                text: 'Daily Leaderboard - Top 5'
             },
             credits: {
                 enabled: true
@@ -239,7 +265,7 @@
                 }
             },
             title: {
-                text: 'Leaderboard for Week - Top 5'
+                text: 'Weekly Leaderboard - Top 5'
             },
             credits: {
                 enabled: true
@@ -248,7 +274,41 @@
             size: {}
         }
 
+        vm.chartConfigMonth = {
+            options: {
+                chart: {
+                    backgroundColor: "#FFFFFF",
+                    plotShadow: true,
+                    type: 'bar'
+                },
+                func: function (chart) {
+                    $timeout(function () {
+                        chart.reflow();
+                    }, 0);
+                },
 
+            },
+            series: vm.chartSeriesMonth,
+            xAxis: {
+                categories: categoriesMonth,
+                title: {
+                    text: 'Employee'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Number of Fines'
+                }
+            },
+            title: {
+                text: 'Monthly Leaderboard - Top 5'
+            },
+            credits: {
+                enabled: true
+            },
+            loading: false,
+            size: {}
+        }
         vm.chartConfigDistribution = {
             options: {
                 chart: {
