@@ -23,7 +23,7 @@ namespace FineBot.WepApi.Controllers
         [HttpGet]
         public List<UserModel> GetLeaderBoard()
         {
-            var leaderboardUser = userApi.GetLeaderboard(10);
+            var leaderboardUser = userApi.GetLeaderboardForThisYear(10);
             return leaderboardUser;
         }
 

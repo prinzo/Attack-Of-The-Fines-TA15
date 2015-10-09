@@ -112,7 +112,7 @@
             {
                 "name": "Fine Count",
                 "data": seriesData,
-                "color": "blue"
+                "color": "green"
 
             }
   ];
@@ -121,7 +121,7 @@
             {
                 "name": "Fine Count",
                 "data": seriesToday,
-                "color": "blue"
+                "color": "green"
 
             }
   ];
@@ -130,7 +130,7 @@
             {
                 "name": "Fine Count",
                 "data": seriesWeek,
-                "color": "blue"
+                "color": "green"
 
             }
   ];
@@ -138,7 +138,7 @@
             {
                 "name": "Fine Count",
                 "data": seriesMonth,
-                "color": "blue"
+                "color": "green"
 
             }
   ];
@@ -146,7 +146,7 @@
             {
                 "name": "Fine Count",
                 "data": [1, 2, 4, 7, 3, 8, 12, 4, 6, 7, 22, 30],
-                "color": "blue"
+                "color": "green"
             }
   ];
         vm.chartStack = [
