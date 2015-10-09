@@ -28,6 +28,7 @@
         
         promise.$promise.then(function (data) {
             $rootScope.fines = data;
+            console.log(data);
         },
                               
         function () {

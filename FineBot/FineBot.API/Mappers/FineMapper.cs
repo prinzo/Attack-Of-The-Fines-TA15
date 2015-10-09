@@ -74,7 +74,8 @@ namespace FineBot.API.Mappers
                 AwardedDate = fine.AwardedDate,
                 IssuerDisplayName = issuer.DisplayName,
                 ReceiverDisplayName = receiver.DisplayName,
-                ModifiedDate = fine.ModifiedDate
+                ModifiedDate = fine.ModifiedDate,
+                UserImage = receiver.Image
             };
             
             if(payment != null)
@@ -96,7 +97,8 @@ namespace FineBot.API.Mappers
                 ModifiedDate = payment.PaidDate,
                 PayerId = payment.PayerId,
                 PaymentImage = payment.PaymentImage,
-                AwardedDate = payment.PaidDate
+                AwardedDate = payment.PaidDate,
+                UserImage = receiver.Image
             };
         }
 
