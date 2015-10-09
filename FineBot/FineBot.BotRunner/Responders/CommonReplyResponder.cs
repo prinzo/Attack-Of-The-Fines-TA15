@@ -38,7 +38,10 @@ namespace FineBot.BotRunner.Responders
             builder.Append(context.Message.User.FormattedUserID);
             builder.Append(" ");
             builder.Append(reason);
-
+            if (context.Message.Text.Contains("it works on my machine"))
+            {
+                builder.Append(" :itworksonmymachine: ");
+            }
             var issuer = userApi.GetUserBySlackId(context.FormattedBotUserID());
             var recipient = userApi.GetUserBySlackId(context.Message.User.FormattedUserID);
             var seconder = recipient;
