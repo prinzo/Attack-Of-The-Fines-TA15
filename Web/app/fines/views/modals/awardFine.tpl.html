@@ -1,10 +1,14 @@
 
+ <link rel="stylesheet" href="../../../../content/contacts.css">
+ <link rel="stylesheet" href="../../../../content/chips.min.css">
+ <link rel="stylesheet" href="../../../../content/chips-default-theme.min.css">
+
 <div ng-controller="FineAwards as vm">
     <form role="form" ng-submit="vm.AwardFine()">
       <div class="form-group">
         <label for="personFinedLabel">Person to fine: </label>
           
-          <angucomplete-alt id="ex1"
+         <!-- <angucomplete-alt id="ex1"
               placeholder="Search for user"
               pause="100"
               selected-object="vm.selectedUser"
@@ -12,7 +16,23 @@
               search-fields="DisplayName"
               title-field="DisplayName"
               minlength="1"
-              input-class="form-control form-control-small"/> 
+              input-class="form-control form-control-small"/> -->
+          
+          <div layout="column" ng-cloak="" class="chipsdemoContactChips" ng-app="MyApp">
+              <md-content class="md-padding autocomplete">
+                <md-contact-chips
+                    ng-model="vm.selectedUser"
+                    md-contacts="vm.Search($query)"
+                    md-contact-name="DisplayName"
+                    md-contact-image="Image"
+                    md-contact-email="EmailAddress"
+                    md-highlight-flags="i"
+                    filter-selected="vm.filterSelected"
+                    md-no-cache="true"
+                    placeholder="Search for User to Fine">
+                </md-contact-chips>
+          </md-content>
+          </div>
           
       </div>
       <div class="form-group">
@@ -20,7 +40,10 @@
         <input class="form-control" id="reason" ng-model="vm.reason">
       </div>
       <button type="submit" class="btn btn-default">Submit</button>
+        
     </form>
+    
+    
 </div>
 
  

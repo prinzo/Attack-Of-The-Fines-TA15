@@ -106,7 +106,8 @@ namespace FineBot.API.Mappers
 
             return new UserModel {
                 Id = user.Id,
-                DisplayName = user.DisplayName
+                DisplayName = user.DisplayName,
+                Image = user.Image
             };
         }
     }

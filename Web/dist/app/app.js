@@ -6,7 +6,12 @@ var app = angular.module("entelectFines", ["common.services",
                           "LocalStorageModule",
                           "angularFileUpload",
                            "angucomplete-alt",
-                           "angularSpinner"]);
+                           "angularSpinner",
+                           "ngAnimate",
+                           "ngAria",
+                           "ngResource",
+                           "ngMaterial"
+                        ]);
 
 
 

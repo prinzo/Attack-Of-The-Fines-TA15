@@ -20,11 +20,28 @@
         vm.selectedUser;
         vm.reason = "";
         
+        vm.filterSelected = true;
+        
         vm.users = userResource.query({
                     action: "GetAllUsers"
                 }
             );
-                     
+              
+        function createFilterFor(query) {
+         
+          var lowercaseQuery = angular.lowercase(query);
+          return function filterFn(contact) {
+                 return ( angular.lowercase(contact.DisplayName).indexOf(lowercaseQuery) != -1);
+              
+          };
+        }
+        
+        vm.Search = function(query) {var results = query ?
+              vm.users.filter(createFilterFor(query)) : [];
+                                                 
+            return results;
+        }
+        
         vm.AwardFine = function () {
                         
             var newFineModel = {
