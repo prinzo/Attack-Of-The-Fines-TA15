@@ -15,6 +15,8 @@
 
     function FinePayments(toaster, $ngBootbox, $timeout, finesResource, userResource, localStorageService, $rootScope, $q, $scope) {
         var vm = this;
+
+        vm.selectedUser = [];
         
         $rootScope.checkUser();
         
@@ -27,6 +29,28 @@
         
         vm.uploadButtonVisible = false;
         $scope.Image = '';
+
+        function createFilterFor(query) {
+
+            var lowercaseQuery = angular.lowercase(query);
+            return function filterFn(contact) {
+
+                if(!!contact && !!angular.lowercase(contact.DisplayName)) {
+                    return ( angular.lowercase(contact.DisplayName).indexOf(lowercaseQuery) != -1);
+                }
+
+                return false;
+
+            };
+        }
+
+        vm.Search = function(query) {var results = query ?
+            vm.users.filter(createFilterFor(query)) : [];
+
+            vm.selectedUser = [];
+            return results;
+        }
+
         
         var handleFileSelect = function (evt) {
 
@@ -51,9 +75,10 @@
         $timeout(function() {
             angular.element(document.querySelector('#paymentFileInput')).on('change', handleFileSelect);
         },1000, false);
-        
-       /* function uploadImage() {
+        /*
+        function uploadImage() {
             var payment = {
+                Id: vm.user.Id,
                 Id: vm.user.Id,
                 Image: $scope.Image
             };
@@ -69,7 +94,7 @@
                     vm.showImage = false;
                     vm.user.Image = data.Image;
                     localStorageService.clearAll();
-                    localStorageService.set('user', scope.user);
+                    localStorageService.set('user', vm.selectedUser);
                 },
                 function () {
                     toaster.error('Error', 'Failed to update User image');
@@ -80,7 +105,7 @@
              
             var newPaymentModel = {
                 PayerId: currentUser.Id,
-                RecipientId: vm.selectedUser["originalObject"].Id,
+                RecipientId: vm.selectedUser[0].Id,
                 TotalFinesPaid: vm.TotalFinesPaid,
                 Image :  $scope.Image
             };
@@ -97,7 +122,7 @@
                     vm.showUpload = false;
                     vm.showImage = false;
                     localStorageService.clearAll();
-                    localStorageService.set('user', scope.user);
+                    localStorageService.set('user', vm.selectedUser);
                 
                     $timeout(function(){
                        var defer = $q.defer();
