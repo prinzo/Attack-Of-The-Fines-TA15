@@ -82,7 +82,7 @@ namespace FineBot.API.Mappers
             {
                 fineModel.PaidDate = payment.PaidDate;
                 fineModel.PayerId = payment.PayerId;
-                fineModel.PaymentImage = payment.PaymentImage;
+                fineModel.PaymentImage = payment.PaymentImage.ImageBytes.ToString();
             }
 
             return fineModel;
@@ -96,7 +96,7 @@ namespace FineBot.API.Mappers
                 PaidDate = payment.PaidDate,
                 ModifiedDate = payment.PaidDate,
                 PayerId = payment.PayerId,
-                PaymentImage = payment.PaymentImage,
+                PaymentImage = payment.PaymentImage != null && payment.PaymentImage.ImageBytes != null ? payment.PaymentImage.ImageBytes.ToString() : null,
                 AwardedDate = payment.PaidDate,
                 UserImage = receiver.Image
             };

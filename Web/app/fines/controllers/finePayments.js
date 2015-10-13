@@ -25,7 +25,7 @@
                 }
             );
         
-        var currentUser = localStorageService.get('user'); 
+        vm.currentUser = localStorageService.get('user');
         
         vm.uploadButtonVisible = false;
         $scope.Image = '';
@@ -63,6 +63,7 @@
 
                 $scope.$apply(function (scope) {
                     $scope.Image = evt.target.result;
+                    vm.Image = $scope.Image;
                 });
             };
 
@@ -75,39 +76,14 @@
         $timeout(function() {
             angular.element(document.querySelector('#paymentFileInput')).on('change', handleFileSelect);
         },1000, false);
-        /*
-        function uploadImage() {
-            var payment = {
-                Id: vm.user.Id,
-                Id: vm.user.Id,
-                Image: $scope.Image
-            };
-            
-            var promise = userResource.save({
-                    action: "UploadPaymentImage"
-                },
-                userModel
-            );
-            promise.$promise.then(function (data) {
-                    toaster.pop('success', 'Update Successful', 'User image updated successfully');
-                    vm.showUpload = false;
-                    vm.showImage = false;
-                    vm.user.Image = data.Image;
-                    localStorageService.clearAll();
-                    localStorageService.set('user', vm.selectedUser);
-                },
-                function () {
-                    toaster.error('Error', 'Failed to update User image');
-                });
-        }*/
-            
+
         vm.PayFine = function () {
              
             var newPaymentModel = {
-                PayerId: currentUser.Id,
+                PayerId: vm.currentUser.Id,
                 RecipientId: vm.selectedUser[0].Id,
                 TotalFinesPaid: vm.TotalFinesPaid,
-                Image :  $scope.Image
+                Image :  vm.Image
             };
 
             var promise = finesResource.save({

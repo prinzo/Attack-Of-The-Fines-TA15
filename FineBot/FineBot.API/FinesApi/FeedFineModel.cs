@@ -33,7 +33,7 @@ namespace FineBot.API.FinesApi {
 
         public DateTime ModifiedDate { get; set; }
 
-        public PaymentImage PaymentImage { get; set; }
+        public string PaymentImage { get; set; }
 
         public string UserImage { get; set; }
 
@@ -58,7 +58,7 @@ namespace FineBot.API.FinesApi {
             this.ReceiverDisplayName = feedFineModel.ReceiverDisplayName;
             this.PaidDate = null;
             this.PayerId = null;
-            this.PaymentImage = null;
+            this.PaymentImage = feedFineModel.PaymentImage ?? "../../../../content/defaultUser.png"; 
             this.ModifiedDate = feedFineModel.AwardedDate;
             this.UserImage = feedFineModel.UserImage;
         }
