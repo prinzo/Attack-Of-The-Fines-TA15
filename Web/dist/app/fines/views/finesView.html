@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="../../../../content/materialDesignComponents.css">
+<link rel="stylesheet" href="/content/feed.css">
+
 <div class="" ng-controller="Fines as fc">
     <div ng-include="'common/navBar.html'"></div>
     <ol class="breadcrumb">
@@ -6,7 +9,7 @@
         <li class="active">News Feed</li>
     </ol>
     <!--<div ng-include="'common/common-imports.html'"></div>-->
-    <link rel="stylesheet" href="/content/feed.css">
+
     <div class="col-sm-6 center">
         <center>
             <div class="fine-buttons">
@@ -22,77 +25,67 @@
             </div>
         </center>
 
-        <div class="panel panel-primary">
+        <div>
             <!-- New Fines -->
 
-            <div ng-repeat="fine in fines | orderBy:'AwardedDate':true | limitTo: 10">
-                
-                <div ng-if="fine.IsPaid == false" class="row">
-                    <div class="col-md-5 profile">
-                        <div class="profile-details">
-                            <span id="profile-picture">
-                                <img class="profile-picture" src="{{fine.UserImage}}"/>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-md-7 fine">
-                        <div class ="fine-details">
-                            <div class="feed-title">
-                                <a id="user-statistics-link"
-                                    ng-bootbox-title="User Statistics"
-                                    ng-bootbox-custom-dialog="User Statistics"
-                                    ng-bootbox-custom-dialog-template="app/fines/views/modals/userStatistics.tpl.html"
-                                    id="user-name"> 
-                                {{fine.ReceiverDisplayName}} </a> has received a fine
-                            </div>
-                            <p class="feed-data" id="reason">for {{fine.Reason}}</p>
-                            <div class="other">
-                                <span id="platform">via {{fine.Platform || 'Web front end'}} </span>
-                                <span id="award">from <a id="awarder">{{fine.IssuerDisplayName}}</a></span>
-                            </div>
-                            <hr/>
-                            <span><div id="second" class="glyphicon glyphicon-ok"/></span>
-                        </div>
-                    </div>
-                </div> 
-                
-               <!-- Payments --> 
-                
-                
-                <div ng-if="fine.IsPaid == true" class="row">
-                    <div class="col-md-5 profile">
-                        <div class="profile-details">
-                            <span id="profile-picture">
-                                <img class="profile-picture" src="{{fine.UserImage}}"/>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-md-7 fine">
-                        <div class ="fine-details">
-                            <div class="feed-title">
-                                <a id="user-name">
-                                    {{fine.ReceiverDisplayName}}
-                                </a> 
-                                has paid <span id="total-fines">1</span> fine
-                            </div>
-                            <img class="photo" src="{{fine.PaymentImage}}"/>
-                            <!--<div><img id="photo" src="data:{{fine.PaymentImage.MimeType}};base64,{{fine.PaymentImage.ImageBytes}}"/></div>-->
-                            <hr/>
+            <div class="feedCard">
 
-                            <div class="payment-action"><div id="like" class="glyphicon glyphicon-thumbs-up"/></div>
-                            <div class="payment-action"><div id="dislike" class="glyphicon glyphicon-thumbs-down"/></div>
-                        </div>
+                    <md-list>
+                            <md-card class="md-3-line" ng-repeat="fine in fines | orderBy:'AwardedDate':true | limitTo: 10">
 
-                    </div>
-                </div> 
+                                    <div class="md-card-content" ng-if="fine.IsPaid == false">
+                                        <div class="col-sm-2">
+                                            <img ng-src="{{fine.UserImage}}?{{$index}}" class="face" alt="{{fine.ReceiverDisplayName}}">
+                                        </div>
+                                        <div class="col-sm-10 card-content">
+                                            <a id="user-statistics-link"
+                                               ng-bootbox-title="User Statistics"
+                                               ng-bootbox-custom-dialog="User Statistics"
+                                               ng-bootbox-custom-dialog-template="app/fines/views/modals/userStatistics.tpl.html"
+                                               id="user-name">
+                                                {{fine.ReceiverDisplayName}}
+                                            </a> has received a fine
+                                            <div class="feed-data" id="reason">for {{fine.Reason}}</div>
+                                            <div class="other">
+                                                <span id="platform">via {{fine.Platform || 'Web front end'}} </span>
+                                                <span id="award">from <a id="awarder">{{fine.IssuerDisplayName}}</a></span>
+                                            </div>
+                                            <div class="md-actions" layout="row" layout-align="end center">
+                                                <md-button aria-label="Second"><span class="glyphicon glyphicon-ok"/></md-button>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                
+                                    <div class="md-card-content"  ng-if="fine.IsPaid == true">
+                                        <div class="col-sm-2">
+                                            <img ng-src="{{fine.UserImage}}?{{$index}}" class="face" alt="{{fine.ReceiverDisplayName}}">
+                                        </div>
+                                        <div class="col-sm-10 card-content">
+                                            <a id="user-statistics-link"
+                                               ng-bootbox-title="User Statistics"
+                                               ng-bootbox-custom-dialog="User Statistics"
+                                               ng-bootbox-custom-dialog-template="app/fines/views/modals/userStatistics.tpl.html"
+                                               id="user-name">
+                                                {{fine.ReceiverDisplayName}} </a> has paid {{fine.TotalPaid}} fines
+                                            <img class="photo" src="{{fine.PaymentImage}}"/>
+
+                                            <div class="md-actions" layout="row" layout-align="end center">
+                                                <md-button aria-label="Second"><span id="like" class="glyphicon glyphicon-thumbs-up"/></md-button>
+                                                <md-button aria-label="Second"><span id="dislike" class="glyphicon glyphicon-thumbs-down"/></md-button>
+                                            </div>
+                                        </div>
+                                        <!--
+
+                                        <div class="payment-action"><div id="like" class="glyphicon glyphicon-thumbs-up"/></div>
+                                        <div class="payment-action"><div id="dislike" class="glyphicon glyphicon-thumbs-down"/></div>-->
+                                    </div>
+                                    <md-divider md-inset></md-divider>
+                            </md-card>
+                    </md-list>
             </div>
-            
-            <!--<div class="fine-feed" ng-include="'app/fines/views/newFineFeed.html'"></div>
-            <div class="fine-feed" ng-include="'app/fines/views/paidFineFeed.html'"></div>
-            <div class="fine-feed" ng-include="'app/fines/views/newFineFeed.html'"></div>-->
+
+
+            </div>
         </div>
 
     </div>
-</div>

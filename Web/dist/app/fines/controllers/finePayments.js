@@ -75,9 +75,9 @@
         
         $timeout(function() {
             angular.element(document.querySelector('#paymentFileInput')).on('change', handleFileSelect);
-        },1000, false);
+        },200, false);
 
-        vm.PayFine = function () {
+        vm.PayFine = function PayFine() {
              
             var newPaymentModel = {
                 PayerId: vm.currentUser.Id,

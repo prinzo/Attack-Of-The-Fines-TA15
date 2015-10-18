@@ -1,7 +1,6 @@
 
- <link rel="stylesheet" href="../../../../content/contacts.css">
- <link rel="stylesheet" href="../../../../content/chips.min.css">
- <link rel="stylesheet" href="../../../../content/chips-default-theme.min.css">
+ <link rel="stylesheet" href="../../../../content/materialDesignComponents.css">
+ 
 
 <div ng-controller="FineAwards as vm">
     <form role="form" ng-submit="vm.AwardFine()">
@@ -9,21 +8,17 @@
         <label for="personFinedLabel">Person to fine: </label>
 
           <div layout="column" ng-cloak="" class="contactChips" ng-app="MyApp">
-              <md-content class="md-padding autocomplete">
+            <md-content class="md-padding autocomplete">
                 <md-contact-chips
                     ng-model="vm.selectedUser"
                     md-contacts="vm.Search($query)"
                     md-contact-name="DisplayName"
                     md-contact-image="Image"
                     md-contact-email="EmailAddress"
-                    md-highlight-flags="i"
-                    filter-selected="vm.filterSelected"
-                    md-search-text-change=null
-                    md-selected-item-change=null
-                    md-max = 1
                     placeholder="Search for User to Fine">
                 </md-contact-chips>
-          </md-content>
+            </md-content>
+              
           </div>
 
       </div>

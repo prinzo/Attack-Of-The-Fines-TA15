@@ -35,6 +35,8 @@ namespace FineBot.API.FinesApi {
 
         public string PaymentImage { get; set; }
 
+        public int TotalPaid { get; set; }
+
         public string UserImage { get; set; }
 
 
@@ -61,6 +63,7 @@ namespace FineBot.API.FinesApi {
             this.PaymentImage = feedFineModel.PaymentImage ?? "../../../../content/defaultUser.png"; 
             this.ModifiedDate = feedFineModel.AwardedDate;
             this.UserImage = feedFineModel.UserImage;
+            this.TotalPaid = feedFineModel.TotalPaid;
         }
 
     }
