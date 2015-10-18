@@ -29,3 +29,7 @@
     width: 48px;
     margin: 16px;
 }
+
+.speed-dial {
+    position: absolute;
+}

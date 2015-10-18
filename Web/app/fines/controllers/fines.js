@@ -34,8 +34,7 @@
         function () {
             toaster.pop('error', "Fine Feed Failure", "No Fines were found");
         });
-        
-        
-        
+
+        vm.isOpen = false;
     }
 }());

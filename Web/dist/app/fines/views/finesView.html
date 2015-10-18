@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="../../../../content/materialDesignComponents.css">
 <link rel="stylesheet" href="/content/feed.css">
 
-<div class="" ng-controller="Fines as fc">
+<div class="fines-container" ng-controller="Fines as fc">
     <div ng-include="'common/navBar.html'"></div>
     <ol class="breadcrumb">
         <li><a href="#Fines"><i class="fa fa-home"></i></a>
@@ -11,7 +11,7 @@
     <!--<div ng-include="'common/common-imports.html'"></div>-->
 
     <div class="col-sm-6 center">
-        <center>
+        <!--<center>
             <div class="fine-buttons">
                 <div class="fine-button" id="icon-gift" ng-bootbox-title="Award Fine" ng-bootbox-custom-dialog="Award a fine" ng-bootbox-custom-dialog-template="app/fines/views/modals/awardFine.tpl.html"
                                                         ng-bootbox-options="vm.dialogOptions">
@@ -23,7 +23,7 @@
                     <div class="fine-button-title">Pay Fine</div>
                 </div>
             </div>
-        </center>
+        </center>-->
 
         <div>
             <!-- New Fines -->
@@ -73,7 +73,7 @@
                                                 <md-button aria-label="Second"><span id="like" class="glyphicon glyphicon-thumbs-up"/></md-button>
                                                 <md-button aria-label="Second"><span id="dislike" class="glyphicon glyphicon-thumbs-down"/></md-button>
                                             </div>
-                                        </div>
+                                        </div>right
                                         <!--
 
                                         <div class="payment-action"><div id="like" class="glyphicon glyphicon-thumbs-up"/></div>
@@ -88,4 +88,32 @@
             </div>
         </div>
 
+
+        <div class="md-padding" layout="column">
+
+                <md-fab-speed-dial md-open="vm.isOpen" md-direction="up"
+                                   class="md-fling md-fab-bottom-right md-hover-full speed-dial">
+                    <md-fab-trigger>
+                        <md-button aria-label="Menu" class="md-fab md-warn">
+                            <md-icon class="menu-icon" md-svg-src="../../../../content/add.svg"></md-icon>
+                        </md-button>
+                    </md-fab-trigger>
+                    <md-fab-actions>
+                        <md-button aria-label="Award Fine" class="md-fab md-raised md-mini md-primary"
+                                   ng-bootbox-title="Award Fine" ng-bootbox-custom-dialog="Award a fine"
+                                   ng-bootbox-custom-dialog-template="app/fines/views/modals/awardFine.tpl.html"
+                                   ng-bootbox-options="vm.dialogOptions">
+                            <md-icon class="menu-icon" md-svg-src="../../../../content/awardFine.svg" aria-label="Award Fine"></md-icon>
+                        </md-button>
+                        <md-button aria-label="Pay Fine" class="md-fab md-raised md-mini md-primary"
+                                   ng-bootbox-title="Pay fines" ng-bootbox-custom-dialog="Pay fines"
+                                   ng-bootbox-custom-dialog-template="app/fines/views/modals/payFine.tpl.html">
+                            <md-icon class="menu-icon" md-svg-src="../../../../content/payFine.svg" aria-label="Pay Fine"></md-icon>
+                        </md-button>
+                    </md-fab-actions>
+                </md-fab-speed-dial>
+
+       </div>
+
     </div>
+
