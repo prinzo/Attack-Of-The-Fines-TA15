@@ -145,3 +145,9 @@
 .fines-container {
     position:relative
 }
+
+.photo {
+    width: 200px;
+    height: 100%;
+    display: inline-block;
+}

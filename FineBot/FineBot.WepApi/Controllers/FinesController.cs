@@ -38,7 +38,8 @@ namespace FineBot.WepApi.Controllers
                 PayerId = newPaymentModel.PayerId,
                 RecipientId = newPaymentModel.RecipientId,
                 TotalFinesPaid = newPaymentModel.TotalFinesPaid,
-                Image = Convert.FromBase64String(newPaymentModel.Image.Replace("data:image/png;base64,", ""))
+                Image = Convert.FromBase64String(newPaymentModel.Image.Replace("data:image/png;base64,", "")),
+                MimeType = "image/png"
             };
 
             ValidationResult validationResult;
@@ -51,6 +52,11 @@ namespace FineBot.WepApi.Controllers
         [HttpGet]
         public FeedFineModel[] GetFines() {
             return this.fineApi.GetLatestSetOfFines(0, 10).ToArray();
+        }
+
+        [HttpGet]
+        public byte[] GetImageForId(Guid id) {
+            return this.fineApi.GetImageForPaymentId(id);
         }
                 
     }

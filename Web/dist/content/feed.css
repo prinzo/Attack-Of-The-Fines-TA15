@@ -145,3 +145,8 @@
 .fines-container {
     position:relative
 }
+
+.photo {
+    max-height: 200px;
+    max-width: 100%;
+}

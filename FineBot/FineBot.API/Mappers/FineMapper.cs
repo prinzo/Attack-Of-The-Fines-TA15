@@ -2,6 +2,7 @@
 using FineBot.API.Mappers.Interfaces;
 using FineBot.API.UsersApi;
 using FineBot.Entities;
+using System.Text;
 
 namespace FineBot.API.Mappers
 {
@@ -88,7 +89,16 @@ namespace FineBot.API.Mappers
             return fineModel;
         }
 
-        public FeedFineModel MapPaymentToFeedModel(Payment payment, User issuer, User receiver) {
+        public FeedFineModel MapPaymentToFeedModel(Payment payment, User issuer, User receiver, int totalPaid) {
+            string paymentImage = payment.PaymentImage != null 
+                                  && payment.PaymentImage.ImageBytes != null 
+                                  && payment.PaymentImage.MimeType != null
+                                  ? new StringBuilder("data:").Append(payment.PaymentImage.MimeType)
+                                                     .Append(";base64,")
+                                                     .Append(System.Convert.ToBase64String(payment.PaymentImage.ImageBytes))
+                                                     .ToString()
+                                  : null;
+
             return new FeedFineModel {
                 Id = payment.Id,
                 IssuerDisplayName = issuer.DisplayName,
@@ -96,9 +106,10 @@ namespace FineBot.API.Mappers
                 PaidDate = payment.PaidDate,
                 ModifiedDate = payment.PaidDate,
                 PayerId = payment.PayerId,
-                PaymentImage = payment.PaymentImage != null && payment.PaymentImage.ImageBytes != null ? payment.PaymentImage.ImageBytes.ToString() : null,
+                PaymentImage = paymentImage,
                 AwardedDate = payment.PaidDate,
-                UserImage = receiver.Image
+                UserImage = receiver.Image,
+                TotalPaid = totalPaid
             };
         }
 

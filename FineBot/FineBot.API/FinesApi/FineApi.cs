@@ -129,7 +129,8 @@ namespace FineBot.API.FinesApi
                     this.fineMapper.MapPaymentToFeedModel(
                         this.paymentRepository.Find(new PaymentSpecification().WithId(fine.PaymentId.Value)),
                         this.userRepository.Find(new UserSpecification().WithId(fine.IssuerId)),
-                        user
+                        user,
+                        this.paymentRepository.FindAll(new PaymentSpecification().WithId(fine.PaymentId.Value)).Count()
                         )
 
                 )
@@ -173,7 +174,7 @@ namespace FineBot.API.FinesApi
             var user = this.userRepository.Find(new UserSpecification().WithId(paymentModel.RecipientId));
             var payer = this.userRepository.Find(new UserSpecification().WithId(paymentModel.PayerId));
 
-            Payment payment = new Payment(paymentModel.PayerId, paymentModel.Image, null, null);
+            Payment payment = new Payment(paymentModel.PayerId, paymentModel.Image, "image/png", null);
 
             validation = payment.ValidatePaymentForUser(user);
 
@@ -190,7 +191,8 @@ namespace FineBot.API.FinesApi
             return this.fineMapper.MapPaymentToFeedModel(
                         payment,
                         payer,
-                        user
+                        user,
+                        paymentModel.TotalFinesPaid
                         );
         }
 
@@ -199,6 +201,13 @@ namespace FineBot.API.FinesApi
             var payment = this.paymentRepository.Get(paymentModelId);
 
             return this.paymentMapper.MapToSimpleModel(payment);
+        }
+
+        public byte[] GetImageForPaymentId(Guid id) {
+            var payment = this.paymentRepository.Find(new Specification<Payment>(x => x.Id == id));
+
+            return payment.PaymentImage.ImageBytes;
+
         }
     }
 }

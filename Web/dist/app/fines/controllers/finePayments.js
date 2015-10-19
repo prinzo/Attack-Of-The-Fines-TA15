@@ -62,8 +62,8 @@
                 img.src = evt.target.result;
 
                 $scope.$apply(function (scope) {
-                    $scope.Image = evt.target.result;
-                    vm.Image = $scope.Image;
+                    $scope.Image = new FileReader().readAsArrayBuffer(evt.target.result);
+                    vm.Image = $scope.Image.toDataURL("image/png");
                 });
             };
 
