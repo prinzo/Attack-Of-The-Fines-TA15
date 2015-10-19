@@ -38,7 +38,7 @@ namespace FineBot.WepApi.Controllers
                 PayerId = newPaymentModel.PayerId,
                 RecipientId = newPaymentModel.RecipientId,
                 TotalFinesPaid = newPaymentModel.TotalFinesPaid,
-                Image = null
+                Image = Convert.FromBase64String(newPaymentModel.Image.Replace("data:image/png;base64,", ""))
             };
 
             ValidationResult validationResult;
