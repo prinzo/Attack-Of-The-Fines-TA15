@@ -15,6 +15,8 @@ namespace FineBot.API.FinesApi {
 
         public Guid? SeconderId { get; set; }
 
+        public string Seconder { get; set; }
+
         public bool Pending { get; set; }
 
         public string Reason { get; set; }
@@ -54,6 +56,7 @@ namespace FineBot.API.FinesApi {
             this.IssuerId = feedFineModel.IssuerId;
             this.Reason = feedFineModel.Reason;
             this.SeconderId = feedFineModel.SeconderId;
+            this.Seconder = feedFineModel.Seconder;
             this.Pending = feedFineModel.Pending;
             this.AwardedDate = feedFineModel.AwardedDate;
             this.IssuerDisplayName = feedFineModel.IssuerDisplayName;

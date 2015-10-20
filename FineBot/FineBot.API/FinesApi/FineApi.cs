@@ -67,7 +67,7 @@ namespace FineBot.API.FinesApi
             User issuer = this.userRepository.Find(new Specification<User>(x => x.Id == issuerId));
             User recipient = this.userRepository.Find(new Specification<User>(x => x.Id == recipientId));
 
-            return this.fineMapper.MapToFeedModel(fine, issuer, recipient);
+            return this.fineMapper.MapToFeedModelWithPayment(fine, issuer, recipient, null);
         }
 
         public List<FineModel> GetAllPendingFines()
@@ -122,7 +122,10 @@ namespace FineBot.API.FinesApi
                 select 
                     this.fineMapper.MapToFeedModel(fine, 
                     this.userRepository.Find(new UserSpecification().WithId(fine.IssuerId)),
-                    user
+                    user,
+                    fine.SeconderId.HasValue
+                            ? this.userRepository.Find(new UserSpecification().WithId(fine.SeconderId.Value))
+                            : null
                     ) 
                         
                 )

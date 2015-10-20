@@ -14,9 +14,9 @@ namespace FineBot.API.Mappers.Interfaces
 
         FineWithUserModel MapToModelWithUser(Fine fine, UserModel shallowUserModel);
 
-        FeedFineModel MapToFeedModel(Fine fine, User issuer, User receiver, Payment payment);
+        FeedFineModel MapToFeedModelWithPayment(Fine fine, User issuer, User receiver, Payment payment);
 
-        FeedFineModel MapToFeedModel(Fine fine, User issuer, User receiver);
+        FeedFineModel MapToFeedModel(Fine fine, User issuer, User receiver, User seconder);
 
         FeedFineModel MapPaymentToFeedModel(Payment payment, User issuer, User receiver, int totalPayments);
     }

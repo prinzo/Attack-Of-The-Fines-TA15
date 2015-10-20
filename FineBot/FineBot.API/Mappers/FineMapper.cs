@@ -60,12 +60,16 @@ namespace FineBot.API.Mappers
             };
         }
 
-        public FeedFineModel MapToFeedModel(Fine fine, User issuer, User receiver)
+        public FeedFineModel MapToFeedModel(Fine fine, User issuer, User receiver, User seconder)
         {
-            return this.MapToFeedModel(fine, issuer, receiver, null);
+            FeedFineModel model = this.MapToFeedModelWithPayment(fine, issuer, receiver, null);
+
+            model.Seconder = seconder != null ? seconder.DisplayName : null;
+
+            return model;
         }
 
-        public FeedFineModel MapToFeedModel(Fine fine, User issuer, User receiver, Payment payment) {
+        public FeedFineModel MapToFeedModelWithPayment(Fine fine, User issuer, User receiver, Payment payment) {
             FeedFineModel fineModel = new FeedFineModel {
                 Id = fine.Id,
                 IssuerId = fine.IssuerId,

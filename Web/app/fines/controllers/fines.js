@@ -2,15 +2,14 @@
     "use strict";
     angular
         .module("entelectFines")
-        .controller("Fines", ['toaster', '$ngBootbox',
+        .controller("Fines", ['toaster',
                               'localStorageService',
                               'finesResource',
                               '$rootScope',
-                              'userResource',
-                              '$timeout',
+                                '$mdDialog',
                               Fines]);
 
-    function Fines(toaster, $ngBootbox, localStorageService, finesResource, $rootScope, userResource, $timeout) {
+    function Fines(toaster, localStorageService, finesResource, $rootScope,$mdDialog) {
         var vm = this;
 
         vm.dialogOptions = {
@@ -37,28 +36,47 @@
 
         vm.isOpen = false;
 
-
-        vm.Second = function Second(Id) {
-            var secondFineModel = {
-                UserId: localStorageService.get('user').Id,
-                FineId: Id
-            };
-
-            var promise = finesResource.save({
-                    action: "SecondFine"
-                },
-                secondFineModel
+        vm.ShowAlert = function(ev) {
+            var seconder = $("#seconder").val();
+            $mdDialog.show(
+                $mdDialog.alert()
+                    .parent(angular.element(document.querySelector('#fines-container')))
+                    .clickOutsideToClose(true)
+                    .title('Fine has been seconded')
+                    .content('This fine has already been seconded by ' + seconder)
+                    .ariaLabel('Fine has been seconded')
+                    .ok('OK')
+                    .targetEvent(ev)
             );
+        }
 
-            promise.$promise.then(function (data) {
-                    toaster.pop('success', "Seconded", "Seconded");
-                    $(".buttonSecond" + Id).removeClass('fa fa-angellist');
-                    $(".buttonSecond" + Id).addClass('glyphicon glyphicon-ok');
-                },
+        vm.Second = function Second(Id, event) {
+            var isSeconded = $("#isSeconded").val();
 
-                function () {
-                    toaster.pop('error', "Fine Feed Failure", "No Fines were found");
-                });
+            if(isSeconded) {
+                vm.ShowAlert(event);
+            } else {
+                var secondFineModel = {
+                    UserId: localStorageService.get('user').Id,
+                    FineId: Id
+                };
+
+                var promise = finesResource.save({
+                        action: "SecondFine"
+                    },
+                    secondFineModel
+                );
+
+                promise.$promise.then(function (data) {
+                        toaster.pop('success', "Seconded", "Seconded");
+                        $(".buttonSecond" + Id).removeClass('fa fa-angellist');
+                        $(".buttonSecond" + Id).addClass('glyphicon glyphicon-ok');
+                    },
+
+                    function () {
+                        toaster.pop('error', "Fine Feed Failure", "No Fines were found");
+                    });
+            }
         }
 
     }
