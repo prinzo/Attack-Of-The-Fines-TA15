@@ -29,5 +29,7 @@ namespace FineBot.API.FinesApi
         void IssueAutoFine(Guid issuerId, Guid recipientId, Guid seconderId, string reason);
 
         byte[] GetImageForPaymentId(Guid id);
+
+        bool SecondFineById(Guid id, Guid userId);
     }
 }

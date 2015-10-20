@@ -58,6 +58,10 @@ namespace FineBot.WepApi.Controllers
         public byte[] GetImageForId(Guid id) {
             return this.fineApi.GetImageForPaymentId(id);
         }
-                
+
+        [HttpPost]
+        public bool SecondFine(SecondingModel secondModel) {
+            return this.fineApi.SecondFineById(secondModel.FineId, secondModel.UserId);
+        }
     }
 }

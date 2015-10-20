@@ -151,3 +151,7 @@
     height: 100%;
     display: inline-block;
 }
+
+.big-icon {
+    font-size: 10px;
+}

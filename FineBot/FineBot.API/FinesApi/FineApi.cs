@@ -107,10 +107,18 @@ namespace FineBot.API.FinesApi
             return this.fineMapper.MapToModelWithUser(fineToBeSeconded, this.userMapper.MapToModelShallow(userWithNewestPendingFine));
         }
 
+        public bool SecondFineById(Guid fineId, Guid userId) {
+            var fine = this.userRepository.Find(new UserSpecification().WithFineId(fineId));
+
+            fine.GetFineById(fineId).Second(userId);
+            this.userRepository.Save(fine);
+
+            return true;
+        }
+
         public List<FeedFineModel> GetLatestSetOfFines(int index, int pageSize) {
             var newFines = (from user in this.userRepository.GetAll()
                 from fine in user.Fines
-                where fine.Pending
                 select 
                     this.fineMapper.MapToFeedModel(fine, 
                     this.userRepository.Find(new UserSpecification().WithId(fine.IssuerId)),

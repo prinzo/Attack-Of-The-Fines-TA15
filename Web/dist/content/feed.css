@@ -147,6 +147,11 @@
 }
 
 .photo {
-    max-height: 200px;
-    max-width: 100%;
+    width: 200px;
+    height: 100%;
+    display: inline-block;
+}
+
+.big-icon {
+    font-size: 10px;
 }

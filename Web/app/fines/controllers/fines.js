@@ -12,8 +12,8 @@
 
     function Fines(toaster, $ngBootbox, localStorageService, finesResource, $rootScope, userResource, $timeout) {
         var vm = this;
-        
-         vm.dialogOptions = {
+
+        vm.dialogOptions = {
                             $scope : vm
                        }
          
@@ -36,5 +36,30 @@
         });
 
         vm.isOpen = false;
+
+
+        vm.Second = function Second(Id) {
+            var secondFineModel = {
+                UserId: localStorageService.get('user').Id,
+                FineId: Id
+            };
+
+            var promise = finesResource.save({
+                    action: "SecondFine"
+                },
+                secondFineModel
+            );
+
+            promise.$promise.then(function (data) {
+                    toaster.pop('success', "Seconded", "Seconded");
+                    $(".buttonSecond" + Id).removeClass('fa fa-angellist');
+                    $(".buttonSecond" + Id).addClass('glyphicon glyphicon-ok');
+                },
+
+                function () {
+                    toaster.pop('error', "Fine Feed Failure", "No Fines were found");
+                });
+        }
+
     }
 }());
