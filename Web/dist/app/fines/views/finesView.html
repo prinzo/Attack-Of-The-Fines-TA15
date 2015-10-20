@@ -32,10 +32,9 @@
 
                     <md-list>
                             <md-card class="md-3-line" ng-repeat="fine in fines | orderBy:'AwardedDate':true | limitTo: 10">
-
                                     <div class="md-card-content" ng-if="fine.IsPaid == false">
                                         <div class="col-sm-2">
-                                            <img ng-src="{{fine.UserImage}}?{{$index}}" class="face" alt="{{fine.ReceiverDisplayName}}">
+                                            <img ng-src="{{fine.UserImage}}" class="face" alt="{{fine.ReceiverDisplayName}}">
                                         </div>
                                         <div class="col-sm-10 card-content">
                                             <a id="user-statistics-link"
@@ -63,7 +62,7 @@
 
                                     <div class="md-card-content"  ng-if="fine.IsPaid == true">
                                         <div class="col-sm-2">
-                                            <img ng-src="{{fine.UserImage}}?{{$index}}" class="face" alt="{{fine.ReceiverDisplayName}}">
+                                            <img ng-src="{{fine.UserImage}}" class="face" alt="{{fine.ReceiverDisplayName}}">
                                         </div>
                                         <div class="col-sm-10 card-content">
                                             <a id="user-statistics-link"
