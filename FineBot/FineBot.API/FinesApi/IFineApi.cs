@@ -31,5 +31,9 @@ namespace FineBot.API.FinesApi
         byte[] GetImageForPaymentId(Guid id);
 
         bool SecondFineById(Guid id, Guid userId);
+
+        bool DisapprovePayment(Guid paymentId, Guid userId);
+
+        bool ApprovePayment(Guid paymentId, Guid userId);
     }
 }

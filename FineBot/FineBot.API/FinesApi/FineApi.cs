@@ -220,5 +220,33 @@ namespace FineBot.API.FinesApi
             return payment.PaymentImage.ImageBytes;
 
         }
+
+        public bool ApprovePayment(Guid paymentId, Guid userId) {
+            var payment = this.paymentRepository.Find(new PaymentSpecification().WithId(paymentId));
+
+            payment.LikedBy = payment.LikedBy ?? new List<Guid>();
+
+            var count = payment.LikedBy.Count;
+
+            payment.LikedBy.Add(userId);
+
+            this.paymentRepository.Save(payment);
+
+            return payment.LikedBy.Count > count;
+        }
+
+        public bool DisapprovePayment(Guid paymentId, Guid userId) {
+            var payment = this.paymentRepository.Find(new PaymentSpecification().WithId(paymentId));
+
+            payment.DislikedBy = payment.DislikedBy ?? new List<Guid>();
+
+            var count = payment.DislikedBy.Count;
+
+            payment.DislikedBy.Add(userId);
+
+            this.paymentRepository.Save(payment);
+
+            return payment.DislikedBy.Count > count;
+        }
     }
 }

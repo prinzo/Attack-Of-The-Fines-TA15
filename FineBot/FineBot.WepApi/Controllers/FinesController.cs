@@ -60,8 +60,18 @@ namespace FineBot.WepApi.Controllers
         }
 
         [HttpPost]
-        public bool SecondFine(SecondingModel secondModel) {
+        public bool SecondFine(FineInteractingModel secondModel) {
             return this.fineApi.SecondFineById(secondModel.FineId, secondModel.UserId);
+        }
+
+        [HttpPost]
+        public bool ApprovePayment(FineInteractingModel interactingModel) {
+            return this.fineApi.ApprovePayment(interactingModel.FineId, interactingModel.UserId);
+        }
+
+        [HttpPost]
+        public bool DisapprovePayment(FineInteractingModel interactingModel) {
+            return this.fineApi.DisapprovePayment(interactingModel.FineId, interactingModel.UserId);
         }
     }
 }
