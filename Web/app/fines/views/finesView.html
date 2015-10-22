@@ -65,25 +65,32 @@
                                             <img ng-src="{{fine.UserImage}}" class="face" alt="{{fine.ReceiverDisplayName}}">
                                         </div>
                                         <div class="col-sm-10 card-content">
-                                            <a id="user-statistics-link"
-                                               ng-bootbox-title="User Statistics"
-                                               ng-bootbox-custom-dialog="User Statistics"
-                                               ng-bootbox-custom-dialog-template="app/fines/views/modals/userStatistics.tpl.html"
-                                               id="user-name">
-                                                {{fine.ReceiverDisplayName}} </a> has paid {{fine.TotalPaid}} fines
-                                            <div><img src="{{fine.PaymentImage}}" class="md-card-image photo" alt="image caption"></div>
-                                            <div>
-                                                <div class="col-md-6 approval-div">
-                                                    <div id="approvedBy-{{fine.Id}}"><div id="innerApproved-{{fine.Id}}" ng-if="fine.LikedByCount > 0">Approved by
-                                                        <a><span id="approvedByNumber-{{fine.Id}}">{{fine.LikedByCount}}</span> people</a>
-                                                    </div></div>
-                                                    <div id="disapprovedBy-{{fine.Id}}"><div id="innerDisapproved-{{fine.Id}}" ng-if="fine.DislikedByCount > 0">Disapproved by
-                                                        <a><span id="disapprovedByNumber-{{fine.Id}}">{{fine.DislikedByCount}}</span> people</a>
-                                                    </div></div>
+                                            <div class="col-md-6 pull-left">
+                                                <a id="user-statistics-link"
+                                                   ng-bootbox-title="User Statistics"
+                                                   ng-bootbox-custom-dialog="User Statistics"
+                                                   ng-bootbox-custom-dialog-template="app/fines/views/modals/userStatistics.tpl.html"
+                                                   id="user-name">
+                                                    {{fine.ReceiverDisplayName}} </a> has paid {{fine.TotalPaid}} fines
+
+                                                <div>
+                                                    <div class="approval-div">
+                                                        <div layout="row" id="approvedBy-{{fine.Id}}"><div id="innerApproved-{{fine.Id}}" ng-if="fine.LikedByCount > 0">Approved by
+                                                            <a><span id="approvedByNumber-{{fine.Id}}">{{fine.LikedByCount}}</span> people</a>
+                                                        </div></div>
+                                                        <div layout="row" id="disapprovedBy-{{fine.Id}}"><div id="innerDisapproved-{{fine.Id}}" ng-if="fine.DislikedByCount > 0">Disapproved by
+                                                            <a><span id="disapprovedByNumber-{{fine.Id}}">{{fine.DislikedByCount}}</span> people</a>
+                                                        </div></div>
+                                                    </div>
                                                 </div>
-                                                <div class="md-actions col-md-6" layout="row" layout-align="end center">
-                                                    <md-button aria-label="Like" ng-click="fc.Approve(fine.Id)"><span id="like" class="fa fa-thumbs-o-up big-icon"/></md-button>
-                                                    <md-button aria-label="Dislike" ng-click="fc.Disapprove(fine.Id)"><span id="dislike" class="fa fa-thumbs-o-down big-icon"/></md-button>
+                                            </div>
+                                            <div class="col-md-4 pull-right">
+                                                <div class="right-image"><img src="{{fine.PaymentImage}}" class="md-card-image photo pull-right" alt="payment image"></div>
+                                                <div>
+                                                    <div class="md-actions pull-right" layout="row">
+                                                        <md-button aria-label="Like" ng-click="fc.Approve(fine.Id)"><span id="like" class="fa fa-thumbs-o-up big-icon"/></md-button>
+                                                        <md-button aria-label="Dislike" ng-click="fc.Disapprove(fine.Id)"><span id="dislike" class="fa fa-thumbs-o-down big-icon"/></md-button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

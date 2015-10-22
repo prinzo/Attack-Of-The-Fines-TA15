@@ -103,9 +103,8 @@
 }
 
 #photo {
-    max-width: 250px;
-    max-height: 250px;
-    padding-top: 3px;
+    max-height: 150px;
+    padding: 5px;
 }
 
 #like {
@@ -143,7 +142,8 @@
 }
 
 .card-content {
-    padding-top:10px
+    padding-top:10px;
+    padding-bottom:10px
 }
 
 .fines-container {
@@ -151,11 +151,15 @@
 }
 
 .photo {
-    width: 200px;
-    height: 100%;
+    max-width: 150px;
+    max-height: 150%;
     display: inline-block;
 }
 
 .big-icon {
     font-size: 10px;
+}
+
+.right-image {
+    padding-right: 23px;
 }
