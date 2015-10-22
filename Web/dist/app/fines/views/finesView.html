@@ -51,7 +51,7 @@
                                             </div>
                                             <div class="md-actions" layout="row" layout-align="end center">
                                                 <input type="hidden" id="isSeconded" value="{{fine.SeconderId != null}}"/>
-                                                <input type="hidden" id="seconder" value="{{fine.Seconder}}"/>
+                                                <input type="hidden" id="seconder-{{fine.Id}}" value="{{fine.Seconder}}"/>
                                                 <md-button aria-label="Second" ng-click="fc.Second(fine.Id, $event)">
                                                     <i class='fa fa-angellist big-icon buttonSecond{{fine.Id}}' ng-if="fine.SeconderId == null"/>
                                                     <i class='glyphicon glyphicon-ok big-icon buttonSecond{{fine.Id}}' ng-if="fine.SeconderId != null"/>
@@ -75,10 +75,12 @@
 
                                                 <div>
                                                     <div class="approval-div">
-                                                        <div layout="row" id="approvedBy-{{fine.Id}}"><div id="innerApproved-{{fine.Id}}" ng-if="fine.LikedByCount > 0">Approved by
+                                                        <div layout="row" id="approvedBy-{{fine.Id}}" ng-click="fc.GetApprovedByUsers(fine.Id, 1, $event)">
+                                                            <div id="innerApproved-{{fine.Id}}" ng-if="fine.LikedByCount > 0">Approved by
                                                             <a><span id="approvedByNumber-{{fine.Id}}">{{fine.LikedByCount}}</span> people</a>
                                                         </div></div>
-                                                        <div layout="row" id="disapprovedBy-{{fine.Id}}"><div id="innerDisapproved-{{fine.Id}}" ng-if="fine.DislikedByCount > 0">Disapproved by
+                                                        <div layout="row" id="disapprovedBy-{{fine.Id}}" ng-click="fc.GetApprovedByUsers(fine.Id, 0, $event)">
+                                                            <div id="innerDisapproved-{{fine.Id}}" ng-if="fine.DislikedByCount > 0">Disapproved by
                                                             <a><span id="disapprovedByNumber-{{fine.Id}}">{{fine.DislikedByCount}}</span> people</a>
                                                         </div></div>
                                                     </div>

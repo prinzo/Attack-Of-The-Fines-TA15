@@ -10,6 +10,7 @@ using FineBot.Entities;
 using FineBot.Infrastructure;
 using FineBot.Interfaces;
 using FineBot.Specifications;
+using FineBot.API.UsersApi;
 
 namespace FineBot.API.FinesApi
 {
@@ -248,5 +249,34 @@ namespace FineBot.API.FinesApi
 
             return payment.DislikedBy.Count > count;
         }
+
+        public ApprovalResult GetUsersApprovedBy(Guid paymentId) {
+            var payment = this.paymentRepository.Find(new PaymentSpecification().WithId(paymentId));
+
+            List<UserModel> users = new List<UserModel>();
+            if (payment.DislikedBy != null) {
+                users = this.userRepository.FindAll(new UserSpecification().WithIds(payment.DislikedBy))
+                    .Select(x => new UserModel {
+                        DisplayName = x.DisplayName
+                    }).ToList();
+            }
+
+            return new ApprovalResult { users = users };
+        }
+
+        public ApprovalResult GetUsersDisapprovedBy(Guid paymentId) {
+            var payment = this.paymentRepository.Find(new PaymentSpecification().WithId(paymentId));
+
+            List<UserModel> users = new List<UserModel>();
+            if(payment.DislikedBy != null) {
+                users = this.userRepository.FindAll(new UserSpecification().WithIds(payment.DislikedBy))
+                    .Select(x => new UserModel {
+                        DisplayName = x.DisplayName
+                    }).ToList();
+            }
+
+            return new ApprovalResult { users = users };
+        }
+
     }
 }

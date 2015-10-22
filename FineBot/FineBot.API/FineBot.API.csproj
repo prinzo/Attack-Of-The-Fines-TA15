@@ -85,6 +85,7 @@
     <Compile Include="DI\APIInstaller.cs" />
     <Compile Include="DI\Bootstrapper.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="FinesApi\ApprovalResult.cs" />
     <Compile Include="FinesApi\FeedFineModel.cs" />
     <Compile Include="FinesApi\FineApi.cs" />
     <Compile Include="FinesApi\FineWithUserModel.cs" />

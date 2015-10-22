@@ -73,5 +73,15 @@ namespace FineBot.WepApi.Controllers
         public bool DisapprovePayment(FineInteractingModel interactingModel) {
             return this.fineApi.DisapprovePayment(interactingModel.FineId, interactingModel.UserId);
         }
+
+        [HttpPost]
+        public ApprovalResult GetUserApprovedByList(Guid paymentId) {
+            return this.fineApi.GetUsersApprovedBy(paymentId);
+        }
+
+        [HttpPost]
+        public ApprovalResult GetUserDisapprovedByList(Guid paymentId) {
+            return this.fineApi.GetUsersDisapprovedBy(paymentId);
+        }
     }
 }

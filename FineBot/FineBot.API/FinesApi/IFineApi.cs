@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using FineBot.Common.Infrastructure;
+using FineBot.API.UsersApi;
 
 namespace FineBot.API.FinesApi
 {
@@ -35,5 +36,9 @@ namespace FineBot.API.FinesApi
         bool DisapprovePayment(Guid paymentId, Guid userId);
 
         bool ApprovePayment(Guid paymentId, Guid userId);
+
+        ApprovalResult GetUsersApprovedBy(Guid paymentId);
+
+        ApprovalResult GetUsersDisapprovedBy(Guid paymentId);
     }
 }
