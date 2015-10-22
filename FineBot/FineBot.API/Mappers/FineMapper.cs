@@ -113,7 +113,9 @@ namespace FineBot.API.Mappers
                 PaymentImage = paymentImage,
                 AwardedDate = payment.PaidDate,
                 UserImage = receiver.Image,
-                TotalPaid = totalPaid
+                TotalPaid = totalPaid,
+                LikedBy = payment.LikedBy,
+                DislikedBy = payment.DislikedBy
             };
         }
 

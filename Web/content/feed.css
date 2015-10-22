@@ -34,12 +34,16 @@
 }
 
 #platform {
-    font-size: 12
+    font-size: 12px;
 }
 
+.approval-div {
+    font-size: 10px;
+    padding-top:12px;
+}
 
 #award {
-     font-size: 12
+     font-size: 12px;
 }
 
 

@@ -2,6 +2,7 @@
 using FineBot.Entities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System.Collections.Generic;
 
 namespace FineBot.API.FinesApi {
     public class FeedFineModel {
@@ -41,6 +42,29 @@ namespace FineBot.API.FinesApi {
 
         public string UserImage { get; set; }
 
+        public List<Guid> LikedBy { get; set; }
+
+        public List<Guid> DislikedBy { get; set; }
+
+        public int LikedByCount {
+            get {
+                if (LikedBy != null) {
+                    return LikedBy.Count;
+                }
+
+                return 0;
+            }
+        }
+
+        public int DislikedByCount {
+            get {
+                if (DislikedBy != null) {
+                    return DislikedBy.Count;
+                }
+
+                return 0;
+            }
+        }
 
         public bool IsPaid
         {
