@@ -86,6 +86,7 @@
     <Compile Include="Responders\Interfaces\ISecondCousinResponder.cs" />
     <Compile Include="Responders\LeaderBoardResponder.cs" />
     <Compile Include="Responders\PayFineResponder.cs" />
+    <Compile Include="Responders\ResponderBase.cs" />
     <Compile Include="Responders\SecondAutofineResponder.cs" />
     <Compile Include="Responders\SeconderResponder.cs" />
     <Compile Include="Responders\ShowResponder.cs" />

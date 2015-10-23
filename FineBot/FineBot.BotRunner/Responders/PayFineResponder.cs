@@ -2,7 +2,9 @@
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
+using Castle.Core.Internal;
 using FineBot.API.FinesApi;
+using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
 using FineBot.BotRunner.Extensions;
 using FineBot.BotRunner.Models;
@@ -15,15 +17,16 @@ using ServiceStack.Text;
 
 namespace FineBot.BotRunner.Responders
 {
-    public class PayFineResponder : IFineBotResponder
+    public class PayFineResponder : ResponderBase, IFineBotResponder
     {
         private readonly IUserApi userApi;
         private readonly IFineApi fineApi;
 
         public PayFineResponder(
             IUserApi userApi,
-            IFineApi fineApi
-            )
+            IFineApi fineApi,
+            ISupportApi supportApi
+            ) : base(supportApi)
         {
             this.userApi = userApi;
             this.fineApi = fineApi;
@@ -64,11 +67,6 @@ namespace FineBot.BotRunner.Responders
             string s = Convert.ToInt32(number) > 1 ? "s" : string.Empty;
 
             return new BotMessage { Text = String.Format("{0} fine{1} paid for {2}!", number, s, user.SlackId) };
-        }
-
-        private BotMessage GetErrorResponse(ValidationResult result)
-        {
-            return new BotMessage{Text = String.Format("There was a problem with your request: {0}", result.FullTrace)};
         }
 
         private PaymentImageModel GetImage(SlackMessage message)
@@ -112,6 +110,11 @@ namespace FineBot.BotRunner.Responders
         private UserModel GetUser(ResponseContext context)
         {
             var users = context.Message.GetUserIdsFromMessageExcluding(context.BotUserID);
+
+            if(users.IsNullOrEmpty())
+            {
+                
+            }
 
             var user = this.userApi.GetUserBySlackId(users.First());
 

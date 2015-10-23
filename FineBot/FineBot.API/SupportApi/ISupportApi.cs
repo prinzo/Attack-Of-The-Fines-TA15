@@ -12,5 +12,7 @@ namespace FineBot.API.SupportApi
         List<SupportTicketModel> GetAllSupportTickets();
         List<SupportTicketModel> GetSupportTicketsForUser(Guid userId);
         SupportTicketModel UpdateTicketStatus(SupportTicketModel supportTicketModel);
+
+        SupportTicketModel CreateSupportTicketOnTrello(SupportTicketModel supportTicketModel);
     }
 }

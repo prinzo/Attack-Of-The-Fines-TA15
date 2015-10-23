@@ -72,5 +72,13 @@ namespace FineBot.API.SupportApi
 
             return supportTicketMapper.MapToModel(supportTicket);
         }
+
+        public SupportTicketModel CreateSupportTicketOnTrello(SupportTicketModel supportTicketModel)
+        {
+            var model = this.CreateSupportTicket(supportTicketModel);
+            this.AddNewCardToSupport(model);
+
+            return model;
+        }
     }
 }

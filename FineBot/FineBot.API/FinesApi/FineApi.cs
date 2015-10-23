@@ -149,6 +149,10 @@ namespace FineBot.API.FinesApi
                 return result;
             }
 
+            result = user.CanPayFines(number);
+
+            if(result.HasErrors) return result;
+
             payment = this.paymentRepository.Save(payment);
 
             result = user.PayFines(payment, number);

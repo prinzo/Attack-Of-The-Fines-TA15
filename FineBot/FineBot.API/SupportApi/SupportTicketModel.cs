@@ -8,6 +8,11 @@ namespace FineBot.API.SupportApi
 {
     public class SupportTicketModel
     {
+        public SupportTicketModel()
+        {
+            this.CreatedDate = DateTime.Now;
+        }
+
         public Guid Id { get; set; }
         public DateTime CreatedDate { get; set; }
         public string Subject { get; set; }

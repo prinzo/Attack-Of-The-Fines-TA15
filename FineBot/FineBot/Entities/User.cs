@@ -67,5 +67,22 @@ namespace FineBot.Entities
             return new ValidationResult();
         }
 
+        public ValidationResult CanPayFines(int number)
+        {
+            var canPayFines = new ValidationResult();
+
+            if (!this.Fines.Any(x => x.Outstanding))
+            {
+                canPayFines.AddMessage(Severity.Error, "This user doesn't have any fines to pay!");
+                return canPayFines;
+            }
+
+            if(this.Fines.Count(x => x.Outstanding) < number)
+            {
+                canPayFines.AddMessage(Severity.Warning, "This user doesn't have that many fines!");
+            }
+
+            return canPayFines;
+        }
     }
 }

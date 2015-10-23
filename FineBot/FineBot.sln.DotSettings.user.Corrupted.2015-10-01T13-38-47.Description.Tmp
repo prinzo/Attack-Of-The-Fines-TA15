@@ -1,0 +1,98 @@
+﻿<CorruptedSettingsDescription>
+  <Exception Message="Name cannot begin with the '&lt;' character, hexadecimal value 0x3C. Line 3, position 2." Kind="Error">Name cannot begin with the '&lt;' character, hexadecimal value 0x3C. Line 3, position 2.
+
+--- EXCEPTION #1/2 [XmlException]
+Message = “Name cannot begin with the '&lt;' character, hexadecimal value 0x3C. Line 3, position 2.”
+ExceptionPath = Root.InnerException
+ClassName = System.Xml.XmlException
+HResult = Xml=80131940
+Source = System.Xml
+res = Xml_BadStartNameChar
+args.#0 = &lt;
+args.#1 = 0x3C
+lineNumber = 3
+linePosition = 2
+version = 2.0
+StackTraceString = “
+  at System.Xml.XmlTextReaderImpl.Throw(Exception e)
+     at System.Xml.XmlTextReaderImpl.Throw(String res, String[] args)
+     at System.Xml.XmlTextReaderImpl.ParseQName(Boolean isQName, Int32 startOffset, Int32&amp; colonPos)
+     at System.Xml.XmlTextReaderImpl.ParseElement()
+     at System.Xml.XmlTextReaderImpl.ParseElementContent()
+     at System.Xml.XmlTextReaderImpl.Read()
+     at JetBrains.Application.Settings.Storage.Persistence.EntriesReader.Step_GenericRead_SkipToElement()
+”
+
+--- Outer ---
+
+--- EXCEPTION #2/2 [LoggerException]
+Message = “Name cannot begin with the '&lt;' character, hexadecimal value 0x3C. Line 3, position 2.”
+ExceptionPath = Root
+ClassName = JetBrains.Util.LoggerException
+InnerException = “Exception #1 at Root.InnerException”
+HResult = COR_E_APPLICATION=80131600
+StackTraceString = “
+  at JetBrains.Application.Settings.Storage.Persistence.EntriesReader.Step_GenericRead()
+     at JetBrains.Application.Settings.Storage.Persistence.EntriesReader.Step()
+     at JetBrains.Application.Settings.Storage.Persistence.EntriesReader.Run(XmlReader reader, EntryPositionsFlag entryPositionsFlag)
+     at JetBrains.Application.Settings.Storage.Persistence.SettingsStoreSerializationToXmlDiskFile.&lt;&gt;c__DisplayClass4a.&lt;&gt;c__DisplayClass4c.&lt;&gt;c__DisplayClass4e.&lt;Save_WriteFile_BackupOldCorruptedFile&gt;b__40(XmlReader xmlreader)
+     at JetBrains.Util.XmlReaderEx.ReadXml(Stream stream, Action`1 FRead)
+     at JetBrains.Application.Settings.Storage.Persistence.SettingsStoreSerializationToXmlDiskFile.&lt;&gt;c__DisplayClass4a.&lt;&gt;c__DisplayClass4c.&lt;&gt;c__DisplayClass4e.&lt;Save_WriteFile_BackupOldCorruptedFile&gt;b__3f(Stream streamR)
+     at JetBrains.Util.FileSystemPathEx.ReadStream(FileSystemPath path, Action`1 FRead)
+     at JetBrains.Application.Settings.Storage.Persistence.SettingsStoreSerializationToXmlDiskFile.&lt;&gt;c__DisplayClass4a.&lt;&gt;c__DisplayClass4c.&lt;Save_WriteFile_BackupOldCorruptedFile&gt;b__3e()
+     at JetBrains.Util.Logging.Logger.Catch(Action action)
+     at JetBrains.Util.XmlWriterEx.InElement(XmlWriter writer, String name, Action nested, Boolean writeFullEndElement)
+     at JetBrains.Application.Settings.Storage.Persistence.SettingsStoreSerializationToXmlDiskFile.&lt;&gt;c__DisplayClass4a.&lt;Save_WriteFile_BackupOldCorruptedFile&gt;b__3d(XmlWriter xmlwriter)
+     at JetBrains.Util.XmlWriterEx.WriteXml(Stream stream, Action`1 FWrite)
+     at JetBrains.Application.Settings.Storage.Persistence.SettingsStoreSerializationToXmlDiskFile.&lt;&gt;c__DisplayClass4a.&lt;Save_WriteFile_BackupOldCorruptedFile&gt;b__3c(Stream stream)
+     at JetBrains.Util.FileSystemPathEx.WriteStream(FileSystemPath path, Action`1 FWrite)
+     at JetBrains.Application.Settings.Storage.Persistence.SettingsStoreSerializationToXmlDiskFile.Save_WriteFile_BackupOldCorruptedFile(FileSystemPath path)
+     at JetBrains.Application.Settings.Storage.Persistence.SettingsStoreSerializationToXmlDiskFile.&lt;&gt;c__DisplayClass2b.&lt;Save_WriteFile&gt;b__1e()
+     at JetBrains.Util.ILoggerEx.Catch(ILogger thіs, Action F, ExceptionOrigin origin)
+     at JetBrains.Application.Settings.Storage.Persistence.SettingsStoreSerializationToXmlDiskFile.Save_WriteFile(SaveDiffFlags flagsDiff, SaveForcedFlags flagsForced)
+     at JetBrains.Application.Settings.Storage.Persistence.SettingsStoreSerializationToXmlDiskFile.Save(SaveDiffFlags flagsDiff, SaveForcedFlags flagsForced)
+     at JetBrains.Application.Settings.Storage.Persistence.SettingsStoreSerializationToXmlDiskFile.&lt;Init_FirstLoadLastSave&gt;b__1()
+     at JetBrains.DataFlow.IPropertySignalEx.&lt;&gt;c__DisplayClass1`1.&lt;Advise_FallingFront&gt;b__0(PropertyChangedEventArgs`1 args)
+     at JetBrains.DataFlow.Property`1.PropertyChangeSignal.Acknowledge(Action`1 handler, AddRemove addremove)
+     at JetBrains.DataFlow.Property`1.PropertyChangeSignal.OnAfterUnadvise(Action`1 handler)
+     at JetBrains.DataFlow.Signal`1.&lt;&gt;c__DisplayClass2.&lt;AdviseCore&gt;b__1()
+     at JetBrains.DataFlow.Lifetime.Terminate()
+     at JetBrains.Application.Components.LifetimeValueResolver.LifetimeDescriptor.Dispose()
+     at JetBrains.Application.Components.SingletonDescriptor.DisposeImpl()
+     at JetBrains.Application.Components.SingletonDescriptor.System.IDisposable.Dispose()
+     at JetBrains.Application.Components.ComponentStorage.DisposeDescriptor(IComponentDescriptor descriptor)
+     at JetBrains.Application.Components.ComponentStorage.&lt;&gt;c__DisplayClassb.&lt;RegisterDescriptors&gt;b__9()
+     at JetBrains.DataFlow.Lifetime.Terminate()
+     at JetBrains.DataFlow.ICollectionEventsEx.&lt;&gt;c__DisplayClass15`1.&lt;ForEachItemCore&gt;b__12(AddRemoveEventArgs`1 args)
+     at JetBrains.DataFlow.CollectionEvents`1.OnAcknowledgeSinkAddRemove(Action`1 handler, AddRemove addremove)
+     at JetBrains.DataFlow.CollectionEvents`1.&lt;.ctor&gt;b__1(Action`1 handler)
+     at JetBrains.DataFlow.Infra.SignalWithDelegates`1.OnAfterUnadvise(Action`1 handler)
+     at JetBrains.DataFlow.Signal`1.&lt;&gt;c__DisplayClass2.&lt;AdviseCore&gt;b__1()
+     at JetBrains.DataFlow.Lifetime.Terminate()
+     at JetBrains.ProjectModel.SolutionInstance.CloseSolutionInstance()
+     at JetBrains.ProjectModel.SolutionManagerBase.CloseSolutionInstance(SolutionInstance instance)
+     at JetBrains.VsIntegration.ProjectDocuments.VSSolutionManager.CloseSolutionInstance(SolutionInstance instance)
+     at JetBrains.VsIntegration.ProjectDocuments.VSSolutionManager.&lt;&gt;c__DisplayClass21.&lt;OnBeforeCloseSolution&gt;b__1f()
+     at JetBrains.Util.Concurrency.UnguardedCallbackMerger.&lt;&gt;c__DisplayClass3.&lt;ExecuteOrQueueOrMerge&gt;b__0()
+     at JetBrains.Threading.ReentrancyGuard.Execute(String name, Action action)
+     at JetBrains.Threading.ReentrancyGuard.TryExecute(String name, Action action)
+     at JetBrains.Threading.ReentrancyGuardEx.ExecuteOrQueue(ReentrancyGuard thіs, Lifetime lifetime, String name, Action F)
+     at JetBrains.Util.Concurrency.UnguardedCallbackMerger.ExecuteOrQueueOrMerge(Lifetime lifetimeQueue, String name, Action F)
+     at JetBrains.VsIntegration.ProjectDocuments.VSSolutionManager.OnBeforeCloseSolution(Object pUnkReserved)
+”
+</Exception>
+  <!--The backup file has been created before writing in-memory changes to the settings file. As the existing settings file is corrupted, many settings might get lost when writing the new content. If you'd like to restore the settings from the previous version, here're the changes against the backed-up version (note: subsequent changes are not reflected here).-->
+  <InMemoryChanges>
+    <SetValue>
+      <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        <s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=9CADAEBBF8E140309D3B4BB00E69D54A/Name/@EntryValue">All Tests in FineBot</s:String>
+        <s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=9CADAEBBF8E140309D3B4BB00E69D54A/@KeyIndexDefined">True</s:Boolean>
+        <s:Int64 x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=9CADAEBBF8E140309D3B4BB00E69D54A/GroupingIndex/@EntryValue">4</s:Int64>
+        <s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=9CADAEBBF8E140309D3B4BB00E69D54A/XmlSerializedElements/@EntryValue">&lt;Session&gt;&lt;e Id="FineBot.Tests.DomainTests.UserTests" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.DependencyTests.DependencyTests.ApiDependenciesResolve" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.BotRunnerTests.ExtensionsTests.SlackMessageExtensionsTests.GivenASlackMessageWhenThereIsAYouTubeLinkThenReturnTrue(&amp;quot;&amp;lt;http://android-app//com.google.android.youtube/http/www.youtube.com/watch?v=YqeW9_5kURI&amp;gt;&amp;quot;)" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.DependencyTests.DependencyTests" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.API.Extensions.DateTimeExtensionsTests.GivenADateTimeThenReturnThePreviousMondayDateTime(07/19/1975 00:00:00,07/14/1975 00:00:00)" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.API.FinesApiTests.GivenAListOfRecentPaidAndNewFines_When_RetrievingLatestFinesForFeed_Then_AllShouldBeRetrieved" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.API.Extensions.DateTimeExtensionsTests" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.API.FinesApiTests.GivenALimitedListOfRecentPaidAndNewFines_When_RetrievingLatestFinesForFeed_Then_TheLatestOfBothShouldBeRetrieved" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.DomainTests.UserTests.GivenANewUser_IssueFine_WithSeconder_IssuesANewFineWhichIsNotPending" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.API.Extensions.DateTimeExtensionsTests.GivenADateTimeThenReturnThePreviousMondayDateTime(06/12/1904 00:00:00,06/06/1904 00:00:00)" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.BotRunnerTests.ExtensionsTests.SlackMessageExtensionsTests.GivenASlackMessageWhenThereIsAYouTubeLinkThenReturnTrue(&amp;quot;&amp;lt;http://ios-app//544007664/vnd.youtube/www.youtube.com/watch?v=YqeW9_5kURI&amp;gt;&amp;quot;)" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.DomainTests.UserTests.GivenANewUser_IssueFine_WithoutSeconder_IssuesANewPendingFine" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.API.Extensions.DateTimeExtensionsTests.GivenADateTimeThenReturnThePreviousMondayDateTime(03/04/2044 00:00:00,02/29/2044 00:00:00)" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.BotRunnerTests.ExtensionsTests.SlackMessageExtensionsTests.GivenASlackMessageWhenThereIsAYouTubeLinkThenReturnTrue" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.BotRunnerTests.ExtensionsTests.SlackMessageExtensionsTests.GivenASlackMessageWhenThereIsAYouTubeLinkThenReturnTrue(&amp;quot;&amp;lt;http://m.youtube.com/watch?v=YqeW9_5kURI&amp;gt;&amp;quot;)" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.DomainTests.UserTests.GivenAUserWithFines_GetFineById_ReturnsCorrectFine" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.API.Extensions.DateTimeExtensionsTests.GivenADateTimeThenReturnThePreviousMondayDateTime(01/11/2011 00:00:00,01/10/2011 00:00:00)" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.BotRunnerTests.ExtensionsTests.SlackMessageExtensionsTests.GivenASlackMessageWhenThereIsNotAYouTubeLinkThenReturnFalse(&amp;quot;Hey check this out not youtube link &amp;lt;http://www.google.com&amp;gt;&amp;quot;)" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.API.Extensions.DateTimeExtensionsTests.GivenADateTimeThenReturnThePreviousMondayDateTime(01/01/2015 00:00:00,12/29/2014 00:00:00)" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.BotRunnerTests.ExtensionsTests.SlackMessageExtensionsTests.GivenASlackMessageWhenThereIsNotAYouTubeLinkThenReturnFalse" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.API.Extensions.DateTimeExtensionsTests.GivenADateTimeThenReturnThePreviousMondayDateTime(08/12/2015 00:00:00,08/10/2015 00:00:00)" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.API.FinesApiTests.GivenAListOfNewFines_When_RetrievingLatestFinesForFeed_Then_TheFinesShouldBeRetrieved" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.BotRunnerTests.ExtensionsTests.SlackMessageExtensionsTests.GivenASlackMessageWhenThereIsAYouTubeLinkThenReturnTrue(&amp;quot;&amp;lt;http://www.youtube.com/watch?v=YqeW9_5kURI&amp;gt;&amp;quot;)" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.API.Extensions.DateTimeExtensionsTests.GivenADateTimeThenReturnThePreviousMondayDateTime" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.BotRunnerTests.ExtensionsTests.SlackMessageExtensionsTests.GivenASlackMessageWhenThereIsAYouTubeLinkThenReturnTrue(&amp;quot;Hey check this out &amp;lt;https://www.youtube.com/watch?v=I9G9sTqMBIg&amp;gt;&amp;quot;)" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.API.FinesApiTests" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.API.FinesApiTests.SecondOldestPendingFine_SecondsCorrectFine" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.DomainTests.UserTests.GivenAUserWithFines_GetOldestPendingFine_ReturnsCorrectFine" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.BotRunnerTests.ExtensionsTests.SlackMessageExtensionsTests" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.BotRunnerTests.ExtensionsTests.SlackMessageExtensionsTests.GivenASlackMessageWhenThereIsAYouTubeLinkThenReturnTrue(&amp;quot;Super awesome video&amp;lt;https://youtu.be/I9G9sTqMBIg&amp;gt;&amp;quot;)" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.API.Extensions.DateTimeExtensionsTests.GivenADateTimeThenReturnThePreviousMondayDateTime(05/11/2015 00:00:00,05/11/2015 00:00:00)" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;e Id="FineBot.Tests.BotRunnerTests.ExtensionsTests.SlackMessageExtensionsTests.GivenASlackMessageWhenThereIsNotAYouTubeLinkThenReturnFalse(&amp;quot;Gizmodo article &amp;lt;http://gizmodo.com/youtube-will-soon-support-360-degree-video-uploads-1677627074&amp;gt;&amp;quot;)" Project="A575B21B-055D-4B6A-8D87-052D0ED94453" Provider="nUnit" /&gt;&lt;/Session&gt;</s:String>
+      </ResourceDictionary>
+    </SetValue>
+    <ClearValue>
+      <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
+    </ClearValue>
+  </InMemoryChanges>
+</CorruptedSettingsDescription>
