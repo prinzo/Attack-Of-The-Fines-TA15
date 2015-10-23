@@ -6,7 +6,7 @@ using System.Web;
 namespace FineBot.WepApi.Models {
     public class NewPaymentModel {
     
-        public byte[] Image { get; set; }
+        public string Image { get; set; }
 
         public Guid PayerId { get; set; }
 

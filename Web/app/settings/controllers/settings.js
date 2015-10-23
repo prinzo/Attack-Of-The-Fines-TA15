@@ -12,7 +12,7 @@
     function Settings(userResource, toaster, localStorageService, $rootScope, $scope) {
         var scope = this;
         $rootScope.checkUser();
-        scope.email = "prinay.panday@entelect.co.za";
+        scope.email = "";
         scope.user = [];
         scope.Name = '';
         scope.Surname = '';

@@ -17,19 +17,42 @@
         
         var currentUser = localStorageService.get('user'); 
         
-        vm.selectedUser;
+        vm.selectedUser = [];
         vm.reason = "";
-        
+
+        vm.filterSelected = true;
+
         vm.users = userResource.query({
                     action: "GetAllUsers"
                 }
             );
-                     
+
+        function createFilterFor(query) {
+
+          var lowercaseQuery = angular.lowercase(query);
+          return function filterFn(contact) {
+
+                //if(!!contact && !!angular.lowercase(contact.DisplayName)) {
+                    return ( angular.lowercase(contact.DisplayName).indexOf(lowercaseQuery) != -1);
+               // }
+
+              return false;
+
+          };
+        }
+
+        vm.Search = function(query) {var results = query ?
+              vm.users.filter(createFilterFor(query)) : [];
+
+            vm.selectedUser = [];
+            return results;
+        }
+
         vm.AwardFine = function () {
                         
             var newFineModel = {
                 IssuerId: currentUser.Id,
-                RecipientId: vm.selectedUser["originalObject"].Id,
+                RecipientId: vm.selectedUser[0].Id,
                 Reason: vm.reason
             };
 

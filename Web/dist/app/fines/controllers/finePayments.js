@@ -10,10 +10,13 @@
                                    'localStorageService',
                                    '$rootScope',
                                    '$q',
+                                     '$scope',
                                    FinePayments]);
 
-    function FinePayments(toaster, $ngBootbox, $timeout, finesResource, userResource, localStorageService, $rootScope, $q) {
+    function FinePayments(toaster, $ngBootbox, $timeout, finesResource, userResource, localStorageService, $rootScope, $q, $scope) {
         var vm = this;
+
+        vm.selectedUser = [];
         
         $rootScope.checkUser();
         
@@ -22,15 +25,65 @@
                 }
             );
         
-        var currentUser = localStorageService.get('user'); 
-            
-        vm.PayFine = function () {
+        vm.currentUser = localStorageService.get('user');
+        
+        vm.uploadButtonVisible = false;
+        $scope.Image = '';
+
+        function createFilterFor(query) {
+
+            var lowercaseQuery = angular.lowercase(query);
+            return function filterFn(contact) {
+
+                if(!!contact && !!angular.lowercase(contact.DisplayName)) {
+                    return ( angular.lowercase(contact.DisplayName).indexOf(lowercaseQuery) != -1);
+                }
+
+                return false;
+
+            };
+        }
+
+        vm.Search = function(query) {var results = query ?
+            vm.users.filter(createFilterFor(query)) : [];
+
+            vm.selectedUser = [];
+            return results;
+        }
+
+        
+        var handleFileSelect = function (evt) {
+
+            var file = evt.currentTarget.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function (evt) {
+                var img = new Image();
+                img.src = evt.target.result;
+
+                $scope.$apply(function (scope) {
+                    $scope.Image = new FileReader().readAsArrayBuffer(evt.target.result);
+                    vm.Image = $scope.Image.toDataURL("image/png");
+                });
+            };
+
+            reader.readAsDataURL(file);
+            vm.showUpload = true;
+            vm.showImage = true;
+
+        };
+        
+        $timeout(function() {
+            angular.element(document.querySelector('#paymentFileInput')).on('change', handleFileSelect);
+        },200, false);
+
+        vm.PayFine = function PayFine() {
              
             var newPaymentModel = {
-                PayerId: currentUser.Id,
-                RecipientId: vm.selectedUser["originalObject"].Id,
+                PayerId: vm.currentUser.Id,
+                RecipientId: vm.selectedUser[0].Id,
                 TotalFinesPaid: vm.TotalFinesPaid,
-                Image : null
+                Image :  vm.Image
             };
 
             var promise = finesResource.save({
@@ -42,6 +95,10 @@
             promise.$promise.then(function (data) {
                     toaster.pop('success', "Payment Awarded", "Payment awarded successfully");
                     
+                    vm.showUpload = false;
+                    vm.showImage = false;
+                    localStorageService.clearAll();
+                    localStorageService.set('user', vm.selectedUser);
                 
                     $timeout(function(){
                        var defer = $q.defer();

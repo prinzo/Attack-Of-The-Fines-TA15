@@ -5,6 +5,7 @@ using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using FineBot.API.UsersApi;
+using FineBot.BotRunner.Extensions;
 using FineBot.BotRunner.Responders.Interfaces;
 using MargieBot.Models;
 
@@ -22,8 +23,8 @@ namespace FineBot.BotRunner.Responders
         public bool CanRespond(ResponseContext context)
         {
             return !context.BotHasResponded
-                && context.UserNameCache[context.Message.User.ID].Equals("finesbot")
-                && context.Message.Text.ToLower().Contains("fine");
+                   && context.IsMessageFromUser("finesbot")
+                   && context.Message.Text.ToLower().Contains("auto-fine");
         }
 
         public BotMessage GetResponse(ResponseContext context)

@@ -3,6 +3,7 @@ using System.Linq;
 using FineBot.Abstracts;
 using FineBot.Entities;
 using FineBot.Interfaces;
+using System.Collections.Generic;
 
 namespace FineBot.Specifications
 {
@@ -26,6 +27,14 @@ namespace FineBot.Specifications
         public ISpecification<User> WithPendingFines()
         {
             return this.And(f => f.Fines.Any(x => x.SeconderId == null));
+        }
+
+        public ISpecification<User> WithFineId(Guid id) {
+            return this.And(x => x.Fines.Any(y => y.Id == id));
+        }
+
+        public ISpecification<User> WithIds(List<Guid> ids) {
+            return this.And(x => ids.Contains(x.Id));
         }
 
     }

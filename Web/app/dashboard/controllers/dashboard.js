@@ -17,12 +17,21 @@
         var categories = [];
         var seriesToday = [];
         var categoriesToday = [];
+        var seriesWeek = [];
+        var categoriesWeek = [];
+        var seriesMonth = [];
+        var categoriesMonth = [];
 
         GetOverallLeaderboard();
         GetLeaderboardToday();
+        GetLeaderboardWeek();
+        GetLeaderboardMonth();
 
         $interval(GetOverallLeaderboard, 60000);
         $interval(GetLeaderboardToday, 60000);
+        $interval(GetLeaderboardWeek, 60000);
+        $interval(GetLeaderboardMonth, 60000);
+
 
 
         function GetOverallLeaderboard() {
@@ -35,11 +44,40 @@
 
                 for (var j = 0; j < data.length; j++) {
                     seriesData.push(data[j].AwardedFineCount);
-                    categories.push(data[j].EmailAddress);
+                    categories.push(data[j].DisplayName);
                 }
             });
         }
 
+        function GetLeaderboardMonth() {
+            seriesMonth.length = 0;
+            categoriesMonth.length = 0;
+            var promise = dashboardResource.query({
+                action: "GetLeaderboardForMonth"
+            });
+            promise.$promise.then(function (data) {
+
+                for (var j = 0; j < data.length; j++) {
+                    seriesMonth.push(data[j].AwardedFineCount);
+                    categoriesMonth.push(data[j].DisplayName);
+                }
+            });
+        }
+
+        function GetLeaderboardWeek() {
+            seriesWeek.length = 0;
+            categoriesWeek.length = 0;
+            var promise = dashboardResource.query({
+                action: "GetLeaderboardForWeek"
+            });
+            promise.$promise.then(function (data) {
+
+                for (var j = 0; j < data.length; j++) {
+                    seriesWeek.push(data[j].AwardedFineCount);
+                    categoriesWeek.push(data[j].DisplayName);
+                }
+            });
+        }
 
         function GetLeaderboardToday() {
             seriesToday.length = 0;
@@ -50,7 +88,7 @@
             promise.$promise.then(function (data) {
                 for (var j = 0; j < data.length; j++) {
                     seriesToday.push(data[j].AwardedFineCount);
-                    categoriesToday.push(data[j].EmailAddress);
+                    categoriesToday.push(data[j].DisplayName);
                 }
             });
         }
@@ -83,6 +121,23 @@
             {
                 "name": "Fine Count",
                 "data": seriesToday,
+                "color": "green"
+
+            }
+  ];
+
+        vm.chartSeriesWeek = [
+            {
+                "name": "Fine Count",
+                "data": seriesWeek,
+                "color": "green"
+
+            }
+  ];
+        vm.chartSeriesMonth = [
+            {
+                "name": "Fine Count",
+                "data": seriesMonth,
                 "color": "green"
 
             }
@@ -138,7 +193,7 @@
                 }
             },
             title: {
-                text: 'Leaderboard for 2015 - Top 5'
+                text: 'Yearly Leaderboard- Top 5'
             },
             credits: {
                 enabled: true
@@ -174,7 +229,7 @@
                 }
             },
             title: {
-                text: 'Leaderboard for Today - Top 5'
+                text: 'Daily Leaderboard - Top 5'
             },
             credits: {
                 enabled: true
@@ -183,6 +238,77 @@
             size: {}
         }
 
+        vm.chartConfigWeek = {
+            options: {
+                chart: {
+                    backgroundColor: "#FFFFFF",
+                    plotShadow: true,
+                    type: 'bar'
+                },
+                func: function (chart) {
+                    $timeout(function () {
+                        chart.reflow();
+                    }, 0);
+                },
+
+            },
+            series: vm.chartSeriesWeek,
+            xAxis: {
+                categories: categoriesWeek,
+                title: {
+                    text: 'Employee'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Number of Fines'
+                }
+            },
+            title: {
+                text: 'Weekly Leaderboard - Top 5'
+            },
+            credits: {
+                enabled: true
+            },
+            loading: false,
+            size: {}
+        }
+
+        vm.chartConfigMonth = {
+            options: {
+                chart: {
+                    backgroundColor: "#FFFFFF",
+                    plotShadow: true,
+                    type: 'bar'
+                },
+                func: function (chart) {
+                    $timeout(function () {
+                        chart.reflow();
+                    }, 0);
+                },
+
+            },
+            series: vm.chartSeriesMonth,
+            xAxis: {
+                categories: categoriesMonth,
+                title: {
+                    text: 'Employee'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Number of Fines'
+                }
+            },
+            title: {
+                text: 'Monthly Leaderboard - Top 5'
+            },
+            credits: {
+                enabled: true
+            },
+            loading: false,
+            size: {}
+        }
         vm.chartConfigDistribution = {
             options: {
                 chart: {

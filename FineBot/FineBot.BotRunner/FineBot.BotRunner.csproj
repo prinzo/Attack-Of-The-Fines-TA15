@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="DI\BotRunnerBootstrapper.cs" />
     <Compile Include="DI\BotInstaller.cs" />
+    <Compile Include="Extensions\ResponseContextExtensions.cs" />
     <Compile Include="Extensions\SlackMessageExtensions.cs" />
     <Compile Include="Models\SlackMessageAttachmentModel.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
@@ -79,6 +80,8 @@
     <Compile Include="Models\SlackRawMessageModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Responders\CommonReplyResponder.cs" />
+    <Compile Include="Responders\FineCountResponder.cs" />
     <Compile Include="Responders\GiveFineResponder.cs" />
     <Compile Include="Responders\HelpResponder.cs" />
     <Compile Include="Responders\Interfaces\IFineBotResponder.cs" />
@@ -90,7 +93,6 @@
     <Compile Include="Responders\SecondAutofineResponder.cs" />
     <Compile Include="Responders\SeconderResponder.cs" />
     <Compile Include="Responders\ShowResponder.cs" />
-    <Compile Include="Responders\WhatIsAFineResponder.cs" />
     <Compile Include="Responders\YouTubeResponder.cs" />
   </ItemGroup>
   <ItemGroup>

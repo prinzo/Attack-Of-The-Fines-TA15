@@ -200,6 +200,7 @@
     </Compile>
     <Compile Include="Models\NewFineModel.cs" />
     <Compile Include="Models\NewPaymentModel.cs" />
+    <Compile Include="Models\FineInteractingModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

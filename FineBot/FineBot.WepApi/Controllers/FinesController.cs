@@ -38,7 +38,8 @@ namespace FineBot.WepApi.Controllers
                 PayerId = newPaymentModel.PayerId,
                 RecipientId = newPaymentModel.RecipientId,
                 TotalFinesPaid = newPaymentModel.TotalFinesPaid,
-                Image = null
+                Image = Convert.FromBase64String(newPaymentModel.Image.Replace("data:image/png;base64,", "")),
+                MimeType = "image/png"
             };
 
             ValidationResult validationResult;
@@ -52,6 +53,35 @@ namespace FineBot.WepApi.Controllers
         public FeedFineModel[] GetFines() {
             return this.fineApi.GetLatestSetOfFines(0, 10).ToArray();
         }
-                
+
+        [HttpGet]
+        public byte[] GetImageForId(Guid id) {
+            return this.fineApi.GetImageForPaymentId(id);
+        }
+
+        [HttpPost]
+        public bool SecondFine(FineInteractingModel secondModel) {
+            return this.fineApi.SecondFineById(secondModel.FineId, secondModel.UserId);
+        }
+
+        [HttpPost]
+        public bool ApprovePayment(FineInteractingModel interactingModel) {
+            return this.fineApi.ApprovePayment(interactingModel.FineId, interactingModel.UserId);
+        }
+
+        [HttpPost]
+        public bool DisapprovePayment(FineInteractingModel interactingModel) {
+            return this.fineApi.DisapprovePayment(interactingModel.FineId, interactingModel.UserId);
+        }
+
+        [HttpPost]
+        public ApprovalResult GetUserApprovedByList(Guid paymentId) {
+            return this.fineApi.GetUsersApprovedBy(paymentId);
+        }
+
+        [HttpPost]
+        public ApprovalResult GetUserDisapprovedByList(Guid paymentId) {
+            return this.fineApi.GetUsersDisapprovedBy(paymentId);
+        }
     }
 }

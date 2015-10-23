@@ -16,10 +16,24 @@ namespace FineBot.Entities
             this.Fines = new List<Fine>();
         }
 
+        private string image;
+
         public string EmailAddress { get; set; }
         public string SlackId { get; set; }
         public string DisplayName { get; set; }
-        public string Image { get; set; }
+        public string Image { 
+            get {
+                if (image == null) {
+                    image = "../../../../content/defaultUser.png";
+                }
+
+                return image; 
+            } 
+
+            set {
+                image = value;
+            }
+        }
         public List<Fine> Fines { get; set; }
 
         public Fine GetFineById(Guid id)

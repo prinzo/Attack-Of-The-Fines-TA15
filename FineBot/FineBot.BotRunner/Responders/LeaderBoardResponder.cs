@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using FineBot.API.UsersApi;
 using FineBot.BotRunner.Responders.Interfaces;
 using MargieBot.Models;
-using MargieBot.Responders;
 
 namespace FineBot.BotRunner.Responders
 {
@@ -27,34 +25,34 @@ namespace FineBot.BotRunner.Responders
         {
             //today, this week, this month, this year, all time
             var builder = new StringBuilder();
-            var leaderboard = new List<UserModel>();
+            List<UserModel> leaderboard;
             const int sizeOfLeaderBoard = 10;
 
             var text = context.Message.Text.ToLower();
             if (text.Contains("today"))
             {
                 builder.AppendLine("Leaderboard for today");
-                leaderboard = this.userApi.GetLeaderboardToday(sizeOfLeaderBoard);
+                leaderboard = userApi.GetLeaderboardToday(sizeOfLeaderBoard);
             }
             else if (text.Contains("this week"))
             {
                 builder.AppendLine("Leaderboard for this week");
-                leaderboard = this.userApi.GetLeaderboardForThisWeek(sizeOfLeaderBoard);
+                leaderboard = userApi.GetLeaderboardForThisWeek(sizeOfLeaderBoard);
             }
             else if (text.Contains("this month"))
             {
                 builder.AppendLine("Leaderboard for this month");
-                leaderboard = this.userApi.GetLeaderboardForThisMonth(sizeOfLeaderBoard);
+                leaderboard = userApi.GetLeaderboardForThisMonth(sizeOfLeaderBoard);
             }
             else if (text.Contains("this year"))
             {
                 builder.AppendLine("Fines Leaderboard for this year");
-                leaderboard = this.userApi.GetLeaderboardForThisYear(sizeOfLeaderBoard);
+                leaderboard = userApi.GetLeaderboardForThisYear(sizeOfLeaderBoard);
             }
             else
             {
                 builder.AppendLine("Fines Leaderboard All Time:");
-                leaderboard = this.userApi.GetLeaderboard(sizeOfLeaderBoard);
+                leaderboard = userApi.GetLeaderboard(sizeOfLeaderBoard);
             }
 
             foreach(var userModel in leaderboard)

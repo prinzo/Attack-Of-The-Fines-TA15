@@ -2,6 +2,7 @@
 using FineBot.Entities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System.Collections.Generic;
 
 namespace FineBot.API.FinesApi {
     public class FeedFineModel {
@@ -14,6 +15,8 @@ namespace FineBot.API.FinesApi {
         public string IssuerDisplayName { get; set; }
 
         public Guid? SeconderId { get; set; }
+
+        public string Seconder { get; set; }
 
         public bool Pending { get; set; }
 
@@ -33,7 +36,35 @@ namespace FineBot.API.FinesApi {
 
         public DateTime ModifiedDate { get; set; }
 
-        public PaymentImage PaymentImage { get; set; }
+        public string PaymentImage { get; set; }
+
+        public int TotalPaid { get; set; }
+
+        public string UserImage { get; set; }
+
+        public List<Guid> LikedBy { get; set; }
+
+        public List<Guid> DislikedBy { get; set; }
+
+        public int LikedByCount {
+            get {
+                if (LikedBy != null) {
+                    return LikedBy.Count;
+                }
+
+                return 0;
+            }
+        }
+
+        public int DislikedByCount {
+            get {
+                if (DislikedBy != null) {
+                    return DislikedBy.Count;
+                }
+
+                return 0;
+            }
+        }
 
         public bool IsPaid
         {
@@ -49,14 +80,17 @@ namespace FineBot.API.FinesApi {
             this.IssuerId = feedFineModel.IssuerId;
             this.Reason = feedFineModel.Reason;
             this.SeconderId = feedFineModel.SeconderId;
+            this.Seconder = feedFineModel.Seconder;
             this.Pending = feedFineModel.Pending;
             this.AwardedDate = feedFineModel.AwardedDate;
             this.IssuerDisplayName = feedFineModel.IssuerDisplayName;
             this.ReceiverDisplayName = feedFineModel.ReceiverDisplayName;
             this.PaidDate = null;
             this.PayerId = null;
-            this.PaymentImage = null;
+            this.PaymentImage = feedFineModel.PaymentImage ?? "../../../../content/defaultUser.png"; 
             this.ModifiedDate = feedFineModel.AwardedDate;
+            this.UserImage = feedFineModel.UserImage;
+            this.TotalPaid = feedFineModel.TotalPaid;
         }
 
     }

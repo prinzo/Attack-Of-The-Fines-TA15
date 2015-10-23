@@ -16,7 +16,7 @@
         </div>
         <div class="col-sm-6">
             <div class="panel ">
-                <highchart id="chart1" config="vm.chartConfig" class="span5"></highchart>
+                <highchart id="chart1" config="vm.chartConfigWeek" class="span5"></highchart>
 
             </div>
         </div>
@@ -25,12 +25,22 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-12">
-            <div class="panel">
-                <highchart style="width:100%;margin: 0 auto" id="chart1" config="vm.chartConfigDistribution" ></highchart>
+        <div class="col-sm-6">
+
+            <div class="panel ">
+                <highchart config="vm.chartConfigMonth" class=""></highchart>
 
             </div>
-
         </div>
+        <div class="col-sm-6">
+            <div class="panel ">
+                <highchart id="chart1" config="vm.chartConfig" class="span5"></highchart>
+
+            </div>
+        </div>
+
+
     </div>
+
+
 </div>

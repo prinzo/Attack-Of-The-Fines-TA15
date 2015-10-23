@@ -2,6 +2,7 @@
 using FineBot.API.Mappers.Interfaces;
 using FineBot.API.UsersApi;
 using FineBot.Entities;
+using System.Text;
 
 namespace FineBot.API.Mappers
 {
@@ -59,12 +60,16 @@ namespace FineBot.API.Mappers
             };
         }
 
-        public FeedFineModel MapToFeedModel(Fine fine, User issuer, User receiver)
+        public FeedFineModel MapToFeedModel(Fine fine, User issuer, User receiver, User seconder)
         {
-            return this.MapToFeedModel(fine, issuer, receiver, null);
+            FeedFineModel model = this.MapToFeedModelWithPayment(fine, issuer, receiver, null);
+
+            model.Seconder = seconder != null ? seconder.DisplayName : null;
+
+            return model;
         }
 
-        public FeedFineModel MapToFeedModel(Fine fine, User issuer, User receiver, Payment payment) {
+        public FeedFineModel MapToFeedModelWithPayment(Fine fine, User issuer, User receiver, Payment payment) {
             FeedFineModel fineModel = new FeedFineModel {
                 Id = fine.Id,
                 IssuerId = fine.IssuerId,
@@ -74,20 +79,30 @@ namespace FineBot.API.Mappers
                 AwardedDate = fine.AwardedDate,
                 IssuerDisplayName = issuer.DisplayName,
                 ReceiverDisplayName = receiver.DisplayName,
-                ModifiedDate = fine.ModifiedDate
+                ModifiedDate = fine.ModifiedDate,
+                UserImage = receiver.Image
             };
             
             if(payment != null)
             {
                 fineModel.PaidDate = payment.PaidDate;
                 fineModel.PayerId = payment.PayerId;
-                fineModel.PaymentImage = payment.PaymentImage;
+                fineModel.PaymentImage = payment.PaymentImage.ImageBytes.ToString();
             }
 
             return fineModel;
         }
 
-        public FeedFineModel MapPaymentToFeedModel(Payment payment, User issuer, User receiver) {
+        public FeedFineModel MapPaymentToFeedModel(Payment payment, User issuer, User receiver, int totalPaid) {
+            string paymentImage = payment.PaymentImage != null 
+                                  && payment.PaymentImage.ImageBytes != null 
+                                  && payment.PaymentImage.MimeType != null
+                                  ? new StringBuilder("data:").Append(payment.PaymentImage.MimeType)
+                                                     .Append(";base64,")
+                                                     .Append(System.Convert.ToBase64String(payment.PaymentImage.ImageBytes))
+                                                     .ToString()
+                                  : null;
+
             return new FeedFineModel {
                 Id = payment.Id,
                 IssuerDisplayName = issuer.DisplayName,
@@ -95,8 +110,12 @@ namespace FineBot.API.Mappers
                 PaidDate = payment.PaidDate,
                 ModifiedDate = payment.PaidDate,
                 PayerId = payment.PayerId,
-                PaymentImage = payment.PaymentImage,
-                AwardedDate = payment.PaidDate
+                PaymentImage = paymentImage,
+                AwardedDate = payment.PaidDate,
+                UserImage = receiver.Image,
+                TotalPaid = totalPaid,
+                LikedBy = payment.LikedBy,
+                DislikedBy = payment.DislikedBy
             };
         }
 

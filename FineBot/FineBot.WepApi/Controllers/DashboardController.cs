@@ -23,7 +23,7 @@ namespace FineBot.WepApi.Controllers
         [HttpGet]
         public List<UserModel> GetLeaderBoard()
         {
-            var leaderboardUser = userApi.GetLeaderboard(10);
+            var leaderboardUser = userApi.GetLeaderboardForThisYear(10);
             return leaderboardUser;
         }
 
@@ -33,6 +33,18 @@ namespace FineBot.WepApi.Controllers
             return userApi.GetLeaderboardToday(10);
         }
 
+        [HttpGet]
+        public List<UserModel> GetLeaderboardForWeek()
+        {
+            return userApi.GetLeaderboardForThisWeek(10);
+        }
+
+        [HttpGet]
+        public List<UserModel> GetLeaderboardForMonth()
+        {
+            return userApi.GetLeaderboardForThisMonth(10);
+        }
+        
         [HttpGet]
         public List<UserModel> GetUsersWithPendingFines()
         {

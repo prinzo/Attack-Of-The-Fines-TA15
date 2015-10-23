@@ -34,12 +34,16 @@
 }
 
 #platform {
-    font-size: 12
+    font-size: 12px;
 }
 
+.approval-div {
+    font-size: 10px;
+    padding-top:12px;
+}
 
 #award {
-     font-size: 12
+     font-size: 12px;
 }
 
 
@@ -99,9 +103,8 @@
 }
 
 #photo {
-    max-width: 250px;
-    max-height: 250px;
-    padding-top: 3px;
+    max-height: 150px;
+    padding: 5px;
 }
 
 #like {
@@ -136,4 +139,27 @@
 
 .other {
     font-size: 11px;
+}
+
+.card-content {
+    padding-top:10px;
+    padding-bottom:10px
+}
+
+.fines-container {
+    position:relative
+}
+
+.photo {
+    max-width: 150px;
+    max-height: 150%;
+    display: inline-block;
+}
+
+.big-icon {
+    font-size: 10px;
+}
+
+.right-image {
+    padding-right: 23px;
 }
