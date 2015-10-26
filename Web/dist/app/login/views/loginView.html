@@ -1,42 +1,63 @@
 <div class="" ng-controller="Login as vm">
-    <div class="container">
-        <div class="row">
-            <br>
-            <br>
-            <br>
-            <div class="col-sm-4 col-sm-offset-4">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="col-sm-4" align="center">
+                <br>
+                <br>
+                <img src="/content/Badcop.jpg">
+            </div>
+            <div class="col-sm-4">
+                <br>
+
+                <h3><b><i>Welcome to the Entelect Fine Portal</i></b></h3>
+                <br>
                 <div class="panel panel-primary">
-                    <div class="panel-heading"> <strong class="">Login</strong>
+                    <div class="panel-heading"> <strong class=""></strong>
 
                     </div>
                     <div class="panel-body">
                         <form class="form-horizontal" role="form">
                             <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-3 control-label">Email</label>
+                                <label for="inputEmail3" class="col-sm-3 control-label">Username</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" ng-model="vm.username" id="inputEmail3" placeholder="Email" required="">
+                                    <input type="text" class="form-control" ng-model="vm.username" id="inputEmail3" placeholder="Entelect Username" required="">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputPassword3" class="col-sm-3 control-label">Password</label>
                                 <div class="col-sm-9">
-                                    <input type="password" class="form-control" id="inputPassword3" ng-model="vm.password" placeholder="Password" required="">
+                                    <input type="password" class="form-control" id="inputPassword3" ng-model="vm.password" placeholder="Your domain Password" required="">
                                 </div>
                             </div>
-
-                            <div class="form-group last">
-                                <div class="col-sm-offset-3 col-sm-9">
-                                    <button ng-click="vm.login()" class="btn btn-success btn-sm">Sign in</button>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-12" align="center">
+                                    <button ng-click="vm.login()" class="btn btn-primary ">Sign in</button>
                                 </div>
                             </div>
                         </form>
+
                         <br>
                         <span us-spinner spinner-key="spinner-1"></span> 
                     </div>
                 </div>
+                <br>
+                <p style="text-align: center;">
+                    When logging in, please don't include the @entelect.co.za part of your email address.</p>
+                <p style="text-align: center;">
+                    If your domain password has expired please contact <a href="mailto:warren.bonn@entelect.co.za?subject=Domain%20Password%20Reset&amp;body=Hi%20Warren%0A%0AMy%20domain%20password%20has%20expired%2C%20please%20can%20you%20reset%20it%3F%0A%0AKind%20regards%2C%0A%3CName%3E">Warren Bonn</a>
+                </p>
+            </div>
+            <div class="col-sm-4 " align="center">
+                <br>
+                <br>
+                      <img src="/content/9489_stormtrooper.png" class="img-responsive"> <p style="color:white">455ufuyfuyf</p> 
             </div>
         </div>
     </div>
-</div>
+
+
+
 
 </div>
