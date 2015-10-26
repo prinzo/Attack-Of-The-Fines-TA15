@@ -26,7 +26,7 @@ app.config(['$routeProvider',
             templateUrl: 'app/users/views/usersView.html',
             controller: ''
         }).
-        when('/Dashboard', {
+        when('/Statistics', {
             templateUrl: 'app/dashboard/views/dashboardView.html',
             controller: ''
         }).
