@@ -22,11 +22,15 @@
 
         function login() {
             startSpin();
-            var promise = userResource.get({
-                action: "AuthenticateUser",
-                domainName: vm.username,
-                password: vm.password
-            });
+            var loginModel = {
+                Username: vm.username,
+                Password: vm.password
+            };
+            var promise = userResource.save({
+                    action: "AuthenticateUser"
+                },
+                loginModel
+            );
             promise.$promise.then(function (data) {
                     var user = localStorageService.get('user');
                     user = data;

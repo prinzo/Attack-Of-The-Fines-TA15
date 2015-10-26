@@ -8,6 +8,7 @@ using System.Web.Http.Cors;
 using FineBot.API.LdapApi;
 using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
+using FineBot.WepApi.Models;
 
 namespace FineBot.WepApi.Controllers
 {
@@ -37,13 +38,7 @@ namespace FineBot.WepApi.Controllers
             return ldapApi.GetAllDomainUsers(domainName, password);
         }
 
-        [HttpGet]
-        public UserModel AuthenticateUser(string domainName, string password)
-        {
-            var ldapUser = ldapApi.AuthenticateAgainstDomain(domainName, password);
-            var slackUser = userApi.GetUserByEmail(ldapUser.EmailAddress);
-            return ldapApi.MapSlackModelToLdapModel(ldapUser, slackUser);
-        }
+ 
 
         [HttpGet]
         public string[] GetUserNameAndSurname(string email)
@@ -73,5 +68,12 @@ namespace FineBot.WepApi.Controllers
             return userModel;
         }
 
+        [HttpPost]
+        public UserModel AuthenticateUser([FromBody]LoginModel loginModel)
+        {
+            var ldapUser = ldapApi.AuthenticateAgainstDomain(loginModel.Username, loginModel.Password);
+            var slackUser = userApi.GetUserByEmail(ldapUser.EmailAddress);
+            return ldapApi.MapSlackModelToLdapModel(ldapUser, slackUser);
+        }
     }
 }
