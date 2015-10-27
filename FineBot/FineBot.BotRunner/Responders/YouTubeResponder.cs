@@ -1,21 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using FineBot.API.FinesApi;
+using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
 using FineBot.BotRunner.Extensions;
 using FineBot.BotRunner.Responders.Interfaces;
 using MargieBot.Models;
-using MargieBot.Responders;
 
 namespace FineBot.BotRunner.Responders
 {
-    public class YouTubeResponder : IFineBotResponder
+    public class YouTubeResponder : ResponderBase, IFineBotResponder
     {
         private readonly IUserApi userApi;
         private readonly IFineApi fineApi;
 
-        public YouTubeResponder(IUserApi userApi, IFineApi fineApi)
+        public YouTubeResponder(
+            IUserApi userApi, 
+            IFineApi fineApi,
+            ISupportApi supportApi
+            )
+            : base(supportApi)
         {
             this.userApi = userApi;
             this.fineApi = fineApi;

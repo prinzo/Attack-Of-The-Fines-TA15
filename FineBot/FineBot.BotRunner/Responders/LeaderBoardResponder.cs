@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
 using FineBot.BotRunner.Responders.Interfaces;
 using MargieBot.Models;
 
 namespace FineBot.BotRunner.Responders
 {
-    public class LeaderBoardResponder : IFineBotResponder
+    public class LeaderBoardResponder : ResponderBase, IFineBotResponder
     {
         private readonly IUserApi userApi;
 
-        public LeaderBoardResponder(IUserApi userApi)
+        public LeaderBoardResponder(
+            IUserApi userApi,
+            ISupportApi supportApi
+            )
+            : base(supportApi)
         {
             this.userApi = userApi;
         }

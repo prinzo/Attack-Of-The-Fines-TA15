@@ -1,5 +1,6 @@
 ﻿using System;
 using FineBot.API.FinesApi;
+using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
 using FineBot.BotRunner.Responders.Interfaces;
 using MargieBot.Models;
@@ -7,15 +8,16 @@ using MargieBot.Responders;
 
 namespace FineBot.BotRunner.Responders
 {
-    public class SeconderResponder : IFineBotResponder
+    public class SeconderResponder : ResponderBase, IFineBotResponder
     {
         private readonly IFineApi fineApi;
         private readonly IUserApi userApi;
 
         public SeconderResponder(
             IFineApi fineApi,
-            IUserApi userApi
-            )
+            IUserApi userApi,
+            ISupportApi supportApi
+            ) : base (supportApi)
         {
             this.fineApi = fineApi;
             this.userApi = userApi;

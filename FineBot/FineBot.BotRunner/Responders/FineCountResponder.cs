@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mime;
+﻿using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
 using FineBot.BotRunner.Extensions;
 using FineBot.BotRunner.Responders.Interfaces;
@@ -11,11 +8,15 @@ using MargieBot.Models;
 
 namespace FineBot.BotRunner.Responders
 {
-    public class FineCountResponder : IFineBotResponder
+    public class FineCountResponder : ResponderBase, IFineBotResponder
     {
         private readonly IUserApi userApi;
 
-        public FineCountResponder(IUserApi userApi)
+        public FineCountResponder(
+            IUserApi userApi,
+            ISupportApi supportApi
+            )
+            : base(supportApi)
         {
             this.userApi = userApi;
         }

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using FineBot.API.FinesApi;
+using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
 using FineBot.BotRunner.Extensions;
 using FineBot.BotRunner.Responders.Interfaces;
@@ -12,12 +8,16 @@ using MargieBot.Models;
 
 namespace FineBot.BotRunner.Responders
 {
-    public class CommonReplyResponder : IFineBotResponder
+    public class CommonReplyResponder : ResponderBase, IFineBotResponder
     {
         private readonly IUserApi userApi;
         private readonly IFineApi fineApi;
 
-        public CommonReplyResponder(IUserApi userApi, IFineApi fineApi)
+        public CommonReplyResponder(
+            IUserApi userApi, 
+            IFineApi fineApi,
+            ISupportApi supportApi
+            ) : base (supportApi)
         {
             this.userApi = userApi;
             this.fineApi = fineApi;

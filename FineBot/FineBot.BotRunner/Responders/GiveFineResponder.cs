@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using FineBot.API.FinesApi;
+using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
 using FineBot.BotRunner.Extensions;
 using FineBot.BotRunner.Responders.Interfaces;
@@ -8,15 +9,17 @@ using MargieBot.Models;
 
 namespace FineBot.BotRunner.Responders
 {
-    public class GiveFineResponder : IFineBotResponder
+    public class GiveFineResponder : ResponderBase, IFineBotResponder
     {
         private readonly IUserApi userApi;
         private readonly IFineApi fineApi;
 
         public GiveFineResponder(
             IUserApi userApi,
-            IFineApi fineApi
+            IFineApi fineApi,
+            ISupportApi supportApi
             )
+            : base(supportApi)
         {
             this.userApi = userApi;
             this.fineApi = fineApi;
