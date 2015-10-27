@@ -27,14 +27,5 @@ namespace FineBot.Entities
         } 
 
         public Payment() {}
-
-        public ValidationResult ValidatePaymentForUser(User user)
-        {
-            if (this.PayerId == this.Id) {
-                return new ValidationResult().AddMessage(Severity.Error, "You cannot pay your own fines!");
-            }
-
-            return null;
-        }
     }
 }

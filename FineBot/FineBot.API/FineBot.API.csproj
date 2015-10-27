@@ -91,6 +91,7 @@
     <Compile Include="FinesApi\FineWithUserModel.cs" />
     <Compile Include="FinesApi\IFineApi.cs" />
     <Compile Include="FinesApi\FineModel.cs" />
+    <Compile Include="FinesApi\PayFineResult.cs" />
     <Compile Include="FinesApi\PaymentImageModel.cs" />
     <Compile Include="FinesApi\PaymentModel.cs" />
     <Compile Include="LdapApi\ILdapApi.cs" />

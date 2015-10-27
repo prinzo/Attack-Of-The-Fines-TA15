@@ -56,5 +56,10 @@ namespace FineBot.Common.Infrastructure
 
             return this;
         }
+
+        public void Append(ValidationResult result)
+        {
+            this.ValidationMessages.AddRange(result.ValidationMessages);
+        }
     }
 }

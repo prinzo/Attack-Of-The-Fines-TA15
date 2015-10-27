@@ -42,11 +42,15 @@ namespace FineBot.WepApi.Controllers
                 MimeType = "image/png"
             };
 
-            ValidationResult validationResult;
+            var result = this.fineApi.PayFines(payment);
 
-            FeedFineModel fineModel = this.fineApi.PayFines(payment, out validationResult);
+            //TODO: Come up with a way to handle these errors on the front end, maybe return the result model?
+            if(result.HasErrors)
+            {
+                return new FeedFineModel();
+            }
 
-            return fineModel;
+            return result.FeedFineModel;
         }
 
         [HttpGet]

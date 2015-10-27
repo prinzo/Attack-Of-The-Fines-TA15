@@ -166,50 +166,43 @@ namespace FineBot.API.FinesApi
 
             Payment payment = new Payment(payerId, image, mimeType, fileName);
 
-            ValidationResult result = payment.ValidatePaymentForUser(user);
-
-            if(result != null)
-            {
-                return result;
-            }
-
-            result = user.CanPayFines(number);
+            var result = user.PayFines(payment, number);
 
             if(result.HasErrors) return result;
 
-            payment = this.paymentRepository.Save(payment);
-
-            result = user.PayFines(payment, number);
+            this.paymentRepository.Save(payment);
 
             this.userRepository.Save(user);
 
             return result;
         }
 
-        public FeedFineModel PayFines(PaymentModel paymentModel, out ValidationResult validation) {
+        public PayFineResult PayFines(PaymentModel paymentModel) {
             var user = this.userRepository.Find(new UserSpecification().WithId(paymentModel.RecipientId));
             var payer = this.userRepository.Find(new UserSpecification().WithId(paymentModel.PayerId));
 
             Payment payment = new Payment(paymentModel.PayerId, paymentModel.Image, "image/png", null);
 
-            validation = payment.ValidatePaymentForUser(user);
+            var validation = user.PayFines(payment, paymentModel.TotalFinesPaid);
+            var payFineResult = new PayFineResult(validation);
 
-            if (validation != null) {
-                return null;
+            if(validation.HasErrors)
+            {
+                return payFineResult;
             }
 
             payment = this.paymentRepository.Save(payment);
 
-            validation = user.PayFines(payment, paymentModel.TotalFinesPaid);
-
             this.userRepository.Save(user);
 
-            return this.fineMapper.MapPaymentToFeedModel(
-                        payment,
-                        payer,
-                        user,
-                        paymentModel.TotalFinesPaid
-                        );
+            payFineResult.FeedFineModel = this.fineMapper.MapPaymentToFeedModel(
+                payment,
+                payer,
+                user,
+                paymentModel.TotalFinesPaid
+                );
+
+            return payFineResult;
         }
 
         public PaymentModel GetSimplePaymentModelById(Guid paymentModelId)

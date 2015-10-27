@@ -69,6 +69,17 @@ namespace FineBot.Entities
 
         public ValidationResult PayFines(Payment payment, int number)
         {
+            var validationResult = new ValidationResult();
+
+            validationResult.Append(this.CanPayFines(number));
+
+            if(payment.PayerId == this.Id)
+            {
+                validationResult.AddMessage(Severity.Error, "You cannot pay a fine for yourself!");
+            }
+
+            if(validationResult.HasErrors) return validationResult;
+
             var orderedFines = this.Fines.Where(x => x.Outstanding).OrderBy(x => x.AwardedDate).ToList();
 
             var limit = Math.Max(number, orderedFines.Count());
@@ -78,7 +89,7 @@ namespace FineBot.Entities
                 orderedFines[i].Pay(payment.Id);
             }
 
-            return new ValidationResult();
+            return validationResult;
         }
 
         public ValidationResult CanPayFines(int number)

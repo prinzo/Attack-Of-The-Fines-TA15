@@ -44,29 +44,36 @@ namespace FineBot.BotRunner.Responders
 
         public BotMessage GetResponse(ResponseContext context)
         {
-            var user = this.GetUser(context);
-
-            var payer = this.userApi.GetUserBySlackId(context.Message.User.FormattedUserID);
-
-            var number = this.GetNumberOfFinesPaid(context);
-
-            PaymentImageModel paymentImage = this.GetImage(context.Message);
-
-            if(paymentImage == null)
+            try
             {
-                return this.GetErrorResponse(new ValidationResult().AddMessage(Severity.Error, "You must upload an image to pay fines!"));
+                var user = this.GetUser(context);
+
+                var payer = this.userApi.GetUserBySlackId(context.Message.User.FormattedUserID);
+
+                var number = this.GetNumberOfFinesPaid(context);
+
+                PaymentImageModel paymentImage = this.GetImage(context.Message);
+
+                if(paymentImage == null)
+                {
+                    return this.GetErrorResponse(new ValidationResult().AddMessage(Severity.Error, "You must upload an image to pay fines!"));
+                }
+
+                ValidationResult result = this.fineApi.PayFines(user.Id, payer.Id, number, paymentImage);
+
+                if(result.HasErrors)
+                {
+                    return this.GetErrorResponse(result);
+                }
+
+                string s = Convert.ToInt32(number) > 1 ? "s" : string.Empty;
+
+                return new BotMessage { Text = String.Format("{0} fine{1} paid for {2}!", number, s, user.SlackId) };
             }
-
-            ValidationResult result = this.fineApi.PayFines(user.Id, payer.Id, number, paymentImage);
-
-            if(result.HasErrors)
+            catch(Exception ex)
             {
-                return this.GetErrorResponse(result);
+                return this.GetExceptionResponse(ex);
             }
-
-            string s = Convert.ToInt32(number) > 1 ? "s" : string.Empty;
-
-            return new BotMessage { Text = String.Format("{0} fine{1} paid for {2}!", number, s, user.SlackId) };
         }
 
         private PaymentImageModel GetImage(SlackMessage message)

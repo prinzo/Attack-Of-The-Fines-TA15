@@ -3,6 +3,7 @@ using FineBot.Entities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
+using FineBot.Common.Infrastructure;
 
 namespace FineBot.API.FinesApi {
     public class FeedFineModel {
@@ -73,6 +74,8 @@ namespace FineBot.API.FinesApi {
                 return this.PayerId.HasValue;
             }
         }
+
+        public ValidationResult FineResult { get; set; }
 
         public void BuildNewFineFeedModelFromExistingModel(FeedFineModel feedFineModel)
         {
