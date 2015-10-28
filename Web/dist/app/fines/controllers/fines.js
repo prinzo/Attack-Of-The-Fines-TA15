@@ -81,13 +81,13 @@
 
         vm.ShowAlertApproval = function ShowAlertApproval(ev, data, status) {
 
-            var content = "<ul>";
+            var content = "<table class = 'table table-striped'>";
 
             data.forEach(function(entry) {
-                content += "<li>" + entry.DisplayName + "</li>";
+                content += "<tr><td>" + entry.DisplayName + "</td></tr>";
             });
 
-            content += "</ul>";
+            content += "</table>";
 
             $mdDialog.show(
                 $mdDialog.alert()
@@ -103,7 +103,7 @@
 
         vm.GetApprovedByUsers = function GetApprovedByUsers(Id, ApprovalStatus, event) {
             var service = ApprovalStatus == 1 ? "GetUserApprovedByList" : "GetUserDisapprovedByList";
-            var status = ApprovalStatus == 1 ? "approved" : "sisapproved";
+            var status = ApprovalStatus == 1 ? "approved" : "disapproved";
 
             var fineModel = {
                 paymentId: Id
@@ -138,14 +138,27 @@
             );
 
             promise.$promise.then(function (data) {
-                    toaster.pop('success', "Approved", "Payment Approved");
 
-                if($("#innerApproved-" + Id).length == 0) {
-                    $("#approvedBy-" + Id).html('<div id="innerApproved-"' + Id + ' ng-if="fine.LikedByCount > 0">Approved by <a><span id="approvedByNumber-" + Id>1</span> people</a></div>');
-                } else {
-                    var value = $("#approvedByNumber-" + Id).text();
-                    $("#approvedByNumber-" + Id).text(parseInt(value) + 1);
-                }
+                    if(data.Success == true) {
+                        toaster.pop('success', "Approved", "Payment Approved");
+
+                        if ($("#innerApproved-" + Id).length == 0) {
+                            $("#approvedBy-" + Id).html('<div id="innerApproved-"' + Id + ' ng-if="fine.LikedByCount > 0">Approved by <a><span id="approvedByNumber-" + Id>1</span> people</a></div>');
+                        } else {
+                            var value = $("#approvedByNumber-" + Id).text();
+                            $("#approvedByNumber-" + Id).text(parseInt(value) + 1);
+                        }
+                    } else if (data.Success == false) {
+                        toaster.pop('success', "Approval Retracted", "Payment Approval was retracted");
+
+                        var value = $("#approvedByNumber-" + Id).text();
+                        if (value == '' || parseInt(value) - 1 == 0) {
+                            $("#approvedByNumber-" + Id).text(parseInt(value) - 1)
+                            $("#approvedBy-" + Id).html('');
+                        } else {
+                            $("#approvedByNumber-" + Id).text(parseInt(value) - 1);
+                        }
+                    }
             },
 
             function () {
@@ -167,15 +180,27 @@
             );
 
             promise.$promise.then(function (data) {
+                if(data.Success == true) {
                     toaster.pop('success', "Disapproved", "Payment Disapproved");
 
-                    if($("#innerDisapproved-" + Id).length == 0) {
+                    if ($("#innerDisapproved-" + Id).length == 0) {
                         $("#disapprovedBy-" + Id).html('<div id="innerApproved-" + Id ng-if="fine.LikedByCount > 0">Disapproved by <a><span id="disapprovedByNumber-" + Id>1</span> people</a></div>');
                     } else {
                         var value = $("#disapprovedByNumber-" + Id).text();
                         $("#disapprovedByNumber-" + Id).text(parseInt(value) + 1);
                     }
-                },
+                } else if (data.Success == false) {
+                    toaster.pop('success', "Disapproval Retracted", "Payment Disapproval was retracted");
+
+                    var value = $("#disapprovedByNumber-" + Id).text();
+                    if (value == '' || parseInt(value) - 1 == 0) {
+                        $("#disapprovedByNumber-" + Id).text(parseInt(value) - 1);
+                        $("#disapprovedBy-" + Id).html('');
+                    } else {
+                        $("#disapprovedByNumber-" + Id).text(parseInt(value) - 1);
+                    }
+                }
+            },
 
                 function () {
                     toaster.pop('error', "Fine Feed Failure", "Payment could not be disapproved");

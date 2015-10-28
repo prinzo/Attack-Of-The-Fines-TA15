@@ -219,32 +219,46 @@ namespace FineBot.API.FinesApi
 
         }
 
-        public bool ApprovePayment(Guid paymentId, Guid userId) {
+        public ApprovalResult ApprovePayment(Guid paymentId, Guid userId) {
             var payment = this.paymentRepository.Find(new PaymentSpecification().WithId(paymentId));
 
             payment.LikedBy = payment.LikedBy ?? new List<Guid>();
 
             var count = payment.LikedBy.Count;
+            bool? result; 
 
-            payment.LikedBy.Add(userId);
+            if (payment.LikedBy.Count(x => x == userId) == 0) {
+                payment.LikedBy.Add(userId);
+                result = true;
+            } else {
+                payment.LikedBy.Remove(userId);
+                result = false;
+            }
 
             this.paymentRepository.Save(payment);
 
-            return payment.LikedBy.Count > count;
+            return new ApprovalResult { Success = result };
         }
 
-        public bool DisapprovePayment(Guid paymentId, Guid userId) {
+        public ApprovalResult DisapprovePayment(Guid paymentId, Guid userId) {
             var payment = this.paymentRepository.Find(new PaymentSpecification().WithId(paymentId));
 
             payment.DislikedBy = payment.DislikedBy ?? new List<Guid>();
 
             var count = payment.DislikedBy.Count;
+            bool? result; 
 
-            payment.DislikedBy.Add(userId);
+            if (payment.DislikedBy.Count(x => x == userId) == 0) {
+                payment.DislikedBy.Add(userId);
+                result = true;
+            } else {
+                payment.DislikedBy.Remove(userId);
+                result = false;
+            }
 
             this.paymentRepository.Save(payment);
 
-            return payment.DislikedBy.Count > count;
+            return new ApprovalResult { Success = result };
         }
 
         public List<UserModel> GetUsersApprovedBy(Guid paymentId) {

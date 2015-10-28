@@ -7,6 +7,6 @@ using FineBot.API.UsersApi;
 
 namespace FineBot.API.FinesApi {
     public class ApprovalResult {
-        public List<UserModel> users { get; set; }
+        public bool? Success { get; set; }
     }
 }

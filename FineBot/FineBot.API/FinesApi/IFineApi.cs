@@ -33,9 +33,9 @@ namespace FineBot.API.FinesApi
 
         bool SecondFineById(Guid id, Guid userId);
 
-        bool DisapprovePayment(Guid paymentId, Guid userId);
+        ApprovalResult DisapprovePayment(Guid paymentId, Guid userId);
 
-        bool ApprovePayment(Guid paymentId, Guid userId);
+        ApprovalResult ApprovePayment(Guid paymentId, Guid userId);
 
         List<UserModel> GetUsersApprovedBy(Guid paymentId);
 
