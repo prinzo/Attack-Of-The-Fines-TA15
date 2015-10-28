@@ -37,8 +37,8 @@ namespace FineBot.API.FinesApi
 
         bool ApprovePayment(Guid paymentId, Guid userId);
 
-        ApprovalResult GetUsersApprovedBy(Guid paymentId);
+        List<UserModel> GetUsersApprovedBy(Guid paymentId);
 
-        ApprovalResult GetUsersDisapprovedBy(Guid paymentId);
+        List<UserModel> GetUsersDisapprovedBy(Guid paymentId);
     }
 }

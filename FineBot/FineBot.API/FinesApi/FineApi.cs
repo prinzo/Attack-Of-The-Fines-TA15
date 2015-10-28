@@ -247,32 +247,34 @@ namespace FineBot.API.FinesApi
             return payment.DislikedBy.Count > count;
         }
 
-        public ApprovalResult GetUsersApprovedBy(Guid paymentId) {
+        public List<UserModel> GetUsersApprovedBy(Guid paymentId) {
             var payment = this.paymentRepository.Find(new PaymentSpecification().WithId(paymentId));
 
             List<UserModel> users = new List<UserModel>();
-            if (payment.DislikedBy != null) {
-                users = this.userRepository.FindAll(new UserSpecification().WithIds(payment.DislikedBy))
+            if (payment.LikedBy != null) {
+                users = this.userRepository.FindAll(new UserSpecification().WithIds(payment.LikedBy))
                     .Select(x => new UserModel {
+                        Id = x.Id,
                         DisplayName = x.DisplayName
                     }).ToList();
             }
 
-            return new ApprovalResult { users = users };
+            return users = users ;
         }
 
-        public ApprovalResult GetUsersDisapprovedBy(Guid paymentId) {
+        public List<UserModel> GetUsersDisapprovedBy(Guid paymentId) {
             var payment = this.paymentRepository.Find(new PaymentSpecification().WithId(paymentId));
 
             List<UserModel> users = new List<UserModel>();
             if(payment.DislikedBy != null) {
                 users = this.userRepository.FindAll(new UserSpecification().WithIds(payment.DislikedBy))
                     .Select(x => new UserModel {
+                        Id = x.Id,
                         DisplayName = x.DisplayName
                     }).ToList();
             }
 
-            return new ApprovalResult { users = users };
+            return users = users;
         }
 
     }

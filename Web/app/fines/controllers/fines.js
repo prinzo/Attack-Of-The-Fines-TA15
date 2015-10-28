@@ -79,11 +79,11 @@
             }
         }
 
-        vm.ShowAlertApproval = function ShowAlertApproval(ev, data) {
+        vm.ShowAlertApproval = function ShowAlertApproval(ev, data, status) {
 
             var content = "<ul>";
 
-            data.users.forEach(function(entry) {
+            data.forEach(function(entry) {
                 content += "<li>" + entry.DisplayName + "</li>";
             });
 
@@ -93,9 +93,9 @@
                 $mdDialog.alert()
                     .parent(angular.element(document.querySelector('#fines-container')))
                     .clickOutsideToClose(true)
-                    .title('Fine has been seconded')
+                    .title('Fine has been ' + status + ' by')
                     .content(content)
-                    .ariaLabel('Fine has been seconded')
+                    .ariaLabel('Fine has been ' + status + ' by')
                     .ok('OK')
                     .targetEvent(ev)
             );
@@ -103,24 +103,25 @@
 
         vm.GetApprovedByUsers = function GetApprovedByUsers(Id, ApprovalStatus, event) {
             var service = ApprovalStatus == 1 ? "GetUserApprovedByList" : "GetUserDisapprovedByList";
+            var status = ApprovalStatus == 1 ? "approved" : "sisapproved";
 
             var fineModel = {
                 paymentId: Id
             };
 
-            var promise = finesResource.save({
-                    action: service
-                },
-                Id
-            );
+            var promise = finesResource.query({
+                    action: service,
+                    paymentId: Id
+            });
 
             promise.$promise.then(function (data) {
-                    vm.ShowAlertApproval(event, data);
+                    vm.ShowAlertApproval(event, data, status);
                 },
 
                 function () {
                     toaster.pop('error', "Fine Feed Failure", "Could not retrieve users");
                 });
+
         }
 
         vm.Approve = function Approve(Id) {
