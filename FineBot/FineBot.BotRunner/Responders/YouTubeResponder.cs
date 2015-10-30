@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using FineBot.API.FinesApi;
 using FineBot.API.SupportApi;
@@ -32,29 +33,36 @@ namespace FineBot.BotRunner.Responders
 
         public BotMessage GetResponse(ResponseContext context)
         {
-            var youtubeLinkList = context.Message.GetYouTubeLinkList();
-            const string reasonForOneVideo = "for sharing the following YouTube video --> ";
-            const string reasonForManyVideos = "for sharing the following YouTube videos --> ";
-            
-            var builder = new StringBuilder();
-            builder.Append(context.FormattedBotUserID());
-            builder.Append(": auto-fine ");
-            builder.Append(context.Message.User.FormattedUserID);
-            builder.Append(" ");
-            builder.Append(youtubeLinkList.Count == 1 ? reasonForOneVideo : reasonForManyVideos);
-
-            var issuer = userApi.GetUserBySlackId(context.FormattedBotUserID());
-            var recipient = userApi.GetUserBySlackId(context.Message.User.FormattedUserID);
-            var seconder = recipient;
-
-            for (var i = 0; i < youtubeLinkList.Count; i++)
+            try
             {
-                fineApi.IssueAutoFine(issuer.Id, recipient.Id, seconder.Id, reasonForOneVideo + youtubeLinkList[i]);
-                builder.Append(youtubeLinkList[i]);
-                AddConjunctionOrSeparator(builder, youtubeLinkList, i);
+                var youtubeLinkList = context.Message.GetYouTubeLinkList();
+                const string reasonForOneVideo = "for sharing the following YouTube video --> ";
+                const string reasonForManyVideos = "for sharing the following YouTube videos --> ";
+
+                var builder = new StringBuilder();
+                builder.Append(context.FormattedBotUserID());
+                builder.Append(": auto-fine ");
+                builder.Append(context.Message.User.FormattedUserID);
+                builder.Append(" ");
+                builder.Append(youtubeLinkList.Count == 1 ? reasonForOneVideo : reasonForManyVideos);
+
+                var issuer = userApi.GetUserBySlackId(context.FormattedBotUserID());
+                var recipient = userApi.GetUserBySlackId(context.Message.User.FormattedUserID);
+                var seconder = recipient;
+
+                for (var i = 0; i < youtubeLinkList.Count; i++)
+                {
+                    fineApi.IssueAutoFine(issuer.Id, recipient.Id, seconder.Id, reasonForOneVideo + youtubeLinkList[i]);
+                    builder.Append(youtubeLinkList[i]);
+                    AddConjunctionOrSeparator(builder, youtubeLinkList, i);
+                }
+
+                return new BotMessage { Text = builder.ToString() };
             }
-            
-            return new BotMessage{ Text = builder.ToString() };
+            catch (Exception ex)
+            {
+                return this.GetExceptionResponse(ex);
+            }
         }
 
         private static void AddConjunctionOrSeparator(StringBuilder builder, IReadOnlyCollection<string> youtubeLinkList, int currentIndex)

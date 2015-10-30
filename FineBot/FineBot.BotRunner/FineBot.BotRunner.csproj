@@ -93,6 +93,7 @@
     <Compile Include="Responders\SecondAutofineResponder.cs" />
     <Compile Include="Responders\SeconderResponder.cs" />
     <Compile Include="Responders\ShowResponder.cs" />
+    <Compile Include="Responders\SupportResponder.cs" />
     <Compile Include="Responders\YouTubeResponder.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -108,6 +109,10 @@
     <ProjectReference Include="..\FineBot.Common\FineBot.Common.csproj">
       <Project>{3CCA787A-4963-4DE0-8BFA-403A6858F02B}</Project>
       <Name>FineBot.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FineBot\FineBot.Domain.csproj">
+      <Project>{3fe26cfd-6e3f-41be-9844-62a05f660e94}</Project>
+      <Name>FineBot.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

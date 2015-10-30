@@ -32,18 +32,25 @@ namespace FineBot.BotRunner.Responders
 
         public BotMessage GetResponse(ResponseContext context)
         {
-            var slackId = context.Message.User.ID;
-
-            var seconder = this.userApi.GetUserBySlackId(slackId);
-
-            FineWithUserModel secondedFine = this.fineApi.SecondOldestPendingFine(seconder.Id);
-
-            if(secondedFine == null)
+            try
             {
-                return new BotMessage{Text = String.Format("Sorry {0}, there are no pending fines to second", context.Message.User.FormattedUserID)};
-            }
+                var slackId = context.Message.User.ID;
 
-            return new BotMessage{Text = String.Format("{0} seconded the fine given to {1} {2}!", context.Message.User.FormattedUserID, secondedFine.User.SlackId, secondedFine.Reason)};
+                var seconder = this.userApi.GetUserBySlackId(slackId);
+
+                FineWithUserModel secondedFine = this.fineApi.SecondOldestPendingFine(seconder.Id);
+
+                if (secondedFine == null)
+                {
+                    return new BotMessage { Text = String.Format("Sorry {0}, there are no pending fines to second", context.Message.User.FormattedUserID) };
+                }
+
+                return new BotMessage { Text = String.Format("{0} seconded the fine given to {1} {2}!", context.Message.User.FormattedUserID, secondedFine.User.SlackId, secondedFine.Reason) };
+            }
+            catch (Exception ex)
+            {
+                return this.GetExceptionResponse(ex);
+            }
         }
     }
 }

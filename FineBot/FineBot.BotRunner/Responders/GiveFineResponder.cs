@@ -35,33 +35,39 @@ namespace FineBot.BotRunner.Responders
 
         public BotMessage GetResponse(ResponseContext context)
         {
-            List<string> userIds = context.Message.GetUserIdsFromMessageExcluding(context.BotUserID);
-
-            if (userIds.Count == 0) return new BotMessage { Text = "I can't do that Dave" };
-
-            var issuer = this.GetIssuer(context);
-
-            if(issuer == null)
+            try 
             {
-                return new BotMessage{Text = String.Format("Sorry {0}, you may not issue fines until you have registered, say 'Register me' to me and you'll be in the system!", 
-                    context.Message.User.FormattedUserID)};
-            }
+                List<string> userIds = context.Message.GetUserIdsFromMessageExcluding(context.BotUserID);
 
-            string reason = this.GetReason(context);
+                if (userIds.Count == 0) return new BotMessage { Text = "I can't do that Dave" };
 
-            this.FineRecipients(userIds, issuer, reason);
+                var issuer = this.GetIssuer(context);
 
-            var botMessage = new BotMessage();
+                if(issuer == null)
+                {
+                    return new BotMessage{Text = String.Format("Sorry {0}, you may not issue fines until you have registered, say 'Register me' to me and you'll be in the system!", 
+                        context.Message.User.FormattedUserID)};
+                }
 
-            string multiple = String.Empty;
-            if(userIds.Count > 1)
-            {
-                multiple = "s";
-            }
+                string reason = this.GetReason(context);
 
-            botMessage.Text = String.Format("Fine{1} awarded to {0}! Somebody needs to second!", String.Join(", ", userIds), multiple);
+                this.FineRecipients(userIds, issuer, reason);
+
+                var botMessage = new BotMessage();
+
+                string multiple = String.Empty;
+                if(userIds.Count > 1)
+                {
+                    multiple = "s";
+                }
+
+                botMessage.Text = String.Format("Fine{1} awarded to {0}! Somebody needs to second!", String.Join(", ", userIds), multiple);
             
-            return botMessage;
+                return botMessage;
+            } catch (Exception ex)
+            {
+                return this.GetExceptionResponse(ex);
+            }
         }
 
         private void FineRecipients(List<string> userIds, UserModel issuer, string reason)

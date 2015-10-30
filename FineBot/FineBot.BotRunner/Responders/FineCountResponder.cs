@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Text;
 using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
@@ -30,28 +31,35 @@ namespace FineBot.BotRunner.Responders
 
         public BotMessage GetResponse(ResponseContext context)
         {
-            var builder = new StringBuilder();
-            builder.Append("Fine Count:\n");
-            
-            var slackUserIds = context.Message.GetUserIdsFromMessageExcluding(context.BotUserID);
-
-            if (!slackUserIds.Any())
+            try 
             {
-                slackUserIds.Add(context.Message.User.FormattedUserID);
-            }
+                var builder = new StringBuilder();
+                builder.Append("Fine Count:\n");
             
-            foreach (var slackUserId in slackUserIds)
-            {
-                var user = userApi.GetUserBySlackId(slackUserId);
-                var userFineCount = userApi.GetOutstandingFineCountForUser(user.Id);
+                var slackUserIds = context.Message.GetUserIdsFromMessageExcluding(context.BotUserID);
 
-                builder.Append(slackUserId);
-                builder.Append(" - ");
-                builder.Append(userFineCount);
-                builder.Append("\n");
-            }
+                if (!slackUserIds.Any())
+                {
+                    slackUserIds.Add(context.Message.User.FormattedUserID);
+                }
             
-            return new BotMessage{ Text = builder.ToString() };
+                foreach (var slackUserId in slackUserIds)
+                {
+                    var user = userApi.GetUserBySlackId(slackUserId);
+                    var userFineCount = userApi.GetOutstandingFineCountForUser(user.Id);
+
+                    builder.Append(slackUserId);
+                    builder.Append(" - ");
+                    builder.Append(userFineCount);
+                    builder.Append("\n");
+                }
+            
+                return new BotMessage{ Text = builder.ToString() };
+            }
+            catch (Exception ex)
+            {
+                return this.GetExceptionResponse(ex);
+            }
         }
     }
 }

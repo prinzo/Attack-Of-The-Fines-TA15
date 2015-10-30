@@ -30,27 +30,35 @@ namespace FineBot.BotRunner.Responders
 
         public BotMessage GetResponse(ResponseContext context)
         {
-            if(context.Message.Text.ToLower().Contains("pending"))
+            try
             {
-                var fines = from user in this.userApi.GetUsersWithPendingFines()
-                    from fine in user.Fines
-                    where fine.Pending
-                    select new { user, fine };
 
-                StringBuilder builder = new StringBuilder();
-
-                builder.AppendLine("Pending Fines:");
-                builder.AppendLine("--------------------");
-
-                foreach(var userModel in fines)
+                if (context.Message.Text.ToLower().Contains("pending"))
                 {
-                    builder.AppendLine(String.Format("{0} {1}", userModel.user.SlackId, userModel.fine.Reason ));
+                    var fines = from user in this.userApi.GetUsersWithPendingFines()
+                                from fine in user.Fines
+                                where fine.Pending
+                                select new { user, fine };
+
+                    StringBuilder builder = new StringBuilder();
+
+                    builder.AppendLine("Pending Fines:");
+                    builder.AppendLine("--------------------");
+
+                    foreach (var userModel in fines)
+                    {
+                        builder.AppendLine(String.Format("{0} {1}", userModel.user.SlackId, userModel.fine.Reason));
+                    }
+
+                    return new BotMessage { Text = builder.ToString() };
                 }
 
-                return new BotMessage{Text = builder.ToString()};
+                return new BotMessage { Text = "Show what?" };
             }
-
-            return new BotMessage{ Text = "Show what?"};
+            catch (Exception ex)
+            {
+                return this.GetExceptionResponse(ex);
+            }
         }
     }
 }
