@@ -117,7 +117,8 @@ namespace FineBot.API.Mappers
                 TotalPaid = totalPaid,
                 ReceiverId = receiver.Id,
                 LikedBy = payment.LikedBy,
-                DislikedBy = payment.DislikedBy
+                DislikedBy = payment.DislikedBy,
+                IssuerId = issuer.Id
             };
         }
 
