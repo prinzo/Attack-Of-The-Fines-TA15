@@ -7,9 +7,10 @@
                               'finesResource',
                               '$rootScope',
                                 '$mdDialog',
+                                '$interval',
                               Fines]);
 
-    function Fines(toaster, localStorageService, finesResource, $rootScope,$mdDialog) {
+    function Fines(toaster, localStorageService, finesResource, $rootScope,$mdDialog,$interval) {
         var vm = this;
 
         vm.dialogOptions = {
@@ -19,20 +20,26 @@
         $rootScope.checkUser();
         
         $rootScope.fines = {};
-        
-        var promise = finesResource.query({
+
+        UpdateFeed();
+
+        $interval(UpdateFeed, 60000);
+
+        function UpdateFeed() {
+            var promise = finesResource.query({
                     action: "GetFines"
                 }
             );
-        
-        promise.$promise.then(function (data) {
-            $rootScope.fines = data;
-            console.log(data);
-        },
-                              
-        function () {
-            toaster.pop('error', "Fine Feed Failure", "No Fines were found");
-        });
+
+            promise.$promise.then(function (data) {
+                    $rootScope.fines = data;
+                    console.log(data);
+                },
+
+                function () {
+                    toaster.pop('error', "Fine Feed Failure", "No Fines were found");
+                });
+        }
 
         vm.isOpen = false;
 
