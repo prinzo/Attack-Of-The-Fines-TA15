@@ -33,3 +33,8 @@
 .speed-dial {
     position: absolute;
 }
+
+.addition-modal {
+    width:400px;
+    padding:15px
+}

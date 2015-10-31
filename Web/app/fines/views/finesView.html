@@ -8,22 +8,9 @@
         </li>
         <li class="active">News Feed</li>
     </ol>
-    <!--<div ng-include="'common/common-imports.html'"></div>-->
 
     <div class="col-sm-6 center">
-        <!--<center>
-            <div class="fine-buttons">
-                <div class="fine-button" id="icon-gift" ng-bootbox-title="Award Fine" ng-bootbox-custom-dialog="Award a fine" ng-bootbox-custom-dialog-template="app/fines/views/modals/awardFine.tpl.html"
-                                                        ng-bootbox-options="vm.dialogOptions">
-                    <div class="glyphicon glyphicon-gift fine-button-icon"></div>
-                    <div class="fine-button-title">Award Fine</div>
-                </div>
-                <div class="fine-button" id="icon-glass" ng-bootbox-title="Pay fines" ng-bootbox-custom-dialog="Pay fines" ng-bootbox-custom-dialog-template="app/fines/views/modals/payFine.tpl.html">
-                    <div class="glyphicon glyphicon-glass fine-button-icon"></div>
-                    <div class="fine-button-title">Pay Fine</div>
-                </div>
-            </div>
-        </center>-->
+
 
         <div>
             <!-- New Fines -->
@@ -37,7 +24,7 @@
                                             <img ng-src="{{fine.UserImage}}" class="face" alt="{{fine.ReceiverDisplayName}}">
                                         </div>
                                         <div class="col-sm-10 card-content">
-                                            <a class="angular-link" ng-click="fc.ShowAdvanced($event,fine.ReceiverId)">{{fine.ReceiverDisplayName}}</a>
+                                            <a class="angular-link" ng-click="fc.ShowStatistics($event,fine.ReceiverId)">{{fine.ReceiverDisplayName}}</a>
                                              has received a fine
                                             <div class="feed-data" id="reason">for {{fine.Reason}}</div>
                                             <div class="other">
@@ -61,12 +48,8 @@
                                         </div>
                                         <div class="col-sm-10 card-content">
                                             <div class="col-md-6 pull-left">
-                                                <a id="user-statistics-link"
-                                                   ng-bootbox-title="User Statistics"
-                                                   ng-bootbox-custom-dialog="User Statistics"
-                                                   ng-bootbox-custom-dialog-template="app/fines/views/modals/userStatistics.tpl.html"
-                                                   id="user-name">
-                                                    {{fine.ReceiverDisplayName}} </a> has paid {{fine.TotalPaid}} fines
+                                                <a class="angular-link" ng-click="fc.ShowStatistics($event,fine.ReceiverId)">{{fine.ReceiverDisplayName}}</a>
+                                                has paid {{fine.TotalPaid}} fines
 
                                                 <div>
                                                     <div class="approval-div">
@@ -91,10 +74,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!--
 
-                                        <div class="payment-action"><div id="like" class="glyphicon glyphicon-thumbs-up"/></div>
-                                        <div class="payment-action"><div id="dislike" class="glyphicon glyphicon-thumbs-down"/></div>-->
                                     </div>
                                     <md-divider md-inset></md-divider>
                             </md-card>
@@ -116,15 +96,11 @@
                 </md-button>
             </md-fab-trigger>
             <md-fab-actions>
-                <md-button aria-label="Award Fine" class="md-fab md-raised md-mini md-primary"
-                           ng-bootbox-title="Award Fine" ng-bootbox-custom-dialog="Award a fine"
-                           ng-bootbox-custom-dialog-template="app/fines/views/modals/awardFine.tpl.html"
-                           ng-bootbox-options="vm.dialogOptions">
+                    <md-button aria-label="Award Fine" class="md-fab md-raised md-mini md-primary" ng-click="fc.ShowAddFine($event)">
                     <md-icon class="menu-icon" md-svg-src="../../../../content/awardFine.svg" aria-label="Award Fine"></md-icon>
                 </md-button>
-                <md-button aria-label="Pay Fine" class="md-fab md-raised md-mini md-primary"
-                           ng-bootbox-title="Pay fines" ng-bootbox-custom-dialog="Pay fines"
-                           ng-bootbox-custom-dialog-template="app/fines/views/modals/payFine.tpl.html">
+                    <md-button aria-label="Pay Fine" class="md-fab md-raised md-mini md-primary"
+                               ng-click="fc.ShowAddPayment($event)">
                     <md-icon class="menu-icon" md-svg-src="../../../../content/payFine.svg" aria-label="Pay Fine"></md-icon>
                 </md-button>
             </md-fab-actions>

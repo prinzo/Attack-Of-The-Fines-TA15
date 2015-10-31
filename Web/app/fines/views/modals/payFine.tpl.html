@@ -2,60 +2,63 @@
 
 
 <div ng-controller="FinePayments as vm">
-    <form role="form" ng-submit="vm.PayFine()">
-      <div class="form-group">
-        <label for="personPaying">Person whose fine is being paid:</label>
+    <div  class="addition-modal">
+        <form role="form" ng-submit="vm.PayFine()">
+          <div class="form-group">
+            <label for="personPaying">Person whose fine is being paid:</label>
 
-          <div layout="column" ng-cloak="" class="contactChips" ng-app="MyApp">
-              <md-content class="md-padding autocomplete">
-                  <md-contact-chips
-                          ng-model="vm.selectedUser"
-                          md-contacts="vm.Search($query)"
-                          md-contact-name="DisplayName"
-                          md-contact-image="Image"
-                          md-contact-email="EmailAddress"
-                          md-highlight-flags="i"
-                          filter-selected="vm.filterSelected"
-                          md-search-text-change=null
-                          md-selected-item-change=null
-                          md-max = 1
-                          placeholder="Search for User to Fine">
-                  </md-contact-chips>
-              </md-content>
+              <div layout="column" ng-cloak="" class="contactChips" ng-app="MyApp">
+                  <md-content class="md-padding autocomplete">
+                      <md-contact-chips
+                              ng-model="vm.selectedUser"
+                              md-contacts="vm.Search($query)"
+                              md-contact-name="DisplayName"
+                              md-contact-image="Image"
+                              md-contact-email="EmailAddress"
+                              md-highlight-flags="i"
+                              filter-selected="vm.filterSelected"
+                              md-search-text-change=null
+                              md-selected-item-change=null
+                              md-max = 1
+                              placeholder="Search for User to Fine">
+                      </md-contact-chips>
+                  </md-content>
+              </div>
+
           </div>
-          
-      </div>
-      <div class="form-group">
-        <label for="totalFines">Total fines being paid:</label>
-        <input type="number" class="form-control" min="1" max="5" ng-model="vm.TotalFinesPaid">
-      </div>
-      
-        <div>
-                  <div class="row" align="center">
-                    <div class="form-group">
+          <div class="form-group">
+            <label for="totalFines">Total fines being paid:</label>
+            <input type="number" class="form-control" min="1" max="5" ng-model="vm.TotalFinesPaid">
+          </div>
 
-                        <div class="input-group">
-                            <input type="file" id="paymentFileInput" class="form-control" />
-                        </div>
+            <div>
+                      <div class="row" align="center">
+                        <div class="form-group">
 
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="cropArea col-sm-3" ng-show="false" style="width:256px; height:256px">
-                                <img-crop image="myImage" area-type="square" result-image="myCroppedImage"></img-crop>
+                            <div class="input-group">
+                                <input type="file" id="paymentFileInput" class="form-control" />
                             </div>
-                            <img ng-show="vm.showImage" ng-src="{{Image}}" style="padding:1px;border:thick solid black;" width="250" />
+
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="cropArea col-sm-3" ng-show="false" style="width:256px; height:256px">
+                                    <img-crop image="myImage" area-type="square" result-image="myCroppedImage"></img-crop>
+                                </div>
+                                <img ng-show="vm.showImage" ng-src="{{Image}}" style="padding:1px;border:thick solid black;" width="250" />
+                            </div>
                         </div>
                     </div>
+            </div>
+             <div class="row">
+                <div class="col-sm-6 pull-right">
+                    <button class="btn btn-default"><i class="fa fa-floppy-o"></i> Submit </button>
+
                 </div>
-        </div>
-         <div class="row">
-            <div class="col-sm-6 pull-right">
-                <button class="btn btn-primary"><i class="fa fa-floppy-o"></i> Submit </button>
 
             </div>
+        </form>
+    </div>
 
-        </div>
-    </form>
 </div>

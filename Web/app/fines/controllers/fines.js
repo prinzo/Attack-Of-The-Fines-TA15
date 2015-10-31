@@ -230,11 +230,34 @@
 
         }
 
-        vm.ShowAdvanced = function(ev, id) {
+        vm.ShowStatistics = function(ev, id) {
             $mdDialog.show({
                 locals:{userId : id},
                 controller: DialogController,
                 templateUrl: 'app/fines/views/modals/userStatistics.tpl.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose:true
+            })
+            ;
+        };
+
+        vm.ShowAddFine = function(ev) {
+            $mdDialog.show({
+                locals:{userId : null},
+                controller: DialogController,
+                templateUrl: 'app/fines/views/modals/awardFine.tpl.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose:true
+            });
+        };
+
+        vm.ShowAddPayment = function(ev) {
+            $mdDialog.show({
+                locals:{userId : null},
+                controller: DialogController,
+                templateUrl: 'app/fines/views/modals/payFine.tpl.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose:true
