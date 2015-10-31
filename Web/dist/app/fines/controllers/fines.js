@@ -78,6 +78,8 @@
                         toaster.pop('success', "Seconded", "Seconded");
                         $(".buttonSecond" + Id).removeClass('fa fa-angellist');
                         $(".buttonSecond" + Id).addClass('glyphicon glyphicon-ok');
+                        $("#isSeconded-" + Id).val("true");
+                        $("#seconder-" + Id).val(localStorageService.get('user').DisplayName);
                     },
 
                     function () {
@@ -150,7 +152,7 @@
                         toaster.pop('success', "Approved", "Payment Approved");
 
                         if ($("#innerApproved-" + Id).length == 0) {
-                            $("#approvedBy-" + Id).html('<div id="innerApproved-"' + Id + ' ng-if="fine.LikedByCount > 0">Approved by <a><span id="approvedByNumber-" + Id>1</span> people</a></div>');
+                            $("#approvedBy-" + Id).html('<div id="innerApproved-"' + Id + ' ng-if="fine.LikedByCount > 0">Approved by <a><span id="approvedByNumber-" + Id>1</span> person</a></div>');
                         } else {
                             var value = $("#approvedByNumber-" + Id).text();
                             $("#approvedByNumber-" + Id).text(parseInt(value) + 1);
@@ -191,7 +193,7 @@
                     toaster.pop('success', "Disapproved", "Payment Disapproved");
 
                     if ($("#innerDisapproved-" + Id).length == 0) {
-                        $("#disapprovedBy-" + Id).html('<div id="innerApproved-" + Id ng-if="fine.LikedByCount > 0">Disapproved by <a><span id="disapprovedByNumber-" + Id>1</span> people</a></div>');
+                        $("#disapprovedBy-" + Id).html('<div id="innerApproved-" + Id ng-if="fine.LikedByCount > 0">Disapproved by <a><span id="disapprovedByNumber-" + Id>1</span> person</a></div>');
                     } else {
                         var value = $("#disapprovedByNumber-" + Id).text();
                         $("#disapprovedByNumber-" + Id).text(parseInt(value) + 1);
