@@ -60,7 +60,7 @@
         vm.Second = function Second(Id, event) {
             var isSeconded = $("#isSeconded-" + Id).val();
 
-            if(isSeconded == true) {
+            if(isSeconded == "true") {
                 vm.ShowAlertSecond(event, Id);
             } else {
                 var secondFineModel = {
