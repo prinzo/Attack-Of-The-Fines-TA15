@@ -34,7 +34,7 @@
                                                 </span>
                                             </div>
                                             <div class="md-actions" layout="row" layout-align="end center">
-                                                <input type="hidden" id="isSeconded" value="{{fine.SeconderId != null}}"/>
+                                                <input type="hidden" id="isSeconded-{{fine.Id}}" value="{{fine.SeconderId != null}}"/>
                                                 <input type="hidden" id="seconder-{{fine.Id}}" value="{{fine.Seconder}}"/>
                                                 <md-button aria-label="Second" ng-click="fc.Second(fine.Id, $event)">
                                                     <i class='fa fa-angellist big-icon buttonSecond{{fine.Id}}' ng-if="fine.SeconderId == null"/>
