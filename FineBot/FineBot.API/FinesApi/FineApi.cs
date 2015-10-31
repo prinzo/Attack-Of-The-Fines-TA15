@@ -11,6 +11,7 @@ using FineBot.Infrastructure;
 using FineBot.Interfaces;
 using FineBot.Specifications;
 using FineBot.API.UsersApi;
+using FineBot.Enums;
 
 namespace FineBot.API.FinesApi
 {
@@ -42,6 +43,7 @@ namespace FineBot.API.FinesApi
             var user = this.userRepository.Get(recipientId);
 
             var fine = user.IssueFine(issuerId, reason);
+            fine.Platform = PlatformType.Slack;
 
             this.userRepository.Save(user);
 
@@ -52,6 +54,8 @@ namespace FineBot.API.FinesApi
         {
             var user = userRepository.Get(recipientId);
             var fine = user.IssueFine(issuerId, reason);
+            fine.Platform = PlatformType.Slack;
+
             userRepository.Save(user);
 
             var seconder = userRepository.Get(seconderId);
@@ -62,6 +66,7 @@ namespace FineBot.API.FinesApi
             var user = this.userRepository.Get(recipientId);
 
             var fine = user.IssueFine(issuerId, reason);
+            fine.Platform = PlatformType.WebFrontEnd;
 
             this.userRepository.Save(user);
 
@@ -165,6 +170,7 @@ namespace FineBot.API.FinesApi
             var user = this.userRepository.Get(userId);
 
             Payment payment = new Payment(payerId, image, mimeType, fileName);
+            payment.Platform = PlatformType.Slack;
 
             var result = user.PayFines(payment, number);
 
@@ -182,6 +188,7 @@ namespace FineBot.API.FinesApi
             var payer = this.userRepository.Find(new UserSpecification().WithId(paymentModel.PayerId));
 
             Payment payment = new Payment(paymentModel.PayerId, paymentModel.Image, "image/png", null);
+            payment.Platform = PlatformType.WebFrontEnd;
 
             var validation = user.PayFines(payment, paymentModel.TotalFinesPaid);
             var payFineResult = new PayFineResult(validation);

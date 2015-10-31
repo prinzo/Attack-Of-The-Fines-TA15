@@ -75,6 +75,7 @@
     <Compile Include="Entities\PaymentImage.cs" />
     <Compile Include="Entities\SupportTicket.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Enums\PlatformType.cs" />
     <Compile Include="Enums\Status.cs" />
     <Compile Include="Enums\SupportType.cs" />
     <Compile Include="ExtensionMethods\ExpressionExtensions.cs" />

@@ -3,6 +3,9 @@ using FineBot.API.Mappers.Interfaces;
 using FineBot.API.UsersApi;
 using FineBot.Entities;
 using System.Text;
+using FineBot.API.Extensions;
+using FineBot.Common.ExtensionMethods;
+using FineBot.Enums;
 
 namespace FineBot.API.Mappers
 {
@@ -81,7 +84,8 @@ namespace FineBot.API.Mappers
                 ReceiverDisplayName = receiver.DisplayName,
                 ReceiverId = receiver.Id,
                 ModifiedDate = fine.ModifiedDate,
-                UserImage = receiver.Image
+                UserImage = receiver.Image,
+                Platform = fine.Platform.GetDescription()
             };
             
             if(payment != null)
@@ -118,7 +122,8 @@ namespace FineBot.API.Mappers
                 ReceiverId = receiver.Id,
                 LikedBy = payment.LikedBy,
                 DislikedBy = payment.DislikedBy,
-                IssuerId = issuer.Id
+                IssuerId = issuer.Id,
+                Platform = payment.Platform.GetDescription()
             };
         }
 

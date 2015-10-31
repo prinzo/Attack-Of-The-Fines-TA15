@@ -4,6 +4,7 @@ using FineBot.Common.Infrastructure;
 using Newtonsoft.Json.Bson;
 using FineBot.Abstracts;
 using System.Collections.Generic;
+using FineBot.Enums;
 
 namespace FineBot.Entities
 {
@@ -24,7 +25,9 @@ namespace FineBot.Entities
             this.PayerId = payerId;
             this.PaymentImage = new PaymentImage(image, mimeType, fileName);
             this.PaidDate = DateTime.Now;
-        } 
+        }
+
+        public PlatformType Platform;
 
         public Payment() {}
     }

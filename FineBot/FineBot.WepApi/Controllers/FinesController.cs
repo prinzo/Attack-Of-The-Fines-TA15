@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Web.Http;
 using FineBot.API.FinesApi;
-using FineBot.API.Mappers;
 using FineBot.API.UsersApi;
 using FineBot.WepApi.Models;
-using FineBot.Common.Infrastructure;
 
 namespace FineBot.WepApi.Controllers
 {

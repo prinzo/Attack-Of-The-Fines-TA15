@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using FineBot.Common.Infrastructure;
 using FineBot.API.UsersApi;
+using FineBot.Enums;
 
 namespace FineBot.API.FinesApi
 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using FineBot.Abstracts;
+using FineBot.Enums;
 using MongoDB.Driver;
 
 namespace FineBot.Entities
@@ -25,6 +26,8 @@ namespace FineBot.Entities
         public string Reason { get; set; }
         
         public DateTime ModifiedDate { get; set; }
+
+        public PlatformType Platform;
 
         public bool Outstanding {
             get {
