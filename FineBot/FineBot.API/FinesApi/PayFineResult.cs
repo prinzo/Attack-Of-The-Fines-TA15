@@ -1,4 +1,6 @@
-﻿using FineBot.Common.Infrastructure;
+﻿using System;
+using FineBot.Common.Enums;
+using FineBot.Common.Infrastructure;
 
 namespace FineBot.API.FinesApi
 {

@@ -28,7 +28,7 @@
                                              has received a fine
                                             <div class="feed-data" id="reason">for {{fine.Reason}}</div>
                                             <div class="other">
-                                                <span id="platform">via {{fine.Platform}} </span>
+                                                <span id="platform">via {{fine.Platform || 'Web front end'}} </span>
                                                 <span id="award">from
                                                     <a id="awarder" class="angular-link" ng-click="fc.ShowStatistics($event,fine.IssuerId)">{{fine.IssuerDisplayName}}</a>
                                                 </span>

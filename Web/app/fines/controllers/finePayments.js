@@ -92,21 +92,26 @@
             );
 
             promise.$promise.then(function (data) {
-                    toaster.pop('success', "Payment Awarded", "Payment awarded successfully");
-                    
-                    vm.showUpload = false;
-                    vm.showImage = false;
-                    localStorageService.clearAll();
-                    localStorageService.set('user', vm.selectedUser);
-                
-                    $timeout(function(){
-                       var defer = $q.defer();
 
-                        $mdDialog.hide();
+                    if(data.HasErrors) {
+                        toaster.error('Error', data.FullTrace);
+                    } else {
+                        toaster.pop('success', "Payment Awarded", "Payment awarded successfully");
 
-                        $rootScope.fines.push(data);
+                        vm.showUpload = false;
+                        vm.showImage = false;
+                        localStorageService.clearAll();
+                        localStorageService.set('user', vm.selectedUser);
 
-                    });
+                        $timeout(function () {
+                            var defer = $q.defer();
+
+                            $mdDialog.hide();
+
+                            $rootScope.fines.push(data.FeedFineModel);
+
+                        });
+                    }
                 },  
                 function () {
                     toaster.error('Error', 'Failed to award fine');

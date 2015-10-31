@@ -30,7 +30,7 @@ namespace FineBot.WepApi.Controllers
         }
 
         [HttpPost]
-        public FeedFineModel IssuePayment(NewPaymentModel newPaymentModel)
+        public PayFineResult IssuePayment(NewPaymentModel newPaymentModel)
         {
 
             string mimeType = newPaymentModel.Image.Substring(0,
@@ -54,13 +54,7 @@ namespace FineBot.WepApi.Controllers
 
             var result = this.fineApi.PayFines(payment);
 
-            //TODO: Come up with a way to handle these errors on the front end, maybe return the result model?
-            if(result.HasErrors)
-            {
-                return new FeedFineModel();
-            }
-
-            return result.FeedFineModel;
+            return result;
         }
 
         [HttpGet]
