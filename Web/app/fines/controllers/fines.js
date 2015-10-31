@@ -207,7 +207,10 @@
                 });
         }
 
-        function DialogController($scope, $mdDialog) {
+        function DialogController($scope, $mdDialog, userId) {
+
+            $rootScope.userId = userId;
+
             $scope.hide = function() {
                 $mdDialog.hide();
             };
@@ -217,10 +220,12 @@
             $scope.answer = function(answer) {
                 $mdDialog.hide(answer);
             };
+
         }
 
-        vm.ShowAdvanced = function(ev) {
+        vm.ShowAdvanced = function(ev, id) {
             $mdDialog.show({
+                locals:{userId : id},
                 controller: DialogController,
                 templateUrl: 'app/fines/views/modals/userStatistics.tpl.html',
                 parent: angular.element(document.body),

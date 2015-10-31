@@ -23,7 +23,7 @@ namespace FineBot.API.FinesApi {
 
         public string Reason { get; set; }
 
-        public string ReceiverId { get; set; }
+        public Guid ReceiverId { get; set; }
 
         public string ReceiverDisplayName { get; set; }
 

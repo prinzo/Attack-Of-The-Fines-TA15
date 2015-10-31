@@ -117,6 +117,7 @@
     <Compile Include="UsersApi\IUserApi.cs" />
     <Compile Include="UsersApi\UserApi.cs" />
     <Compile Include="UsersApi\UserModel.cs" />
+    <Compile Include="UsersApi\UserStatisticModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

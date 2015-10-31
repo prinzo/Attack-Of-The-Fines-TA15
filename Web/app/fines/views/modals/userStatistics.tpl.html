@@ -1,17 +1,11 @@
-<script type="text/javascript"
-        src="https://www.google.com/jsapi?autoload={
-            'modules':[{
-              'name':'visualization',
-              'version':'1',
-              'packages':['corechart']
-            }]
-          }"></script>
 
 <div class="" ng-controller="UserStatistics as vm">
 
     <link rel="stylesheet" href="/content/userStatistics.css">
 
-    <div class="statisticsModal">
+    <div class="statisticsModal hidden">
+        <input type="hidden" id="userId" value="{{userId}}"/>
+
         <div class="col-md-12">
             <div id="header">
                 <div>
@@ -21,15 +15,15 @@
 
             <div class="row col-md-12">
                 <div class="col-md-6">
-                    <div class=" well text-center ">
-                        <span class="statistic">2</span>
+                    <div class=" well text-center statsBlock">
+                        <span class="statistic" id="totalFinesForMonth">2</span>
                         <div class="statisticTitle">Fines received this month</div>
                     </div>
                 </div>
 
                 <div class="col-md-6">
-                    <div class="well text-center ">
-                        <span class="statistic">23</span>
+                    <div class="well text-center statsBlock">
+                        <span class="statistic" id="totalFinesEver">23</span>
                         <div class="statisticTitle">Total fines ever received</div>
                     </div>
                 </div>
@@ -38,15 +32,15 @@
 
             <div class="row col-md-12">
                 <div class="col-md-6">
-                    <div class="well text-center ">
-                        <span class="statistic">2</span>
+                    <div class="well text-center statsBlock">
+                        <span class="statistic" id="totalPaymentsForMonth">2</span>
                         <div class="statisticTitle">Fines paid this month  </div>
                     </div>
                 </div>
 
                 <div class="col-md-6">
-                    <div class=" well text-center ">
-                        <span class="statistic">2</span>
+                    <div class=" well text-center statsBlock">
+                        <span class="statistic" id="totalPaymentsEver">2</span>
                         <div class="statisticTitle">Total fines ever paid</div>
                     </div>
                 </div>

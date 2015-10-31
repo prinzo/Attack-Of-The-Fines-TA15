@@ -38,5 +38,7 @@ namespace FineBot.API.UsersApi
         List<UserModel> GetAllUsers();
 
         UserModel RegisterUserByEmail(string email);
+
+        UserStatisticModel GetStatisticsForUser(Guid id);
     }
 }

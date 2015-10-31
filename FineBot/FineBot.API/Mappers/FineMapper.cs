@@ -79,6 +79,7 @@ namespace FineBot.API.Mappers
                 AwardedDate = fine.AwardedDate,
                 IssuerDisplayName = issuer.DisplayName,
                 ReceiverDisplayName = receiver.DisplayName,
+                ReceiverId = receiver.Id,
                 ModifiedDate = fine.ModifiedDate,
                 UserImage = receiver.Image
             };
@@ -114,6 +115,7 @@ namespace FineBot.API.Mappers
                 AwardedDate = payment.PaidDate,
                 UserImage = receiver.Image,
                 TotalPaid = totalPaid,
+                ReceiverId = receiver.Id,
                 LikedBy = payment.LikedBy,
                 DislikedBy = payment.DislikedBy
             };

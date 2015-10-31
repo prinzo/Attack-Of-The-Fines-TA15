@@ -186,5 +186,33 @@ namespace FineBot.API.UsersApi
 
             return Enumerable.ToList<UserModel>(users.Select(u => this.userMapper.MapToModelSmall(u)));
         }
+
+        public UserStatisticModel GetStatisticsForUser(Guid id) {
+            var statistic = this.userRepository.FindAll(new UserSpecification().WithId(id))
+                .Select(x => new UserStatisticModel {
+                       TotalFinesEver = x.Fines.Count(),
+                       TotalFinesForMonth = x.Fines.Count(y => y.AwardedDate.Month == DateTime.Now.Month),
+                       FinesMonthlyModels = x.Fines.Where(y => y.AwardedDate.Year == DateTime.Now.Year)
+                                                  .GroupBy(y => y.AwardedDate.Month)
+                                                  .Select(y => new MonthlyGraphModel {
+                                                      MonthIndex = y.Key,
+                                                      Count = y.Count()
+                                                  }).ToList(),
+                       TotalPaymentsEver = x.Fines.Count(y => y.PaymentId != null),
+                       TotalPaymentsForMonth = x.Fines.Count(y => y.PaymentId != null 
+                                                    && y.AwardedDate.Month == DateTime.Now.Month),
+                       PaymentsMonthlyModels = x.Fines.Where(y => y.PaymentId != null 
+                                                  && y.AwardedDate.Year == DateTime.Now.Year)
+                                                 .GroupBy(y => y.AwardedDate.Month)
+                                                 .Select(y => new MonthlyGraphModel
+                                                 {
+                                                     MonthIndex = y.Key,
+                                                     Count = y.Count()
+                                                 }).ToList(),
+                        UserDisplayName = x.DisplayName
+                });
+
+            return statistic.FirstOrDefault();
+        }
     }
 }

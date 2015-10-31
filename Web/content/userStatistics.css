@@ -1,7 +1,7 @@
 #userFinesLineGraph {
     margin: 0 auto;
     max-width: 70%;
-    height:450px
+    height:500px
 }
 
 
@@ -29,4 +29,8 @@
 }
 .statisticsModal {
     padding:15px;
+}
+
+.statsBlock {
+    max-height: 80px;
 }

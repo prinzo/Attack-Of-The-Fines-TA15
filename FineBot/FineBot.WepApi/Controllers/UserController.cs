@@ -75,5 +75,12 @@ namespace FineBot.WepApi.Controllers
             var slackUser = userApi.GetUserByEmail(ldapUser.EmailAddress);
             return ldapApi.MapSlackModelToLdapModel(ldapUser, slackUser);
         }
+
+        public UserStatisticModel GetStatisticsForUser(Guid id)
+        {
+            UserStatisticModel model = userApi.GetStatisticsForUser(id);
+
+            return model;
+        }
     }
 }
