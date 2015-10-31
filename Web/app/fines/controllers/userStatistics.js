@@ -9,52 +9,49 @@
     function UserStatistics(dashboardResource, $timeout) {
         var vm = this;
 
-        vm.chartSeriesDistribution = [
-            {
-                "name": "Fine Count",
-                "data": [1, 2, 4, 1, 6, 5, 2, 1, 0, 0, 0, 0],
-                "color": "green"
-            }
-        ];
-
         vm.chartConfigDistribution = {
-            options: {
-                chart: {
-                    backgroundColor: "#f4f4f4",
-                    plotShadow: true,
-                    renderTo: 'userFinesLineGraph',
-                    type: 'column'
-                },
-
+            chart: {
+                height: 200
             },
-            func: function (chart) {
-                $timeout(function () {
-                    chart.reflow();
-                }, 0);
+            title: {
+                text: 'Fines and Payments for the year',
+                x: -20 //center
             },
-            series: vm.chartSeriesDistribution,
-
             xAxis: {
-                categories: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                 title: {
                     text: 'Months'
-                }
+                },
             },
             yAxis: {
                 title: {
                     text: 'Total Fines'
-                }
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
             },
-            title: {
-                text: 'Fines for The Cat for 2015'
+            tooltip: {
+                valueSuffix: '°C'
             },
-            credits: {
-                enabled: true
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
             },
-            loading: false,
-            size: {}
+            reflow: true,
+            series: [{
+                name: 'Fines',
+                data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
+            }, {
+                name: 'Payments',
+                data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+            }]
         }
-
 
     }
 }());

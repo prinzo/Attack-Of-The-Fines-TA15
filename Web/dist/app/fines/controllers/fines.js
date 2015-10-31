@@ -207,5 +207,27 @@
                 });
         }
 
+        function DialogController($scope, $mdDialog) {
+            $scope.hide = function() {
+                $mdDialog.hide();
+            };
+            $scope.cancel = function() {
+                $mdDialog.cancel();
+            };
+            $scope.answer = function(answer) {
+                $mdDialog.hide(answer);
+            };
+        }
+
+        vm.ShowAdvanced = function(ev) {
+            $mdDialog.show({
+                controller: DialogController,
+                templateUrl: 'app/fines/views/modals/userStatistics.tpl.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose:true
+            });
+        };
+
     }
 }());

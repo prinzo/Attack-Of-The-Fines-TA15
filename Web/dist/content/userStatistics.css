@@ -1,9 +1,13 @@
-#userFinesLineGraph { 
+#userFinesLineGraph {
     margin: 0 auto;
+    max-width: 70%;
+    height:200px
 }
 
+
 #userName {
-    font-size: 30px
+    font-size: 25px;
+    padding-left: 15px
 }
 
 .statisticTitle {
@@ -11,7 +15,7 @@
 }
 
 .statistic {
-    font-size: 20px;
+    font-size: 16px;
     text-align: center;
     font-weight: bold;
 }
@@ -22,4 +26,7 @@
 
 .statisticGroupRight {
     float: right;
+}
+.statisticsModal {
+    padding:15px;
 }

@@ -37,13 +37,14 @@
                                             <img ng-src="{{fine.UserImage}}" class="face" alt="{{fine.ReceiverDisplayName}}">
                                         </div>
                                         <div class="col-sm-10 card-content">
-                                            <a id="user-statistics-link"
+                                            <a ng-click="fc.ShowAdvanced($event)">{{fine.ReceiverDisplayName}}</a>
+                                            <!--<a id="user-statistics-link"
                                                ng-bootbox-title="User Statistics"
                                                ng-bootbox-custom-dialog="User Statistics"
                                                ng-bootbox-custom-dialog-template="app/fines/views/modals/userStatistics.tpl.html"
                                                id="user-name">
                                                 {{fine.ReceiverDisplayName}}
-                                            </a> has received a fine
+                                            </a>--> has received a fine
                                             <div class="feed-data" id="reason">for {{fine.Reason}}</div>
                                             <div class="other">
                                                 <span id="platform">via {{fine.Platform || 'Web front end'}} </span>
