@@ -3,7 +3,7 @@
     angular
         .module("entelectFines")
         .controller("FineAwards", ['toaster',
-                                   '$ngBootbox',
+                                   '$mdDialog',
                                    "$timeout",
                                    'finesResource',
                                    'userResource',
@@ -12,7 +12,7 @@
                                    '$q',
                                    FineAwards]);
 
-    function FineAwards(toaster, $ngBootbox, $timeout, finesResource, userResource, localStorageService, $rootScope, $q) {
+    function FineAwards(toaster, $mdDialog, $timeout, finesResource, userResource, localStorageService, $rootScope, $q) {
         var vm = this;
         
         var currentUser = localStorageService.get('user'); 
@@ -68,8 +68,8 @@
                 
                     $timeout(function(){
                        var defer = $q.defer();
-                    
-                       $ngBootbox.hideAll();
+
+                        $mdDialog.hide();
                         
                         $rootScope.fines.push(data);
                     });

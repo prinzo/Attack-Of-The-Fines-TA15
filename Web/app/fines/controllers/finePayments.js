@@ -3,7 +3,7 @@
     angular
         .module("entelectFines")
         .controller("FinePayments", ['toaster',
-                                   '$ngBootbox',
+                                   '$mdDialog',
                                    "$timeout",
                                    'finesResource',
                                    'userResource',
@@ -13,7 +13,7 @@
                                      '$scope',
                                    FinePayments]);
 
-    function FinePayments(toaster, $ngBootbox, $timeout, finesResource, userResource, localStorageService, $rootScope, $q, $scope) {
+    function FinePayments(toaster, $mdDialog, $timeout, finesResource, userResource, localStorageService, $rootScope, $q, $scope) {
         var vm = this;
 
         vm.selectedUser = [];
@@ -62,8 +62,7 @@
                 img.src = evt.target.result;
 
                 $scope.$apply(function (scope) {
-                    $scope.Image = new FileReader().readAsArrayBuffer(evt.target.result);
-                    vm.Image = $scope.Image.toDataURL("image/png");
+                    $scope.Image = evt.target.result;
                 });
             };
 
@@ -83,7 +82,7 @@
                 PayerId: vm.currentUser.Id,
                 RecipientId: vm.selectedUser[0].Id,
                 TotalFinesPaid: vm.TotalFinesPaid,
-                Image :  vm.Image
+                Image :  $scope.Image
             };
 
             var promise = finesResource.save({
@@ -102,10 +101,11 @@
                 
                     $timeout(function(){
                        var defer = $q.defer();
-                    
-                       $ngBootbox.hideAll();
-                        
+
+                        $mdDialog.hide();
+
                         $rootScope.fines.push(data);
+
                     });
                 },  
                 function () {

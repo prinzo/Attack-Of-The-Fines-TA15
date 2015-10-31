@@ -32,14 +32,26 @@ namespace FineBot.WepApi.Controllers
         }
 
         [HttpPost]
-        public FeedFineModel IssuePayment(NewPaymentModel newPaymentModel) {
+        public FeedFineModel IssuePayment(NewPaymentModel newPaymentModel)
+        {
+
+            string mimeType = newPaymentModel.Image.Substring(0,
+                newPaymentModel.Image.IndexOf(";base64,",
+                    StringComparison.Ordinal) + ";base64,".Length
+                );
+
+            string image = newPaymentModel.Image.Substring(
+                newPaymentModel.Image.IndexOf(";base64,",
+                    StringComparison.Ordinal) + ";base64,".Length
+                );
+
 
             PaymentModel payment = new PaymentModel {
                 PayerId = newPaymentModel.PayerId,
                 RecipientId = newPaymentModel.RecipientId,
                 TotalFinesPaid = newPaymentModel.TotalFinesPaid,
-                Image = Convert.FromBase64String(newPaymentModel.Image.Replace("data:image/png;base64,", "")),
-                MimeType = "image/png"
+                Image = Convert.FromBase64String(image),
+                MimeType = mimeType
             };
 
             var result = this.fineApi.PayFines(payment);

@@ -264,5 +264,18 @@
             });
         };
 
+        vm.ShowPaymentImage = function(ev, Image) {
+            $mdDialog.show(
+                $mdDialog.alert()
+                    .parent(angular.element(document.querySelector('#fines-container')))
+                    .clickOutsideToClose(true)
+                    .title('Payment Image')
+                    .content('<img src="' + Image + '" class="image large-photo">')
+                    .ariaLabel('Fine has been seconded')
+                    .ok('OK')
+                    .targetEvent(ev)
+            );
+        };
+
     }
 }());

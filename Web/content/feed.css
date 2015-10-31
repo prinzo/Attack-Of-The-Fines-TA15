@@ -167,3 +167,7 @@
 .angular-link {
     cursor: pointer
 }
+
+.large-photo {
+    max-width: 400px;
+}
