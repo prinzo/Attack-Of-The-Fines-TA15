@@ -163,3 +163,7 @@
 .right-image {
     padding-right: 23px;
 }
+
+.angular-link {
+    cursor: pointer
+}
