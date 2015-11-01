@@ -56,27 +56,31 @@
                 Reason: vm.reason
             };
 
-            var promise = finesResource.save({
-                    action: "IssueFine"
-                },
-                newFineModel
-            );
+            if(newFineModel.IssuerId == newFineModel.RecipientId) {
+                toaster.pop('error', "Invalid Input", "You cannot award a fine for yourself");
+            } else {
+                var promise = finesResource.save({
+                        action: "IssueFine"
+                    },
+                    newFineModel
+                );
 
-            promise.$promise.then(function (data) {
-                    toaster.pop('success', "Fine Awarded", "Fine awarded successfully");
-                    
-                
-                    $timeout(function(){
-                       var defer = $q.defer();
+                promise.$promise.then(function (data) {
+                        toaster.pop('success', "Fine Awarded", "Fine awarded successfully");
 
-                        $mdDialog.hide();
-                        
-                        $rootScope.fines.push(data);
+
+                        $timeout(function () {
+                            var defer = $q.defer();
+
+                            $mdDialog.hide();
+
+                            $rootScope.fines.push(data);
+                        });
+                    },
+                    function () {
+                        toaster.error('Error', 'Failed to award fine');
                     });
-                },  
-                function () {
-                    toaster.error('Error', 'Failed to award fine');
-                });
+            }
         }
         
     }
