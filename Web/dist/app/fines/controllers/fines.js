@@ -8,10 +8,12 @@
                               '$rootScope',
                                 '$mdDialog',
                                 '$interval',
+                               'appSettings',
                               Fines]);
 
-    function Fines(toaster, localStorageService, finesResource, $rootScope,$mdDialog,$interval) {
+    function Fines(toaster, localStorageService, finesResource, $rootScope,$mdDialog,$interval, appSettings) {
         var vm = this;
+        vm.settings = appSettings;
 
         vm.dialogOptions = {
                             $scope : vm

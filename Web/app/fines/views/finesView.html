@@ -68,10 +68,9 @@
                                             </div>
                                             <div class="col-md-4 pull-right">
                                                 <div class="right-image">
-                                                    <img src="{{fine.PaymentImage}}" class="md-card-image photo pull-right"
-                                                         alt="payment image"
-                                                         ng-click="fc.ShowPaymentImage($event, fine.PaymentImage)">
-                                                    <!--<img src="server/Images/GetFinePaymentImage/{{fine.Id}}"/>-->
+                                                    <img src="{{fc.settings.serverPath}}/api/Images/GetFinePaymentImage/{{fine.Id}}"
+                                                         class="md-card-image photo"
+                                                         ng-click="fc.ShowPaymentImage($event, fine.PaymentImage)"/>
                                                 </div>
                                                 <div>
                                                     <div class="md-actions pull-right" layout="row">
@@ -93,7 +92,7 @@
         </div>
 
 
-    <div class="md-padding" layout="column">
+    <div class="md-padding actionButtons" layout="column">
 
         <md-fab-speed-dial md-open="vm.isOpen" md-direction="up"
                            class="md-fling md-fab-bottom-right md-hover-full speed-dial">

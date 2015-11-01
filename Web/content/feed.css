@@ -147,7 +147,8 @@
 }
 
 .fines-container {
-    position:relative
+    position:relative;
+    width:95%;
 }
 
 .photo {
@@ -170,4 +171,11 @@
 
 .large-photo {
     max-width: 400px;
+}
+
+
+.actionButtons {
+    position:fixed;
+    bottom:0;
+    right:0;
 }
