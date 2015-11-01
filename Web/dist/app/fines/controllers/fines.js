@@ -57,14 +57,17 @@
             );
         }
 
-        vm.Second = function Second(Id, event) {
+        vm.Second = function Second(Id, issuerId, event) {
             var isSeconded = $("#isSeconded-" + Id).val();
+            var currentUserId = localStorageService.get('user').Id;
 
             if(isSeconded == "true") {
                 vm.ShowAlertSecond(event, Id);
+            } else if(currentUserId == issuerId) {
+                 toaster.pop('error', "Fine Seconding Failure", "You cannot second a fine that you have awarded");
             } else {
                 var secondFineModel = {
-                    UserId: localStorageService.get('user').Id,
+                    UserId: currentUserId,
                     FineId: Id
                 };
 
