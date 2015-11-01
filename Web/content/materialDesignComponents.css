@@ -11,9 +11,12 @@
     z-index: 10;        
 }
 
+.md-contact-suggestion img{
+    margin-top:-30px
+}
 
-.contactChips md-item-image {
-    padding-top: -20px
+.md-autocomplete-suggestions-container {
+    width:400px;
 }
 
 .card {
@@ -35,6 +38,6 @@
 }
 
 .addition-modal {
-    width:400px;
+    width:500px;
     padding:15px
 }
