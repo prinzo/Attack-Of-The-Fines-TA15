@@ -77,6 +77,7 @@
     <Compile Include="Models\SlackMessageAttachmentModel.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Models\SlackMessageFileModel.cs" />
+    <Compile Include="Models\SlackRawDataModel.cs" />
     <Compile Include="Models\SlackRawMessageModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,10 +98,16 @@
     <Compile Include="Responders\YouTubeResponder.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Content\shame.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FineBot.API\FineBot.API.csproj">
       <Project>{1edf3522-e2ae-4569-b98b-0fc3b350b523}</Project>

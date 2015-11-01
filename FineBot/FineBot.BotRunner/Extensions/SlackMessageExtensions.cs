@@ -2,7 +2,10 @@
 using System.Linq;
 using System.Net.WebSockets;
 using System.Text.RegularExpressions;
+using FineBot.BotRunner.Models;
 using MargieBot.Models;
+using Newtonsoft.Json;
+using ServiceStack.Text;
 
 namespace FineBot.BotRunner.Extensions
 {
@@ -79,6 +82,20 @@ namespace FineBot.BotRunner.Extensions
         {
             var lowercaseText = message.Text.ToLower();
             return CommonReplyList.Any(x => lowercaseText.Contains(x));
+        }
+
+        public static string GetTimeStamp(this SlackMessage message)
+        {
+            var serializer = new JsonSerializer<SlackRawDataModel>();
+            var rawData = serializer.DeserializeFromString(message.RawData);
+            return rawData.ts;
+        }
+
+        public static string GetChannelId(this SlackMessage message)
+        {
+            var serializer = new JsonSerializer<SlackRawDataModel>();
+            var rawData = serializer.DeserializeFromString(message.RawData);
+            return rawData.channel;
         }
     }
 }

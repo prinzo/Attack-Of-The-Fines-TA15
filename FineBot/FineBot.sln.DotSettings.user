@@ -1,8 +1,8 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/CodeStyle/CodeCleanup/RecentlyUsedProfile/@EntryValue">Team</s:String>
-	<s:Boolean x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=9CADAEBBF8E140309D3B4BB00E69D54A/@KeyIndexDefined">True</s:Boolean>
-	<s:Int64 x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=9CADAEBBF8E140309D3B4BB00E69D54A/GroupingIndex/@EntryValue">4</s:Int64>
 	
-	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=9CADAEBBF8E140309D3B4BB00E69D54A/Name/@EntryValue">All Tests in FineBot</s:String>
-	<s:String x:Key="/Default/Housekeeping/UnitTestingMru/UnitTestSessionPersistentData/=9CADAEBBF8E140309D3B4BB00E69D54A/XmlSerializedElements/@EntryValue">&lt;Session&gt;&lt;Elements /&gt;&lt;/Session&gt;</s:String>
+	
+	
+	
+	
 </wpf:ResourceDictionary>

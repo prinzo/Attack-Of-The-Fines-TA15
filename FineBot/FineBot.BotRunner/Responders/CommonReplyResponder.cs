@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Text;
 using FineBot.API.FinesApi;
+using FineBot.API.ReactionApi;
 using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
 using FineBot.BotRunner.Extensions;
@@ -13,15 +16,18 @@ namespace FineBot.BotRunner.Responders
     {
         private readonly IUserApi userApi;
         private readonly IFineApi fineApi;
+        private readonly IReactionApi reactionApi;
 
         public CommonReplyResponder(
             IUserApi userApi, 
             IFineApi fineApi,
-            ISupportApi supportApi
+            ISupportApi supportApi,
+            IReactionApi reactionApi
             ) : base (supportApi)
         {
             this.userApi = userApi;
             this.fineApi = fineApi;
+            this.reactionApi = reactionApi;
         }
 
         public bool CanRespond(ResponseContext context)
@@ -37,20 +43,25 @@ namespace FineBot.BotRunner.Responders
 
                 var builder = new StringBuilder();
                 builder.Append(context.FormattedBotUserID());
-                builder.Append(": auto-fine ");
+                builder.Append(": ");
+                builder.Append("auto-fine".ToHyperlink(ConfigurationManager.AppSettings["ShameBellLocation"]));
+                builder.Append(" ");
                 builder.Append(context.Message.User.FormattedUserID);
                 builder.Append(" ");
                 builder.Append(reason);
                 if(context.Message.Text.Contains("it works on my machine"))
                 {
-                    builder.Append(" :itworksonmymachine: ");
+                    reactionApi.AddReaction(
+                        "itworksonmymachine", 
+                        context.Message.GetChannelId(),
+                        context.Message.GetTimeStamp());
                 }
                 var issuer = userApi.GetUserBySlackId(context.FormattedBotUserID());
                 var recipient = userApi.GetUserBySlackId(context.Message.User.FormattedUserID);
                 var seconder = recipient;
                 fineApi.IssueAutoFine(issuer.Id, recipient.Id, seconder.Id, reason);
 
-                return new BotMessage { Text = builder.ToString() };
+                return new BotMessage { Text = builder.ToString()};
             }
             catch(Exception ex)
             {
