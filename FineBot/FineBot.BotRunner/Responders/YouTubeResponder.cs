@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Text;
 using FineBot.API.FinesApi;
 using FineBot.API.SupportApi;
@@ -41,7 +42,9 @@ namespace FineBot.BotRunner.Responders
 
                 var builder = new StringBuilder();
                 builder.Append(context.FormattedBotUserID());
-                builder.Append(": auto-fine ");
+                builder.Append(": ");
+                builder.Append("auto-fine".ToHyperlink(ConfigurationManager.AppSettings["ShameBellLocation"]));
+                builder.Append(" ");
                 builder.Append(context.Message.User.FormattedUserID);
                 builder.Append(" ");
                 builder.Append(youtubeLinkList.Count == 1 ? reasonForOneVideo : reasonForManyVideos);
