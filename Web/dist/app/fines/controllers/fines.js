@@ -14,6 +14,7 @@
     function Fines(toaster, localStorageService, finesResource, $rootScope,$mdDialog,$interval, appSettings) {
         var vm = this;
         vm.settings = appSettings;
+        vm.pagingIndex = 0;
 
         vm.dialogOptions = {
                             $scope : vm
@@ -35,7 +36,24 @@
 
             promise.$promise.then(function (data) {
                     $rootScope.fines = data;
-                    console.log(data);
+                    vm.pagingIndex += data.length;
+                },
+
+                function () {
+                    toaster.pop('error', "Fine Feed Failure", "No Fines were found");
+                });
+        }
+
+        vm.GetNextSetOfFines = function GetNextSetOfFines() {
+            var promise = finesResource.query({
+                    action: "GetNexSetOfFines",
+                    index: vm.pagingIndex
+                }
+            );
+
+            promise.$promise.then(function (data) {
+                    $rootScope.fines.concat(data);
+                    vm.pagingIndex += $rootScope.fines.length;
                 },
 
                 function () {

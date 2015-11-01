@@ -63,6 +63,11 @@ namespace FineBot.WepApi.Controllers
         }
 
         [HttpGet]
+        public FeedFineModel[] GetNexSetOfFines(int index) {
+            return this.fineApi.GetLatestSetOfFines(index, 10).ToArray();
+        }
+
+        [HttpGet]
         public byte[] GetImageForId(Guid id) {
             return this.fineApi.GetImageForPaymentId(id);
         }
