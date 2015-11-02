@@ -38,6 +38,8 @@ namespace FineBot.API.UsersApi
 
         public UserModel GetUserBySlackId(string slackId)
         {
+
+
             var user = this.userRepository.Find(new UserSpecification().WithSlackId(slackId));
 
             if(user == null)

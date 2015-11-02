@@ -34,7 +34,7 @@ namespace FineBot.BotRunner.Responders
         {
             try
             {
-                var slackId = context.Message.User.ID;
+                var slackId = context.Message.User.FormattedUserID;
 
                 var seconder = this.userApi.GetUserBySlackId(slackId);
 
