@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
+using FineBot.BotRunner.Extensions;
 using FineBot.BotRunner.Responders.Interfaces;
 using MargieBot.Models;
 
@@ -25,7 +26,7 @@ namespace FineBot.BotRunner.Responders
         {
             return context.Message.MentionsBot 
                 &&!context.BotHasResponded
-                && context.Message.Text.ToLower().Contains("show");
+                && context.Message.StartsWithCommand("show");
         }
 
         public BotMessage GetResponse(ResponseContext context)
@@ -47,7 +48,7 @@ namespace FineBot.BotRunner.Responders
 
                     foreach (var userModel in fines)
                     {
-                        builder.AppendLine(String.Format("{0} {1}", userModel.user.SlackId, userModel.fine.Reason));
+                        builder.AppendLine(String.Format("{0} {1}", userModel.user.SlackId.FormatAsSlackUserId(), userModel.fine.Reason));
                     }
 
                     return new BotMessage { Text = builder.ToString() };
