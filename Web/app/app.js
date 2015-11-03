@@ -17,38 +17,42 @@ var app = angular.module("entelectFines", ["common.services",
 
 app.config(['$routeProvider',
  function ($routeProvider) {
-        $routeProvider.
-        when('/Fines', {
-            templateUrl: 'app/fines/views/finesView.html',
-            controller: ''
-        }).
-        when('/Users', {
-            templateUrl: 'app/users/views/usersView.html',
-            controller: ''
-        }).
-        when('/Statistics', {
-            templateUrl: 'app/statistics/views/statisticsView.html',
-            controller: ''
-        }).
-        when('/Settings', {
-            templateUrl: 'app/settings/views/settingsView.html',
-            controller: ''
-        }).
-        when('/Support', {
-            templateUrl: 'app/support/views/supportView.html',
-            controller: ''
-        }).
-        when('/Login', {
-            templateUrl: 'app/login/views/loginView.html',
-            controller: ''
-        }).
-           when('/CreateSupportTicket', {
-            templateUrl: 'app/support/views/supportTicketView.html',
-            controller: ''
-        }).
-        otherwise({
-            redirectTo: '/CreateSupportTicket'
-        });
+            $routeProvider.
+            when('/Fines', {
+                templateUrl: 'app/fines/views/finesView.html',
+                controller: ''
+            }).
+            when('/Users', {
+                templateUrl: 'app/users/views/usersView.html',
+                controller: ''
+            }).
+            when('/Statistics', {
+                templateUrl: 'app/statistics/views/statisticsView.html',
+                controller: ''
+            }).
+            when('/Settings', {
+                templateUrl: 'app/settings/views/settingsView.html',
+                controller: ''
+            }).
+            when('/Support', {
+                templateUrl: 'app/support/views/supportView.html',
+                controller: ''
+            }).
+            when('/Login', {
+                templateUrl: 'app/login/views/loginView.html',
+                controller: ''
+            }).
+            when('/CreateSupportTicket', {
+                templateUrl: 'app/support/views/supportTicketView.html',
+                controller: ''
+            }).
+            when('/Dashboard', {
+                templateUrl: 'app/dashboard/views/dashboardView.html',
+                controller: ''
+            }).
+            otherwise({
+                redirectTo: '/Login'
+            });
 
  }])
     .config(['localStorageServiceProvider',
