@@ -199,9 +199,9 @@ namespace FineBot.API.UsersApi
         public UserStatisticModel GetStatisticsForUser(Guid id) {
             var statistic = this.userRepository.FindAll(new UserSpecification().WithId(id))
                 .Select(x => new UserStatisticModel {
-                       TotalFinesEver = x.Fines.Count(),
-                       TotalFinesForMonth = x.Fines.Count(y => y.AwardedDate.Month == DateTime.Now.Month),
-                       FinesMonthlyModels = x.Fines.Where(y => y.AwardedDate.Year == DateTime.Now.Year)
+                       TotalFinesEver = x.Fines.Count(y => !y.Pending),
+                       TotalFinesForMonth = x.Fines.Count(y => y.AwardedDate.Month == DateTime.Now.Month && !y.Pending),
+                       FinesMonthlyModels = x.Fines.Where(y => y.AwardedDate.Year == DateTime.Now.Year && !y.Pending)
                                                   .GroupBy(y => y.AwardedDate.Month)
                                                   .Select(y => new MonthlyGraphModel {
                                                       MonthIndex = y.Key,

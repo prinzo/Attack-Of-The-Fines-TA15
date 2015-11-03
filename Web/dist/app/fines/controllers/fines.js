@@ -27,7 +27,7 @@
 
         UpdateFeed();
 
-        $interval(UpdateFeed, 60000);
+        $interval(UpdateFeed, 3000);
 
         function UpdateFeed() {
             var promise = finesResource.query({

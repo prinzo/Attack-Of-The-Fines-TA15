@@ -83,6 +83,13 @@ namespace FineBot.Entities
 
             var orderedFines = this.Fines.Where(x => x.Outstanding).OrderBy(x => x.AwardedDate).ToList();
 
+            bool hasPending = orderedFines.All(x => x.Pending);
+
+            if (hasPending)
+            {
+                return validationResult.AddMessage(Severity.Error, "Payable fines need to be seconded first");
+            }
+
             var limit = Math.Max(number, orderedFines.Count());
 
             for(int i = 0; i < limit; i++)
