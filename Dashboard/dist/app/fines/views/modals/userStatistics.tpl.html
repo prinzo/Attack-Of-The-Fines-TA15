@@ -1,0 +1,60 @@
+
+<div class="" ng-controller="UserStatistics as vm">
+
+    <link rel="stylesheet" href="/content/userStatistics.css">
+
+    <div class="statisticsModal hidden">
+        <input type="hidden" id="userId" value="{{userId}}"/>
+
+        <div class="col-md-12">
+            <div id="header">
+                <div>
+                    <span id="userName">The Cat</span>
+                </div>
+            </div>
+
+            <div class="row col-md-12">
+                <div class="col-md-6">
+                    <div class=" well text-center statsBlock">
+                        <span class="statistic" id="totalFinesForMonth">2</span>
+                        <div class="statisticTitle">Fines received this month</div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="well text-center statsBlock">
+                        <span class="statistic" id="totalFinesEver">23</span>
+                        <div class="statisticTitle">Total fines ever received</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row col-md-12">
+                <div class="col-md-6">
+                    <div class="well text-center statsBlock">
+                        <span class="statistic" id="totalPaymentsForMonth">2</span>
+                        <div class="statisticTitle">Fines paid this month  </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class=" well text-center statsBlock">
+                        <span class="statistic" id="totalPaymentsEver">2</span>
+                        <div class="statisticTitle">Total fines ever paid</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="finesGraph">
+                <div class="row">
+                    <div>
+                        <div id="userFinesLineGraphDiv">
+                            <highchart id="userFinesLineGraph" config="vm.chartConfigDistribution"></highchart>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

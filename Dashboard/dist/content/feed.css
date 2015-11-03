@@ -1,0 +1,181 @@
+.fine-container {
+    align-content: center;
+    align-self: center;
+    padding: 5px;
+}
+
+.fine-feed {
+}
+
+.profile {
+    float: left;
+    padding-right: 1px;
+}
+
+
+.profile-picture {
+    max-width: 55px;
+    max-height: 55px;
+    padding: 5px;
+}
+
+.profile-details {
+    float: right
+}
+
+.fine {
+    float: right;
+    padding-left: 1px;
+}
+
+.fine-details {
+    padding: 5px;
+    float: left
+}
+
+#platform {
+    font-size: 12px;
+}
+
+.approval-div {
+    font-size: 10px;
+    padding-top:12px;
+}
+
+#award {
+     font-size: 12px;
+}
+
+
+.fine-details hr {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+#second {
+    cursor: pointer
+}
+
+#second:hover {
+    color: green
+}
+
+#awarder {
+    cursor: pointer
+}
+
+#awarder {
+    cursor: pointer
+}
+
+#user-name {
+    cursor: pointer
+}
+
+.fine-button-icon {
+    font-size: 30px;
+}
+
+
+.fine-button-title {
+    font-size: 12px;
+}
+
+#icon-gift {
+    float: left
+}
+
+#icon-glass {
+    float: right
+}
+
+.fine-buttons {
+    display: inline-block;
+}
+
+.fine-button {
+    padding: 10px;
+    cursor: pointer
+}
+
+.fine-button:hover {
+    color: grey
+}
+
+#photo {
+    max-height: 150px;
+    padding: 5px;
+}
+
+#like {
+    cursor: pointer;
+    padding: 3px;
+}
+
+#like:hover {
+    color: green;
+}
+
+#dislike {
+    cursor: pointer;
+    padding: 3px;
+}
+
+#dislike:hover {
+    color: red;
+}
+
+.payment-action {
+     display: inline-block;
+}
+
+.feed-title {
+    font-size: 16px;
+}
+
+.feed-data {
+    font-size: 13px;
+}
+
+.other {
+    font-size: 11px;
+}
+
+.card-content {
+    padding-top:10px;
+    padding-bottom:10px
+}
+
+.fines-container {
+    position:relative;
+    width:95%;
+}
+
+.photo {
+    max-width: 150px;
+    max-height: 150%;
+    display: inline-block;
+}
+
+.big-icon {
+    font-size: 10px;
+}
+
+.right-image {
+    padding-right: 23px;
+}
+
+.angular-link {
+    cursor: pointer
+}
+
+.large-photo {
+    max-width: 400px;
+}
+
+
+.actionButtons {
+    position:fixed;
+    bottom:0;
+    right:0;
+}

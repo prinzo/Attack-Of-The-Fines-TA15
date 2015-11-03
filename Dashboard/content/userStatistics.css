@@ -1,0 +1,36 @@
+#userFinesLineGraph {
+    margin: 0 auto;
+    max-width: 70%;
+    height:500px
+}
+
+
+#userName {
+    font-size: 25px;
+    padding-left: 15px
+}
+
+.statisticTitle {
+    font-size: 14px
+}
+
+.statistic {
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.statisticGroupLeft {
+    float: left;
+}
+
+.statisticGroupRight {
+    float: right;
+}
+.statisticsModal {
+    padding:15px;
+}
+
+.statsBlock {
+    max-height: 80px;
+}
