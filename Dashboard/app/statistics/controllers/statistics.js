@@ -26,10 +26,10 @@
         GetLeaderboardWeek();
         GetLeaderboardMonth();
 
-        $interval(GetOverallLeaderboard, 20000);
-        $interval(GetLeaderboardToday, 20000);
-        $interval(GetLeaderboardWeek, 20000);
-        $interval(GetLeaderboardMonth, 20000);
+        $interval(GetOverallLeaderboard, 60000);
+        $interval(GetLeaderboardToday, 60000);
+        $interval(GetLeaderboardWeek, 60000);
+        $interval(GetLeaderboardMonth, 60000);
 
 
 
@@ -231,7 +231,7 @@
                 text: 'Today - Top 5'
             },
             credits: {
-                enabled: true
+                enabled: false
             },
             loading: false,
             size: {}

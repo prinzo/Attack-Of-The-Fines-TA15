@@ -15,7 +15,7 @@
         var vm = this;
         vm.settings = appSettings;
         vm.pagingIndex = 0;
-
+        vm.date = new Date();
         vm.dialogOptions = {
             $scope: vm
         }

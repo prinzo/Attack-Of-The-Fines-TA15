@@ -2,13 +2,27 @@
 <link rel="stylesheet" href="/content/feed.css">
 
 <div ng-controller="Dashboard as fc">
+    <br>
+    <div class="col-sm-12" align="center">
+        <div class="col-sm-offset-4">
+
+            <div class="thumbnail col-sm-6" >
+                <h3 align="center"><b>Entelect Employee Fines Board   {{fc.date | date:'yyyy'}}</b></h3>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
     <div class="row">
         <div class="col-sm-6 ">
 
             <div class="feedCard" infinite-scroll="fc.GetNextSetOfFines()" infinite-scroll-distance="3">
                 <md-list>
                     <md-card class="md-3-line" ng-repeat="fine in fines | orderBy:'AwardedDate':true | limitTo: 10">
-                        <div class="md-card-content"  ng-if="fine.IsPaid == false">
+                        <div class="md-card-content" ng-if="fine.IsPaid == false">
                             <div class="col-sm-2">
                                 <img ng-src="{{fine.UserImage}}" class="face" alt="{{fine.ReceiverDisplayName}}">
                             </div>
@@ -30,7 +44,7 @@
                                 <img ng-src="{{fine.UserImage}}" class="face" alt="{{fine.ReceiverDisplayName}}">
                             </div>
                             <div class="col-sm-10 card-content">
-                                    <a class="angular-link" ng-click="fc.ShowStatistics($event,fine.ReceiverId)">{{fine.ReceiverDisplayName}}</a> has paid {{fine.TotalPaid}} fines
+                                <a class="angular-link" ng-click="fc.ShowStatistics($event,fine.ReceiverId)">{{fine.ReceiverDisplayName}}</a> has paid {{fine.TotalPaid}} fines
 
 
                             </div>
@@ -43,9 +57,8 @@
 
         </div>
         <div class="col-sm-6">
-        <div ng-include="'app/statistics/views/statisticsView.html'"></div>
+            <div ng-include="'app/statistics/views/statisticsView.html'"></div>
         </div>
     </div>
 </div>
 </div>
-
