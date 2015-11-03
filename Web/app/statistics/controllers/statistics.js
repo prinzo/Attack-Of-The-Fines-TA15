@@ -2,15 +2,15 @@
     "use strict";
     angular
         .module("entelectFines")
-        .controller("Dashboard", ["dashboardResource",
+        .controller("Statistics", ["statisticsResource",
                                   "$timeout",
                                   "$interval",
                                   "$window",
                                   "localStorageService",
                                   "$rootScope",
-                                  Dashboard]);
+                                  Statistics]);
 
-    function Dashboard(dashboardResource, $timeout, $interval, $window, localStorageService, $rootScope) {
+    function Statistics(statisticsResource, $timeout, $interval, $window, localStorageService, $rootScope) {
         var vm = this;
         $rootScope.checkUser();
         var seriesData = [];
@@ -37,7 +37,7 @@
         function GetOverallLeaderboard() {
             seriesData.length = 0;
             categories.length = 0;
-            var promise = dashboardResource.query({
+            var promise = statisticsResource.query({
                 action: "GetLeaderboard"
             });
             promise.$promise.then(function (data) {
@@ -52,7 +52,7 @@
         function GetLeaderboardMonth() {
             seriesMonth.length = 0;
             categoriesMonth.length = 0;
-            var promise = dashboardResource.query({
+            var promise = statisticsResource.query({
                 action: "GetLeaderboardForMonth"
             });
             promise.$promise.then(function (data) {
@@ -67,7 +67,7 @@
         function GetLeaderboardWeek() {
             seriesWeek.length = 0;
             categoriesWeek.length = 0;
-            var promise = dashboardResource.query({
+            var promise = statisticsResource.query({
                 action: "GetLeaderboardForWeek"
             });
             promise.$promise.then(function (data) {
@@ -82,7 +82,7 @@
         function GetLeaderboardToday() {
             seriesToday.length = 0;
             categoriesToday.length = 0;
-            var promise = dashboardResource.query({
+            var promise = statisticsResource.query({
                 action: "GetLeaderboardToday"
             });
             promise.$promise.then(function (data) {

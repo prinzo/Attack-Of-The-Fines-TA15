@@ -27,7 +27,7 @@ app.config(['$routeProvider',
             controller: ''
         }).
         when('/Statistics', {
-            templateUrl: 'app/dashboard/views/dashboardView.html',
+            templateUrl: 'app/statistics/views/statisticsView.html',
             controller: ''
         }).
         when('/Settings', {

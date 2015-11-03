@@ -6,12 +6,12 @@ using FineBot.API.UsersApi;
 
 namespace FineBot.WepApi.Controllers
 {
-    public class DashboardController : ApiController
+    public class StatisticsController : ApiController
     {
         private readonly IUserApi userApi;
         private readonly IFineApi fineApi;
 
-        public DashboardController(
+        public StatisticsController(
             IUserApi userApi, 
             IFineApi fineApi
             )
