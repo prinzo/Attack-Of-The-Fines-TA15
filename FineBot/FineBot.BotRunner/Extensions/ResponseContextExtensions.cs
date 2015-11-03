@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using MargieBot.Models;
 
 namespace FineBot.BotRunner.Extensions
@@ -22,6 +18,11 @@ namespace FineBot.BotRunner.Extensions
         public static bool IsMessageFromUser(this ResponseContext context, string username)
         {
             return context.UserNameCache[context.Message.User.ID].Equals(username);
+        }
+
+        public static string GetCommandMentioningBot(this ResponseContext context, string command)
+        {
+            return string.Format("{0}: {1}", context.FormattedBotUserID(), command);
         }
     }
 }

@@ -97,5 +97,10 @@ namespace FineBot.BotRunner.Extensions
             var rawData = serializer.DeserializeFromString(message.RawData);
             return rawData.channel;
         }
+
+        public static bool StartsWithCommand(this SlackMessage message, string commandText)
+        {
+            return message.Text.ToLower().StartsWith(commandText.ToLower());
+        }
     }
 }

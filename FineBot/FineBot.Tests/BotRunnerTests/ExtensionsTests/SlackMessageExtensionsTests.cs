@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
+﻿using FineBot.BotRunner.Extensions;
+using FineBot.Enums;
 using MargieBot.Models;
-using FineBot.BotRunner.Extensions;
+using NUnit.Framework;
 
 namespace FineBot.Tests.BotRunnerTests.ExtensionsTests
 {
@@ -39,5 +35,6 @@ namespace FineBot.Tests.BotRunnerTests.ExtensionsTests
 
             Assert.AreEqual(false, isYouTubeLink);
         }
+
     }
 }

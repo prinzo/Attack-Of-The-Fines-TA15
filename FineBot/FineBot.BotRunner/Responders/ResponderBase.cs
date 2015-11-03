@@ -7,7 +7,7 @@ namespace FineBot.BotRunner.Responders
 {
     public class ResponderBase
     {
-        private readonly ISupportApi supportApi;
+        protected readonly ISupportApi supportApi;
 
         public ResponderBase(
             ISupportApi supportApi
