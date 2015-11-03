@@ -15,10 +15,21 @@ namespace FineBot.Entities
         public PaymentImage PaymentImage { get; set; }
 
         public Guid PayerId { get; set; }
-
-        public List<Guid> LikedBy { get; set; }
+ 
+        public List<Guid> LikedBy { get;set;}
 
         public List<Guid> DislikedBy { get; set; }
+
+        public bool IsValid
+        {
+            get
+            {
+                int likedBy = LikedBy != null ? LikedBy.Count : 0;
+                int dislikedBy = DislikedBy != null ? DislikedBy.Count : 0;
+
+                return likedBy > dislikedBy;
+            }
+        }
 
         public Payment(Guid payerId, byte[] image, string mimeType, string fileName)
         {
@@ -29,6 +40,11 @@ namespace FineBot.Entities
 
         public PlatformType Platform;
 
-        public Payment() {}
+        public Payment()
+        {
+            LikedBy = new List<Guid>();
+            DislikedBy = new List<Guid>();
+        }
+
     }
 }

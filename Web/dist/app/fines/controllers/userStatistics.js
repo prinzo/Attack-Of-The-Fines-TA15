@@ -8,6 +8,10 @@
                                    UserStatistics]);
 
     function UserStatistics(userResource, toaster, $rootScope) {
+
+        $("#statisticsModal").hide();
+        $("#loadingStats").show();
+
         var vm = this;
 
             var promise = userResource.get({
@@ -16,6 +20,9 @@
             });
 
             promise.$promise.then(function (data) {
+                    $("#loadingStats").hide();
+                    $("#statisticsModal").show();
+
                     $("#userName").text(data.UserDisplayName);
                     $("#totalFinesEver").text(data.TotalFinesEver);
                     $("#totalFinesForMonth").text(data.TotalFinesForMonth);

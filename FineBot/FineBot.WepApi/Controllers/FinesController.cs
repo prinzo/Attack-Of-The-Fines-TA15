@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using Castle.Core.Internal;
 using FineBot.API.FinesApi;
 using FineBot.API.UsersApi;
+using FineBot.Common.Enums;
+using FineBot.Common.Infrastructure;
 using FineBot.WepApi.Models;
 
 namespace FineBot.WepApi.Controllers
@@ -32,6 +35,13 @@ namespace FineBot.WepApi.Controllers
         [HttpPost]
         public PayFineResult IssuePayment(NewPaymentModel newPaymentModel)
         {
+            if (newPaymentModel.Image.IsNullOrEmpty())
+            {
+                return new PayFineResult() {ValidationMessages = new List<ValidationMessage>
+                {
+                    new ValidationMessage("A payment requires an image", Severity.Error)
+                }};    
+            }
 
             string mimeType = newPaymentModel.Image.Substring(0,
                 newPaymentModel.Image.IndexOf(";base64,",

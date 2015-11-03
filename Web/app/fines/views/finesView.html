@@ -14,6 +14,10 @@
         <div>
             <!-- New Fines -->
 
+            <div layout="row" layout-sm="column" layout-align="space-around" id="loadingFines">
+                <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+            </div>
+
             <div class="feedCard" infinite-scroll="fc.GetNextSetOfFines()" infinite-scroll-distance="3">
 
                     <md-list>
@@ -102,12 +106,14 @@
             </md-fab-trigger>
             <md-fab-actions>
                     <md-button aria-label="Award Fine" class="md-fab md-raised md-mini md-primary" ng-click="fc.ShowAddFine($event)">
-                    <md-icon class="menu-icon" md-svg-src="../../../../content/awardFine.svg" aria-label="Award Fine"></md-icon>
-                </md-button>
+                        <md-icon class="menu-icon" md-svg-src="../../../../content/awardFine.svg" aria-label="Award Fine"></md-icon>
+                        <md-tooltip md-direction="left" md-visible="tooltipVisible">Award Fine</md-tooltip>
+                    </md-button>
                     <md-button aria-label="Pay Fine" class="md-fab md-raised md-mini md-primary"
                                ng-click="fc.ShowAddPayment($event)">
-                    <md-icon class="menu-icon" md-svg-src="../../../../content/payFine.svg" aria-label="Pay Fine"></md-icon>
-                </md-button>
+                        <md-icon class="menu-icon" md-svg-src="../../../../content/payFine.svg" aria-label="Pay Fine"></md-icon>
+                        <md-tooltip md-direction="left" md-visible="tooltipVisible">Pay Fine</md-tooltip>
+                    </md-button>
             </md-fab-actions>
         </md-fab-speed-dial>
 

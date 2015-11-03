@@ -12,6 +12,7 @@
                               Fines]);
 
     function Fines(toaster, localStorageService, finesResource, $rootScope,$mdDialog,$interval, appSettings) {
+        $("#loadingFines").show();
         var vm = this;
         vm.settings = appSettings;
         vm.pagingIndex = 0;
@@ -35,6 +36,7 @@
             );
 
             promise.$promise.then(function (data) {
+                    $("#loadingFines").hide();
                     $rootScope.fines = data;
                     vm.pagingIndex += data.length;
                 },

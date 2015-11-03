@@ -77,7 +77,11 @@
         },200, false);
 
         vm.PayFine = function PayFine() {
-             
+
+            if(!vm.TotalFinesPaid) {
+                vm.TotalFinesPaid = 0;
+            }
+
             var newPaymentModel = {
                 PayerId: vm.currentUser.Id,
                 RecipientId: vm.selectedUser[0].Id,
@@ -114,7 +118,7 @@
                     }
                 },  
                 function () {
-                    toaster.error('Error', 'Failed to award fine');
+                    toaster.error('Error', 'Failed to pay fine');
                 });
             
         }

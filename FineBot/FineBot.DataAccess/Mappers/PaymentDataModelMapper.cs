@@ -23,7 +23,7 @@ namespace FineBot.DataAccess.Mappers
                 Id = model.Id,
                 PaidDate = model.PaidDate,
                 PayerId = model.PayerId,
-                PaymentImage = this.MapPaymentImageToDomain(model.PaymentImage)
+                PaymentImage = MapPaymentImageToDomain(model.PaymentImage)
             };
         }
 

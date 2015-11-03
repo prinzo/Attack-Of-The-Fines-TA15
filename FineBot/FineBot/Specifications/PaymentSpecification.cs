@@ -12,6 +12,11 @@ namespace FineBot.Specifications
         {
             return this.And(x => x.Id == id);
         }
+
+
+        public ISpecification<Payment> ValidWithId(Guid id) {
+            return this.And(x => x.Id == id);
+        }
         
     }
 }

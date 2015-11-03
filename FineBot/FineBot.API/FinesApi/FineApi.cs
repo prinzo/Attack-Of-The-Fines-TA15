@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
+using Castle.Core.Internal;
 using FineBot.Abstracts;
 using FineBot.API.Mappers.Interfaces;
 using FineBot.Common.Infrastructure;
@@ -196,7 +197,16 @@ namespace FineBot.API.FinesApi
             return result;
         }
 
-        public PayFineResult PayFines(PaymentModel paymentModel) {
+        public PayFineResult PayFines(PaymentModel paymentModel)
+        {
+
+            PayFineResult payFineResult = this.PerformInitialValidation(paymentModel);
+
+            if (paymentModel == null)
+            {
+                return payFineResult;
+            }
+
             var user = this.userRepository.Find(new UserSpecification().WithId(paymentModel.RecipientId));
             var payer = this.userRepository.Find(new UserSpecification().WithId(paymentModel.PayerId));
 
@@ -204,7 +214,7 @@ namespace FineBot.API.FinesApi
             payment.Platform = PlatformType.WebFrontEnd;
 
             var validation = user.PayFines(payment, paymentModel.TotalFinesPaid);
-            var payFineResult = new PayFineResult(validation);
+            payFineResult = new PayFineResult(validation);
 
             if(validation.HasErrors)
             {
@@ -223,6 +233,26 @@ namespace FineBot.API.FinesApi
                 );
 
             return payFineResult;
+        }
+
+        private PayFineResult PerformInitialValidation(PaymentModel paymentModel)
+        {
+            if (paymentModel.Image.IsNullOrEmpty()) {
+                return new PayFineResult() {
+                    ValidationMessages = new List<ValidationMessage> { new ValidationMessage("A payment requires an image", Severity.Error) }
+                };
+            }
+
+            if (paymentModel.TotalFinesPaid < 1) {
+                return new PayFineResult() {
+                    ValidationMessages = new List<ValidationMessage>
+                    {
+                        new ValidationMessage("A payment requires a total number of fines to be paid", Severity.Error)
+                    }
+                };
+            }
+
+            return null;
         }
 
         public PaymentModel GetSimplePaymentModelById(Guid paymentModelId)

@@ -69,6 +69,7 @@ namespace FineBot.Entities
 
         public ValidationResult PayFines(Payment payment, int number)
         {
+
             var validationResult = new ValidationResult();
 
             validationResult.Append(this.CanPayFines(number));

@@ -16,17 +16,19 @@ namespace FineBot.API.UsersApi
         private readonly IRepository<User, UserDataModel, Guid> userRepository;
         private readonly IUserMapper userMapper;
         private readonly IMemberInfoApi memberInfoApi;
+        private readonly IRepository<Payment, PaymentDataModel, Guid> paymentRepository;
 
         public UserApi(
             IRepository<User, UserDataModel, Guid> userRepository,
             IUserMapper userMapper,
-            IMemberInfoApi memberInfoApi
+            IMemberInfoApi memberInfoApi,
+            IRepository<Payment, PaymentDataModel, Guid> paymentRepository
             )
         {
             this.userRepository = userRepository;
             this.userMapper = userMapper;
             this.memberInfoApi = memberInfoApi;
-
+            this.paymentRepository = paymentRepository;
         }
 
         public UserModel GetUserById(Guid id)
@@ -205,11 +207,26 @@ namespace FineBot.API.UsersApi
                                                       MonthIndex = y.Key,
                                                       Count = y.Count()
                                                   }).ToList(),
-                       TotalPaymentsEver = x.Fines.Count(y => y.PaymentId != null),
-                       TotalPaymentsForMonth = x.Fines.Count(y => y.PaymentId != null 
-                                                    && y.AwardedDate.Month == DateTime.Now.Month),
-                       PaymentsMonthlyModels = x.Fines.Where(y => y.PaymentId != null 
-                                                  && y.AwardedDate.Year == DateTime.Now.Year)
+                       TotalPaymentsEver = x.Fines.Count(y => y.PaymentId != null &&
+                                                            paymentRepository
+                                                           .Find(new PaymentSpecification()
+                                                           .ValidWithId(y.PaymentId.Value)).IsValid),
+                       TotalPaymentsForMonth = x.Fines.Count(y => y.PaymentId != null &&
+                                                            paymentRepository
+                                                           .Find(new PaymentSpecification()
+                                                           .WithId(y.PaymentId.Value))
+                                                           .PaidDate.Month == DateTime.Now.Month
+                                                           && paymentRepository
+                                                           .Find(new PaymentSpecification()
+                                                           .WithId(y.PaymentId.Value)).IsValid),
+                       PaymentsMonthlyModels = x.Fines.Where(y => y.PaymentId != null
+                                                        && paymentRepository
+                                                        .Find(new PaymentSpecification()
+                                                        .WithId(y.PaymentId.Value))
+                                                        .PaidDate.Month == DateTime.Now.Month
+                                                        && paymentRepository
+                                                        .Find(new PaymentSpecification()
+                                                        .WithId(y.PaymentId.Value)).IsValid)
                                                  .GroupBy(y => y.AwardedDate.Month)
                                                  .Select(y => new MonthlyGraphModel
                                                  {
