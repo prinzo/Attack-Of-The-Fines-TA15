@@ -1,0 +1,50 @@
+<div ng-controller="Support as S">
+    <div ng-include="'common/navBar.html'"></div>
+    <ol class="breadcrumb">
+        <li><a href="#Fines"><i class="fa fa-home"></i></a>
+        </li>
+        <li class="active">Support</li>
+    </ol>
+    <div class="col-sm-6 center">
+
+        <div class="panel panel-primary" ng-controller="Support as SC">
+            <div class="panel-body">
+                <h3 align="center"><b>My Support Tickets</b></h3>
+                <div class="row">
+                    <div class="col-sm-12">
+
+                        <table class="table  ">
+                            <thead>
+                                <tr>
+                                    <td><b>Date Created</b>
+                                    </td>
+                                    <td><b>Type</b>
+                                    </td>
+                                    <td><b>Subject</b>
+                                    </td>
+                                    <td><b>Status</b>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="ticket in S.tickets">
+                                    <td>{{ticket.CreatedDate | date}}</td>
+                                    <td>{{ticket.TypeDescription}}</td>
+                                    <td>{{ticket.Subject}}</td>
+                                    <td>{{ticket.StatusDescription}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <a href="#CreateSupportTicket" class="btn btn-primary"> <i class="fa fa-plus-square"> </i> Create New Ticket</a>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

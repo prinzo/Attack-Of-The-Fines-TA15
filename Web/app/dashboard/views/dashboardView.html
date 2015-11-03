@@ -1,3 +1,57 @@
-<div ng-controller="Dashboard as scope">
-    This is the dashboard view
+<link rel="stylesheet" href="../../../../content/materialDesignComponents.css">
+<link rel="stylesheet" href="/content/feed.css">
+<div class="col-sm-12" align="center">
+        <h2>Entelect Employee Fines Board</h2>
+
 </div>
+<br>
+    <div ng-controller="Dashboard as fc">
+        <br>
+        <div class="col-sm-6 ">
+
+            <div class="panel" style="background-color: #eee">
+                <div class="panel-body">
+                    <div>
+                        <div class="feedCard" infinite-scroll="fc.GetNextSetOfFines()" infinite-scroll-distance="3">
+                            <md-list>
+                                <md-card class="md-3-line" ng-repeat="fine in fines | orderBy:'AwardedDate':true | limitTo: 8">
+                                    <div class="md-card-content" ng-if="fine.IsPaid == false">
+                                        <div class="col-sm-2">
+                                            <img ng-src="{{fine.UserImage}}" class="face" alt="{{fine.ReceiverDisplayName}}">
+                                        </div>
+                                        <div class="col-sm-10 card-content">
+                                            <a class="angular-link" ng-click="fc.ShowStatistics($event,fine.ReceiverId)">{{fine.ReceiverDisplayName}}</a> has received a fine
+                                            <div class="feed-data" id="reason">for {{fine.Reason}}</div>
+                                            <div class="other">
+                                                <span id="platform">via {{fine.Platform || 'Web front end'}} </span>
+                                                <span id="award">from
+                                                    <a id="awarder" class="angular-link" ng-click="fc.ShowStatistics($event,fine.IssuerId)">{{fine.IssuerDisplayName}}</a>
+                                                </span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="md-card-content" ng-if="fine.IsPaid == true">
+                                        <div class="col-sm-2">
+                                            <img ng-src="{{fine.UserImage}}" class="face" alt="{{fine.ReceiverDisplayName}}">
+                                        </div>
+                                        <div class="col-sm-10 card-content">
+                                            <div class="col-md-6 pull-left">
+                                                <a class="angular-link" ng-click="fc.ShowStatistics($event,fine.ReceiverId)">{{fine.ReceiverDisplayName}}</a> has paid {{fine.TotalPaid}} fines
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                        </div>
+                        <md-divider md-inset></md-divider>
+                        </md-card>
+                        </md-list>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
