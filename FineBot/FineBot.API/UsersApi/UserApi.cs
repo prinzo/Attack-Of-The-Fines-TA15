@@ -38,13 +38,13 @@ namespace FineBot.API.UsersApi
 
         public UserModel GetUserBySlackId(string slackId)
         {
+            var cleanSlackId = CleanSlackId(slackId);
 
-
-            var user = this.userRepository.Find(new UserSpecification().WithSlackId(slackId));
+            var user = this.userRepository.Find(new UserSpecification().WithSlackId(cleanSlackId));
 
             if(user == null)
             {
-                return this.RegisterUserBySlackId(slackId);
+                return this.RegisterUserBySlackId(cleanSlackId);
             }
 
             return this.userMapper.MapToModelShallow(user);
@@ -113,7 +113,7 @@ namespace FineBot.API.UsersApi
 
         public UserModel RegisterUserBySlackId(string slackId)
         {
-            var cleanSlackId = slackId.StartsWith("<") ? slackId.Substring(2, slackId.Length - 3) : slackId;
+            var cleanSlackId = CleanSlackId(slackId);
             var info = this.memberInfoApi.GetMemberInformation(cleanSlackId);
 
             var foundUser = this.userRepository.Find(new UserSpecification().WithEmailAddress(info.profile.email));
@@ -137,7 +137,12 @@ namespace FineBot.API.UsersApi
 
             return this.userMapper.MapToModelShallow(user);
         }
-        
+
+        private static string CleanSlackId(string slackId)
+        {
+            return slackId.StartsWith("<") ? slackId.Substring(2, slackId.Length - 3) : slackId;
+        }
+
         public List<UserModel> GetLeaderboard(int number)
         {
             return Enumerable.ToList<UserModel>(this.userRepository.GetAll().Take(number).OrderByDescending(x => x.Fines.Count).Select(x => this.userMapper.MapToModelShallow(x)));

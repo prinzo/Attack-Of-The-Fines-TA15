@@ -1,7 +1,8 @@
 ﻿using System;
 using FineBot.Abstracts;
+using FineBot.Common.Enums;
+using FineBot.Common.Infrastructure;
 using FineBot.Enums;
-using MongoDB.Driver;
 
 namespace FineBot.Entities
 {
@@ -35,9 +36,20 @@ namespace FineBot.Entities
             }
         }
 
-        public void Second(Guid userId)
+        public ValidationResult Second(Guid seconderId)
         {
-            this.SeconderId = userId;
+            ValidationResult result = new ValidationResult();
+
+            if(seconderId == IssuerId)
+            {
+                result.AddMessage(Severity.Error, "You may not second a fine you awarded!");
+            }
+
+            if(result.HasErrors) return result;
+
+            this.SeconderId = seconderId;
+
+            return result;
         }
 
         public void Pay(Guid id)

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace FineBot.BotRunner.Extensions
 {
@@ -24,6 +20,16 @@ namespace FineBot.BotRunner.Extensions
             builder.Append(text);
             builder.Append(">");
             return builder.ToString();
+        }
+
+        public static string FormatAsSlackUserId(this string slackId)
+        {
+            return slackId.StartsWith("<@") && slackId.EndsWith(">") ? slackId : new StringBuilder().Append("<@").Append(slackId).Append(">").ToString();
+        }
+
+        public static string RemoveFormattingFromSlackUserId(this string slackId)
+        {
+            return slackId.StartsWith("<") ? slackId.Substring(2, slackId.Length - 3) : slackId;
         }
     }
 }

@@ -4,7 +4,6 @@ using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
 using FineBot.BotRunner.Responders.Interfaces;
 using MargieBot.Models;
-using MargieBot.Responders;
 
 namespace FineBot.BotRunner.Responders
 {
@@ -27,7 +26,7 @@ namespace FineBot.BotRunner.Responders
         {
             return !context.BotHasResponded
                 && !context.UserNameCache[context.Message.User.ID].Equals("finebotssecondcousin")
-                && context.Message.Text.ToLower().Contains("seconded");
+                && context.Message.Text.ToLower().StartsWith("seconded");
         }
 
         public BotMessage GetResponse(ResponseContext context)
@@ -38,12 +37,14 @@ namespace FineBot.BotRunner.Responders
 
                 var seconder = this.userApi.GetUserBySlackId(slackId);
 
-                FineWithUserModel secondedFine = this.fineApi.SecondOldestPendingFine(seconder.Id);
+                var result = this.fineApi.SecondOldestPendingFine(seconder.Id);
 
-                if (secondedFine == null)
+                if (result.HasErrors || result.FineWithUserModel == null)
                 {
-                    return new BotMessage { Text = String.Format("Sorry {0}, there are no pending fines to second", context.Message.User.FormattedUserID) };
+                    return this.GetErrorResponse(result);
                 }
+
+                var secondedFine = result.FineWithUserModel;
 
                 return new BotMessage { Text = String.Format("{0} seconded the fine given to {1} {2}!", context.Message.User.FormattedUserID, secondedFine.User.SlackId, secondedFine.Reason) };
             }

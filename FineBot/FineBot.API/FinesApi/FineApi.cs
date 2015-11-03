@@ -11,6 +11,7 @@ using FineBot.Infrastructure;
 using FineBot.Interfaces;
 using FineBot.Specifications;
 using FineBot.API.UsersApi;
+using FineBot.Common.Enums;
 using FineBot.Enums;
 
 namespace FineBot.API.FinesApi
@@ -85,18 +86,26 @@ namespace FineBot.API.FinesApi
             return Enumerable.ToList(fines);
         }
 
-        public FineWithUserModel SecondOldestPendingFine(Guid userId)
+        public FineSecondedResult SecondOldestPendingFine(Guid userId)
         {
             var pendingFines = this.userRepository.FindAll(new UserSpecification().WithPendingFines());
 
             var userWithOldestPendingFine = pendingFines.OrderBy(x => x.GetOldestPendingFine().AwardedDate).FirstOrDefault();
-            if(userWithOldestPendingFine == null) return null;
+
+            if(userWithOldestPendingFine == null) return new FineSecondedResult(new ValidationResult().AddMessage(Severity.Error, "Sorry, there are no pending fines to second"));
 
             Fine fineToBeSeconded = userWithOldestPendingFine.GetOldestPendingFine();
-            fineToBeSeconded.Second(userId);
+            
+            var result = new FineSecondedResult(fineToBeSeconded.Second(userId));
+
+            if(result.HasErrors) return result;
+
             this.userRepository.Save(userWithOldestPendingFine);
 
-            return this.fineMapper.MapToModelWithUser(fineToBeSeconded, this.userMapper.MapToModelShallow(userWithOldestPendingFine));
+            result.FineWithUserModel = this.fineMapper.MapToModelWithUser(fineToBeSeconded,
+                this.userMapper.MapToModelShallow(userWithOldestPendingFine));
+
+            return result;
         }
 
         public FineWithUserModel SecondNewestPendingFine(Guid userId)
@@ -116,7 +125,11 @@ namespace FineBot.API.FinesApi
         public bool SecondFineById(Guid fineId, Guid userId) {
             var fine = this.userRepository.Find(new UserSpecification().WithFineId(fineId));
 
-            fine.GetFineById(fineId).Second(userId);
+            var result = fine.GetFineById(fineId).Second(userId);
+
+            //TODO: Accommodate returning errors to the front end
+            if(result.HasErrors) return false;
+
             this.userRepository.Save(fine);
 
             return true;

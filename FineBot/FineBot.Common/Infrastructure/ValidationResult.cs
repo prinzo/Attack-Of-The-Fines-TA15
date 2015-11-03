@@ -59,6 +59,8 @@ namespace FineBot.Common.Infrastructure
 
         public void Append(ValidationResult result)
         {
+            if(this.ValidationMessages == null) this.ValidationMessages = new List<ValidationMessage>();
+
             this.ValidationMessages.AddRange(result.ValidationMessages);
         }
     }

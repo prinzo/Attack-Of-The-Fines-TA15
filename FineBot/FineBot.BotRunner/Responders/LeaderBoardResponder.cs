@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
+using FineBot.BotRunner.Extensions;
 using FineBot.BotRunner.Responders.Interfaces;
 using MargieBot.Models;
 
@@ -64,7 +65,7 @@ namespace FineBot.BotRunner.Responders
 
                 foreach(var userModel in leaderboard)
                 {
-                    builder.AppendLine(String.Format("{0} - {1}", userModel.SlackId, userModel.AwardedFineCount));
+                    builder.AppendLine(String.Format("{0} - {1}", userModel.SlackId.FormatAsSlackUserId(), userModel.AwardedFineCount));
                 }
 
                 return new BotMessage { Text = builder.ToString() };

@@ -14,7 +14,7 @@ namespace FineBot.API.FinesApi
 
         List<FineModel> GetAllPendingFines();
 
-        FineWithUserModel SecondOldestPendingFine(Guid userId);
+        FineSecondedResult SecondOldestPendingFine(Guid userId);
 
         FineWithUserModel SecondNewestPendingFine(Guid userId);
 
