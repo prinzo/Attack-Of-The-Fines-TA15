@@ -2,6 +2,7 @@
 using FineBot.API.FinesApi;
 using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
+using FineBot.BotRunner.Extensions;
 using FineBot.BotRunner.Responders.Interfaces;
 using MargieBot.Models;
 
@@ -46,12 +47,27 @@ namespace FineBot.BotRunner.Responders
 
                 var secondedFine = result.FineWithUserModel;
 
-                return new BotMessage { Text = String.Format("{0} seconded the fine given to {1} {2}!", context.Message.User.FormattedUserID, secondedFine.User.SlackId, secondedFine.Reason) };
+                var finedUser = this.GetUserName(secondedFine);
+
+                return new BotMessage { Text = String.Format("{0} seconded the fine given to {1} {2}!", context.Message.User.FormattedUserID, finedUser, this.FormatSecondedReason(secondedFine)) };
             }
             catch (Exception ex)
             {
                 return this.GetExceptionResponse(ex);
             }
+        }
+
+        private string FormatSecondedReason(FineWithUserModel secondedFine)
+        {
+            return secondedFine.Reason.StartsWith("for") ? secondedFine.Reason : "for " + secondedFine.Reason;
+        }
+
+        private string GetUserName(FineWithUserModel secondedFine)
+        {
+            string finedUser = String.IsNullOrEmpty(secondedFine.User.SlackId)
+                ? secondedFine.User.SlackId.FormatAsSlackUserId()
+                : secondedFine.User.DisplayName;
+            return finedUser;
         }
     }
 }
