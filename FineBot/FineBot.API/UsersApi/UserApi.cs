@@ -141,40 +141,48 @@ namespace FineBot.API.UsersApi
 
         public List<UserModel> GetLeaderboard(int number)
         {
-            return Enumerable.ToList<UserModel>(this.userRepository.GetAll().Take(number).OrderByDescending(x => x.Fines.Count).Select(x => this.userMapper.MapToModelShallow(x)));
+            return Enumerable.ToList<UserModel>(this.userRepository
+                .GetAll()
+                .OrderByDescending(x => x.Fines.Count)
+                .Take(number)
+                .Select(x => this.userMapper.MapToModelShallow(x)));
         }
 
         public List<UserModel> GetLeaderboardToday(int number)
         {
-            return Enumerable.ToList<UserModel>(this.userRepository.GetAll().Take(number).OrderByDescending(x => x.Fines.Count).Select(x => this.userMapper.MapToModelWithDate(x, DateTime.Today)));
+            return Enumerable.ToList<UserModel>(this.userRepository
+                .GetAll()
+                .OrderByDescending(x => x.Fines.Count)
+                .Take(number)
+                .Select(x => this.userMapper.MapToModelWithDate(x, DateTime.Today)));
 
         }
 
         public List<UserModel> GetLeaderboardForThisWeek(int number)
         {
-            return
-                Enumerable.ToList<UserModel>(this.userRepository.GetAll()
-                        .Take(number)
-                        .OrderByDescending(x => x.Fines.Count)
-                        .Select(x => this.userMapper.MapToModelForThisWeek(x)));
+            return Enumerable.ToList<UserModel>(this.userRepository
+                .GetAll()
+                .OrderByDescending(x => x.Fines.Count)
+                .Take(number)
+                .Select(x => this.userMapper.MapToModelForThisWeek(x)));
         }
 
         public List<UserModel> GetLeaderboardForThisMonth(int number)
         {
-            return
-                Enumerable.ToList<UserModel>(this.userRepository.GetAll()
-                        .Take(number)
-                        .OrderByDescending(x => x.Fines.Count)
-                        .Select(x => this.userMapper.MapToModelForThisMonth(x)));
+            return Enumerable.ToList<UserModel>(this.userRepository
+                .GetAll()
+                .OrderByDescending(x => x.Fines.Count)
+                .Take(number)
+                .Select(x => this.userMapper.MapToModelForThisMonth(x)));
         }
 
         public List<UserModel> GetLeaderboardForThisYear(int number)
         {
-            return
-                Enumerable.ToList<UserModel>(this.userRepository.GetAll()
-                        .Take(number)
-                        .OrderByDescending(x => x.Fines.Count)
-                        .Select(x => this.userMapper.MapToModelForThisYear(x)));
+            return Enumerable.ToList<UserModel>(this.userRepository
+                .GetAll()
+                .OrderByDescending(x => x.Fines.Count)
+                .Take(number)
+                .Select(x => this.userMapper.MapToModelForThisYear(x)));
         } 
 
         public List<UserModel> GetUsersWithPendingFines()
