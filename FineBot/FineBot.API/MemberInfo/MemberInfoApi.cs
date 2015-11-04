@@ -24,7 +24,7 @@ namespace FineBot.API.MemberInfo
                                 .PostUrlEncodedAsync(new
                                                      {
                                                          token = ConfigurationManager.AppSettings["SlackApiKey"],
-                                                         user = slackId
+                                                         user = CleanSlackId(slackId)
                                                      })
                                 .ReceiveString().Result;
 
@@ -32,6 +32,11 @@ namespace FineBot.API.MemberInfo
             var memberInfo = serializer.DeserializeFromString(responseString);
 
             return memberInfo.user;
+        }
+
+        private static string CleanSlackId(string slackId)
+        {
+            return slackId.StartsWith("<") ? slackId.Substring(2, slackId.Length - 3) : slackId;
         }
     }
 }
