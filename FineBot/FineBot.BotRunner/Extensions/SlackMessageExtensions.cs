@@ -35,7 +35,8 @@ namespace FineBot.BotRunner.Extensions
                 "what is a fine",
                 "whats a fine",
                 "what's a fine",
-                "it works on my machine"
+                "it works on my machine",
+                "it worked on my machine"
             };
         }
 
