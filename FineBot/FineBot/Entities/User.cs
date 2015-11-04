@@ -23,8 +23,8 @@ namespace FineBot.Entities
         public string DisplayName { get; set; }
         public string Image { 
             get {
-                if (image == null) {
-                    image = "../../../../content/defaultUser.png";
+                if (string.IsNullOrEmpty(image)) {
+                    image = "content/defaultUser.png";
                 }
 
                 return image; 

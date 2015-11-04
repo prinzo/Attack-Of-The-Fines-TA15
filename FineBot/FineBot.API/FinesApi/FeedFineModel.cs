@@ -90,7 +90,7 @@ namespace FineBot.API.FinesApi {
             this.ReceiverDisplayName = feedFineModel.ReceiverDisplayName;
             this.PaidDate = null;
             this.PayerId = null;
-            this.PaymentImage = feedFineModel.PaymentImage ?? "../../../../content/defaultUser.png"; 
+            this.PaymentImage = feedFineModel.PaymentImage ?? "content/defaultUser.png"; 
             this.ModifiedDate = feedFineModel.AwardedDate;
             this.UserImage = feedFineModel.UserImage;
             this.TotalPaid = feedFineModel.TotalPaid;
