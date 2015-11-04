@@ -32,9 +32,9 @@
           var lowercaseQuery = angular.lowercase(query);
           return function filterFn(contact) {
 
-                //if(!!contact && !!angular.lowercase(contact.DisplayName)) {
+                if(!!contact && !!angular.lowercase(contact.DisplayName)) {
                     return ( angular.lowercase(contact.DisplayName).indexOf(lowercaseQuery) != -1);
-               // }
+                }
 
               return false;
 

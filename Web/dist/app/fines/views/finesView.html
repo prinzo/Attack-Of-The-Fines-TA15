@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="../../../../content/materialDesignComponents.css">
-<link rel="stylesheet" href="/content/feed.css">
+<link rel="stylesheet" href="content/materialDesignComponents.css">
+<link rel="stylesheet" href="content/feed.css">
 
 <div class="fines-container" id="fines-container" ng-controller="Fines as fc">
     <div ng-include="'common/navBar.html'"></div>
@@ -101,17 +101,17 @@
                            class="md-fling md-fab-bottom-right md-hover-full speed-dial">
             <md-fab-trigger>
                 <md-button aria-label="Menu" class="md-fab md-warn">
-                    <md-icon class="menu-icon" md-svg-src="../../../../content/add.svg"></md-icon>
+                    <md-icon class="menu-icon" md-svg-src="content/add.svg"></md-icon>
                 </md-button>
             </md-fab-trigger>
             <md-fab-actions>
                     <md-button aria-label="Award Fine" class="md-fab md-raised md-mini md-primary" ng-click="fc.ShowAddFine($event)">
-                        <md-icon class="menu-icon" md-svg-src="../../../../content/awardFine.svg" aria-label="Award Fine"></md-icon>
+                        <md-icon class="menu-icon" md-svg-src="content/awardFine.svg" aria-label="Award Fine"></md-icon>
                         <md-tooltip md-direction="left" md-visible="tooltipVisible">Award Fine</md-tooltip>
                     </md-button>
                     <md-button aria-label="Pay Fine" class="md-fab md-raised md-mini md-primary"
                                ng-click="fc.ShowAddPayment($event)">
-                        <md-icon class="menu-icon" md-svg-src="../../../../content/payFine.svg" aria-label="Pay Fine"></md-icon>
+                        <md-icon class="menu-icon" md-svg-src="content/payFine.svg" aria-label="Pay Fine"></md-icon>
                         <md-tooltip md-direction="left" md-visible="tooltipVisible">Pay Fine</md-tooltip>
                     </md-button>
             </md-fab-actions>
