@@ -129,7 +129,7 @@ namespace FineBot.API.UsersApi
                         {
                             EmailAddress = info.profile.email,
                             SlackId = slackId,
-                            DisplayName = info.name
+                            DisplayName = String.IsNullOrEmpty(info.name) ? String.Join(" ",this.GetUserNameAndSurnameFromEmail(info.profile.email)) : info.name
                         };
 
             var user = this.userRepository.Save(newUser);
