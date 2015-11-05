@@ -23,5 +23,8 @@
   },
   "devDependencies": {
     "angular-spinner": "~0.7.0"
+  },
+  "resolutions": {
+    "angular-spinner": "~0.7.0"
   }
 }
