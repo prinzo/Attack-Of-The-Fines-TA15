@@ -29,7 +29,6 @@ namespace FineBot.BotRunner.Responders
         {
             return context.Message.MentionsBot
                 && !context.BotHasResponded
-                && !(context.Message.MatchesRegEx(@"pay"))
                 && context.Message.StartsWithCommand(context.GetCommandMentioningBot("fine"));
         }
 
