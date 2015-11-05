@@ -90,7 +90,12 @@ namespace FineBot.Entities
                 return validationResult.AddMessage(Severity.Error, "Payable fines need to be seconded first");
             }
 
-            var limit = Math.Max(number, orderedFines.Count());
+            int limit = number;
+
+            if(orderedFines.Count < number)
+            {
+                limit = orderedFines.Count;
+            }
 
             for(int i = 0; i < limit; i++)
             {
