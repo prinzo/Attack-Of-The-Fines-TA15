@@ -29,7 +29,7 @@ namespace FineBot.BotRunner.Responders
             builder.AppendLine();
             builder.AppendLine("seconded!: Second the oldest awarded fine that was not seconded.");
             builder.AppendLine();
-            builder.AppendLine("@FinesBot pay <number of fines> for @<slack user>: Pay the specified number of fines for the specified user. Note: You must include an image of the fine payment and may not pay your own fines!");
+            builder.AppendLine("@FinesBot pay <number of fines> fine(s) for @<slack user>: Pay the specified number of fines for the specified user. Note: You must include an image of the fine payment and may not pay your own fines!");
             builder.AppendLine();
             builder.AppendLine("@FinesBot leaderboard: Show a leaderboard of the top ten users with the most fines.");
             builder.AppendLine();

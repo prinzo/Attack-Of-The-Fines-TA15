@@ -38,6 +38,7 @@ namespace FineBot.BotRunner.Responders
                    && context.Message.MentionsBot
                    && (     context.Message.MatchesRegEx(@"pay [0-9]+ fines for") 
                          || context.Message.MatchesRegEx(@"pay [0-9]+ fine for")
+                         || context.Message.MatchesRegEx(@"pay [0-9]+ for")
                          || context.Message.MatchesRegEx(@"pay fine for")
                          );
         }
@@ -106,9 +107,18 @@ namespace FineBot.BotRunner.Responders
 
             var number = context.Message.GetRegexMatch(regex).Groups[1].Value;
 
+            if(number != string.Empty)
+            {
+                return Convert.ToInt32(number);
+            }
+
+            regex = new Regex(@"pay ([0-9]+) for", RegexOptions.Compiled);
+                
+            number = context.Message.GetRegexMatch(regex).Groups[1].Value;
+
             if(number == string.Empty)
             {
-                number = "1";
+                number = "1";                    
             }
 
             return Convert.ToInt32(number);
