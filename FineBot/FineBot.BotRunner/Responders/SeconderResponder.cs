@@ -65,8 +65,8 @@ namespace FineBot.BotRunner.Responders
         private string GetUserName(FineWithUserModel secondedFine)
         {
             string finedUser = String.IsNullOrEmpty(secondedFine.User.SlackId)
-                ? secondedFine.User.SlackId.FormatAsSlackUserId()
-                : secondedFine.User.DisplayName;
+                ? secondedFine.User.DisplayName
+                : secondedFine.User.SlackId.FormatAsSlackUserId();
             return finedUser;
         }
     }
