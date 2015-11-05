@@ -60,11 +60,17 @@
                                                     <div class="approval-div">
                                                         <div layout="row" id="approvedBy-{{fine.Id}}" ng-click="fc.GetApprovedByUsers(fine.Id, 1, $event)">
                                                             <div id="innerApproved-{{fine.Id}}" ng-if="fine.LikedByCount > 0">Approved by
-                                                            <a><span id="approvedByNumber-{{fine.Id}}">{{fine.LikedByCount}}</span> people</a>
+                                                            <a><span id="approvedByNumber-{{fine.Id}}">{{fine.LikedByCount}}</span>
+                                                                <div ng-if="fine.LikedByCount == 1">person </div>
+                                                                <div ng-if="fine.LikedByCount > 1">people </div>
+                                                            </a>
                                                         </div></div>
                                                         <div layout="row" id="disapprovedBy-{{fine.Id}}" ng-click="fc.GetApprovedByUsers(fine.Id, 0, $event)">
                                                             <div id="innerDisapproved-{{fine.Id}}" ng-if="fine.DislikedByCount > 0">Disapproved by
-                                                            <a><span id="disapprovedByNumber-{{fine.Id}}">{{fine.DislikedByCount}}</span> people</a>
+                                                            <a><span id="disapprovedByNumber-{{fine.Id}}">{{fine.DislikedByCount}}</span>
+                                                                <div ng-if="fine.DisikedByCount == 1">person </div>
+                                                                <div ng-if="fine.DisikedByCount > 1">people </div>
+                                                            </a>
                                                         </div></div>
                                                     </div>
                                                 </div>
