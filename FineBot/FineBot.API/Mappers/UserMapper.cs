@@ -41,7 +41,7 @@ namespace FineBot.API.Mappers
             return userModel;
         }
 
-        public UserModel MapToModelWithDate(User user, DateTime date)
+        public UserModel MapToModelWithDate(User user)
         {
             if (user == null) return null;
 

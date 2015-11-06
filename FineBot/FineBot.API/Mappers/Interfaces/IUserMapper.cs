@@ -7,7 +7,7 @@ namespace FineBot.API.Mappers.Interfaces
     public interface IUserMapper
     {
         UserModel MapToModelShallow(User user);
-        UserModel MapToModelWithDate(User user, DateTime date);
+        UserModel MapToModelWithDate(User user);
 
         UserModel MapToModel(User user);
         UserModel MapToModelSmall(User user);
