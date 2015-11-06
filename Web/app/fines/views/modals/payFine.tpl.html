@@ -2,6 +2,11 @@
 
 
 <div ng-controller="FinePayments as vm">
+
+    <div layout="row" layout-sm="column" layout-align="space-around" id="loadingUsers">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+
     <div  class="addition-modal">
         <form role="form" ng-submit="vm.PayFine()">
           <div class="form-group">

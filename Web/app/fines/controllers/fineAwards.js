@@ -13,6 +13,9 @@
                                    FineAwards]);
 
     function FineAwards(toaster, $mdDialog, $timeout, finesResource, userResource, localStorageService, $rootScope, $q) {
+        $(".addition-modal").hide();
+        $("#loadingUsers").show();
+
         var vm = this;
         
         var currentUser = localStorageService.get('user'); 
@@ -24,6 +27,10 @@
 
         vm.users = userResource.query({
                     action: "GetAllUsers"
+                },
+                function () {
+                    $(".addition-modal").show();
+                    $("#loadingUsers").hide();
                 }
             );
 

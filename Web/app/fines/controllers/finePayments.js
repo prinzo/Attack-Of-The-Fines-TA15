@@ -17,11 +17,18 @@
         var vm = this;
 
         vm.selectedUser = [];
+
+        $(".addition-modal").hide();
+        $("#loadingUsers").show();
         
         $rootScope.checkUser();
         
         vm.users = userResource.query({
                     action: "GetAllUsers"
+                },
+                function() {
+                    $(".addition-modal").show();
+                    $("#loadingUsers").hide();
                 }
             );
         
