@@ -52,7 +52,7 @@ namespace FineBot.API.Mappers
                 EmailAddress = user.EmailAddress,
                 DisplayName = user.DisplayName,
                 Image = user.Image,
-                AwardedFineCount = user.Fines.Count(x => x.AwardedDate.ToShortDateString() == DateTime.Today.ToShortDateString())
+                AwardedFineCount = user.Fines.Count(x => x.AwardedDate >= DateTime.Today)
             };
         }
 
