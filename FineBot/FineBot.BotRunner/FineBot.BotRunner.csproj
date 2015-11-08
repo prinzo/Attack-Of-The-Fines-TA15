@@ -82,6 +82,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Responders\CommonReplyResponder.cs" />
+    <Compile Include="Responders\FineCountAllResponder.cs" />
     <Compile Include="Responders\FineCountResponder.cs" />
     <Compile Include="Responders\GiveFineResponder.cs" />
     <Compile Include="Responders\HelpResponder.cs" />

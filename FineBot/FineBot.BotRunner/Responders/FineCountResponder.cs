@@ -26,7 +26,8 @@ namespace FineBot.BotRunner.Responders
         {
             return !context.BotHasResponded
                    && context.Message.MentionsBot
-                   && context.Message.Text.ToLower().Contains("count");
+                   && context.Message.Text.ToLower().Contains("count")
+                   && !context.Message.Text.ToLower().Contains("all");
         }
 
         public BotMessage GetResponse(ResponseContext context)
