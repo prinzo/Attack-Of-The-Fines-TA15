@@ -126,7 +126,7 @@ namespace FineBot.BotRunner.Responders
 
         private UserModel GetUser(ResponseContext context)
         {
-            var users = context.Message.GetUserIdsFromMessageExcluding(context.BotUserID);
+            var users = context.Message.GetSlackIdsFromMessageExcluding(context.BotUserID);
 
             if(users.IsNullOrEmpty())
             {

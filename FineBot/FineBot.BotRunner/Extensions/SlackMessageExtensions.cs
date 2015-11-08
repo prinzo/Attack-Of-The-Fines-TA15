@@ -52,7 +52,7 @@ namespace FineBot.BotRunner.Extensions
             return expression.Match(message.Text);
         }
 
-        public static List<string> GetUserIdsFromMessageExcluding(this SlackMessage message, string usernameToExclude)
+        public static List<string> GetSlackIdsFromMessageExcluding(this SlackMessage message, string usernameToExclude)
         {
             Regex usernameRegex = new Regex(@"<@(?<username>\w+?)>", RegexOptions.Compiled);
 

@@ -37,7 +37,7 @@ namespace FineBot.BotRunner.Responders
                 var builder = new StringBuilder();
                 builder.Append("Fine Count:\n");
             
-                var slackUserIds = context.Message.GetUserIdsFromMessageExcluding(context.BotUserID);
+                var slackUserIds = context.Message.GetSlackIdsFromMessageExcluding(context.BotUserID);
 
                 if (!slackUserIds.Any())
                 {

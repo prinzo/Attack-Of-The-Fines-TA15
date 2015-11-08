@@ -36,25 +36,25 @@ namespace FineBot.BotRunner.Responders
         {
             try 
             {
-                List<string> userIds = context.Message.GetUserIdsFromMessageExcluding(context.BotUserID);
+                List<string> slackIds = context.Message.GetSlackIdsFromMessageExcluding(context.BotUserID);
 
-                if (userIds.Count == 0) return new BotMessage { Text = "I can't do that Dave" };
+                if (slackIds.Count == 0) return new BotMessage { Text = "I can't do that Dave" };
 
                 var issuer = this.GetIssuer(context);
 
                 string reason = this.GetReason(context);
 
-                this.FineRecipients(userIds, issuer, reason);
+                this.FineRecipients(slackIds, issuer, reason);
 
                 var botMessage = new BotMessage();
 
                 string multiple = String.Empty;
-                if(userIds.Count > 1)
+                if(slackIds.Count > 1)
                 {
                     multiple = "s";
                 }
 
-                botMessage.Text = String.Format("Fine{1} awarded to {0}! Somebody needs to second!", String.Join(", ", userIds), multiple);
+                botMessage.Text = String.Format("Fine{1} awarded to {0}! Somebody needs to second!", String.Join(", ", slackIds), multiple);
             
                 return botMessage;
             } catch (Exception ex)
