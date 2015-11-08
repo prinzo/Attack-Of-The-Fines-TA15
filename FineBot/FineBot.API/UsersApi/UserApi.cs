@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FineBot.Abstracts;
+using FineBot.API.Extensions;
 using FineBot.API.Mappers.Interfaces;
 using FineBot.API.MemberInfo;
 using FineBot.DataAccess.DataModels;
@@ -162,6 +163,7 @@ namespace FineBot.API.UsersApi
         {
             return Enumerable.ToList<UserModel>(this.userRepository
                 .GetAll()
+                .Where(x => x.Fines.Any(c => c.AwardedDate >= DateTime.Now.StartOfWeek()))
                 .OrderByDescending(x => x.Fines.Count)
                 .Take(number)
                 .Select(x => this.userMapper.MapToModelForThisWeek(x)));
@@ -171,6 +173,7 @@ namespace FineBot.API.UsersApi
         {
             return Enumerable.ToList<UserModel>(this.userRepository
                 .GetAll()
+                .Where(x => x.Fines.Any(c => c.AwardedDate >= DateTime.Now.StartOfMonth()))
                 .OrderByDescending(x => x.Fines.Count)
                 .Take(number)
                 .Select(x => this.userMapper.MapToModelForThisMonth(x)));
@@ -180,6 +183,7 @@ namespace FineBot.API.UsersApi
         {
             return Enumerable.ToList<UserModel>(this.userRepository
                 .GetAll()
+                .Where(x => x.Fines.Any(c => c.AwardedDate >= DateTime.Now.StartOfYear()))
                 .OrderByDescending(x => x.Fines.Count)
                 .Take(number)
                 .Select(x => this.userMapper.MapToModelForThisYear(x)));
