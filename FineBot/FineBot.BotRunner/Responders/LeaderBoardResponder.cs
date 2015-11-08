@@ -44,17 +44,17 @@ namespace FineBot.BotRunner.Responders
                     builder.AppendLine("Leaderboard for today");
                     leaderboard = userApi.GetLeaderboardToday(sizeOfLeaderBoard);
                 }
-                else if(text.Contains("this week"))
+                else if(text.Contains("week"))
                 {
                     builder.AppendLine("Leaderboard for this week");
                     leaderboard = userApi.GetLeaderboardForThisWeek(sizeOfLeaderBoard);
                 }
-                else if(text.Contains("this month"))
+                else if(text.Contains("month"))
                 {
                     builder.AppendLine("Leaderboard for this month");
                     leaderboard = userApi.GetLeaderboardForThisMonth(sizeOfLeaderBoard);
                 }
-                else if(text.Contains("this year"))
+                else if(text.Contains("year"))
                 {
                     builder.AppendLine("Fines Leaderboard for this year");
                     leaderboard = userApi.GetLeaderboardForThisYear(sizeOfLeaderBoard);
