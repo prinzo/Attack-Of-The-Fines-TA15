@@ -93,6 +93,7 @@
     <Compile Include="Responders\PayFineResponder.cs" />
     <Compile Include="Responders\ResponderBase.cs" />
     <Compile Include="Responders\SecondAutofineResponder.cs" />
+    <Compile Include="Responders\SecondedCountResponder.cs" />
     <Compile Include="Responders\SeconderResponder.cs" />
     <Compile Include="Responders\ShowResponder.cs" />
     <Compile Include="Responders\SupportResponder.cs" />

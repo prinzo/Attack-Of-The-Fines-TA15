@@ -343,7 +343,7 @@ namespace FineBot.API.FinesApi
 
         public int CountAllFinesSuccessfullyIssued()
         {
-            return userRepository.GetAll().Sum(x => x.Fines.Count(y => y.Pending));
+            return userRepository.GetAll().Sum(x => x.Fines.Count(y => !y.Pending));
         }
     }
 }

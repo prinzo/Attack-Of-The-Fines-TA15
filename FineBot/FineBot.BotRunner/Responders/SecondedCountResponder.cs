@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
 using FineBot.BotRunner.Extensions;
@@ -9,15 +11,11 @@ using MargieBot.Models;
 
 namespace FineBot.BotRunner.Responders
 {
-    public class FineCountResponder : ResponderBase, IFineBotResponder
+    public class SecondedCountResponder : ResponderBase, IFineBotResponder
     {
         private readonly IUserApi userApi;
 
-        public FineCountResponder(
-            IUserApi userApi,
-            ISupportApi supportApi
-            )
-            : base(supportApi)
+        public SecondedCountResponder(IUserApi userApi, ISupportApi supportApi) : base(supportApi)
         {
             this.userApi = userApi;
         }
@@ -26,35 +24,33 @@ namespace FineBot.BotRunner.Responders
         {
             return !context.BotHasResponded
                    && context.Message.MentionsBot
-                   && context.Message.Text.ToLower().Contains("fine count")
-                   && !context.Message.Text.ToLower().Contains("all");
+                   && context.Message.Text.ToLower().Contains("seconded count");
         }
 
         public BotMessage GetResponse(ResponseContext context)
         {
-            try 
+            try
             {
                 var builder = new StringBuilder();
-                builder.Append("Fine Count:\n");
-            
-                var slackUserIds = context.Message.GetSlackIdsFromMessageExcluding(context.BotUserID);
+                builder.Append("Seconded count:\n");
 
+                var slackUserIds = context.Message.GetSlackIdsFromMessageExcluding(context.BotUserID);
                 if (!slackUserIds.Any())
                 {
                     slackUserIds.Add(context.Message.User.FormattedUserID);
                 }
-            
+
                 foreach (var slackUserId in slackUserIds)
                 {
                     var user = userApi.GetUserBySlackId(slackUserId);
-                    var userFineCount = userApi.GetSuccessfullyIssuedFineCountForUser(user.Id);
+                    var secondedFineCount = userApi.GetFinesSecondedByUserCount(user.Id);
 
                     builder.Append(slackUserId);
                     builder.Append(" - ");
-                    builder.Append(userFineCount);
-                    builder.Append("\n");
+                    builder.Append(secondedFineCount);
+                    builder.AppendLine();
                 }
-            
+
                 return new BotMessage{ Text = builder.ToString() };
             }
             catch (Exception ex)

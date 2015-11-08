@@ -23,7 +23,7 @@ namespace FineBot.BotRunner.Responders
         {
             return !context.BotHasResponded 
                 && context.Message.MentionsBot 
-                && context.Message.Text.ToLower().Contains("count all");
+                && context.Message.Text.ToLower().Contains("fine count all");
         }
 
         public BotMessage GetResponse(ResponseContext context)

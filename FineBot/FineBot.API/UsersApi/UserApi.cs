@@ -118,6 +118,11 @@ namespace FineBot.API.UsersApi
             return user.Fines.Count(x => !x.Pending);
         }
 
+        public int GetFinesSecondedByUserCount(Guid userId)
+        {
+            return userRepository.GetAll().Sum(x => x.Fines.Count(y => y.SeconderId == userId));
+        }
+
         public UserModel RegisterUserBySlackId(string slackId)
         {
             var info = this.memberInfoApi.GetMemberInformation(slackId);
