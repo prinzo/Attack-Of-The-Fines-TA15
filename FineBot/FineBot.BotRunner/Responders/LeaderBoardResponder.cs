@@ -34,7 +34,7 @@ namespace FineBot.BotRunner.Responders
                 //today, this week, this month, this year, all time
                 var builder = new StringBuilder();
                 List<UserModel> leaderboard;
-                const int sizeOfLeaderBoard = 10;
+                const int sizeOfLeaderBoard = 5;
 
                 var text = context.Message.Text.ToLower();
                 if(text.Contains("today"))
