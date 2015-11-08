@@ -20,26 +20,17 @@ namespace FineBot.BotRunner.Responders
 
         public BotMessage GetResponse(ResponseContext context)
         {
-            StringBuilder builder = new StringBuilder();
+            var builder = new StringBuilder();
 
-            builder.AppendLine("I am the Fines Bot! Below you'll find the commands I can accept and a brief description:");
-            builder.AppendLine("----------------------------------------------------------------------------------------");
-
-            builder.AppendLine("@FinesBot fine @<slack user>: Award a fine to a slack user, you can fine multiple people at once.");
+            builder.AppendLine("@finesbot fine @<slack user> for <reason>: Award a fine to a slack user, you can fine multiple people at once.");
             builder.AppendLine();
             builder.AppendLine("seconded!: Second the oldest awarded fine that was not seconded.");
             builder.AppendLine();
-            builder.AppendLine("@FinesBot pay <number of fines> fine(s) for @<slack user>: Pay the specified number of fines for the specified user. Note: You must include an image of the fine payment and may not pay your own fines!");
+            builder.AppendLine("@finesbot pay <number of fines> fine(s) for @<slack user>: Pay the specified number of fines for the specified user. Note: You must include an image of the fine payment and may not pay your own fines!");
             builder.AppendLine();
-            builder.AppendLine("@FinesBot leaderboard: Show a leaderboard of the top ten users with the most fines.");
+            builder.AppendLine("@finesbot leaderboard <today|week|month|year>: Leaderboard of the top five users with the most fines for the current day/week/month/year. If no time period is specified, the all time leaderboard is displayed");
             builder.AppendLine();
-            builder.AppendLine("@FinesBot leaderboard today: Show a leaderboard of the top ten users with the most fines for the current day.");
-            builder.AppendLine();
-            builder.AppendLine("@FinesBot leaderboard this week: Show a leaderboard of the top ten users with the most fines for the current week starting Monday.");
-            builder.AppendLine();
-            builder.AppendLine("@FinesBot leaderboard this month: Show a leaderboard of the top ten users with the most fines for the current month.");
-            builder.AppendLine();
-            builder.AppendLine("@FinesBot leaderboard this year: Show a leaderboard of the top ten users with the most fines for the current year.");
+            builder.AppendLine("@finesbot count all: Counts the number of fines successfully issued (i.e. seconded) by all users.");
             builder.AppendLine();
             builder.AppendLine(String.Format("@FinesBot support <support type: {0}> <message>: Creates a support ticket with the status selected. If no status is specified it is created as a general issue.", String.Join("|", Enum.GetNames(typeof(SupportType)))));
 
