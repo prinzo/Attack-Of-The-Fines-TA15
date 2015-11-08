@@ -42,12 +42,6 @@ namespace FineBot.BotRunner.Responders
 
                 var issuer = this.GetIssuer(context);
 
-                if(issuer == null)
-                {
-                    return new BotMessage{Text = String.Format("Sorry {0}, you may not issue fines until you have registered, say 'Register me' to me and you'll be in the system!", 
-                        context.Message.User.FormattedUserID)};
-                }
-
                 string reason = this.GetReason(context);
 
                 this.FineRecipients(userIds, issuer, reason);
