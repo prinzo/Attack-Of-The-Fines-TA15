@@ -153,8 +153,9 @@ namespace FineBot.API.UsersApi
             return Enumerable.ToList<UserModel>(this.userRepository
                 .GetAll()
                 .Where(x => x.Fines.Any(c => c.AwardedDate >= DateTime.Today))
-                .Take(number).Select(y => this.userMapper.MapToModelWithDate(y)));
-  
+                .OrderByDescending(x => x.Fines.Count)
+                .Take(number)
+                .Select(y => this.userMapper.MapToModelWithDate(y)));
         }
 
         public List<UserModel> GetLeaderboardForThisWeek(int number)
