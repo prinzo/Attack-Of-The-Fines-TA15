@@ -21,6 +21,8 @@ namespace FineBot.API.UsersApi
 
         int GetOutstandingFineCountForUser(Guid userId);
 
+        int GetSuccessfullyIssuedFineCountForUser(Guid userId);
+
         UserModel RegisterUserBySlackId(string slackId);
 
         List<UserModel> GetLeaderboard(int number);

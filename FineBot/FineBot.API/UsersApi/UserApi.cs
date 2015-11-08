@@ -112,6 +112,12 @@ namespace FineBot.API.UsersApi
             return user.Fines.Count(x => x.Outstanding);
         }
 
+        public int GetSuccessfullyIssuedFineCountForUser(Guid userId)
+        {
+            var user = userRepository.Get(userId);
+            return user.Fines.Count(x => !x.Pending);
+        }
+
         public UserModel RegisterUserBySlackId(string slackId)
         {
             var info = this.memberInfoApi.GetMemberInformation(slackId);

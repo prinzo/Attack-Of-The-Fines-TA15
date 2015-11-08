@@ -47,7 +47,7 @@ namespace FineBot.BotRunner.Responders
                 foreach (var slackUserId in slackUserIds)
                 {
                     var user = userApi.GetUserBySlackId(slackUserId);
-                    var userFineCount = userApi.GetOutstandingFineCountForUser(user.Id);
+                    var userFineCount = userApi.GetSuccessfullyIssuedFineCountForUser(user.Id);
 
                     builder.Append(slackUserId);
                     builder.Append(" - ");
