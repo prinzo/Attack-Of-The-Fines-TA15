@@ -24,7 +24,9 @@ namespace FineBot.BotRunner.Responders
 
         public bool CanRespond(ResponseContext context)
         {
-            return context.Message.MentionsBot && context.Message.Text.Contains("leaderboard");
+            return context.Message.MentionsBot
+                && !context.BotHasResponded
+                && context.Message.Text.Contains("leaderboard");
         }
 
         public BotMessage GetResponse(ResponseContext context)
