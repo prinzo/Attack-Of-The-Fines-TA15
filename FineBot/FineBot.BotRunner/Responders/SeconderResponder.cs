@@ -26,8 +26,9 @@ namespace FineBot.BotRunner.Responders
         public bool CanRespond(ResponseContext context)
         {
             return !context.BotHasResponded
-                && !(context.UserNameCache.ContainsKey(context.Message.User.ID) && context.UserNameCache[context.Message.User.ID].Equals("finebotssecondcousin"))
-                && context.Message.Text.ToLower().StartsWith("seconded");
+                   && context.Message.Text.ToLower().StartsWith("seconded")
+                   && context.UserNameCache.ContainsKey(context.Message.User.ID) 
+                   && !context.UserNameCache[context.Message.User.ID].Equals("finebotssecondcousin");
         }
 
         public BotMessage GetResponse(ResponseContext context)
