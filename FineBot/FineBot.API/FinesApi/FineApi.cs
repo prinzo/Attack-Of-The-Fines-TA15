@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Mail;
 using Castle.Core.Internal;
 using FineBot.Abstracts;
+using FineBot.API.InfrastructureServices;
 using FineBot.API.Mappers.Interfaces;
 using FineBot.Common.Infrastructure;
 using FineBot.DataAccess.DataModels;
@@ -24,20 +25,22 @@ namespace FineBot.API.FinesApi
         private readonly IFineMapper fineMapper;
         private readonly IUserMapper userMapper;
         private readonly IPaymentMapper paymentMapper;
+        private readonly IExcelExportService<FineExportModel> excelExportService;
 
         public FineApi(
             IRepository<User, UserDataModel, Guid> userRepository,
             IRepository<Payment, PaymentDataModel, Guid> paymentRepository,
             IFineMapper fineMapper,
             IUserMapper userMapper,
-            IPaymentMapper paymentMapper
-            )
+            IPaymentMapper paymentMapper,
+            IExcelExportService<FineExportModel> excelExportService)
         {
             this.userRepository = userRepository;
             this.paymentRepository = paymentRepository;
             this.fineMapper = fineMapper;
             this.userMapper = userMapper;
             this.paymentMapper = paymentMapper;
+            this.excelExportService = excelExportService;
         }
 
         public FineModel IssueFine(Guid issuerId, Guid recipientId, string reason)
@@ -64,7 +67,8 @@ namespace FineBot.API.FinesApi
             SecondNewestPendingFine(seconder.Id);
         }
 
-        public FeedFineModel IssueFineFromFeed(Guid issuerId, Guid recipientId, string reason) {
+        public FeedFineModel IssueFineFromFeed(Guid issuerId, Guid recipientId, string reason)
+        {
             var user = this.userRepository.Get(recipientId);
 
             var fine = user.IssueFine(issuerId, reason);
@@ -81,8 +85,8 @@ namespace FineBot.API.FinesApi
         public List<FineModel> GetAllPendingFines()
         {
             var fines = from user in this.userRepository.FindAll(new UserSpecification().WithPendingFines())
-                from fine in user.Fines
-                select this.fineMapper.MapToModel(fine);
+                        from fine in user.Fines
+                        select this.fineMapper.MapToModel(fine);
 
             return Enumerable.ToList(fines);
         }
@@ -93,13 +97,13 @@ namespace FineBot.API.FinesApi
 
             var userWithOldestPendingFine = pendingFines.OrderBy(x => x.GetOldestPendingFine().AwardedDate).FirstOrDefault();
 
-            if(userWithOldestPendingFine == null) return new FineSecondedResult(new ValidationResult().AddMessage(Severity.Error, "Sorry, there are no pending fines to second"));
+            if (userWithOldestPendingFine == null) return new FineSecondedResult(new ValidationResult().AddMessage(Severity.Error, "Sorry, there are no pending fines to second"));
 
             Fine fineToBeSeconded = userWithOldestPendingFine.GetOldestPendingFine();
-            
+
             var result = new FineSecondedResult(fineToBeSeconded.Second(userId));
 
-            if(result.HasErrors) return result;
+            if (result.HasErrors) return result;
 
             this.userRepository.Save(userWithOldestPendingFine);
 
@@ -119,50 +123,52 @@ namespace FineBot.API.FinesApi
             var fineToBeSeconded = userWithNewestPendingFine.GetNewestPendingFine();
             fineToBeSeconded.Second(userId);
             this.userRepository.Save(userWithNewestPendingFine);
-            
+
             return this.fineMapper.MapToModelWithUser(fineToBeSeconded, this.userMapper.MapToModelShallow(userWithNewestPendingFine));
         }
 
-        public bool SecondFineById(Guid fineId, Guid userId) {
+        public bool SecondFineById(Guid fineId, Guid userId)
+        {
             var fine = this.userRepository.Find(new UserSpecification().WithFineId(fineId));
 
             var result = fine.GetFineById(fineId).Second(userId);
 
             //TODO: Accommodate returning errors to the front end
-            if(result.HasErrors) return false;
+            if (result.HasErrors) return false;
 
             this.userRepository.Save(fine);
 
             return true;
         }
 
-        public List<FeedFineModel> GetLatestSetOfFines(int index, int pageSize) {
+        public List<FeedFineModel> GetLatestSetOfFines(int index, int pageSize)
+        {
             var newFines = (from user in this.userRepository.GetAll()
-                from fine in user.Fines
-                select 
-                    this.fineMapper.MapToFeedModel(fine, 
-                    this.userRepository.Find(new UserSpecification().WithId(fine.IssuerId)),
-                    user,
-                    fine.SeconderId.HasValue
-                            ? this.userRepository.Find(new UserSpecification().WithId(fine.SeconderId.Value))
-                            : null
-                    ) 
-                        
+                            from fine in user.Fines
+                            select
+                                this.fineMapper.MapToFeedModel(fine,
+                                this.userRepository.Find(new UserSpecification().WithId(fine.IssuerId)),
+                                user,
+                                fine.SeconderId.HasValue
+                                        ? this.userRepository.Find(new UserSpecification().WithId(fine.SeconderId.Value))
+                                        : null
+                                )
+
                 )
                 .OrderByDescending(x => x.ModifiedDate)
                 .Skip(index)
                 .Take(pageSize);
 
             var paidFines = (from user in this.userRepository.GetAll()
-                from fine in user.Fines
-                where fine.PaymentId.HasValue
-                select
-                    this.fineMapper.MapPaymentToFeedModel(
-                        this.paymentRepository.Find(new PaymentSpecification().WithId(fine.PaymentId.Value)),
-                        this.userRepository.Find(new UserSpecification().WithId(fine.IssuerId)),
-                        user,
-                        this.paymentRepository.FindAll(new PaymentSpecification().WithId(fine.PaymentId.Value)).Count()
-                        )
+                             from fine in user.Fines
+                             where fine.PaymentId.HasValue
+                             select
+                                 this.fineMapper.MapPaymentToFeedModel(
+                                     this.paymentRepository.Find(new PaymentSpecification().WithId(fine.PaymentId.Value)),
+                                     this.userRepository.Find(new UserSpecification().WithId(fine.IssuerId)),
+                                     user,
+                                     this.paymentRepository.FindAll(new PaymentSpecification().WithId(fine.PaymentId.Value)).Count()
+                                     )
 
                 )
                 .GroupBy(x => x.Id)
@@ -188,7 +194,7 @@ namespace FineBot.API.FinesApi
 
             var result = user.PayFines(payment, number);
 
-            if(result.HasErrors) return result;
+            if (result.HasErrors) return result;
 
             this.paymentRepository.Save(payment);
 
@@ -216,7 +222,7 @@ namespace FineBot.API.FinesApi
             var validation = user.PayFines(payment, paymentModel.TotalFinesPaid);
             payFineResult = new PayFineResult(validation);
 
-            if(validation.HasErrors)
+            if (validation.HasErrors)
             {
                 return payFineResult;
             }
@@ -237,14 +243,18 @@ namespace FineBot.API.FinesApi
 
         private PayFineResult PerformInitialValidation(PaymentModel paymentModel)
         {
-            if (paymentModel.Image.IsNullOrEmpty()) {
-                return new PayFineResult() {
+            if (paymentModel.Image.IsNullOrEmpty())
+            {
+                return new PayFineResult()
+                {
                     ValidationMessages = new List<ValidationMessage> { new ValidationMessage("A payment requires an image", Severity.Error) }
                 };
             }
 
-            if (paymentModel.TotalFinesPaid < 1) {
-                return new PayFineResult() {
+            if (paymentModel.TotalFinesPaid < 1)
+            {
+                return new PayFineResult()
+                {
                     ValidationMessages = new List<ValidationMessage>
                     {
                         new ValidationMessage("A payment requires a total number of fines to be paid", Severity.Error)
@@ -262,25 +272,30 @@ namespace FineBot.API.FinesApi
             return this.paymentMapper.MapToSimpleModel(payment);
         }
 
-        public byte[] GetImageForPaymentId(Guid id) {
+        public byte[] GetImageForPaymentId(Guid id)
+        {
             var payment = this.paymentRepository.Find(new Specification<Payment>(x => x.Id == id));
 
             return payment.PaymentImage.ImageBytes;
 
         }
 
-        public ApprovalResult ApprovePayment(Guid paymentId, Guid userId) {
+        public ApprovalResult ApprovePayment(Guid paymentId, Guid userId)
+        {
             var payment = this.paymentRepository.Find(new PaymentSpecification().WithId(paymentId));
 
             payment.LikedBy = payment.LikedBy ?? new List<Guid>();
 
             var count = payment.LikedBy.Count;
-            bool? result; 
+            bool? result;
 
-            if (payment.LikedBy.Count(x => x == userId) == 0) {
+            if (payment.LikedBy.Count(x => x == userId) == 0)
+            {
                 payment.LikedBy.Add(userId);
                 result = true;
-            } else {
+            }
+            else
+            {
                 payment.LikedBy.Remove(userId);
                 result = false;
             }
@@ -290,18 +305,22 @@ namespace FineBot.API.FinesApi
             return new ApprovalResult { Success = result };
         }
 
-        public ApprovalResult DisapprovePayment(Guid paymentId, Guid userId) {
+        public ApprovalResult DisapprovePayment(Guid paymentId, Guid userId)
+        {
             var payment = this.paymentRepository.Find(new PaymentSpecification().WithId(paymentId));
 
             payment.DislikedBy = payment.DislikedBy ?? new List<Guid>();
 
             var count = payment.DislikedBy.Count;
-            bool? result; 
+            bool? result;
 
-            if (payment.DislikedBy.Count(x => x == userId) == 0) {
+            if (payment.DislikedBy.Count(x => x == userId) == 0)
+            {
                 payment.DislikedBy.Add(userId);
                 result = true;
-            } else {
+            }
+            else
+            {
                 payment.DislikedBy.Remove(userId);
                 result = false;
             }
@@ -311,28 +330,34 @@ namespace FineBot.API.FinesApi
             return new ApprovalResult { Success = result };
         }
 
-        public List<UserModel> GetUsersApprovedBy(Guid paymentId) {
+        public List<UserModel> GetUsersApprovedBy(Guid paymentId)
+        {
             var payment = this.paymentRepository.Find(new PaymentSpecification().WithId(paymentId));
 
             List<UserModel> users = new List<UserModel>();
-            if (payment.LikedBy != null) {
+            if (payment.LikedBy != null)
+            {
                 users = this.userRepository.FindAll(new UserSpecification().WithIds(payment.LikedBy))
-                    .Select(x => new UserModel {
+                    .Select(x => new UserModel
+                    {
                         Id = x.Id,
                         DisplayName = x.DisplayName
                     }).ToList();
             }
 
-            return users = users ;
+            return users = users;
         }
 
-        public List<UserModel> GetUsersDisapprovedBy(Guid paymentId) {
+        public List<UserModel> GetUsersDisapprovedBy(Guid paymentId)
+        {
             var payment = this.paymentRepository.Find(new PaymentSpecification().WithId(paymentId));
 
             List<UserModel> users = new List<UserModel>();
-            if(payment.DislikedBy != null) {
+            if (payment.DislikedBy != null)
+            {
                 users = this.userRepository.FindAll(new UserSpecification().WithIds(payment.DislikedBy))
-                    .Select(x => new UserModel {
+                    .Select(x => new UserModel
+                    {
                         Id = x.Id,
                         DisplayName = x.DisplayName
                     }).ToList();
@@ -344,6 +369,20 @@ namespace FineBot.API.FinesApi
         public int CountAllFinesSuccessfullyIssued()
         {
             return userRepository.GetAll().Sum(x => x.Fines.Count(y => !y.Pending));
+        }
+
+        public byte[] ExportAllFines()
+        {
+
+            var userFines = from u in userRepository.GetAll()
+                            select new FineExportModel()
+                            {
+                                Email = u.EmailAddress,
+                                DisplayName = u.DisplayName,
+                                Fines = u.Fines.Count(x => !x.Pending)
+                            };
+
+            return excelExportService.WriteObjectData(userFines.OrderByDescending(x=>x.Fines).ToList(), "Entelect Fines");
         }
     }
 }

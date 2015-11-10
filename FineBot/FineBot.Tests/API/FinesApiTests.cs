@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FineBot.Abstracts;
 using FineBot.API.FinesApi;
+using FineBot.API.InfrastructureServices;
 using FineBot.API.Mappers;
 using FineBot.API.Mappers.Interfaces;
 using FineBot.API.UsersApi;
@@ -30,6 +31,8 @@ namespace FineBot.Tests.API
             IFineMapper fineMapper = MockRepository.GenerateMock<IFineMapper>();
             IUserMapper userMapper = MockRepository.GenerateMock<IUserMapper>();
             IPaymentMapper paymentMapper = MockRepository.GenerateMock<IPaymentMapper>();
+            IExcelExportService<FineExportModel> excelExportService =
+                MockRepository.GenerateMock<IExcelExportService<FineExportModel>>();
 
             var fine = new Fine{AwardedDate = DateTime.Now};
             var user = new User{Fines = new List<Fine>{fine, new Fine{AwardedDate = DateTime.Now.AddMinutes(1)}}};
@@ -39,7 +42,7 @@ namespace FineBot.Tests.API
             var userModel = new UserModel();
             userMapper.Stub(x => x.MapToModelShallow(user)).Return(userModel);
 
-            FineApi fineApi = new FineApi(userRepository, paymentRepository, fineMapper, userMapper, paymentMapper);
+            FineApi fineApi = new FineApi(userRepository, paymentRepository, fineMapper, userMapper, paymentMapper, excelExportService);
 
             // Pre-Assert:
             fine.Pending.Should().Be.True();
@@ -58,7 +61,8 @@ namespace FineBot.Tests.API
         public void GivenAListOfNewFines_When_RetrievingLatestFinesForFeed_Then_TheFinesShouldBeRetrieved() {
             IRepository<User, UserDataModel, Guid> userRepository = MockRepository.GenerateMock<IRepository<User, UserDataModel, Guid>>();
             IRepository<Payment, PaymentDataModel, Guid> paymentRepository = MockRepository.GenerateMock<IRepository<Payment, PaymentDataModel, Guid>>();
-
+            IExcelExportService<FineExportModel> excelExportService =
+    MockRepository.GenerateMock<IExcelExportService<FineExportModel>>();
             Guid guid1 = new Guid();
             Guid guid2 = new Guid();
 
@@ -97,7 +101,7 @@ namespace FineBot.Tests.API
                                                             }
                                                         });
 
-            FineApi fineApi = new FineApi(userRepository, paymentRepository, new FineMapper(), new UserMapper(new FineMapper()), MockRepository.GenerateMock<IPaymentMapper>());
+            FineApi fineApi = new FineApi(userRepository, paymentRepository, new FineMapper(), new UserMapper(new FineMapper()), MockRepository.GenerateMock<IPaymentMapper>(), excelExportService);
 
             List<FeedFineModel> finesList = fineApi.GetLatestSetOfFines(0, 10);
 
@@ -108,7 +112,8 @@ namespace FineBot.Tests.API
         public void GivenAListOfRecentPaidAndNewFines_When_RetrievingLatestFinesForFeed_Then_AllShouldBeRetrieved() {
             IRepository<User, UserDataModel, Guid> userRepository = MockRepository.GenerateMock<IRepository<User, UserDataModel, Guid>>();
             IRepository<Payment, PaymentDataModel, Guid> paymentRepository = MockRepository.GenerateMock<IRepository<Payment, PaymentDataModel, Guid>>();
-
+            IExcelExportService<FineExportModel> excelExportService =
+    MockRepository.GenerateMock<IExcelExportService<FineExportModel>>();
             Guid paymentId1 = Guid.NewGuid();
             Guid paymentId2 = Guid.NewGuid();
 
@@ -158,7 +163,7 @@ namespace FineBot.Tests.API
                                                             }
                                                         });
 
-            FineApi fineApi = new FineApi(userRepository, paymentRepository, new FineMapper(), new UserMapper(new FineMapper()), MockRepository.GenerateMock<IPaymentMapper>());
+            FineApi fineApi = new FineApi(userRepository, paymentRepository, new FineMapper(), new UserMapper(new FineMapper()), MockRepository.GenerateMock<IPaymentMapper>(), excelExportService);
 
             List<FeedFineModel> finesList = fineApi.GetLatestSetOfFines(0, 10);
 
@@ -169,7 +174,8 @@ namespace FineBot.Tests.API
         public void GivenALimitedListOfRecentPaidAndNewFines_When_RetrievingLatestFinesForFeed_Then_TheLatestOfBothShouldBeRetrieved() {
             IRepository<User, UserDataModel, Guid> userRepository = MockRepository.GenerateMock<IRepository<User, UserDataModel, Guid>>();
             IRepository<Payment, PaymentDataModel, Guid> paymentRepository = MockRepository.GenerateMock<IRepository<Payment, PaymentDataModel, Guid>>();
-            
+            IExcelExportService<FineExportModel> excelExportService =
+    MockRepository.GenerateMock<IExcelExportService<FineExportModel>>();
             Guid userGuid1 = Guid.NewGuid();
             Guid userGuid2 = Guid.NewGuid(); 
 
@@ -223,7 +229,7 @@ namespace FineBot.Tests.API
                                                             }
                                                         });
 
-            FineApi fineApi = new FineApi(userRepository, paymentRepository, new FineMapper(), new UserMapper(new FineMapper()), MockRepository.GenerateMock<IPaymentMapper>());
+            FineApi fineApi = new FineApi(userRepository, paymentRepository, new FineMapper(), new UserMapper(new FineMapper()), MockRepository.GenerateMock<IPaymentMapper>(),excelExportService);
 
             List<FeedFineModel> finesList = fineApi.GetLatestSetOfFines(0, 3);
 

@@ -21,7 +21,7 @@
         var categoriesWeek = [];
         var seriesMonth = [];
         var categoriesMonth = [];
-
+        vm.DownloadAllFines = DownloadAllFines;
         GetOverallLeaderboard();
         GetLeaderboardToday();
         GetLeaderboardWeek();
@@ -33,6 +33,20 @@
         $interval(GetLeaderboardMonth, 60000);
 
 
+        function DownloadAllFines() {
+            var form = document.createElement("form");
+            form.setAttribute("action", "http://entelect.finesapi.local/api/Fines/ExportAllFines");
+            form.setAttribute("method", "get");
+            form.setAttribute("target", "_blank");
+
+            var hiddenEle1 = document.createElement("input");
+            hiddenEle1.setAttribute("type", "hidden");
+            hiddenEle1.setAttribute("name", "some");
+            hiddenEle1.setAttribute("value", "value");
+
+
+            form.submit();
+        }
 
         function GetOverallLeaderboard() {
             seriesData.length = 0;

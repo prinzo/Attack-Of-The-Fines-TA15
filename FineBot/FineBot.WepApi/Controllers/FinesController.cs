@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Http;
 using Castle.Core.Internal;
 using FineBot.API.FinesApi;
@@ -105,6 +108,21 @@ namespace FineBot.WepApi.Controllers
         [HttpGet]
         public List<UserModel> GetUserDisapprovedByList(Guid paymentId) {
             return this.fineApi.GetUsersDisapprovedBy(paymentId);
+        }
+
+        [HttpGet]
+        public HttpResponseMessage ExportAllFines()
+        {
+            HttpResponseMessage result = null;
+            result = Request.CreateResponse(HttpStatusCode.OK);
+            result.Content = new ByteArrayContent(fineApi.ExportAllFines());
+            result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+            {
+                FileName = "Entelectfines.xlsx"
+            };
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+
+            return result;
         }
     }
 }

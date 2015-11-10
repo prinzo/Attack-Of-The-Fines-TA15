@@ -38,6 +38,9 @@
       <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EPPlus">
+      <HintPath>..\packages\EPPlus.4.0.4\lib\net20\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="Flurl, Version=1.0.9.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Flurl.1.0.9\lib\portable-net40+sl50+win+wpa81+wp80+MonoAndroid10+MonoTouch10\Flurl.dll</HintPath>
       <Private>True</Private>
@@ -89,8 +92,11 @@
     <Compile Include="FinesApi\ApprovalResult.cs" />
     <Compile Include="FinesApi\FeedFineModel.cs" />
     <Compile Include="FinesApi\FineApi.cs" />
+    <Compile Include="FinesApi\FineExportModel.cs" />
     <Compile Include="FinesApi\FineSecondedResult.cs" />
     <Compile Include="FinesApi\FineWithUserModel.cs" />
+    <Compile Include="InfrastructureServices\ExcelExportService.cs" />
+    <Compile Include="InfrastructureServices\IExcelExportService.cs" />
     <Compile Include="FinesApi\IFineApi.cs" />
     <Compile Include="FinesApi\FineModel.cs" />
     <Compile Include="FinesApi\PayFineResult.cs" />

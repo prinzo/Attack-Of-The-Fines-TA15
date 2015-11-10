@@ -11,18 +11,17 @@
                                'appSettings',
                               Fines]);
 
-    function Fines(toaster, localStorageService, finesResource, $rootScope,$mdDialog,$interval, appSettings) {
+    function Fines(toaster, localStorageService, finesResource, $rootScope, $mdDialog, $interval, appSettings) {
         $("#loadingFines").show();
         var vm = this;
         vm.settings = appSettings;
         vm.pagingIndex = 0;
-
         vm.dialogOptions = {
-                            $scope : vm
-                       }
-         
+            $scope: vm
+        }
+
         $rootScope.checkUser();
-        
+
         $rootScope.fines = {};
 
         UpdateFeed();
@@ -31,9 +30,8 @@
 
         function UpdateFeed() {
             var promise = finesResource.query({
-                    action: "GetFines"
-                }
-            );
+                action: "GetFines"
+            });
 
             promise.$promise.then(function (data) {
                     $("#loadingFines").hide();
@@ -46,12 +44,12 @@
                 });
         }
 
+
         vm.GetNextSetOfFines = function GetNextSetOfFines() {
             var promise = finesResource.query({
-                    action: "GetNexSetOfFines",
-                    index: vm.pagingIndex
-                }
-            );
+                action: "GetNexSetOfFines",
+                index: vm.pagingIndex
+            });
 
             promise.$promise.then(function (data) {
                     $rootScope.fines.concat(data);
@@ -65,17 +63,17 @@
 
         vm.isOpen = false;
 
-        vm.ShowAlertSecond = function(ev, Id) {
+        vm.ShowAlertSecond = function (ev, Id) {
             var seconder = $("#seconder-" + Id).val();
             $mdDialog.show(
                 $mdDialog.alert()
-                    .parent(angular.element(document.querySelector('#fines-container')))
-                    .clickOutsideToClose(true)
-                    .title('Fine has been seconded')
-                    .content('This fine has already been seconded by ' + seconder)
-                    .ariaLabel('Fine has been seconded')
-                    .ok('OK')
-                    .targetEvent(ev)
+                .parent(angular.element(document.querySelector('#fines-container')))
+                .clickOutsideToClose(true)
+                .title('Fine has been seconded')
+                .content('This fine has already been seconded by ' + seconder)
+                .ariaLabel('Fine has been seconded')
+                .ok('OK')
+                .targetEvent(ev)
             );
         }
 
@@ -83,10 +81,10 @@
             var isSeconded = $("#isSeconded-" + Id).val();
             var currentUserId = localStorageService.get('user').Id;
 
-            if(isSeconded == "true") {
+            if (isSeconded == "true") {
                 vm.ShowAlertSecond(event, Id);
-            } else if(currentUserId == issuerId) {
-                 toaster.pop('error', "Fine Seconding Failure", "You cannot second a fine that you have awarded");
+            } else if (currentUserId == issuerId) {
+                toaster.pop('error', "Fine Seconding Failure", "You cannot second a fine that you have awarded");
             } else {
                 var secondFineModel = {
                     UserId: currentUserId,
@@ -117,7 +115,7 @@
 
             var content = "<table class = 'table table-striped'>";
 
-            data.forEach(function(entry) {
+            data.forEach(function (entry) {
                 content += "<tr><td>" + entry.DisplayName + "</td></tr>";
             });
 
@@ -125,13 +123,13 @@
 
             $mdDialog.show(
                 $mdDialog.alert()
-                    .parent(angular.element(document.querySelector('#fines-container')))
-                    .clickOutsideToClose(true)
-                    .title('Fine has been ' + status + ' by')
-                    .content(content)
-                    .ariaLabel('Fine has been ' + status + ' by')
-                    .ok('OK')
-                    .targetEvent(ev)
+                .parent(angular.element(document.querySelector('#fines-container')))
+                .clickOutsideToClose(true)
+                .title('Fine has been ' + status + ' by')
+                .content(content)
+                .ariaLabel('Fine has been ' + status + ' by')
+                .ok('OK')
+                .targetEvent(ev)
             );
         }
 
@@ -144,8 +142,8 @@
             };
 
             var promise = finesResource.query({
-                    action: service,
-                    paymentId: Id
+                action: service,
+                paymentId: Id
             });
 
             promise.$promise.then(function (data) {
@@ -173,7 +171,7 @@
 
             promise.$promise.then(function (data) {
 
-                    if(data.Success == true) {
+                    if (data.Success == true) {
                         toaster.pop('success', "Approved", "Payment Approved");
 
                         if ($("#innerApproved-" + Id).length == 0) {
@@ -193,11 +191,11 @@
                             $("#approvedByNumber-" + Id).text(parseInt(value) - 1);
                         }
                     }
-            },
+                },
 
-            function () {
-                toaster.pop('error', "Fine Feed Failure", "Payment could not be approved");
-            });
+                function () {
+                    toaster.pop('error', "Fine Feed Failure", "Payment could not be approved");
+                });
         }
 
         vm.Disapprove = function Disapprove(Id) {
@@ -214,27 +212,27 @@
             );
 
             promise.$promise.then(function (data) {
-                if(data.Success == true) {
-                    toaster.pop('success', "Disapproved", "Payment Disapproved");
+                    if (data.Success == true) {
+                        toaster.pop('success', "Disapproved", "Payment Disapproved");
 
-                    if ($("#innerDisapproved-" + Id).length == 0) {
-                        $("#disapprovedBy-" + Id).html('<div id="innerApproved-" + Id ng-if="fine.LikedByCount > 0">Disapproved by <a><span id="disapprovedByNumber-" + Id>1</span> person</a></div>');
-                    } else {
+                        if ($("#innerDisapproved-" + Id).length == 0) {
+                            $("#disapprovedBy-" + Id).html('<div id="innerApproved-" + Id ng-if="fine.LikedByCount > 0">Disapproved by <a><span id="disapprovedByNumber-" + Id>1</span> person</a></div>');
+                        } else {
+                            var value = $("#disapprovedByNumber-" + Id).text();
+                            $("#disapprovedByNumber-" + Id).text(parseInt(value) + 1);
+                        }
+                    } else if (data.Success == false) {
+                        toaster.pop('success', "Disapproval Retracted", "Payment Disapproval was retracted");
+
                         var value = $("#disapprovedByNumber-" + Id).text();
-                        $("#disapprovedByNumber-" + Id).text(parseInt(value) + 1);
+                        if (value == '' || parseInt(value) - 1 == 0) {
+                            $("#disapprovedByNumber-" + Id).text(parseInt(value) - 1);
+                            $("#disapprovedBy-" + Id).html('');
+                        } else {
+                            $("#disapprovedByNumber-" + Id).text(parseInt(value) - 1);
+                        }
                     }
-                } else if (data.Success == false) {
-                    toaster.pop('success', "Disapproval Retracted", "Payment Disapproval was retracted");
-
-                    var value = $("#disapprovedByNumber-" + Id).text();
-                    if (value == '' || parseInt(value) - 1 == 0) {
-                        $("#disapprovedByNumber-" + Id).text(parseInt(value) - 1);
-                        $("#disapprovedBy-" + Id).html('');
-                    } else {
-                        $("#disapprovedByNumber-" + Id).text(parseInt(value) - 1);
-                    }
-                }
-            },
+                },
 
                 function () {
                     toaster.pop('error', "Fine Feed Failure", "Payment could not be disapproved");
@@ -245,62 +243,67 @@
 
             $rootScope.userId = userId;
 
-            $scope.hide = function() {
+            $scope.hide = function () {
                 $mdDialog.hide();
             };
-            $scope.cancel = function() {
+            $scope.cancel = function () {
                 $mdDialog.cancel();
             };
-            $scope.answer = function(answer) {
+            $scope.answer = function (answer) {
                 $mdDialog.hide(answer);
             };
 
         }
 
-        vm.ShowStatistics = function(ev, id) {
+        vm.ShowStatistics = function (ev, id) {
             $mdDialog.show({
-                locals:{userId : id},
+                locals: {
+                    userId: id
+                },
                 controller: DialogController,
                 templateUrl: 'app/fines/views/modals/userStatistics.tpl.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
-                clickOutsideToClose:true
-            })
-            ;
+                clickOutsideToClose: true
+            });
         };
 
-        vm.ShowAddFine = function(ev) {
+        vm.ShowAddFine = function (ev) {
             $mdDialog.show({
-                locals:{userId : null},
+                locals: {
+                    userId: null
+                },
                 controller: DialogController,
                 templateUrl: 'app/fines/views/modals/awardFine.tpl.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
-                clickOutsideToClose:true
+                clickOutsideToClose: true
             });
         };
 
-        vm.ShowAddPayment = function(ev) {
+        vm.ShowAddPayment = function (ev) {
             $mdDialog.show({
-                locals:{userId : null},
+                locals: {
+                    userId: null
+                },
                 controller: DialogController,
                 templateUrl: 'app/fines/views/modals/payFine.tpl.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
-                clickOutsideToClose:true
+                clickOutsideToClose: true
             });
         };
 
-        vm.ShowPaymentImage = function(ev, Image) {
+        vm.ShowPaymentImage = function (ev, Image) {
             $mdDialog.show(
                 $mdDialog.alert()
-                    .parent(angular.element(document.querySelector('#fines-container')))
-                    .clickOutsideToClose(true)
-                    .title('Payment Image')
-                    .content('<img src="' + Image + '" class="image large-photo">')
-                    .ariaLabel('Fine has been seconded')
-                    .ok('OK')
-                    .targetEvent(ev)
+                .parent(angular.element(document.querySelector('#fines-container')))
+                .clickOutsideToClose(true)
+                .title('Payment Image')
+                .content('<img src="' + Image + '" class="image large-photo">')
+                .ariaLabel('Fine has been seconded')
+                .ok('OK')
+                .targetEvent(ev)
             );
         };
 

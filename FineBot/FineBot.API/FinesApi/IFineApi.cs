@@ -43,5 +43,7 @@ namespace FineBot.API.FinesApi
         List<UserModel> GetUsersDisapprovedBy(Guid paymentId);
 
         int CountAllFinesSuccessfullyIssued();
+
+        byte[] ExportAllFines();
     }
 }
