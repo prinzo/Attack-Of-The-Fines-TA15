@@ -58,8 +58,8 @@ namespace FineBot.BotRunner.Responders
                 }
                 var issuer = userApi.GetUserBySlackId(context.FormattedBotUserID());
                 var recipient = userApi.GetUserBySlackId(context.Message.User.FormattedUserID);
-                var seconder = recipient;
-                fineApi.IssueAutoFine(issuer.Id, recipient.Id, seconder.Id, reason);
+                
+                fineApi.IssueAutoFine(issuer.Id, recipient.Id, reason);
 
                 return new BotMessage { Text = builder.ToString()};
             }

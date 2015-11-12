@@ -42,7 +42,7 @@ namespace FineBot.Entities
 
             if(seconderId == IssuerId)
             {
-                result.AddMessage(Severity.Error, "You may not second a fine you awarded!");
+                result.AddMessage(Severity.Information, "You may not second a fine you awarded!");
             }
 
             if(result.HasErrors) return result;

@@ -55,7 +55,7 @@ namespace FineBot.BotRunner.Responders
 
                 for (var i = 0; i < youtubeLinkList.Count; i++)
                 {
-                    fineApi.IssueAutoFine(issuer.Id, recipient.Id, seconder.Id, reasonForOneVideo + youtubeLinkList[i]);
+                    fineApi.IssueAutoFine(issuer.Id, recipient.Id, reasonForOneVideo + youtubeLinkList[i]);
                     builder.Append(youtubeLinkList[i]);
                     AddConjunctionOrSeparator(builder, youtubeLinkList, i);
                 }

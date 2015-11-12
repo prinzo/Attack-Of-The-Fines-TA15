@@ -28,7 +28,7 @@ namespace FineBot.API.FinesApi
 
         PaymentModel GetSimplePaymentModelById(Guid paymentModelId);
 
-        void IssueAutoFine(Guid issuerId, Guid recipientId, Guid seconderId, string reason);
+        void IssueAutoFine(Guid issuerId, Guid recipientId, string reason);
 
         byte[] GetImageForPaymentId(Guid id);
 

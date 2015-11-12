@@ -55,7 +55,7 @@ namespace FineBot.API.FinesApi
             return this.fineMapper.MapToModel(fine);
         }
 
-        public void IssueAutoFine(Guid issuerId, Guid recipientId, Guid seconderId, string reason)
+        public void IssueAutoFine(Guid issuerId, Guid recipientId, string reason)
         {
             var user = userRepository.Get(recipientId);
             var fine = user.IssueFine(issuerId, reason);
@@ -63,8 +63,6 @@ namespace FineBot.API.FinesApi
 
             userRepository.Save(user);
 
-            var seconder = userRepository.Get(seconderId);
-            SecondNewestPendingFine(seconder.Id);
         }
 
         public FeedFineModel IssueFineFromFeed(Guid issuerId, Guid recipientId, string reason)
@@ -97,7 +95,7 @@ namespace FineBot.API.FinesApi
 
             var userWithOldestPendingFine = pendingFines.OrderBy(x => x.GetOldestPendingFine().AwardedDate).FirstOrDefault();
 
-            if (userWithOldestPendingFine == null) return new FineSecondedResult(new ValidationResult().AddMessage(Severity.Error, "Sorry, there are no pending fines to second"));
+            if (userWithOldestPendingFine == null) return new FineSecondedResult(new ValidationResult().AddMessage(Severity.Information, "Sorry, there are no pending fines to second"));
 
             Fine fineToBeSeconded = userWithOldestPendingFine.GetOldestPendingFine();
 
