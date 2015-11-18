@@ -48,7 +48,7 @@ namespace FineBot.Tests.API
             fine.Pending.Should().Be.True();
 
             // Act:
-            fineApi.SecondOldestPendingFine(new Guid());
+            fineApi.SecondOldestPendingFine(Guid.NewGuid());
 
             // Assert:
             fine.Pending.Should().Be.False();

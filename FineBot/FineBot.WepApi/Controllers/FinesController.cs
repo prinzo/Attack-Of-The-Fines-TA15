@@ -28,13 +28,11 @@ namespace FineBot.WepApi.Controllers
         }
 
         [HttpPost]
-        public FeedFineModel IssueFine(NewFineModel newFine)
+        public IssueFineResult IssueFine(NewFineModel newFine)
         {
             IssueFineResult result = this.fineApi.IssueFineFromFeed(new Guid(newFine.IssuerId), new Guid(newFine.RecipientId), newFine.Reason);
 
-            FeedFineModel fineModel = result.GetFeedFineModel();
-
-            return fineModel;
+            return result;
         }
 
         [HttpPost]

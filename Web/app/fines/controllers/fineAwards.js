@@ -73,16 +73,21 @@
                 );
 
                 promise.$promise.then(function (data) {
-                        toaster.pop('success', "Fine Awarded", "Fine awarded successfully");
+                        if(data.HasErrors) {
+                            toaster.error('Error', data.FullTrace);
+                        } else {
+
+                            toaster.pop('success', "Fine Awarded", "Fine awarded successfully");
 
 
-                        $timeout(function () {
-                            var defer = $q.defer();
+                            $timeout(function () {
+                                var defer = $q.defer();
 
-                            $mdDialog.hide();
+                                $mdDialog.hide();
 
-                            $rootScope.fines.push(data);
-                        });
+                                $rootScope.fines.push(data.Fine);
+                            });
+                        }
                     },
                     function () {
                         toaster.error('Error', 'Failed to award fine');

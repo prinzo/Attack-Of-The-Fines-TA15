@@ -19,13 +19,7 @@ namespace FineBot.API.FinesApi {
             this.Append(validation);
         }
 
-        public Fine Fine { get; set; }
-        public User Issuer { get; set; }
-        public User Recipient { get; set; }
+        public FeedFineModel Fine { get; set; }
 
-        public FeedFineModel GetFeedFineModel()
-        {
-           return new FineMapper().MapToFeedModelWithPayment(Fine, Issuer, Recipient, null);
-        }
     }
 }

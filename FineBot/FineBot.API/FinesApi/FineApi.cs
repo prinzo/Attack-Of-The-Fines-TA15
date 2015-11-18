@@ -57,9 +57,7 @@ namespace FineBot.API.FinesApi
 
             this.userRepository.Save(user);
 
-            IssueFineResult result = new IssueFineResult();
-            result.Fine = fine;
-            return result;
+            return new IssueFineResult();
         }
 
         public void IssueAutoFine(Guid issuerId, Guid recipientId, string reason)
@@ -87,11 +85,10 @@ namespace FineBot.API.FinesApi
             User issuer = this.userRepository.Find(new Specification<User>(x => x.Id == issuerId));
             User recipient = this.userRepository.Find(new Specification<User>(x => x.Id == recipientId));
 
+
             IssueFineResult result = new IssueFineResult
             {
-                Fine = fine,
-                Issuer = issuer,
-                Recipient = recipient
+                Fine = this.fineMapper.MapToFeedModelWithPayment(fine, issuer, recipient, null)
             };
 
             return result;
