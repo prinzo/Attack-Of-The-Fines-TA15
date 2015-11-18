@@ -56,42 +56,46 @@
         }
 
         vm.AwardFine = function () {
-                        
-            var newFineModel = {
-                IssuerId: currentUser.Id,
-                RecipientId: vm.selectedUser[0].Id,
-                Reason: vm.reason
-            };
 
-            if(newFineModel.IssuerId == newFineModel.RecipientId) {
-                toaster.pop('error', "Invalid Input", "You cannot award a fine for yourself");
+            if(vm.selectedUser[0]) {
+                var newFineModel = {
+                    IssuerId: currentUser.Id,
+                    RecipientId: vm.selectedUser[0].Id,
+                    Reason: vm.reason
+                };
+
+                if (newFineModel.IssuerId == newFineModel.RecipientId) {
+                    toaster.pop('error', "Invalid Input", "You cannot award a fine for yourself");
+                } else {
+                    var promise = finesResource.save({
+                            action: "IssueFine"
+                        },
+                        newFineModel
+                    );
+
+                    promise.$promise.then(function (data) {
+                            if (data.HasErrors) {
+                                toaster.error('Error', data.FullTrace);
+                            } else {
+
+                                toaster.pop('success', "Fine Awarded", "Fine awarded successfully");
+
+
+                                $timeout(function () {
+                                    var defer = $q.defer();
+
+                                    $mdDialog.hide();
+
+                                    $rootScope.fines.push(data.Fine);
+                                });
+                            }
+                        },
+                        function () {
+                            toaster.error('Error', 'Failed to award fine');
+                        });
+                }
             } else {
-                var promise = finesResource.save({
-                        action: "IssueFine"
-                    },
-                    newFineModel
-                );
-
-                promise.$promise.then(function (data) {
-                        if(data.HasErrors) {
-                            toaster.error('Error', data.FullTrace);
-                        } else {
-
-                            toaster.pop('success', "Fine Awarded", "Fine awarded successfully");
-
-
-                            $timeout(function () {
-                                var defer = $q.defer();
-
-                                $mdDialog.hide();
-
-                                $rootScope.fines.push(data.Fine);
-                            });
-                        }
-                    },
-                    function () {
-                        toaster.error('Error', 'Failed to award fine');
-                    });
+                toaster.error('Error', 'A user is required to award a fine');
             }
         }
         

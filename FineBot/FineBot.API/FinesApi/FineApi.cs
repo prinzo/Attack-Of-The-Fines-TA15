@@ -401,14 +401,21 @@ namespace FineBot.API.FinesApi
 
         private ValidationResult ValidateFine(Fine fine)
         {
+            ValidationResult validationResult = new ValidationResult();
+
+            if (fine.Reason.IsNullOrEmpty())
+            {
+                validationResult.AddMessage(Severity.Error, "A fine requires a reason");
+            }
+
             int userFineAwardedCountForToday =  this.userRepository.FindAll(new UserSpecification().WithFinesAwardedTodayBy(fine.IssuerId)).Count();
 
             if (userFineAwardedCountForToday >= 2)
             {
-                return new ValidationResult().AddMessage(Severity.Error, "Only 2 fines per user per day can be awarded");
+                validationResult.AddMessage(Severity.Error, "Only 2 fines per user per day can be awarded");
             }
 
-            return new ValidationResult();
+            return validationResult;
         }
     }
 }
