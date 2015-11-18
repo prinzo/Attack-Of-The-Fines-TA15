@@ -115,18 +115,30 @@ namespace FineBot.Tests.API
             IExcelExportService<FineExportModel> excelExportService =
     MockRepository.GenerateMock<IExcelExportService<FineExportModel>>();
             Guid paymentId1 = Guid.NewGuid();
-            Guid paymentId2 = Guid.NewGuid();
 
             Guid userGuid1 = Guid.NewGuid();
             Guid userGuid2 = Guid.NewGuid();
 
             userRepository.Stub(x => x.Find(null)).IgnoreArguments().Return(new User() { Id = userGuid2 });
-            
-            paymentRepository.Stub(x => x.Find(null)).IgnoreArguments().Return(new Payment() {
-                Id = paymentId2,
+
+            int count = 0;
+
+            paymentRepository.Stub(x => x.Find(new PaymentSpecification().WithId(paymentId1))).IgnoreArguments().Return(new Payment() {
+                Id = paymentId1,
                 PaidDate = new DateTime(2015, 09, 24),
                 PayerId = userGuid2
             });
+
+            paymentRepository.Stub(x => x.FindAll(null)).IgnoreArguments().Return(
+                new List<Payment> {
+                    new Payment() 
+                    {
+                        Id = paymentId1,
+                        PaidDate = new DateTime(2015, 09, 25),
+                        PayerId = userGuid2
+                    }
+                }
+            );
 
             userRepository.Stub(x => x.GetAll()).Return(new List<User>
                                                         {
@@ -149,8 +161,7 @@ namespace FineBot.Tests.API
                                                                                 Id = new Guid(),
                                                                                 AwardedDate = new DateTime(2015,09,22),
                                                                                 ModifiedDate = new DateTime(2015,09,23),
-                                                                                IssuerId = userGuid2,
-                                                                                PaymentId = paymentId2
+                                                                                IssuerId = userGuid2
                                                                             },
                                                                             new Fine()
                                                                             {
@@ -167,7 +178,7 @@ namespace FineBot.Tests.API
 
             List<FeedFineModel> finesList = fineApi.GetLatestSetOfFines(0, 10);
 
-            Assert.That(finesList.Count == 5);
+            Assert.That(finesList.Count == 4);
         }
 
         [Test]
@@ -194,6 +205,11 @@ namespace FineBot.Tests.API
                 PayerId = userGuid2
             });
 
+            paymentRepository.Stub(x => x.FindAll(null)).IgnoreArguments().Return(new List<Payment> {new Payment() {
+                Id = paymentId2,
+                PaidDate = new DateTime(2015, 09, 24),
+                PayerId = userGuid2
+            }});
             
             userRepository.Stub(x => x.GetAll()).Return(new List<User>
                                                         {

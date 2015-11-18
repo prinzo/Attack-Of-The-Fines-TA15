@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FineBot.Entities;
+using FineBot.Enums;
 using NUnit.Framework;
 using SharpTestsEx;
 
@@ -18,7 +19,7 @@ namespace FineBot.Tests.DomainTests
             var issuerId = new Guid();
 
             // Act:
-            user.IssueFine(issuerId, "for testing");
+            user.IssueFine(issuerId, "for testing", PlatformType.Slack);
 
             // Assert:
             user.Fines.Should().Not.Be.Empty();
@@ -35,7 +36,7 @@ namespace FineBot.Tests.DomainTests
             var seconderId = new Guid();
 
             // Act:
-            user.IssueFine(issuerId, "for testing", seconderId);
+            user.IssueFine(issuerId, "for testing", PlatformType.Slack, seconderId);
 
             // Assert:
             user.Fines.Should().Not.Be.Empty();

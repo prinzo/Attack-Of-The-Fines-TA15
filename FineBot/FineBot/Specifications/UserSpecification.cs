@@ -29,6 +29,10 @@ namespace FineBot.Specifications
             return this.And(f => f.Fines.Any(x => x.SeconderId == null));
         }
 
+        public ISpecification<User> WithFinesAwardedTodayBy(Guid issuerId) {
+            return this.And(f => f.Fines.Any(x => x.IssuerId == issuerId && x.AwardedDate.Date == DateTime.Today.Date));
+        }
+
         public ISpecification<User> WithFineId(Guid id) {
             return this.And(x => x.Fines.Any(y => y.Id == id));
         }

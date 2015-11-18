@@ -43,41 +43,58 @@ namespace FineBot.API.FinesApi
             this.excelExportService = excelExportService;
         }
 
-        public FineModel IssueFine(Guid issuerId, Guid recipientId, string reason)
+        public IssueFineResult IssueFine(Guid issuerId, Guid recipientId, string reason)
         {
             var user = this.userRepository.Get(recipientId);
 
-            var fine = user.IssueFine(issuerId, reason);
-            fine.Platform = PlatformType.Slack;
+            var fine = user.IssueFine(issuerId, reason, PlatformType.Slack);
+
+            ValidationResult validationResult = this.ValidateFine(fine);
+            if (validationResult.HasErrors)
+            {
+                return new IssueFineResult(validationResult);
+            }
 
             this.userRepository.Save(user);
 
-            return this.fineMapper.MapToModel(fine);
+            IssueFineResult result = new IssueFineResult();
+            result.Fine = fine;
+            return result;
         }
 
         public void IssueAutoFine(Guid issuerId, Guid recipientId, string reason)
         {
             var user = userRepository.Get(recipientId);
-            var fine = user.IssueFine(issuerId, reason);
-            fine.Platform = PlatformType.Slack;
+            var fine = user.IssueFine(issuerId, reason, PlatformType.Slack);
 
             userRepository.Save(user);
 
         }
 
-        public FeedFineModel IssueFineFromFeed(Guid issuerId, Guid recipientId, string reason)
+        public IssueFineResult IssueFineFromFeed(Guid issuerId, Guid recipientId, string reason)
         {
             var user = this.userRepository.Get(recipientId);
 
-            var fine = user.IssueFine(issuerId, reason);
-            fine.Platform = PlatformType.WebFrontEnd;
+            var fine = user.IssueFine(issuerId, reason, PlatformType.WebFrontEnd);
+
+            ValidationResult validationResult = this.ValidateFine(fine);
+            if (validationResult.HasErrors) {
+                return new IssueFineResult(validationResult);
+            }
 
             this.userRepository.Save(user);
 
             User issuer = this.userRepository.Find(new Specification<User>(x => x.Id == issuerId));
             User recipient = this.userRepository.Find(new Specification<User>(x => x.Id == recipientId));
 
-            return this.fineMapper.MapToFeedModelWithPayment(fine, issuer, recipient, null);
+            IssueFineResult result = new IssueFineResult
+            {
+                Fine = fine,
+                Issuer = issuer,
+                Recipient = recipient
+            };
+
+            return result;
         }
 
         public List<FineModel> GetAllPendingFines()
@@ -159,13 +176,15 @@ namespace FineBot.API.FinesApi
 
             var paidFines = (from user in this.userRepository.GetAll()
                              from fine in user.Fines
-                             where fine.PaymentId.HasValue
+                let paymentId = fine.PaymentId
+                where paymentId != null
+                where paymentId.HasValue
                              select
                                  this.fineMapper.MapPaymentToFeedModel(
-                                     this.paymentRepository.Find(new PaymentSpecification().WithId(fine.PaymentId.Value)),
+                                     this.paymentRepository.Find(new PaymentSpecification().WithId(paymentId.Value)),
                                      this.userRepository.Find(new UserSpecification().WithId(fine.IssuerId)),
                                      user,
-                                     this.paymentRepository.FindAll(new PaymentSpecification().WithId(fine.PaymentId.Value)).Count()
+                                     this.paymentRepository.FindAll(new PaymentSpecification().WithId(paymentId.Value)).Count()
                                      )
 
                 )
@@ -381,6 +400,18 @@ namespace FineBot.API.FinesApi
                             };
 
             return excelExportService.WriteObjectData(userFines.OrderByDescending(x=>x.Fines).ToList(), "Entelect Fines");
+        }
+
+        private ValidationResult ValidateFine(Fine fine)
+        {
+            int userFineAwardedCountForToday =  this.userRepository.FindAll(new UserSpecification().WithFinesAwardedTodayBy(fine.IssuerId)).Count();
+
+            if (userFineAwardedCountForToday >= 2)
+            {
+                return new ValidationResult().AddMessage(Severity.Information, "Only 2 fines per user per day can be awarded");
+            }
+
+            return new ValidationResult();
         }
     }
 }

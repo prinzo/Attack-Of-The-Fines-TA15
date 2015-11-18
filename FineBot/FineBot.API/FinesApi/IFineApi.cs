@@ -8,9 +8,9 @@ namespace FineBot.API.FinesApi
 {
     public interface IFineApi
     {
-        FineModel IssueFine(Guid issuerId, Guid recipientId, string reason);
+        IssueFineResult IssueFine(Guid issuerId, Guid recipientId, string reason);
 
-        FeedFineModel IssueFineFromFeed(Guid issuerId, Guid recipientId, string reason);
+        IssueFineResult IssueFineFromFeed(Guid issuerId, Guid recipientId, string reason);
 
         List<FineModel> GetAllPendingFines();
 

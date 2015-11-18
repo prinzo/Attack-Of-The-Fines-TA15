@@ -4,6 +4,7 @@ using System.Linq;
 using FineBot.Abstracts;
 using FineBot.Common.Enums;
 using FineBot.Common.Infrastructure;
+using FineBot.Enums;
 using FineBot.Infrastructure;
 using MongoDB.Driver;
 
@@ -51,7 +52,7 @@ namespace FineBot.Entities
             return this.Fines.OrderByDescending(x => x.AwardedDate).FirstOrDefault(x => x.Pending);
         }
 
-        public Fine IssueFine(Guid issuerId, string reason, Guid? seconderId = null)
+        public Fine IssueFine(Guid issuerId, string reason, PlatformType platformType, Guid? seconderId = null)
         {
            var fine = new Fine
                        {
@@ -59,7 +60,8 @@ namespace FineBot.Entities
                            Reason = reason,
                            SeconderId = seconderId,
                            AwardedDate = DateTime.UtcNow,
-                           ModifiedDate = DateTime.UtcNow
+                           ModifiedDate = DateTime.UtcNow,
+                           Platform = platformType
                        };
 
             this.Fines.Add(fine);

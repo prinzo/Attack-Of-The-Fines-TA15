@@ -95,6 +95,7 @@
     <Compile Include="FinesApi\FineExportModel.cs" />
     <Compile Include="FinesApi\FineSecondedResult.cs" />
     <Compile Include="FinesApi\FineWithUserModel.cs" />
+    <Compile Include="FinesApi\IssueFineResult.cs" />
     <Compile Include="InfrastructureServices\ExcelExportService.cs" />
     <Compile Include="InfrastructureServices\IExcelExportService.cs" />
     <Compile Include="FinesApi\IFineApi.cs" />
