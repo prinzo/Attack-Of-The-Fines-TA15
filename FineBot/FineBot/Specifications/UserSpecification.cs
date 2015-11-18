@@ -30,7 +30,10 @@ namespace FineBot.Specifications
         }
 
         public ISpecification<User> WithFinesAwardedTodayBy(Guid issuerId) {
-            return this.And(f => f.Fines.Any(x => x.IssuerId == issuerId && x.AwardedDate.Date == DateTime.Today.Date));
+            DateTime todayStart = DateTime.Today.Date;
+            DateTime todayEnd = DateTime.Today.Date.AddDays(1).AddSeconds(-1);
+
+            return this.And(f => f.Fines.Any(x => x.IssuerId == issuerId && x.AwardedDate >= todayStart && x.AwardedDate < todayEnd));
         }
 
         public ISpecification<User> WithFineId(Guid id) {

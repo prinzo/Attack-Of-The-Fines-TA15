@@ -112,7 +112,7 @@ namespace FineBot.API.FinesApi
 
             var userWithOldestPendingFine = pendingFines.OrderBy(x => x.GetOldestPendingFine().AwardedDate).FirstOrDefault();
 
-            if (userWithOldestPendingFine == null) return new FineSecondedResult(new ValidationResult().AddMessage(Severity.Information, "Sorry, there are no pending fines to second"));
+            if (userWithOldestPendingFine == null) return new FineSecondedResult(new ValidationResult().AddMessage(Severity.Error, "Sorry, there are no pending fines to second"));
 
             Fine fineToBeSeconded = userWithOldestPendingFine.GetOldestPendingFine();
 
@@ -408,7 +408,7 @@ namespace FineBot.API.FinesApi
 
             if (userFineAwardedCountForToday >= 2)
             {
-                return new ValidationResult().AddMessage(Severity.Information, "Only 2 fines per user per day can be awarded");
+                return new ValidationResult().AddMessage(Severity.Error, "Only 2 fines per user per day can be awarded");
             }
 
             return new ValidationResult();

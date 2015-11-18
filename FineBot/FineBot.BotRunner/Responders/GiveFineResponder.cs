@@ -5,6 +5,7 @@ using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
 using FineBot.BotRunner.Extensions;
 using FineBot.BotRunner.Responders.Interfaces;
+using FineBot.Common.Infrastructure;
 using MargieBot.Models;
 
 namespace FineBot.BotRunner.Responders
@@ -44,18 +45,8 @@ namespace FineBot.BotRunner.Responders
 
                 string reason = this.GetReason(context);
 
-                this.FineRecipients(slackIds, issuer, reason);
+                BotMessage botMessage = this.FineRecipients(slackIds, issuer, reason);
 
-                var botMessage = new BotMessage();
-
-                string multiple = String.Empty;
-                if(slackIds.Count > 1)
-                {
-                    multiple = "s";
-                }
-
-                botMessage.Text = String.Format("Fine{1} awarded to {0}! Somebody needs to second!", String.Join(", ", slackIds), multiple);
-            
                 return botMessage;
             } catch (Exception ex)
             {
@@ -63,14 +54,29 @@ namespace FineBot.BotRunner.Responders
             }
         }
 
-        private void FineRecipients(List<string> userIds, UserModel issuer, string reason)
+        private BotMessage FineRecipients(List<string> userIds, UserModel issuer, string reason)
         {
             foreach(var slackId in userIds)
             {
                 var userModel = this.userApi.GetUserBySlackId(slackId);
 
-                this.fineApi.IssueFine(issuer.Id, userModel.Id, reason);
+                IssueFineResult result = this.fineApi.IssueFine(issuer.Id, userModel.Id, reason);
+
+                if (result.HasErrors) {
+                    return this.GetErrorResponse(result);
+                }
             }
+
+            var botMessage = new BotMessage();
+
+            string multiple = String.Empty;
+            if (userIds.Count > 1) {
+                multiple = "s";
+            }
+
+            botMessage.Text = String.Format("Fine{1} awarded to {0}! Somebody needs to second!", String.Join(", ", userIds), multiple);
+
+            return botMessage;
         }
 
         private UserModel GetIssuer(ResponseContext context)
