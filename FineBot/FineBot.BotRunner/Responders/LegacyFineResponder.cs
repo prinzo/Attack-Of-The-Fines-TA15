@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Castle.Core.Smtp;
 using FineBot.API.FinesApi;
 using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
@@ -33,14 +34,18 @@ namespace FineBot.BotRunner.Responders
         {
             try
             {
-                var slackId = context.Message.GetSlackIdsFromMessageExcluding(context.BotUserID).FirstOrDefault();
+                var recipientSlackId = context.Message.GetSlackIdsFromMessageExcluding(context.BotUserID).FirstOrDefault();
 
-                if (slackId == null) return new BotMessage { Text = "Enter a person to fine" };
+                string recipientEmail = "";
+                if (recipientSlackId == null) recipientEmail = GetRecipientEmail(context.Message.Text);
+
+                if (recipientEmail.Equals("error")) return new BotMessage { Text = "enter a user" };
 
                 var issuer = this.GetIssuer(context);
 
-                var recipient = userApi.GetUserBySlackId(slackId);
-
+                UserModel recipient;
+                recipient = recipientSlackId != null ? userApi.GetUserBySlackId(recipientSlackId) : userApi.GetUserByEmail(recipientEmail);
+                
                 var seconderSlackId = GetSlackIdOfCousin(context);
                 if (seconderSlackId.Equals("error")) return new BotMessage { Text = "cousin not in channel or wrong name" };
 
@@ -88,6 +93,19 @@ namespace FineBot.BotRunner.Responders
             foreach (var usernameKeyValue in context.UserNameCache.Where(usernameKeyValue => usernameKeyValue.Value.Equals("finebotssecondcousin")))
             {
                 return usernameKeyValue.Key;
+            }
+            return "error";
+        }
+
+        private string GetRecipientEmail(string message)
+        {
+            var words = message.Split(' ');
+            foreach (var word in words)
+            {
+                if (word.Contains("@"))
+                {
+                    return word;
+                }
             }
             return "error";
         }
