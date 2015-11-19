@@ -126,6 +126,13 @@
     <Compile Include="SupportApi\ISupportApi.cs" />
     <Compile Include="SupportApi\SupportApi.cs" />
     <Compile Include="SupportApi\SupportTicketModel.cs" />
+    <Compile Include="TeamCityApi\ITeamCityApi.cs" />
+    <Compile Include="TeamCityApi\TeamCityApi.cs" />
+    <Compile Include="TeamCityApi\TeamCityModels\BuildListModel.cs" />
+    <Compile Include="TeamCityApi\TeamCityModels\change.cs" />
+    <Compile Include="TeamCityApi\TeamCityModels\DeepBuildModel.cs" />
+    <Compile Include="TeamCityApi\TeamCityModels\lastChanges.cs" />
+    <Compile Include="TeamCityApi\TeamCityModels\ShallowBuildModel.cs" />
     <Compile Include="UsersApi\IUserApi.cs" />
     <Compile Include="UsersApi\UserApi.cs" />
     <Compile Include="UsersApi\UserModel.cs" />
