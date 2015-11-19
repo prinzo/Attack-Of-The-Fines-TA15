@@ -52,13 +52,7 @@ namespace FineBot.BotRunner.Responders
 
                 for(var i = 0; i < numberOfFines; i++) 
                 {
-                    IssueFineResult result = this.fineApi.IssueFine(issuer.Id, recipient.Id, reason);
-
-                    if (result.HasErrors)
-                    {
-                        return this.GetErrorResponse(result);
-                    }
-
+                    fineApi.IssueAutoFine(issuer.Id, recipient.Id, reason);
                     fineApi.SecondNewestPendingFine(seconder.Id);
                 }
 
