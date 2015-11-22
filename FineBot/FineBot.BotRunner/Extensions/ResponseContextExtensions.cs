@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 using MargieBot.Models;
 
 namespace FineBot.BotRunner.Extensions
@@ -23,6 +24,15 @@ namespace FineBot.BotRunner.Extensions
         public static string GetCommandMentioningBot(this ResponseContext context, string command)
         {
             return string.Format("{0}: {1}", context.FormattedBotUserID(), command);
+        }
+
+        public static string GetSecondCousinSlackId(this ResponseContext context)
+        {
+            foreach (var slackIdUsernamePair in context.UserNameCache.Where(x => x.Value.Equals("finebotssecondcousin")))
+            {
+                return slackIdUsernamePair.Key.FormatAsSlackUserId();
+            }
+            return "";
         }
     }
 }

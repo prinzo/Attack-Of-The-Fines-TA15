@@ -60,13 +60,15 @@ namespace FineBot.API.FinesApi
             return new IssueFineResult();
         }
 
-        public void IssueAutoFine(Guid issuerId, Guid recipientId, string reason)
+        public void IssueAutoFine(Guid issuerId, Guid recipientId, Guid seconderId, string reason)
         {
             var user = userRepository.Get(recipientId);
             var fine = user.IssueFine(issuerId, reason, PlatformType.Slack);
 
             userRepository.Save(user);
 
+            var seconder = userRepository.Get(seconderId);
+            SecondNewestPendingFine(seconder.Id);
         }
 
         public IssueFineResult IssueFineFromFeed(Guid issuerId, Guid recipientId, string reason)

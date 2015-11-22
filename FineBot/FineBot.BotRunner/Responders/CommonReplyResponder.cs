@@ -9,6 +9,7 @@ using FineBot.API.UsersApi;
 using FineBot.BotRunner.Extensions;
 using FineBot.BotRunner.Responders.Interfaces;
 using MargieBot.Models;
+using ServiceStack;
 
 namespace FineBot.BotRunner.Responders
 {
@@ -58,8 +59,11 @@ namespace FineBot.BotRunner.Responders
                 }
                 var issuer = userApi.GetUserBySlackId(context.FormattedBotUserID());
                 var recipient = userApi.GetUserBySlackId(context.Message.User.FormattedUserID);
-                
-                fineApi.IssueAutoFine(issuer.Id, recipient.Id, reason);
+                var seconderSlackId = context.GetSecondCousinSlackId();
+                if (seconderSlackId.Equals("")) seconderSlackId = recipient.SlackId;
+                var seconder = userApi.GetUserBySlackId(seconderSlackId);
+
+                fineApi.IssueAutoFine(issuer.Id, recipient.Id, seconder.Id, reason);
 
                 return new BotMessage { Text = builder.ToString()};
             }

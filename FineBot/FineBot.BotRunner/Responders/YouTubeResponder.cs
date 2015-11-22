@@ -51,11 +51,13 @@ namespace FineBot.BotRunner.Responders
 
                 var issuer = userApi.GetUserBySlackId(context.FormattedBotUserID());
                 var recipient = userApi.GetUserBySlackId(context.Message.User.FormattedUserID);
-                var seconder = recipient;
+                var seconderSlackId = context.GetSecondCousinSlackId();
+                if (seconderSlackId.Equals("")) seconderSlackId = recipient.SlackId;
+                var seconder = userApi.GetUserBySlackId(seconderSlackId);
 
                 for (var i = 0; i < youtubeLinkList.Count; i++)
                 {
-                    fineApi.IssueAutoFine(issuer.Id, recipient.Id, reasonForOneVideo + youtubeLinkList[i]);
+                    fineApi.IssueAutoFine(issuer.Id, recipient.Id, seconder.Id, reasonForOneVideo + youtubeLinkList[i]);
                     builder.Append(youtubeLinkList[i]);
                     AddConjunctionOrSeparator(builder, youtubeLinkList, i);
                 }
