@@ -90,7 +90,6 @@
     <Compile Include="Responders\Interfaces\IGiveFineResponder.cs" />
     <Compile Include="Responders\Interfaces\ISecondCousinResponder.cs" />
     <Compile Include="Responders\LeaderBoardResponder.cs" />
-    <Compile Include="Responders\LegacyFineResponder.cs" />
     <Compile Include="Responders\PayFineResponder.cs" />
     <Compile Include="Responders\ResponderBase.cs" />
     <Compile Include="Responders\SecondAutofineResponder.cs" />
