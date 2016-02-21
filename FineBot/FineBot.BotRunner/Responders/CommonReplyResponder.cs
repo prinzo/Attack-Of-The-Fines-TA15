@@ -42,21 +42,9 @@ namespace FineBot.BotRunner.Responders
             {
                 const string reason = "for a common reply";
 
-                var builder = new StringBuilder();
-                builder.Append(context.FormattedBotUserID());
-                builder.Append(": ");
-                builder.Append("auto-fine".ToHyperlink(ConfigurationManager.AppSettings["ShameBellLocation"]));
-                builder.Append(" ");
-                builder.Append(context.Message.User.FormattedUserID);
-                builder.Append(" ");
-                builder.Append(reason);
                 if(context.Message.Text.Contains("it works on my machine"))
                 {
-                    reactionApi.AddReaction(
-                        ConfigurationManager.AppSettings["BotKey"],
-                        "itworksonmymachine", 
-                        context.Message.GetChannelId(),
-                        context.Message.GetTimeStamp());
+                    reactionApi.AddReaction(ConfigurationManager.AppSettings["BotKey"], "itworksonmymachine", context.Message.GetChannelId(), context.Message.GetTimeStamp());
                 }
                 var issuer = userApi.GetUserBySlackId(context.FormattedBotUserID());
                 var recipient = userApi.GetUserBySlackId(context.Message.User.FormattedUserID);
@@ -66,7 +54,10 @@ namespace FineBot.BotRunner.Responders
 
                 fineApi.IssueAutoFine(issuer.Id, recipient.Id, seconder.Id, reason);
 
-                return new BotMessage { Text = builder.ToString()};
+                reactionApi.AddReaction(ConfigurationManager.AppSettings["BotKey"], "fine", context.Message.GetChannelId(), context.Message.GetTimeStamp());
+                reactionApi.AddReaction(ConfigurationManager.AppSettings["SeconderBotKey"], "fine", context.Message.GetChannelId(), context.Message.GetTimeStamp());
+
+                return new BotMessage { Text = ""};
             }
             catch(Exception ex)
             {
