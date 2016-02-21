@@ -53,6 +53,7 @@ namespace FineBot.BotRunner.Responders
                 if(context.Message.Text.Contains("it works on my machine"))
                 {
                     reactionApi.AddReaction(
+                        ConfigurationManager.AppSettings["BotKey"],
                         "itworksonmymachine", 
                         context.Message.GetChannelId(),
                         context.Message.GetTimeStamp());

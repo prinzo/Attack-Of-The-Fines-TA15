@@ -6,13 +6,13 @@ namespace FineBot.API.ReactionApi
 {
     public class ReactionApi : IReactionApi
     {
-        public bool AddReaction(string reaction, string channel, string timestamp)
+        public bool AddReaction(string slackApiToken, string reaction, string channel, string timestamp)
         {
             var responseString = "https://slack.com/api/reactions.add"
                 .PostUrlEncodedAsync(
                     new
                     {
-                        token = ConfigurationManager.AppSettings["SlackApiKey"],
+                        token = slackApiToken,
                         name = reaction,
                         channel = channel,
                         timestamp = timestamp
