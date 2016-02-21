@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using FineBot.API.ReactionApi;
 using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
 using FineBot.BotRunner.Extensions;
@@ -15,8 +16,9 @@ namespace FineBot.BotRunner.Responders
 
         public SupportResponder(
             ISupportApi supportApi,
-            IUserApi userApi
-            ) : base(supportApi)
+            IUserApi userApi,
+            IReactionApi reactionApi
+            ) : base(supportApi, reactionApi)
         {
             this.userApi = userApi;
         }
@@ -58,7 +60,7 @@ namespace FineBot.BotRunner.Responders
             }
             catch(Exception ex)
             {
-                return this.GetExceptionResponse(ex);
+                return this.GetExceptionResponse(ex, context.Message);
             }
         }
 

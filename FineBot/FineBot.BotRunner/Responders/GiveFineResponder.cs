@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
 using FineBot.API.FinesApi;
+using FineBot.API.ReactionApi;
 using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
 using FineBot.BotRunner.Extensions;
 using FineBot.BotRunner.Responders.Interfaces;
-using FineBot.Common.Infrastructure;
 using MargieBot.Models;
 
 namespace FineBot.BotRunner.Responders
@@ -18,9 +20,9 @@ namespace FineBot.BotRunner.Responders
         public GiveFineResponder(
             IUserApi userApi,
             IFineApi fineApi,
-            ISupportApi supportApi
-            )
-            : base(supportApi)
+            ISupportApi supportApi, 
+            IReactionApi reactionApi)
+            : base(supportApi, reactionApi)
         {
             this.userApi = userApi;
             this.fineApi = fineApi;
@@ -37,24 +39,34 @@ namespace FineBot.BotRunner.Responders
         {
             try 
             {
-                List<string> slackIds = context.Message.GetSlackIdsFromMessageExcluding(context.BotUserID);
+                List<string> slackIds = context.Message.GetSlackIdsFromMessage();
 
-                if (slackIds.Count == 0) return new BotMessage { Text = "I can't do that Dave" };
+                if (slackIds.Any(x => x.Equals(context.FormattedBotUserID())))
+                {
+                    reactionApi.AddReaction(ConfigurationManager.AppSettings["BotKey"], "middle_finger", context.Message.GetChannelId(), context.Message.GetTimeStamp());
+                    return new BotMessage {Text = ""};
+                }
+
+                if (slackIds.Count == 0)
+                {
+                    reactionApi.AddReaction(ConfigurationManager.AppSettings["BotKey"], "raised_hand", context.Message.GetChannelId(), context.Message.GetTimeStamp());
+                    return new BotMessage { Text = "" };
+                }
 
                 var issuer = this.GetIssuer(context);
 
                 string reason = this.GetReason(context);
 
-                BotMessage botMessage = this.FineRecipients(slackIds, issuer, reason);
+                BotMessage botMessage = this.FineRecipients(slackIds, issuer, reason, context.Message);
 
                 return botMessage;
             } catch (Exception ex)
             {
-                return this.GetExceptionResponse(ex);
+                return this.GetExceptionResponse(ex, context.Message);
             }
         }
 
-        private BotMessage FineRecipients(List<string> userIds, UserModel issuer, string reason)
+        private BotMessage FineRecipients(List<string> userIds, UserModel issuer, string reason, SlackMessage message)
         {
             foreach(var slackId in userIds)
             {
@@ -63,20 +75,13 @@ namespace FineBot.BotRunner.Responders
                 IssueFineResult result = this.fineApi.IssueFine(issuer.Id, userModel.Id, reason);
 
                 if (result.HasErrors) {
-                    return this.GetErrorResponse(result);
+                    return this.GetErrorResponse(result, message);
                 }
             }
 
-            var botMessage = new BotMessage();
+            reactionApi.AddReaction(ConfigurationManager.AppSettings["BotKey"], "ok_hand", message.GetChannelId(), message.GetTimeStamp());
 
-            string multiple = String.Empty;
-            if (userIds.Count > 1) {
-                multiple = "s";
-            }
-
-            botMessage.Text = String.Format("Fine{1} awarded to {0}! Somebody needs to second!", String.Join(", ", userIds), multiple);
-
-            return botMessage;
+            return new BotMessage{ Text = ""};
         }
 
         private UserModel GetIssuer(ResponseContext context)

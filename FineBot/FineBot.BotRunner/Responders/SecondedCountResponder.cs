@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using FineBot.API.ReactionApi;
 using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
 using FineBot.BotRunner.Extensions;
@@ -15,7 +14,10 @@ namespace FineBot.BotRunner.Responders
     {
         private readonly IUserApi userApi;
 
-        public SecondedCountResponder(IUserApi userApi, ISupportApi supportApi) : base(supportApi)
+        public SecondedCountResponder(IUserApi userApi, 
+            ISupportApi supportApi,
+            IReactionApi reactionApi)
+            : base(supportApi, reactionApi)
         {
             this.userApi = userApi;
         }
@@ -55,7 +57,7 @@ namespace FineBot.BotRunner.Responders
             }
             catch (Exception ex)
             {
-                return this.GetExceptionResponse(ex);
+                return this.GetExceptionResponse(ex, context.Message);
             }
         }
     }

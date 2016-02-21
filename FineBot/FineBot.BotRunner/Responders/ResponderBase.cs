@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Configuration;
+using FineBot.API.ReactionApi;
 using FineBot.API.SupportApi;
+using FineBot.BotRunner.Extensions;
 using FineBot.Common.Infrastructure;
 using MargieBot.Models;
 
@@ -8,20 +11,22 @@ namespace FineBot.BotRunner.Responders
     public class ResponderBase
     {
         protected readonly ISupportApi supportApi;
+        protected readonly IReactionApi reactionApi;
 
         public ResponderBase(
-            ISupportApi supportApi
-            )
+            ISupportApi supportApi, IReactionApi reactionApi)
         {
             this.supportApi = supportApi;
+            this.reactionApi = reactionApi;
         }
 
-        protected virtual BotMessage GetErrorResponse(ValidationResult result)
+        protected virtual BotMessage GetErrorResponse(ValidationResult result, SlackMessage message)
         {
-            return new BotMessage { Text = String.Format("There was a problem with your request: {0}", result.FullTrace) };
+            reactionApi.AddReaction(ConfigurationManager.AppSettings["BotKey"], "raised_hand", message.GetChannelId(), message.GetTimeStamp());
+            return new BotMessage { Text = "" };
         }
 
-        protected virtual BotMessage GetExceptionResponse(Exception exception)
+        protected virtual BotMessage GetExceptionResponse(Exception exception, SlackMessage message)
         {
             this.supportApi.CreateSupportTicketOnTrello(new SupportTicketModel()
                                                 {
@@ -31,7 +36,8 @@ namespace FineBot.BotRunner.Responders
                                                     Type = 1
                                                 });
 
-            return new BotMessage { Text = String.Format("An error ocurred while processing your request, a ticket has been logged for support.") };
+            reactionApi.AddReaction(ConfigurationManager.AppSettings["BotKey"], "exclamation", message.GetChannelId(), message.GetTimeStamp());
+            return new BotMessage { Text = "" };
         }
     }
 }

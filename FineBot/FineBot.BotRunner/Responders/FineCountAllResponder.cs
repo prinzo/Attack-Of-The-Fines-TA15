@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using FineBot.API.FinesApi;
+using FineBot.API.ReactionApi;
 using FineBot.API.SupportApi;
 using FineBot.BotRunner.Responders.Interfaces;
 using MargieBot.Models;
@@ -14,7 +12,7 @@ namespace FineBot.BotRunner.Responders
     {
         private readonly IFineApi fineApi;
 
-        public FineCountAllResponder(IFineApi fineApi, ISupportApi supportApi) : base(supportApi)
+        public FineCountAllResponder(IFineApi fineApi, ISupportApi supportApi, IReactionApi reactionApi) : base(supportApi, reactionApi)
         {
             this.fineApi = fineApi;
         }
@@ -38,7 +36,7 @@ namespace FineBot.BotRunner.Responders
             }
             catch(Exception ex)
             {
-                return this.GetExceptionResponse(ex);
+                return this.GetExceptionResponse(ex, context.Message);
             }
         }
     }

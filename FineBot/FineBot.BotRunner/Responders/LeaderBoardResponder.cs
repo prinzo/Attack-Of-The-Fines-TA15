@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using FineBot.API.ReactionApi;
 using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
 using FineBot.BotRunner.Extensions;
@@ -15,9 +16,10 @@ namespace FineBot.BotRunner.Responders
 
         public LeaderBoardResponder(
             IUserApi userApi,
-            ISupportApi supportApi
+            ISupportApi supportApi,
+            IReactionApi reactionApi
             )
-            : base(supportApi)
+            : base(supportApi, reactionApi)
         {
             this.userApi = userApi;
         }
@@ -74,7 +76,7 @@ namespace FineBot.BotRunner.Responders
             }
             catch (Exception ex)
             {
-                return this.GetExceptionResponse(ex);
+                return this.GetExceptionResponse(ex, context.Message);
             }
         }
     }

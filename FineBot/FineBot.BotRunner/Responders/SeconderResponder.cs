@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Configuration;
 using FineBot.API.FinesApi;
+using FineBot.API.ReactionApi;
 using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
 using FineBot.BotRunner.Extensions;
@@ -16,8 +18,8 @@ namespace FineBot.BotRunner.Responders
         public SeconderResponder(
             IFineApi fineApi,
             IUserApi userApi,
-            ISupportApi supportApi
-            ) : base (supportApi)
+            ISupportApi supportApi, 
+            IReactionApi reactionApi) : base (supportApi, reactionApi)
         {
             this.fineApi = fineApi;
             this.userApi = userApi;
@@ -26,9 +28,7 @@ namespace FineBot.BotRunner.Responders
         public bool CanRespond(ResponseContext context)
         {
             return !context.BotHasResponded
-                   && context.Message.Text.ToLower().StartsWith("seconded")
-                   && context.UserNameCache.ContainsKey(context.Message.User.ID)
-                   && !context.IsMessageFromUser("finebotssecondcousin");
+                   && context.Message.Text.ToLower().StartsWith("seconded");
         }
 
         public BotMessage GetResponse(ResponseContext context)
@@ -43,24 +43,21 @@ namespace FineBot.BotRunner.Responders
 
                 if (result.HasErrors || result.FineWithUserModel == null)
                 {
-                    return this.GetErrorResponse(result);
+                    return this.GetErrorResponse(result, context.Message);
                 }
 
                 var secondedFine = result.FineWithUserModel;
 
                 var finedUser = this.GetUserName(secondedFine);
 
-                return new BotMessage { Text = String.Format("{0} seconded the fine given to {1} {2}!", context.Message.User.FormattedUserID, finedUser, this.FormatSecondedReason(secondedFine)) };
+                reactionApi.AddReaction(ConfigurationManager.AppSettings["BotKey"], "ok_hand", context.Message.GetChannelId(), context.Message.GetTimeStamp());
+
+                return new BotMessage{ Text = "" };
             }
             catch (Exception ex)
             {
-                return this.GetExceptionResponse(ex);
+                return this.GetExceptionResponse(ex, context.Message);
             }
-        }
-
-        private string FormatSecondedReason(FineWithUserModel secondedFine)
-        {
-            return secondedFine.Reason.StartsWith("for") ? secondedFine.Reason : "for " + secondedFine.Reason;
         }
 
         private string GetUserName(FineWithUserModel secondedFine)

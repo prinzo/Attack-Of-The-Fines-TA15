@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Text;
 using FineBot.API.FinesApi;
 using FineBot.API.ReactionApi;
 using FineBot.API.SupportApi;
@@ -16,18 +14,16 @@ namespace FineBot.BotRunner.Responders
     {
         private readonly IUserApi userApi;
         private readonly IFineApi fineApi;
-        private readonly IReactionApi reactionApi;
 
         public YouTubeResponder(
             IUserApi userApi, 
             IFineApi fineApi,
             ISupportApi supportApi, 
             IReactionApi reactionApi)
-            : base(supportApi)
+            : base(supportApi, reactionApi)
         {
             this.userApi = userApi;
             this.fineApi = fineApi;
-            this.reactionApi = reactionApi;
         }
 
         public bool CanRespond(ResponseContext context)
@@ -60,7 +56,7 @@ namespace FineBot.BotRunner.Responders
             }
             catch (Exception ex)
             {
-                return this.GetExceptionResponse(ex);
+                return this.GetExceptionResponse(ex, context.Message);
             }
         }
     }

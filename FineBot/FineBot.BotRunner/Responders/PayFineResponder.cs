@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using Castle.Core.Internal;
+using Castle.Windsor.Installer;
 using FineBot.API.FinesApi;
+using FineBot.API.ReactionApi;
 using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
 using FineBot.BotRunner.Extensions;
@@ -12,7 +15,6 @@ using FineBot.BotRunner.Responders.Interfaces;
 using FineBot.Common.Enums;
 using FineBot.Common.Infrastructure;
 using MargieBot.Models;
-using MargieBot.Responders;
 using ServiceStack.Text;
 
 namespace FineBot.BotRunner.Responders
@@ -25,8 +27,9 @@ namespace FineBot.BotRunner.Responders
         public PayFineResponder(
             IUserApi userApi,
             IFineApi fineApi,
-            ISupportApi supportApi
-            ) : base(supportApi)
+            ISupportApi supportApi,
+            IReactionApi reactionApi
+            ) : base(supportApi, reactionApi)
         {
             this.userApi = userApi;
             this.fineApi = fineApi;
@@ -57,23 +60,25 @@ namespace FineBot.BotRunner.Responders
 
                 if(paymentImage == null)
                 {
-                    return this.GetErrorResponse(new ValidationResult().AddMessage(Severity.Error, "You must upload an image to pay fines!"));
+                    return this.GetErrorResponse(new ValidationResult().AddMessage(Severity.Error, "You must upload an image to pay fines!"), context.Message);
                 }
 
                 ValidationResult result = this.fineApi.PayFines(user.Id, payer.Id, number, paymentImage);
 
                 if(result.HasErrors)
                 {
-                    return this.GetErrorResponse(result);
+                    return this.GetErrorResponse(result, context.Message);
                 }
 
                 string s = Convert.ToInt32(number) > 1 ? "s" : string.Empty;
 
-                return new BotMessage { Text = String.Format("{0} fine{1} paid for {2}!", number, s, user.SlackId) };
+                reactionApi.AddReaction(ConfigurationManager.AppSettings["BotKey"], "ok_hand", context.Message.GetChannelId(), context.Message.GetTimeStamp());
+
+                return new BotMessage { Text = "" };
             }
             catch(Exception ex)
             {
-                return this.GetExceptionResponse(ex);
+                return this.GetExceptionResponse(ex, context.Message);
             }
         }
 
