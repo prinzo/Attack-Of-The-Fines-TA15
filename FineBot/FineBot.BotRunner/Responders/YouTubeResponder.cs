@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Text;
 using FineBot.API.FinesApi;
+using FineBot.API.ReactionApi;
 using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
 using FineBot.BotRunner.Extensions;
@@ -15,16 +16,18 @@ namespace FineBot.BotRunner.Responders
     {
         private readonly IUserApi userApi;
         private readonly IFineApi fineApi;
+        private readonly IReactionApi reactionApi;
 
         public YouTubeResponder(
             IUserApi userApi, 
             IFineApi fineApi,
-            ISupportApi supportApi
-            )
+            ISupportApi supportApi, 
+            IReactionApi reactionApi)
             : base(supportApi)
         {
             this.userApi = userApi;
             this.fineApi = fineApi;
+            this.reactionApi = reactionApi;
         }
 
         public bool CanRespond(ResponseContext context)
@@ -37,17 +40,7 @@ namespace FineBot.BotRunner.Responders
             try
             {
                 var youtubeLinkList = context.Message.GetYouTubeLinkList();
-                const string reasonForOneVideo = "for sharing the following YouTube video --> ";
-                const string reasonForManyVideos = "for sharing the following YouTube videos --> ";
-
-                var builder = new StringBuilder();
-                builder.Append(context.FormattedBotUserID());
-                builder.Append(": ");
-                builder.Append("auto-fine".ToHyperlink(ConfigurationManager.AppSettings["ShameBellLocation"]));
-                builder.Append(" ");
-                builder.Append(context.Message.User.FormattedUserID);
-                builder.Append(" ");
-                builder.Append(youtubeLinkList.Count == 1 ? reasonForOneVideo : reasonForManyVideos);
+                const string reason = "for sharing the following YouTube video --> ";
 
                 var issuer = userApi.GetUserBySlackId(context.FormattedBotUserID());
                 var recipient = userApi.GetUserBySlackId(context.Message.User.FormattedUserID);
@@ -57,35 +50,17 @@ namespace FineBot.BotRunner.Responders
 
                 for (var i = 0; i < youtubeLinkList.Count; i++)
                 {
-                    fineApi.IssueAutoFine(issuer.Id, recipient.Id, seconder.Id, reasonForOneVideo + youtubeLinkList[i]);
-                    builder.Append(youtubeLinkList[i]);
-                    AddConjunctionOrSeparator(builder, youtubeLinkList, i);
+                    fineApi.IssueAutoFine(issuer.Id, recipient.Id, seconder.Id, reason + youtubeLinkList[i]);
                 }
 
-                return new BotMessage { Text = builder.ToString() };
+                reactionApi.AddReaction(ConfigurationManager.AppSettings["BotKey"], "fine", context.Message.GetChannelId(), context.Message.GetTimeStamp());
+                reactionApi.AddReaction(ConfigurationManager.AppSettings["SeconderBotKey"], "fine", context.Message.GetChannelId(), context.Message.GetTimeStamp());
+
+                return new BotMessage { Text = "" };
             }
             catch (Exception ex)
             {
                 return this.GetExceptionResponse(ex);
-            }
-        }
-
-        private static void AddConjunctionOrSeparator(StringBuilder builder, IReadOnlyCollection<string> youtubeLinkList, int currentIndex)
-        {
-            if (youtubeLinkList.Count == 2 && currentIndex == 0)
-            {
-                builder.Append(" and ");
-            }
-            else if (youtubeLinkList.Count > 2)
-            {
-                if (currentIndex < youtubeLinkList.Count - 2)
-                {
-                    builder.Append(", ");
-                }
-                else if (currentIndex == youtubeLinkList.Count - 2)
-                {
-                    builder.Append(", and ");
-                }
             }
         }
     }
