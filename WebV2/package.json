@@ -1,0 +1,38 @@
+{
+  "name": "AOTF-V2",
+  "version": "2.0.0",
+  "description": "Entelect fines web app",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/prinzo/Attack-Of-The-Fines-TA15"
+  },
+  "keywords": [
+    "fines"
+  ],
+  "author": "Prinay Panday",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/prinzo/Attack-Of-The-Fines-TA15/issues"
+  },
+  "homepage": "https://github.com/prinzo/Attack-Of-The-Fines-TA15",
+  "dependencies": {
+    "gulp": "^3.9.1"
+  },
+  "devDependencies": {
+    "del": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-inject": "^3.0.0",
+    "gulp-less": "^3.0.5",
+    "gulp-rename": "^1.2.2",
+    "gulp-util": "^3.0.7",
+    "path": "^0.12.7"
+  }
+}

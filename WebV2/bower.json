@@ -1,0 +1,27 @@
+{
+  "name": "AOTF-V2",
+  "description": "Entelect fines web app",
+  "main": "index.js",
+  "authors": [
+    "Prinay Panday"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "fines"
+  ],
+  "homepage": "https://github.com/prinzo/Attack-Of-The-Fines-TA15",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.0",
+    "angular-spinner": "^0.8.1",
+    "ngBootbox": "^0.1.3",
+    "angular-ui-router": "^0.2.18"
+  }
+}
