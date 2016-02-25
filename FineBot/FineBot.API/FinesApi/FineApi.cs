@@ -412,10 +412,10 @@ namespace FineBot.API.FinesApi
 
             int userFineAwardedCountForToday =  this.userRepository.FindAll(new UserSpecification().WithFinesAwardedTodayBy(fine.IssuerId)).Count();
 
-            //if (userFineAwardedCountForToday >= 2)
-            //{
-            //    validationResult.AddMessage(Severity.Error, "Only 2 fines per user per day can be awarded");
-            //}
+            if (userFineAwardedCountForToday >= 2)
+            {
+                validationResult.AddMessage(Severity.Error, "Only 2 fines per user per day can be awarded");
+            }
 
             return validationResult;
         }

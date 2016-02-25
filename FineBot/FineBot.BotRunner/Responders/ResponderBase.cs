@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using FineBot.API.ChatApi;
 using FineBot.API.ReactionApi;
 using FineBot.API.SupportApi;
 using FineBot.BotRunner.Extensions;
@@ -12,17 +13,20 @@ namespace FineBot.BotRunner.Responders
     {
         protected readonly ISupportApi supportApi;
         protected readonly IReactionApi reactionApi;
+        protected readonly IChatApi chatApi;
 
         public ResponderBase(
-            ISupportApi supportApi, IReactionApi reactionApi)
+            ISupportApi supportApi, IReactionApi reactionApi, IChatApi chatApi)
         {
             this.supportApi = supportApi;
             this.reactionApi = reactionApi;
+            this.chatApi = chatApi;
         }
 
         protected virtual BotMessage GetErrorResponse(ValidationResult result, SlackMessage message)
         {
             reactionApi.AddReaction(ConfigurationManager.AppSettings["BotKey"], "raised_hand", message.GetChannelId(), message.GetTimeStamp());
+            chatApi.PostMessage(ConfigurationManager.AppSettings["BotKey"], message.User.ID, result.FullTrace);
             return new BotMessage { Text = "" };
         }
 
