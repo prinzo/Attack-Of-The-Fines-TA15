@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using FineBot.API.ChatApi;
 using FineBot.API.FinesApi;
 using FineBot.API.ReactionApi;
 using FineBot.API.SupportApi;
@@ -12,7 +13,11 @@ namespace FineBot.BotRunner.Responders
     {
         private readonly IFineApi fineApi;
 
-        public FineCountAllResponder(IFineApi fineApi, ISupportApi supportApi, IReactionApi reactionApi) : base(supportApi, reactionApi)
+        public FineCountAllResponder(IFineApi fineApi, 
+            ISupportApi supportApi, 
+            IReactionApi reactionApi,
+            IChatApi chatApi)
+            : base(supportApi, reactionApi, chatApi)
         {
             this.fineApi = fineApi;
         }

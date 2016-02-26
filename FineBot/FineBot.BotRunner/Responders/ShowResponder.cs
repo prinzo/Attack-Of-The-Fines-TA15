@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using FineBot.API.ChatApi;
 using FineBot.API.ReactionApi;
 using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
@@ -17,9 +18,10 @@ namespace FineBot.BotRunner.Responders
         public ShowResponder(
             IUserApi userApi,
             ISupportApi supportApi,
-            IReactionApi reactionApi
+            IReactionApi reactionApi,
+            IChatApi chatApi
             )
-            : base(supportApi, reactionApi)
+            : base(supportApi, reactionApi, chatApi)
         {
             this.userApi = userApi;
         }

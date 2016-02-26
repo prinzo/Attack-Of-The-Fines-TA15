@@ -1,4 +1,5 @@
-﻿using FineBot.API.ReactionApi;
+﻿using FineBot.API.ChatApi;
+using FineBot.API.ReactionApi;
 using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
 using FineBot.BotRunner.Extensions;
@@ -14,9 +15,10 @@ namespace FineBot.BotRunner.Responders
         public SecondAutofineResponder(
             IUserApi userApi,
             ISupportApi supportApi,
-            IReactionApi reactionApi
+            IReactionApi reactionApi,
+            IChatApi chatApi
             )
-            : base(supportApi, reactionApi)
+            : base(supportApi, reactionApi, chatApi)
         {
             this.userApi = userApi;
         }

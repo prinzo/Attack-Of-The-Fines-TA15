@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using Castle.Core.Internal;
-using Castle.Windsor.Installer;
+using FineBot.API.ChatApi;
 using FineBot.API.FinesApi;
 using FineBot.API.ReactionApi;
 using FineBot.API.SupportApi;
@@ -28,8 +28,9 @@ namespace FineBot.BotRunner.Responders
             IUserApi userApi,
             IFineApi fineApi,
             ISupportApi supportApi,
-            IReactionApi reactionApi
-            ) : base(supportApi, reactionApi)
+            IReactionApi reactionApi,
+            IChatApi chatApi
+            ) : base(supportApi, reactionApi, chatApi)
         {
             this.userApi = userApi;
             this.fineApi = fineApi;

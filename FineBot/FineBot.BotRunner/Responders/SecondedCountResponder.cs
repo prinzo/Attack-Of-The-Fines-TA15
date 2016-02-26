@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using FineBot.API.ChatApi;
 using FineBot.API.ReactionApi;
 using FineBot.API.SupportApi;
 using FineBot.API.UsersApi;
@@ -16,8 +17,9 @@ namespace FineBot.BotRunner.Responders
 
         public SecondedCountResponder(IUserApi userApi, 
             ISupportApi supportApi,
-            IReactionApi reactionApi)
-            : base(supportApi, reactionApi)
+            IReactionApi reactionApi,
+            IChatApi chatApi)
+            : base(supportApi, reactionApi, chatApi)
         {
             this.userApi = userApi;
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using FineBot.API.ChatApi;
 using FineBot.API.FinesApi;
 using FineBot.API.ReactionApi;
 using FineBot.API.SupportApi;
@@ -20,9 +21,10 @@ namespace FineBot.BotRunner.Responders
         public GiveFineResponder(
             IUserApi userApi,
             IFineApi fineApi,
-            ISupportApi supportApi, 
-            IReactionApi reactionApi)
-            : base(supportApi, reactionApi)
+            ISupportApi supportApi,
+            IReactionApi reactionApi,
+            IChatApi chatApi)
+            : base(supportApi, reactionApi, chatApi)
         {
             this.userApi = userApi;
             this.fineApi = fineApi;
