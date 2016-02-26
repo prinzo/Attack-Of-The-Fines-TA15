@@ -37,7 +37,7 @@ namespace FineBot.WepApi
             {
                 HttpContext.Current.Response.AddHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
 
-                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Headers", "Content-Type, Accept");
+                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Headers", "Content-Type, Accept, Authorization, *");
                 HttpContext.Current.Response.AddHeader("Access-Control-Max-Age", "1728000");
                 HttpContext.Current.Response.End();
             }

@@ -6,10 +6,21 @@
     <!-- endinject -->
 
     <!-- inject:css -->
+    <link rel="stylesheet" type="text/css" href="bower_components/angularjs-toaster/toaster.css"/>
+
     <!-- endinject -->
 
 </head>
 <body ng-app="entelectFines">
+<toaster-container toaster-options="{'time-out': 3000}"></toaster-container>
+
 <div ui-view></div>
 </body>
+<footer class="footer">
+    <div class="container" align="center">
+        <h4><b> Entelect Software - Attack of the Fines &copy;
+            <script>document.write(new Date().getFullYear())</script>
+        </b></h4>
+    </div>
+</footer>
 </html>

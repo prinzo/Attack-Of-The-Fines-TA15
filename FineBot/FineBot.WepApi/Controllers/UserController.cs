@@ -13,6 +13,7 @@ using FineBot.WepApi.Models;
 namespace FineBot.WepApi.Controllers
 {
     [EnableCors("*", "*", "*")]
+    [Authorize]
     public class UserController : ApiController
     {
         private readonly IUserApi userApi;
@@ -69,6 +70,7 @@ namespace FineBot.WepApi.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public UserModel AuthenticateUser([FromBody]LoginModel loginModel)
         {
             var ldapUser = ldapApi.AuthenticateAgainstDomain(loginModel.Username, loginModel.Password);

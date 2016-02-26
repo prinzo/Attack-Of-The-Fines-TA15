@@ -5,18 +5,31 @@
     <!-- inject:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-spinner/angular-spinner.js"></script>
+    <script src="bower_components/AngularJS-toaster/toaster.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="app/app.js"></script>
     <!-- endinject -->
 
     <!-- inject:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/angularjs-toaster/toaster.css">
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
     <!-- endinject -->
 
 </head>
 <body ng-app="entelectFines">
+<toaster-container toaster-options="{'time-out': 3000}"></toaster-container>
+
 <div ui-view></div>
 </body>
+<footer class="footer">
+    <div class="container" align="center">
+        <h4><b> Entelect Software - Attack of the Fines &copy;
+            <script>document.write(new Date().getFullYear())</script>
+        </b></h4>
+    </div>
+</footer>
 </html>
