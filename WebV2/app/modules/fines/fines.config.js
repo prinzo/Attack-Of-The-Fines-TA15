@@ -6,7 +6,7 @@
 
             $stateProvider
                 .state('fines', {
-                    url: '/fines',
+                    url: '/fines/feed/:userId',
                     templateUrl: 'app/modules/fines/views/finesIndex.html'
                 });
         });

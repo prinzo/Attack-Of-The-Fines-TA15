@@ -1,17 +1,17 @@
 (function () {
-    "use strict";
+    'use strict';
 
     angular
-        .module("entelectFines.api")
-        .factory("userResource",
+        .module('entelectFines.api')
+        .factory('userResource',
             [
-                "$resource",
-                "appSettings",
+                '$resource',
+                'appSettings',
                 userResource
             ]);
 
     function userResource($resource, appSettings) {
-        return $resource(appSettings.serverPath + "/api/user/:action/:id");
+        return $resource(appSettings.serverPath + '/api/user/:action/:id');
 
     }
 }());

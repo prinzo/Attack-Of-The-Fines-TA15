@@ -1,3 +1,153 @@
-<div ng-controller="FinesIndex as scope">
-    Fines Controller
+<div ng-include="'app/modules/navBar/views/navBar.html'"></div>
+<link rel="stylesheet" href="content/materialDesignComponents.css">
+<link rel="stylesheet" href="content/feed.css">
+
+<div class="fines-container" id="fines-container" ng-controller="FinesIndex as scope">
+    <div class="col-sm-12">
+        <ol class="breadcrumb">
+            <li><a href="#Fines"><i class="fa fa-home"></i></a>
+            </li>
+            <li class="active">News Feed</li>
+        </ol>
+        <div class="col-sm-6 center">
+
+            <md-card class="md-3-line">
+                <div class="md-card-content">
+                    <div align="center" class="col-sm-12 card-content">
+                            <h3><b>Latest Fines Feed</b></h3>
+                    </div>
+                </div>
+            </md-card>
+
+            <div>
+                <!-- New Fines -->
+
+                <div layout="row" layout-sm="column" layout-align="space-around" id="loadingFines">
+                    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                </div>
+                <div class="feedCard" infinite-scroll="scope.GetNextSetOfFines()" infinite-scroll-distance="3">
+
+                    <md-list>
+                        <md-card class="md-3-line" ng-repeat="fine in fines  | limitTo: 10">
+                            <div class="md-card-content" ng-if="fine.IsPaid == false">
+                                <div class="col-sm-2">
+                                    <img ng-src="{{fine.UserImage}}" class="face" alt="{{fine.ReceiverDisplayName}}">
+                                </div>
+                                <div class="col-sm-10 card-content">
+                                    <a class="angular-link" ng-click="scope.ShowStatistics($event,fine.ReceiverId)">{{fine.ReceiverDisplayName}}</a>
+                                    has received a fine
+                                    <div class="feed-data" id="reason"> {{fine.Reason}}</div>
+                                    <div class="other">
+                                        <span id="platform">via {{fine.Platform || 'Web front end'}} </span>
+                                                <span id="award">from
+                                                    <a id="awarder" class="angular-link"
+                                                       ng-click="scope.ShowStatistics($event,fine.IssuerId)">{{fine.IssuerDisplayName}}</a>
+                                                </span>
+                                    </div>
+                                    <div class="md-actions" layout="row" layout-align="end center">
+                                        <input type="hidden" id="isSeconded-{{fine.Id}}"
+                                               value="{{fine.SeconderId != null}}"/>
+                                        <input type="hidden" id="seconder-{{fine.Id}}" value="{{fine.Seconder}}"/>
+                                        <md-button aria-label="Second"
+                                                   ng-click="scope.Second(fine.Id, fine.IssuerId, $event)">
+                                            <i class='fa fa-angellist big-icon buttonSecond{{fine.Id}}'
+                                               ng-if="fine.SeconderId == null"/>
+                                            <i class='glyphicon glyphicon-ok big-icon buttonSecond{{fine.Id}}'
+                                               ng-if="fine.SeconderId != null"/>
+                                        </md-button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="md-card-content" ng-if="fine.IsPaid == true">
+                                <div class="col-sm-2">
+                                    <img ng-src="{{fine.UserImage}}" class="face" alt="{{fine.ReceiverDisplayName}}">
+                                </div>
+                                <div class="col-sm-10 card-content">
+                                    <div class="col-md-6 pull-left">
+                                        <a class="angular-link" ng-click="scope.ShowStatistics($event,fine.ReceiverId)">{{fine.ReceiverDisplayName}}</a>
+                                        has paid {{fine.TotalPaid}} fines
+
+                                        <div>
+                                            <div class="approval-div">
+                                                <div layout="row" id="approvedBy-{{fine.Id}}"
+                                                     ng-click="scope.GetApprovedByUsers(fine.Id, 1, $event)">
+                                                    <div id="innerApproved-{{fine.Id}}" ng-if="fine.LikedByCount > 0">
+                                                        Approved by
+                                                        <a><span
+                                                                id="approvedByNumber-{{fine.Id}}">{{fine.LikedByCount}}</span>
+                                                            <div ng-if="fine.LikedByCount == 1">person</div>
+                                                            <div ng-if="fine.LikedByCount > 1">people</div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div layout="row" id="disapprovedBy-{{fine.Id}}"
+                                                     ng-click="scope.GetApprovedByUsers(fine.Id, 0, $event)">
+                                                    <div id="innerDisapproved-{{fine.Id}}"
+                                                         ng-if="fine.DislikedByCount > 0">Disapproved by
+                                                        <a><span id="disapprovedByNumber-{{fine.Id}}">{{fine.DislikedByCount}}</span>
+                                                            <div ng-if="fine.DisikedByCount == 1">person</div>
+                                                            <div ng-if="fine.DisikedByCount > 1">people</div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 pull-right">
+                                        <div class="right-image">
+                                            <img src="{{scope.settings.serverPath}}/api/Images/GetFinePaymentImage/{{fine.Id}}"
+                                                 class="md-card-image photo"
+                                                 ng-click="scope.ShowPaymentImage($event, fine.PaymentImage)"/>
+                                        </div>
+                                        <div>
+                                            <div class="md-actions pull-right" layout="row">
+                                                <md-button aria-label="Like" ng-click="scope.Approve(fine.Id)"><span
+                                                        id="like" class="fa fa-thumbs-o-up big-icon"/></md-button>
+                                                <md-button aria-label="Dislike" ng-click="scope.Disapprove(fine.Id)"><span
+                                                        id="dislike" class="fa fa-thumbs-o-down big-icon"/></md-button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <md-divider md-inset></md-divider>
+                        </md-card>
+                    </md-list>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <div class="md-padding actionButtons" layout="column">
+
+            <md-fab-speed-dial md-open="scope.isOpen" md-direction="up"
+                               class="md-fling md-fab-bottom-right md-hover-full speed-dial">
+                <md-fab-trigger>
+                    <md-button aria-label="Menu" class="md-fab md-warn">
+                        <md-icon class="menu-icon" md-svg-src="content/add.svg"></md-icon>
+                    </md-button>
+                </md-fab-trigger>
+                <md-fab-actions>
+                    <md-button aria-label="Award Fine" class="md-fab md-raised md-mini md-primary"
+                               ng-click="scope.ShowAddFine($event)">
+                        <md-icon class="menu-icon" md-svg-src="content/awardFine.svg" aria-label="Award Fine"></md-icon>
+                        <md-tooltip md-direction="left" md-visible="tooltipVisible">Award Fine</md-tooltip>
+                    </md-button>
+                    <md-button aria-label="Pay Fine" class="md-fab md-raised md-mini md-primary"
+                               ng-click="scope.ShowAddPayment($event)">
+                        <md-icon class="menu-icon" md-svg-src="content/payFine.svg" aria-label="Pay Fine"></md-icon>
+                        <md-tooltip md-direction="left" md-visible="tooltipVisible">Pay Fine</md-tooltip>
+                    </md-button>
+                </md-fab-actions>
+            </md-fab-speed-dial>
+
+        </div>
+
+
+    </div>
+
 </div>

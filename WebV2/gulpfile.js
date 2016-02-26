@@ -5,11 +5,11 @@ var del = require('del');
 var requireDir = require('require-dir');
 var dir = requireDir('./gulp tasks');
 
-gulp.task('clean', function (callback) {
-    del(['build/*'], callback);
+gulp.task('clean', function () {
+    del.sync(['build/*']);
 });
 
-gulp.task('watch', ['build'], function () {
+gulp.task('watch', ['clean', 'build'], function () {
     gulp.watch(['*.html', 'app/**/*.html', 'app/**/*.js'], ['build'
     ]);
 });

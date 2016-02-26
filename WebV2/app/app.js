@@ -3,7 +3,13 @@ var app = angular.module('entelectFines', ['entelectFines.login',
     'entelectFines.api',
     'entelectFines.fines',
     'ngCookies',
-    'toaster'
+    'toaster',
+    'angularSpinner',
+    'angucomplete-alt',
+    'ngAnimate',
+    'ngAria',
+
+    'ngMaterial'
     ]);
 
 app.config(function ($stateProvider, $urlRouterProvider) {
@@ -23,11 +29,10 @@ app.run(['$rootScope', '$cookieStore', '$state', '$http', 'toaster',
 
         $rootScope.$on('$stateChangeStart', function (event, next, current) {
 
-            if ($state.current.name !== 'login') {
+            if ($state.current.name != 'login') {
 
                 if (!$rootScope.globals.currentUser) {
                     event.preventDefault();
-                    toaster.pop('error', 'User Not Signed In', 'Please login to access the portal');
 
                     $state.current.name = 'login';
 
