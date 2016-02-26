@@ -1,5 +1,15 @@
 <div class="" ng-controller="Login as scope">
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-12">
+                <div align="center">
+                    <img alt="Brand" class="img-responsive" src="/content/entel.png">
 
+                </div>
+
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-sm-12">
             <div class="col-sm-4" align="center">
@@ -10,7 +20,7 @@
             <div class="col-sm-4">
                 <br>
 
-                <h2 align="center"><b><i>Entelect Fines Portal</i></b></h3>
+                <h2 align="center"><b>Entelect Fines Portal</b></h3>
                     <br>
                     <div class="panel panel-primary">
 
@@ -20,20 +30,23 @@
                                     <label for="inputEmail3" class="col-sm-3 control-label">Username</label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" ng-model="scope.username"
-                                               id="inputEmail3" placeholder="Entelect Username" required="">
+                                               id="inputEmail3" placeholder="Entelect Domain Username" required="">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPassword3" class="col-sm-3 control-label">Password</label>
                                     <div class="col-sm-9">
                                         <input type="password" class="form-control" id="inputPassword3"
-                                               ng-model="scope.password" placeholder="Your domain Password" required="">
+                                               ng-model="scope.password" placeholder="Entelect Domain Password"
+                                               required="">
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="row">
                                     <div class="col-sm-12" align="center">
-                                        <button ng-click="scope.login()" class="btn btn-primary ">Sign in</button>
+                                        <button ng-click="scope.login()" class="btn btn-primary "><i
+                                                class="fa fa-sign-in"></i> Sign in
+                                        </button>
                                     </div>
                                 </div>
                             </form>

@@ -31,6 +31,12 @@ gulp.task('build:css', function () {
         .on('error', gutil.log);
 });
 
+gulp.task('watch', ['build'], function () {
+    // Watch our scripts
+    gulp.watch(['*.html', 'app/**/*.html', 'app/**/*.js'], ['build'
+    ]);
+});
+
 gulp.task('build:views', function () {
     gulp.src('./app/index.html')
         .pipe(gulp.dest('build/'));
@@ -40,20 +46,22 @@ gulp.task('build:views', function () {
 });
 
 gulp.task('build:bower', function () {
-    gulp.src(['bower_components/**/*.js'])
+    gulp.src(['bower_components/**/*.*'])
         .pipe(gulp.dest('build/bower_components'))
         .on('error', gutil.log);
 
 });
 
-gulp.task('build:bowercss', function () {
-    gulp.src(['bower_components/**/*.css'])
-        .pipe(gulp.dest('build/bower_components'))
+
+
+gulp.task('build:content', function () {
+    gulp.src(['content/**/*.*'])
+        .pipe(gulp.dest('build/content'))
         .on('error', gutil.log);
 
 });
 
-gulp.task('build:index', ['build:js', 'build:css', 'build:views', 'build:bower', 'build:bowercss'], function () {
+gulp.task('build:index', ['build:js', 'build:css', 'build:views', 'build:bower', 'build:content'], function () {
     gulp.src(['index.html'])
         .pipe(gulp.dest('build/'))
         .on('error', gutil.log);
@@ -61,7 +69,7 @@ gulp.task('build:index', ['build:js', 'build:css', 'build:views', 'build:bower',
 
     var sources = gulp.src([
             'bower_components/bootstrap/dist/css/bootstrap.css',
-
+            'bower_components/font-awesome/css/font-awesome.css',
             'bower_components/jquery/dist/jquery.js',
             'bower_components/angular/angular.min.js',
             'bower_components/angular-spinner/angular-spinner.js',
