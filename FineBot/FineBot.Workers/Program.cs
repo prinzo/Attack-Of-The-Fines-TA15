@@ -1,15 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Castle.Windsor;
+using FineBot.Workers.DI;
+using Quartz;
 
 namespace FineBot.Workers
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
+            var container = WorkerBootstrapper.Init();
+
+            var workerManager = container.Resolve<WorkerManager>();
+
+            workerManager.StartProcessing();
+
+            Console.WriteLine("Press enter to quit");
+            Console.ReadLine();
         }
     }
 }
