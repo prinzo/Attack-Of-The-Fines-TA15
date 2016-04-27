@@ -6,6 +6,7 @@ using FineBot.API.SupportApi;
 using FineBot.BotRunner.Extensions;
 using FineBot.Common.Infrastructure;
 using MargieBot.Models;
+using FineBot.Enums;
 
 namespace FineBot.BotRunner.Responders
 {
@@ -36,8 +37,8 @@ namespace FineBot.BotRunner.Responders
                                                 {
                                                     Message = String.Format("Exception in Bot Runner: {0}", exception.Message),
                                                     Subject = "Exception in Bot Runner",
-                                                    Status = 1,
-                                                    Type = 1
+                                                    Status = (int) Status.Open,
+                                                    Type = (int) SupportType.Bug
                                                 });
 
             reactionApi.AddReaction(ConfigurationManager.AppSettings["BotKey"], "exclamation", message.GetChannelId(), message.GetTimeStamp());

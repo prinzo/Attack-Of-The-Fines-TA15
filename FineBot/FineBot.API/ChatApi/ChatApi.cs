@@ -1,4 +1,5 @@
-﻿using Flurl.Http;
+﻿using FineBot.Errors;
+using Flurl.Http;
 using ServiceStack.Text;
 
 namespace FineBot.API.ChatApi
@@ -21,6 +22,12 @@ namespace FineBot.API.ChatApi
 
             var serializer = new JsonSerializer<PostMessageResponseModel>();
             var response = serializer.DeserializeFromString(responseString);
+
+            if (!response.ok)
+            {
+                throw new SlackApiException(response.error);
+            }
+
             return response;
         }
     }

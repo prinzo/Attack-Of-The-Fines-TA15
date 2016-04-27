@@ -13,6 +13,8 @@ namespace FineBot.Workers.Jobs
         public void Execute(IJobExecutionContext context)
         {
             Console.WriteLine("Award Fines From Reaction running {0}", DateTime.Now);
+
+
         }
 
         public void Dispose()

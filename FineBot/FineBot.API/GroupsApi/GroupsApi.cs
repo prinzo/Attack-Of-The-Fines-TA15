@@ -1,4 +1,5 @@
 ﻿using System;
+using FineBot.Errors;
 using Flurl.Http;
 using ServiceStack.Text;
 
@@ -20,6 +21,11 @@ namespace FineBot.API.GroupsApi
 
             var serializer = new JsonSerializer<GroupsListResponseModel>();
             var response = serializer.DeserializeFromString(responseString);
+
+            if (!response.ok)
+            {
+                throw new SlackApiException(response.error);
+            }
             return response;
         }
 
@@ -40,6 +46,12 @@ namespace FineBot.API.GroupsApi
 
             var serializer = new JsonSerializer<GroupsHistoryResponseModel>();
             var response = serializer.DeserializeFromString(responseString);
+
+            if (!response.ok)
+            {
+                throw new SlackApiException(response.error);
+            }
+
             return response;
         }
 
@@ -57,6 +69,12 @@ namespace FineBot.API.GroupsApi
 
             var serializer = new JsonSerializer<GroupsInfoResponseModel>();
             var response = serializer.DeserializeFromString(responseString);
+
+            if (!response.ok)
+            {
+                throw new SlackApiException(response.error);
+            }
+
             return response;
         }
     }
