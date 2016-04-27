@@ -1,7 +1,5 @@
 ﻿using System;
-using Castle.Windsor;
 using FineBot.Workers.DI;
-using Quartz;
 
 namespace FineBot.Workers
 {
@@ -11,7 +9,7 @@ namespace FineBot.Workers
         {
             var container = WorkerBootstrapper.Init();
 
-            var workerManager = container.Resolve<WorkerManager>();
+            var workerManager = new WorkerManager(container);
 
             workerManager.StartProcessing();
 

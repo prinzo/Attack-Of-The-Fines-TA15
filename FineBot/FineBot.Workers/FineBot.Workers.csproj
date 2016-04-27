@@ -48,6 +48,7 @@
       <HintPath>..\packages\Quartz.2.3.3\lib\net40\Quartz.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -56,10 +57,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DI\WindsorJobFactory.cs" />
     <Compile Include="DI\WorkerBootstrapper.cs" />
     <Compile Include="DI\WorkerInstaller.cs" />
     <Compile Include="Jobs\AwardFinesFromReactionJob.cs" />
     <Compile Include="Jobs\GreetingJob.cs" />
+    <Compile Include="Jobs\IAwardFinesFromReactionJob.cs" />
+    <Compile Include="Jobs\IGreetingJob.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorkerManager.cs" />

@@ -1,8 +1,6 @@
-﻿using Castle.MicroKernel.Registration;
-using Castle.Windsor;
+﻿using Castle.Windsor;
 using Castle.Windsor.Installer;
 using FineBot.API.DI;
-using Quartz;
 
 namespace FineBot.Workers.DI
 {

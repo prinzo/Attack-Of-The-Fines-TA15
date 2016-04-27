@@ -3,7 +3,7 @@ using Quartz;
 
 namespace FineBot.Workers.Jobs
 {
-    public class AwardFinesFromReactionJob : IJob, IDisposable
+    public class AwardFinesFromReactionJob : IAwardFinesFromReactionJob
     {
         public AwardFinesFromReactionJob()
         {

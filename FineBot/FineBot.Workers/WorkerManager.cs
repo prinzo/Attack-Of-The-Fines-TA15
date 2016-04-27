@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Castle.Windsor;
+using FineBot.Workers.DI;
 using FineBot.Workers.Jobs;
 using Quartz;
 using Quartz.Impl;
@@ -9,9 +10,10 @@ namespace FineBot.Workers
     {
         private readonly IScheduler scheduler;
 
-        public WorkerManager()
+        public WorkerManager(IWindsorContainer container)
         {
             this.scheduler = StdSchedulerFactory.GetDefaultScheduler();
+            this.scheduler.JobFactory = new WindsorJobFactory(container);
         }
 
         public void StartProcessing()
@@ -30,13 +32,14 @@ namespace FineBot.Workers
         {
             var key = new JobKey("GreetingJob");
 
-            var jobDetail = JobBuilder.Create<GreetingJob>()
+            var jobDetail = JobBuilder.Create<IGreetingJob>()
                 .WithIdentity(key)
                 .Build();
 
             var trigger = TriggerBuilder.Create()
                 .WithIdentity("GreetingTrigger")
-                .StartAt(new DateTimeOffset(new DateTime(2016, 03, 13, 15, 56, 0)))
+                .StartNow()
+                //.StartAt(new DateTimeOffset(new DateTime(2016, 03, 13, 15, 56, 0)))
                 .ForJob(jobDetail)
                 .Build();
 
@@ -47,13 +50,14 @@ namespace FineBot.Workers
         {
             var key = new JobKey("AwardFinesFromReactionJob");
 
-            var jobDetail = JobBuilder.Create<AwardFinesFromReactionJob>()
+            var jobDetail = JobBuilder.Create<IAwardFinesFromReactionJob>()
                 .WithIdentity(key)
                 .Build();
 
             var trigger = TriggerBuilder.Create()
                 .WithIdentity("AwardFinesFromReactionTrigger")
-                .StartAt(DateBuilder.TomorrowAt(0, 0, 0))
+                .StartNow()
+                //.StartAt(DateBuilder.TomorrowAt(0, 0, 0))
                 .WithSimpleSchedule(x => x
                     .WithIntervalInHours(24)
                     .RepeatForever())
