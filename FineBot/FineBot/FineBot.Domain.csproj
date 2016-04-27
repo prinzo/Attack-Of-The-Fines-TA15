@@ -78,6 +78,7 @@
     <Compile Include="Enums\PlatformType.cs" />
     <Compile Include="Enums\Status.cs" />
     <Compile Include="Enums\SupportType.cs" />
+    <Compile Include="Errors\SlackApiException.cs" />
     <Compile Include="ExtensionMethods\ExpressionExtensions.cs" />
     <Compile Include="Infrastructure\Guard.cs" />
     <Compile Include="Infrastructure\ParameterRebinder.cs" />

@@ -1,11 +1,14 @@
 ﻿using System;
+using FineBot.API.SupportApi;
 using Quartz;
 
 namespace FineBot.Workers.Jobs
 {
-    public class AwardFinesFromReactionJob : IAwardFinesFromReactionJob
+    public class AwardFinesFromReactionJob : BaseJob, IAwardFinesFromReactionJob
     {
-        public AwardFinesFromReactionJob()
+        private readonly ISupportApi supportApi;
+
+        public AwardFinesFromReactionJob(ISupportApi supportApi) : base(supportApi)
         {
             
         }
@@ -14,7 +17,14 @@ namespace FineBot.Workers.Jobs
         {
             Console.WriteLine("Award Fines From Reaction running {0}", DateTime.Now);
 
+            try
+            {
 
+            }
+            catch (Exception exception)
+            {
+                this.LogException(exception);
+            }
         }
 
         public void Dispose()

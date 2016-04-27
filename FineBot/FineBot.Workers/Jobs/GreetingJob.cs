@@ -2,14 +2,16 @@
 using FineBot.API.ChatApi;
 using Quartz;
 using System.Configuration;
+using FineBot.API.SupportApi;
 
 namespace FineBot.Workers.Jobs
 {
-    public class GreetingJob : IGreetingJob
+    public class GreetingJob : BaseJob, IGreetingJob
     {
         private readonly IChatApi chatApi;
+        private readonly ISupportApi supportApi;
 
-        public GreetingJob(IChatApi chatApi)
+        public GreetingJob(IChatApi chatApi, ISupportApi supportApi) : base(supportApi)
         {
             this.chatApi = chatApi;
         }
@@ -17,7 +19,16 @@ namespace FineBot.Workers.Jobs
         public void Execute(IJobExecutionContext context)
         {
             Console.WriteLine("Greeting job running {0}", DateTime.Now);
-            chatApi.PostMessage(ConfigurationManager.AppSettings["BotKey"], "#random", "Ain't this a might a fine day!");
+
+            try
+            {
+                chatApi.PostMessage(ConfigurationManager.AppSettings["BotKey"], "#random","Well, isn't this a  :fine:  day :dancing-monkey:");
+            }
+            catch (Exception exception)
+            {
+                var message = this.LogException(exception);
+                Console.WriteLine(message + ": " + exception.Message);
+            }
         }
 
         public void Dispose()

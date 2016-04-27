@@ -61,6 +61,7 @@
     <Compile Include="DI\WorkerBootstrapper.cs" />
     <Compile Include="DI\WorkerInstaller.cs" />
     <Compile Include="Jobs\AwardFinesFromReactionJob.cs" />
+    <Compile Include="Jobs\BaseJob.cs" />
     <Compile Include="Jobs\GreetingJob.cs" />
     <Compile Include="Jobs\IAwardFinesFromReactionJob.cs" />
     <Compile Include="Jobs\IGreetingJob.cs" />
@@ -80,6 +81,10 @@
     <ProjectReference Include="..\FineBot.API\FineBot.API.csproj">
       <Project>{1edf3522-e2ae-4569-b98b-0fc3b350b523}</Project>
       <Name>FineBot.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FineBot\FineBot.Domain.csproj">
+      <Project>{3fe26cfd-6e3f-41be-9844-62a05f660e94}</Project>
+      <Name>FineBot.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
