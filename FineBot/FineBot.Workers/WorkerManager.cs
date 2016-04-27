@@ -1,4 +1,5 @@
-﻿using Castle.Windsor;
+﻿using System;
+using Castle.Windsor;
 using FineBot.Workers.DI;
 using FineBot.Workers.Jobs;
 using Quartz;
@@ -39,7 +40,7 @@ namespace FineBot.Workers
             var trigger = TriggerBuilder.Create()
                 .WithIdentity("GreetingTrigger")
                 .StartNow()
-                //.StartAt(new DateTimeOffset(new DateTime(2016, 03, 13, 15, 56, 0)))
+                //.StartAt(new DateTimeOffset(new DateTime(2016, 04, 29, 6, 0, 0)))
                 .ForJob(jobDetail)
                 .Build();
 

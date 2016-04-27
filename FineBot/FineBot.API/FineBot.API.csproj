@@ -85,6 +85,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChannelApi\ChannelApi.cs" />
+    <Compile Include="ChannelApi\ChannelInfoResponseModel.cs" />
+    <Compile Include="ChannelApi\ChannelListResponseModel.cs" />
+    <Compile Include="ChannelApi\IChannelApi.cs" />
     <Compile Include="ChatApi\ChatApi.cs" />
     <Compile Include="ChatApi\IChatApi.cs" />
     <Compile Include="ChatApi\PostMessageResponseModel.cs" />
@@ -100,6 +104,11 @@
     <Compile Include="FinesApi\FineSecondedResult.cs" />
     <Compile Include="FinesApi\FineWithUserModel.cs" />
     <Compile Include="FinesApi\IssueFineResult.cs" />
+    <Compile Include="GroupsApi\GroupsApi.cs" />
+    <Compile Include="GroupsApi\GroupsHistoryResponseModel.cs" />
+    <Compile Include="GroupsApi\GroupsInfoResponseModel.cs" />
+    <Compile Include="GroupsApi\GroupsListResponseModel.cs" />
+    <Compile Include="GroupsApi\IGroupsApi.cs" />
     <Compile Include="InfrastructureServices\ExcelExportService.cs" />
     <Compile Include="InfrastructureServices\IExcelExportService.cs" />
     <Compile Include="FinesApi\IFineApi.cs" />
@@ -123,9 +132,15 @@
     <Compile Include="MemberInfo\MembersResponse.cs" />
     <Compile Include="MemberInfo\ProfileModel.cs" />
     <Compile Include="MemberInfo\UserInfoResponse.cs" />
+    <Compile Include="Models\Channel.cs" />
     <Compile Include="Models\EditedMessage.cs" />
+    <Compile Include="Models\Group.cs" />
     <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\Profile.cs" />
+    <Compile Include="Models\Purpose.cs" />
     <Compile Include="Models\Reaction.cs" />
+    <Compile Include="Models\Topic.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReactionApi\IReactionApi.cs" />
     <Compile Include="ReactionApi\ReactionApi.cs" />

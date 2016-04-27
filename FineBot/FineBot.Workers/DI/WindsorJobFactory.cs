@@ -31,7 +31,15 @@ namespace FineBot.Workers.DI
 
         public void ReturnJob(IJob job)
         {
-            this.container.Release(job);
+            try
+            {
+                this.container.Release(job);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
         }
     }
 }
