@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Mail;
 using Castle.Core.Internal;
 using FineBot.Abstracts;
+using FineBot.API.ChannelApi;
+using FineBot.API.Extensions;
+using FineBot.API.GroupsApi;
 using FineBot.API.InfrastructureServices;
 using FineBot.API.Mappers.Interfaces;
 using FineBot.Common.Infrastructure;
 using FineBot.DataAccess.DataModels;
 using FineBot.Entities;
-using FineBot.Infrastructure;
 using FineBot.Interfaces;
 using FineBot.Specifications;
 using FineBot.API.UsersApi;
@@ -26,6 +29,9 @@ namespace FineBot.API.FinesApi
         private readonly IUserMapper userMapper;
         private readonly IPaymentMapper paymentMapper;
         private readonly IExcelExportService<FineExportModel> excelExportService;
+        private readonly IChannelApi channelApi;
+        private readonly IUserApi userApi;
+        private readonly IGroupsApi groupApi;
 
         public FineApi(
             IRepository<User, UserDataModel, Guid> userRepository,
@@ -33,7 +39,10 @@ namespace FineBot.API.FinesApi
             IFineMapper fineMapper,
             IUserMapper userMapper,
             IPaymentMapper paymentMapper,
-            IExcelExportService<FineExportModel> excelExportService)
+            IExcelExportService<FineExportModel> excelExportService, 
+            IChannelApi channelApi, 
+            IUserApi userApi, 
+            IGroupsApi groupApi)
         {
             this.userRepository = userRepository;
             this.paymentRepository = paymentRepository;
@@ -41,6 +50,9 @@ namespace FineBot.API.FinesApi
             this.userMapper = userMapper;
             this.paymentMapper = paymentMapper;
             this.excelExportService = excelExportService;
+            this.channelApi = channelApi;
+            this.userApi = userApi;
+            this.groupApi = groupApi;
         }
 
         public IssueFineResult IssueFine(Guid issuerId, Guid recipientId, string reason)
@@ -58,6 +70,82 @@ namespace FineBot.API.FinesApi
             this.userRepository.Save(user);
 
             return new IssueFineResult();
+        }
+
+        public void IssueFinesFromReactions(DateTime startDateTime, ChatRoomType chatRoomType)
+        {
+            var chatRoomIds = chatRoomType == ChatRoomType.Channel 
+                ? channelApi.ListChannels(ConfigurationManager.AppSettings["BotKey"]).channels.Select(x => x.id) 
+                : groupApi.ListGroups(ConfigurationManager.AppSettings["BotKey"]).groups.Select(x => x.id);
+
+            foreach (var chatRoomId in chatRoomIds)
+            {
+                var history = new GroupsHistoryResponseModel();
+                var hasMore = true;
+
+                while (hasMore)
+                {
+                    history = chatRoomType == ChatRoomType.Channel
+                        ? channelApi.GetChannelHistory(
+                            ConfigurationManager.AppSettings["BotKey"],
+                            chatRoomId,
+                            startDateTime,
+                            history.messages.Any() ? history.messages.Last().ts.ToLocalDateTime() : DateTime.Now,
+                            10)
+                        : groupApi.GetGroupHistory(ConfigurationManager.AppSettings["BotKey"],
+                            chatRoomId,
+                            startDateTime,
+                            history.messages.Any() ? history.messages.Last().ts.ToLocalDateTime() : DateTime.Now,
+                            10);
+
+                    var messagesWithFineReaction = history.messages.Where(x => x.reactions != null && x.reactions.Any(y => y.name.Equals("fine")));
+
+                    foreach (var message in messagesWithFineReaction)
+                    {
+                        var fineReaction = message.reactions.First(x => x.name.Equals("fine"));
+
+                        IList<UserModel> reactionUsers = fineReaction.users
+                            .Select(x => userApi.GetUserBySlackId(x.FormatUserId()))
+                            .Where(x => !x.DisplayName.Equals(ConfigurationManager.AppSettings["FinesbotName"]) && !x.DisplayName.Equals(ConfigurationManager.AppSettings["FinebotsSecondCousinName"]))
+                            .ToList();
+
+                        var validIssuers = this.userApi.GetValidFineIssuers(reactionUsers);
+
+                        if (validIssuers != null && validIssuers.Any())
+                        {
+                            var recipient = userApi.GetUserBySlackId(message.user.FormatUserId());
+                            string reason = string.Format("{0} said \"{1}\"", recipient.DisplayName, message.text);
+
+                            UserModel issuer;
+
+                            if (validIssuers.Count == 1 && reactionUsers.Count == 1)
+                            {
+                                issuer = validIssuers.First();
+                                this.IssueFine(issuer.Id, recipient.Id, reason);
+                            }
+                            else
+                            {
+                                var isFineIssued = false;
+                                for (var i = 0; i < validIssuers.Count && !isFineIssued; i++)
+                                {
+                                    for (var j = 0; j < reactionUsers.Count && !isFineIssued; j++)
+                                    {
+                                        if (!reactionUsers[j].Id.Equals(validIssuers[i].Id))
+                                        {
+                                            issuer = validIssuers[i];
+                                            var seconder = reactionUsers[j];
+                                            this.IssueAutoFine(issuer.Id, recipient.Id, seconder.Id, reason);
+                                            isFineIssued = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    hasMore = history.has_more;
+                }
+            }
         }
 
         public void IssueAutoFine(Guid issuerId, Guid recipientId, Guid seconderId, string reason)
@@ -361,7 +449,7 @@ namespace FineBot.API.FinesApi
                     }).ToList();
             }
 
-            return users = users;
+            return users;
         }
 
         public List<UserModel> GetUsersDisapprovedBy(Guid paymentId)
@@ -379,7 +467,7 @@ namespace FineBot.API.FinesApi
                     }).ToList();
             }
 
-            return users = users;
+            return users;
         }
 
         public int CountAllFinesSuccessfullyIssued()
@@ -410,11 +498,9 @@ namespace FineBot.API.FinesApi
                 validationResult.AddMessage(Severity.Error, "A fine requires a reason");
             }
 
-            int userFineAwardedCountForToday =  this.userRepository.FindAll(new UserSpecification().WithFinesAwardedTodayBy(fine.IssuerId)).Count();
-
-            if (userFineAwardedCountForToday >= 2)
+            if (this.userApi.IsValidFineIssuer(fine.IssuerId))
             {
-                validationResult.AddMessage(Severity.Error, "Only 2 fines per user per day can be awarded");
+                validationResult.AddMessage(Severity.Error, string.Format("Only {0} fines per user per day can be awarded", int.Parse(ConfigurationManager.AppSettings["MaxFinesPerUserPerDay"])));
             }
 
             return validationResult;

@@ -97,6 +97,7 @@
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\DoubleExtensions.cs" />
     <Compile Include="Extensions\EnumerationExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="FinesApi\ApprovalResult.cs" />
     <Compile Include="FinesApi\FeedFineModel.cs" />
     <Compile Include="FinesApi\FineApi.cs" />

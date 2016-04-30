@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using FineBot.Abstracts;
 using FineBot.API.Extensions;
+using FineBot.API.FinesApi;
 using FineBot.API.Mappers.Interfaces;
 using FineBot.API.MemberInfo;
 using FineBot.DataAccess.DataModels;
@@ -23,8 +25,7 @@ namespace FineBot.API.UsersApi
             IRepository<User, UserDataModel, Guid> userRepository,
             IUserMapper userMapper,
             IMemberInfoApi memberInfoApi,
-            IRepository<Payment, PaymentDataModel, Guid> paymentRepository
-            )
+            IRepository<Payment, PaymentDataModel, Guid> paymentRepository)
         {
             this.userRepository = userRepository;
             this.userMapper = userMapper;
@@ -49,6 +50,21 @@ namespace FineBot.API.UsersApi
             }
 
             return this.userMapper.MapToModelShallow(user);
+        }
+
+        public IList<UserModel> GetValidFineIssuers(IList<UserModel> users)
+        {
+            IList<UserModel> validFineIssuers = new List<UserModel>();
+
+            foreach (var user in users)
+            {
+                if (this.IsValidFineIssuer(user.Id))
+                {
+                    validFineIssuers.Add(user);
+                }
+            }
+
+            return validFineIssuers;
         }
 
         public UserModel GetUserByEmail(string email)
@@ -254,6 +270,12 @@ namespace FineBot.API.UsersApi
                 });
 
             return statistic.FirstOrDefault();
+        }
+
+        public bool IsValidFineIssuer(Guid issuerId)
+        {
+            var finesAwardedTodayByIssuer = this.userRepository.FindAll(new UserSpecification().WithFinesAwardedTodayBy(issuerId)).Count();
+            return finesAwardedTodayByIssuer < int.Parse(ConfigurationManager.AppSettings["MaxFinesPerUserPerDay"]);
         }
     }
 }

@@ -10,6 +10,8 @@ namespace FineBot.API.FinesApi
     {
         IssueFineResult IssueFine(Guid issuerId, Guid recipientId, string reason);
 
+        void IssueFinesFromReactions(DateTime startDateTime, ChatRoomType chatRoomType);
+
         IssueFineResult IssueFineFromFeed(Guid issuerId, Guid recipientId, string reason);
 
         List<FineModel> GetAllPendingFines();

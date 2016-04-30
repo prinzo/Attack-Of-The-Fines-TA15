@@ -26,7 +26,7 @@ namespace FineBot.Workers
         protected void ScheduleAllJobs()
         {
             ScheduleAwardFinesFromReactionJob();
-            ScheduleGreetingJob();
+            //ScheduleGreetingJob();
         }
 
         private void ScheduleGreetingJob()

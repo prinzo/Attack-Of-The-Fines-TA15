@@ -9,7 +9,7 @@ namespace FineBot.API.MemberInfo
         public MembersResponse GetAllMemberInformation()
         {
             var responseString = "https://slack.com/api/users.list"
-                                .PostUrlEncodedAsync(new { token = ConfigurationManager.AppSettings["SlackApiKey"] })
+                                .PostUrlEncodedAsync(new { token = ConfigurationManager.AppSettings["BotKey"] })
                                 .ReceiveString().Result;
 
             var serializer = new JsonSerializer<MembersResponse>();
@@ -23,7 +23,7 @@ namespace FineBot.API.MemberInfo
             var responseString = "https://slack.com/api/users.info"
                                 .PostUrlEncodedAsync(new
                                                      {
-                                                         token = ConfigurationManager.AppSettings["SlackApiKey"],
+                                                         token = ConfigurationManager.AppSettings["BotKey"],
                                                          user = CleanSlackId(slackId)
                                                      })
                                 .ReceiveString().Result;

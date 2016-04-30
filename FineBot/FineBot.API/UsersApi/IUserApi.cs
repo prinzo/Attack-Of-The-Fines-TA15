@@ -11,6 +11,8 @@ namespace FineBot.API.UsersApi
 
         UserModel GetUserByEmail(string email);
 
+        IList<UserModel> GetValidFineIssuers(IList<UserModel> users);
+
         void UpdateUser(UserModel userModel);
 
         void UpdateUserImage(Guid userId, string image);
@@ -44,5 +46,7 @@ namespace FineBot.API.UsersApi
         UserModel RegisterUserByEmail(string email);
 
         UserStatisticModel GetStatisticsForUser(Guid id);
+
+        bool IsValidFineIssuer(Guid issuerId);
     }
 }
