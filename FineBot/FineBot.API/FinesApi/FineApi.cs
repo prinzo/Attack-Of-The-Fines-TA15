@@ -91,12 +91,12 @@ namespace FineBot.API.FinesApi
                             chatRoomId,
                             startDateTime,
                             history.messages.Any() ? history.messages.Last().ts.ToLocalDateTime() : DateTime.Now,
-                            10)
+                            100)
                         : groupApi.GetGroupHistory(ConfigurationManager.AppSettings["BotKey"],
                             chatRoomId,
                             startDateTime,
                             history.messages.Any() ? history.messages.Last().ts.ToLocalDateTime() : DateTime.Now,
-                            10);
+                            100);
 
                     var messagesWithFineReaction = history.messages.Where(x => x.reactions != null && x.reactions.Any(y => y.name.Equals("fine")));
 
