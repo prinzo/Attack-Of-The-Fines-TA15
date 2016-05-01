@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Net.Mail;
+using System.Threading.Tasks;
 using Castle.Core.Internal;
 using FineBot.Abstracts;
 using FineBot.API.ChannelApi;
@@ -153,7 +154,8 @@ namespace FineBot.API.FinesApi
             var user = userRepository.Get(recipientId);
             var fine = user.IssueFine(issuerId, reason, PlatformType.Slack);
 
-            userRepository.Save(user);
+            var saveSync = new Task(() => userRepository.Save(user));
+            saveSync.RunSynchronously();
 
             var seconder = userRepository.Get(seconderId);
             SecondNewestPendingFine(seconder.Id);
