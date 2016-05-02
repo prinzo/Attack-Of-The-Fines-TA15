@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Manatee.Trello.RestSharp</id>
+    <version>1.2.1</version>
+    <title>Manatee.Trello.RestSharp</title>
+    <authors>gregsdennis</authors>
+    <owners>gregsdennis</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
+    <projectUrl>https://bitbucket.org/gregsdennis/manatee.trello</projectUrl>
+    <iconUrl>https://bytebucket.org/gregsdennis/manatee.trello/wiki/Resources/Manatee-Trello-RestSharp-Icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A REST client provider implementation for Manatee.Trello, backed by RestSharp.</description>
+    <releaseNotes>v1.2.1
+Converted to strong named assembly.
+Note: RestSharp reference updated to RestSharpSigned package.
+
+v1.2.0.1
+Updated depedency requirements.
+
+v1.2.0.1
+BUG FIX: REST request object not building URL queries with multiple parameters correctly.
+
+v1.2.0
+Updated to support changes in Manatee.Trello v1.0</releaseNotes>
+    <language>en-US</language>
+    <tags>trello rest manatee</tags>
+    <dependencies>
+      <dependency id="Manatee.Trello" version="1.8.4" />
+      <dependency id="RestSharpSigned" version="105.2.3" />
+    </dependencies>
+  </metadata>
+</package>

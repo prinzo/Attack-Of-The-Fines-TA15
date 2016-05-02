@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using FineBot.Entities;
-using TrelloNet;
 
 namespace FineBot.API.SupportApi
 {

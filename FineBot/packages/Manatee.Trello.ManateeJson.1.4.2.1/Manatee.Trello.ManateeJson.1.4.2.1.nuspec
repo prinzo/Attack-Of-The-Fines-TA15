@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Manatee.Trello.ManateeJson</id>
+    <version>1.4.2.1</version>
+    <title>Manatee.Trello.ManateeJson</title>
+    <authors>gregsdennis</authors>
+    <owners>gregsdennis</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
+    <projectUrl>https://bitbucket.org/gregsdennis/manatee.trello</projectUrl>
+    <iconUrl>https://bytebucket.org/gregsdennis/manatee.trello/wiki/Resources/Manatee-Trello-ManateeJson-Icon.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>A JSON serializer implementation for Manatee.Trello, backed by Manatee.Json.</description>
+    <summary />
+    <releaseNotes>v1.4.2.1
+Repackaged.
+
+v1.4.2
+BUG FIX: NotificationType.CardDueSoon doesn't deserialize properly.
+
+v1.4.1
+Converted to strong named assembly.
+Updated Nuget package references.
+
+v1.4.0
+Added ActionData.LastEdited to expose edited date for comments.</releaseNotes>
+    <language>en-US</language>
+    <tags>trello json manatee</tags>
+    <dependencies>
+      <dependency id="Manatee.Json" version="[4.0.0, 5.0.0)" />
+      <dependency id="Manatee.Trello" version="[1.8.4, 2.0.0)" />
+    </dependencies>
+  </metadata>
+</package>

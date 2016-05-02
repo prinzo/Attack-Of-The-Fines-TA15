@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Manatee.Json</id>
+    <version>4.0.0</version>
+    <title>Manatee.Json</title>
+    <authors>gregsdennis</authors>
+    <owners>gregsdennis</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
+    <projectUrl>https://bitbucket.org/gregsdennis/manatee.json</projectUrl>
+    <iconUrl>https://bytebucket.org/gregsdennis/manatee.json/wiki/Resources/Manatee-Json-Logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A fully object-oriented approach to JSON manipulation, validation, and serialization that focuses on modeling the JSON structure rather than mere string parsing.</description>
+    <releaseNotes>v4.0.0 (Breaking changes exist in JsonSchema)
+BUG FIX: Error when type value is array not string
+    Added MultiSchema to support arrays in "type" property.
+BUG FIX: JsonSchemaFactory.Load incorrect parse type when enum is a type of other type
+    Enum schema now populated using EnumSchemaValue instead of JsonSchemaTypeDefinition.
+BUG FIX: JsonPath.Parse has a problem with undescores
+    Added underscores as an acceptable character for names.
+BUG FIX: JsonSchema.Draft04.Validate invalid verify id property
+    Updated URI validation to use Uri.IsWellFormedUriString()
+Implemented equality operators on all schema types.
+Updated DateTime validation to use DateTime.TryParse().</releaseNotes>
+    <tags>json manatee parser serializer jsonpath jsonschema transform path schema linq-to-json</tags>
+    <dependencies>
+      <dependency id="Manatee.StateMachine" version="1.1.2" />
+    </dependencies>
+  </metadata>
+</package>

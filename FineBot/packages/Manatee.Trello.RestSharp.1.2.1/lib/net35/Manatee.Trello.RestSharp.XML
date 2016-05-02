@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Manatee.Trello.RestSharp</name>
+    </assembly>
+    <members>
+        <member name="T:Manatee.Trello.RestSharp.RestSharpClientProvider">
+            <summary>
+            Implements IRestClientProvider to provide instances of RestSharp.RestClient
+            wrapped in an IRestClient implementation.
+            </summary>
+        </member>
+        <member name="P:Manatee.Trello.RestSharp.RestSharpClientProvider.RequestProvider">
+            <summary>
+            Creates requests for the client.
+            </summary>
+        </member>
+        <member name="M:Manatee.Trello.RestSharp.RestSharpClientProvider.CreateRestClient(System.String)">
+            <summary>
+            Creates an instance of IRestClient.
+            </summary>
+            <param name="apiBaseUrl">The base URL to be used by the client</param>
+            <returns>An instance of IRestClient.</returns>
+        </member>
+    </members>
+</doc>

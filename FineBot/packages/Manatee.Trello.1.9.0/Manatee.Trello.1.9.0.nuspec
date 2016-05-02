@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Manatee.Trello</id>
+    <version>1.9.0</version>
+    <title>Manatee.Trello</title>
+    <authors>gregsdennis</authors>
+    <owners>gregsdennis</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
+    <projectUrl>https://bitbucket.org/gregsdennis/manatee.trello</projectUrl>
+    <iconUrl>https://bytebucket.org/gregsdennis/manatee.trello/wiki/Resources/Manatee-Trello-Icon.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>A fully object-oriented .Net wrapper for the TrelloAPI.</description>
+    <summary />
+    <releaseNotes>Please be sure to read the wiki pages at https://bitbucket.org/gregsdennis/manatee.trello/wiki/Home.  Feedback and questions are welcome through BitBucket, on StackOverflow, or by emailing littlecrabsolutions@yahoo.com.
+
+v1.9.0
+API requests can now be processed concurrently. (See wiki for details.)
+BUG FIX: NotificationType.CardDueSoon not deserializing properly.
+
+v1.8.4
+Converted to strong-named assemblies.
+Removed depedence on JetBrains.Annotations.
+
+v1.8.3
+BUG FIX: Logging to Debug() throws exception for default implementation of ILog.
+
+v1.8.2
+BUG FIX: Copied comments not retrieved for copied cards.
+
+v1.8.1
+BUG FIX: MoveListToBoard action type has mistyped description.
+
+v1.8.0
+Added ActionData.LastEdited to expose edited date for comments.</releaseNotes>
+    <language>en-US</language>
+    <tags>wrapper trello manatee</tags>
+  </metadata>
+</package>

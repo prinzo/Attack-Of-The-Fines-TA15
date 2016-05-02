@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Manatee.Trello.WebApi</id>
+    <version>1.0.4</version>
+    <title>Manatee.Trello.WebApi</title>
+    <authors>gregsdennis</authors>
+    <owners>gregsdennis</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
+    <projectUrl>https://bitbucket.org/gregsdennis/manatee.trello</projectUrl>
+    <iconUrl>https://bytebucket.org/gregsdennis/manatee.trello/wiki/Resources/Manatee-Trello-WebApi-Icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A REST client provider implementation for Manatee.Trello, backed by ASP.Net's WebApi.</description>
+    <releaseNotes>v1.0.4
+Converted to strong named assembly.
+
+v1.0.3
+Updated request body encoding to UTF-8.  Fixes issues with webhook creation.
+
+v1.0.2
+Added logging for Trello error responses.  Addresses the HTTP content types listed below, Trello may respond with others.  If you receive an error stating that a media type is unhandled, please let me know on BitBucket.
+"application/text"
+"text/html"
+"text/plain"
+
+v1.0.1
+BUG FIX: ObjectDisposedException when writing.
+
+v1.0.0
+Initial release.</releaseNotes>
+    <language>en-US</language>
+    <tags>trello rest manatee</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.5">
+        <dependency id="Microsoft.AspNet.WebApi.Core" version="5.2.3" />
+        <dependency id="Manatee.Trello" version="1.8.4" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

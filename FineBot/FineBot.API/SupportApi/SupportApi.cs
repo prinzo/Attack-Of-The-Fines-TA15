@@ -6,9 +6,10 @@ using FineBot.Common.ExtensionMethods;
 using FineBot.DataAccess.DataModels;
 using FineBot.Entities;
 using FineBot.Enums;
-using FineBot.ExtensionMethods;
 using FineBot.Interfaces;
-using TrelloNet;
+using Manatee.Trello;
+using Manatee.Trello.ManateeJson;
+using Manatee.Trello.WebApi;
 
 namespace FineBot.API.SupportApi
 {
@@ -22,32 +23,26 @@ namespace FineBot.API.SupportApi
         {
             this.supportTicketRepository = supportTicketRepository;
             this.supportTicketMapper = supportTicketMapper;
+
+            var serializer = new ManateeSerializer();
+            TrelloConfiguration.Serializer = serializer;
+            TrelloConfiguration.Deserializer = serializer;
+            TrelloConfiguration.JsonFactory = new ManateeFactory();
+            TrelloConfiguration.RestClientProvider = new WebApiClientProvider();
+            TrelloAuthorization.Default.AppKey = "f179fdf3799a9e5b7239b88963268f98";
+            TrelloAuthorization.Default.UserToken = "0bc833ffc2b77959f6707d1e6ef56724f76ef748f150836d0d4654feb62c270c";
         }
 
 
         public void AddNewCardToSupport(SupportTicketModel supportTicketModel)
         {
-
-            try
-            {
-                ITrello trello = new Trello("f179fdf3799a9e5b7239b88963268f98");
-                trello.Authorize("0bc833ffc2b77959f6707d1e6ef56724f76ef748f150836d0d4654feb62c270c");
-                var myBoard = trello.Boards.WithId("55b244f75471c89c417c616f");
-                var supportList = trello.Lists.ForBoard(myBoard).FirstOrDefault(x => x.Name == "Support");
-
-                var card = new NewCard(supportTicketModel.Subject, supportList)
-                {
-                    Desc = supportTicketModel.Message + Environment.NewLine +
-                           "Status: " + ((Status) supportTicketModel.Status).ToDescription() + Environment.NewLine +
-                           "Type: " + ((SupportType) supportTicketModel.Type).ToDescription()
-                };
-
-                trello.Cards.Add(card);
-            }
-            catch (Exception ex)
-            {
-                var tes = ex;
-            }
+            const string fineAppBoardId = "55b244f75471c89c417c616f";
+            var board = new Board(fineAppBoardId);
+            var supportList = board.Lists.First(x => x.Name.Equals("Support"));
+            var card = supportList.Cards.Add(supportTicketModel.Subject);
+            card.Description = string.Format("{0}\n\nStatus: {1}\n\nType: {2}", supportTicketModel.Message,
+                ((Status)supportTicketModel.Status).ToDescription(),
+                ((SupportType)supportTicketModel.Type).ToDescription());
             
         }
 

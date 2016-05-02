@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Manatee.StateMachine</id>
+    <version>1.1.2</version>
+    <title>Manatee.StateMachine</title>
+    <authors>gregsdennis</authors>
+    <owners>gregsdennis</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
+    <projectUrl>https://bitbucket.org/gregsdennis/manatee.statemachine</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A fully extensible state machine. Its implementation effectively allows the possibility of creating an infinite number of states and/or inputs. It was created to support the Manatee Json project.</description>
+    <summary />
+    <releaseNotes>While this project is considered complete, development is not explicitly closed.  Feedback and questions are welcome on StackOverflow, or by emailing littlecrabsolutions@yahoo.com.
+
+v1.1.2
+Signed assemblies.
+
+v1.1.1
+Performance improvements.
+
+v1.1
+Added support for all .Net frameworks 3.5+.</releaseNotes>
+    <language>en-US</language>
+    <tags>manatee state-machine finite infinite</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.0" />
+    </dependencies>
+  </metadata>
+</package>
