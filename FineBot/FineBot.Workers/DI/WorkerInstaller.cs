@@ -8,7 +8,7 @@ namespace FineBot.Workers.DI
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Classes.FromThisAssembly().Pick().WithService.DefaultInterfaces());
+            container.Register(Classes.FromThisAssembly().Pick().WithService.DefaultInterfaces().LifestyleTransient());
         }
     }
 }
