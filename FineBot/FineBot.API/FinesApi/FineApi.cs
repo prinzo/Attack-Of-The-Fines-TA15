@@ -122,6 +122,12 @@ namespace FineBot.API.FinesApi
                         if (validIssuers != null && validIssuers.Any())
                         {
                             var recipient = userApi.GetUserBySlackId(message.user.FormatUserId());
+                            if (recipient.DisplayName.Equals(ConfigurationManager.AppSettings["FinesbotName"]) ||
+                                recipient.DisplayName.Equals(ConfigurationManager.AppSettings["FinebotsSecondCousinName"]))
+                            {
+                                continue;
+                            }
+
                             string reason = string.Format("{0} said \"{1}\"", recipient.DisplayName, message.text);
 
                             UserModel issuer;
