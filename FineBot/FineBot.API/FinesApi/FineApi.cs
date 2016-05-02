@@ -107,8 +107,15 @@ namespace FineBot.API.FinesApi
 
                         IList<UserModel> reactionUsers = fineReaction.users
                             .Select(x => userApi.GetUserBySlackId(x.FormatUserId()))
-                            .Where(x => !x.DisplayName.Equals(ConfigurationManager.AppSettings["FinesbotName"]) && !x.DisplayName.Equals(ConfigurationManager.AppSettings["FinebotsSecondCousinName"]))
                             .ToList();
+
+                        if (reactionUsers.Any(
+                                x =>
+                                    x.DisplayName.Equals(ConfigurationManager.AppSettings["FinesbotName"]) ||
+                                    x.DisplayName.Equals(ConfigurationManager.AppSettings["FinebotsSecondCousinName"])))
+                        {
+                            continue;
+                        }
 
                         var validIssuers = this.userApi.GetValidFineIssuers(reactionUsers);
 
