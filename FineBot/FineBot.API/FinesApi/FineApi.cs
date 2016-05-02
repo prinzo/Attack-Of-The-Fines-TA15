@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using Castle.Core.Internal;
 using FineBot.Abstracts;
 using FineBot.API.ChannelApi;
+using FineBot.API.ChatApi;
 using FineBot.API.Extensions;
 using FineBot.API.GroupsApi;
 using FineBot.API.InfrastructureServices;
 using FineBot.API.Mappers.Interfaces;
+using FineBot.API.ReactionApi;
 using FineBot.Common.Infrastructure;
 using FineBot.DataAccess.DataModels;
 using FineBot.Entities;
@@ -33,6 +36,8 @@ namespace FineBot.API.FinesApi
         private readonly IChannelApi channelApi;
         private readonly IUserApi userApi;
         private readonly IGroupsApi groupApi;
+        private readonly IChatApi chatApi;
+        private readonly IReactionApi reactionApi;
 
         public FineApi(
             IRepository<User, UserDataModel, Guid> userRepository,
@@ -43,7 +48,9 @@ namespace FineBot.API.FinesApi
             IExcelExportService<FineExportModel> excelExportService, 
             IChannelApi channelApi, 
             IUserApi userApi, 
-            IGroupsApi groupApi)
+            IGroupsApi groupApi, 
+            IChatApi chatApi, 
+            IReactionApi reactionApi)
         {
             this.userRepository = userRepository;
             this.paymentRepository = paymentRepository;
@@ -54,6 +61,8 @@ namespace FineBot.API.FinesApi
             this.channelApi = channelApi;
             this.userApi = userApi;
             this.groupApi = groupApi;
+            this.chatApi = chatApi;
+            this.reactionApi = reactionApi;
         }
 
         public IssueFineResult IssueFine(Guid issuerId, Guid recipientId, string reason)
@@ -91,12 +100,12 @@ namespace FineBot.API.FinesApi
                             ConfigurationManager.AppSettings["BotKey"],
                             chatRoomId,
                             startDateTime,
-                            history.messages.Any() ? history.messages.Last().ts.ToLocalDateTime() : DateTime.Now,
+                            history.messages.Any() ? history.messages.Last().TimeStamp : DateTime.Now,
                             100)
                         : groupApi.GetGroupHistory(ConfigurationManager.AppSettings["BotKey"],
                             chatRoomId,
                             startDateTime,
-                            history.messages.Any() ? history.messages.Last().ts.ToLocalDateTime() : DateTime.Now,
+                            history.messages.Any() ? history.messages.Last().TimeStamp : DateTime.Now,
                             100);
 
                     var messagesWithFineReaction = history.messages.Where(x => x.reactions != null && x.reactions.Any(y => y.name.Equals("fine")));
@@ -109,8 +118,7 @@ namespace FineBot.API.FinesApi
                             .Select(x => userApi.GetUserBySlackId(x.FormatUserId()))
                             .ToList();
 
-                        if (reactionUsers.Any(
-                                x =>
+                        if (reactionUsers.Any(x =>
                                     x.DisplayName.Equals(ConfigurationManager.AppSettings["FinesbotName"]) ||
                                     x.DisplayName.Equals(ConfigurationManager.AppSettings["FinebotsSecondCousinName"])))
                         {
@@ -122,9 +130,15 @@ namespace FineBot.API.FinesApi
                         if (validIssuers != null && validIssuers.Any())
                         {
                             var recipient = userApi.GetUserBySlackId(message.user.FormatUserId());
-                            if (recipient.DisplayName.Equals(ConfigurationManager.AppSettings["FinesbotName"]) ||
-                                recipient.DisplayName.Equals(ConfigurationManager.AppSettings["FinebotsSecondCousinName"]))
+                            if (recipient.DisplayName.Equals(ConfigurationManager.AppSettings["FinesbotName"]))
                             {
+                                reactionApi.AddReaction(ConfigurationManager.AppSettings["BotKey"], "middle_finger", chatRoomId, message.ts);
+                                continue;
+                            }
+
+                            if (recipient.DisplayName.Equals(ConfigurationManager.AppSettings["FinebotsSecondCousinName"]))
+                            {
+                                reactionApi.AddReaction(ConfigurationManager.AppSettings["SeconderBotKey"], "middle_finger", chatRoomId, message.ts);
                                 continue;
                             }
 
@@ -136,6 +150,10 @@ namespace FineBot.API.FinesApi
                             {
                                 issuer = validIssuers.First();
                                 this.IssueFine(issuer.Id, recipient.Id, reason);
+
+                                var notification = string.Format("{0} fined you for saying \"{1}\" although no one has seconded it yet.", issuer.DisplayName, message.text);
+                                this.chatApi.PostMessage(ConfigurationManager.AppSettings["BotKey"], recipient.SlackId.CleanSlackId(), notification);
+                                this.reactionApi.AddReaction(ConfigurationManager.AppSettings["BotKey"], "ok_hand", chatRoomId, message.ts);
                             }
                             else
                             {
@@ -150,10 +168,18 @@ namespace FineBot.API.FinesApi
                                             var seconder = reactionUsers[j];
                                             this.IssueAutoFine(issuer.Id, recipient.Id, seconder.Id, reason);
                                             isFineIssued = true;
+
+                                            var notification = string.Format("{0} (and others) fined you for saying \"{1}\"", issuer.DisplayName, message.text);
+                                            this.chatApi.PostMessage(ConfigurationManager.AppSettings["BotKey"], recipient.SlackId.CleanSlackId(), notification);
+                                            this.reactionApi.AddReaction(ConfigurationManager.AppSettings["BotKey"], "ok_hand", chatRoomId, message.ts);
                                         }
                                     }
                                 }
                             }
+                        }
+                        else
+                        {
+                            reactionApi.AddReaction(ConfigurationManager.AppSettings["BotKey"], "raised_hand", chatRoomId, message.ts);
                         }
                     }
 

@@ -9,5 +9,6 @@ namespace FineBot.API.ReactionApi
     public interface IReactionApi
     {
         bool AddReaction(string slackApiToken, string reaction, string channel, string timestamp);
+        bool AddReaction(string slackApiToken, string reaction, string channel, double timestamp);
     }
 }

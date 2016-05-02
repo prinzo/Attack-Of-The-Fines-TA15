@@ -9,7 +9,7 @@ namespace FineBot.API.Models
         public string channel { get; set; }
         public string user { get; set; }
         public string text { get; set; }
-        public double ts { get; set; }
+        public string ts { get; set; }
         public string team { get; set; }
         public bool is_starred { get; set; }
         public bool wibblr { get; set; }
@@ -19,7 +19,7 @@ namespace FineBot.API.Models
 
         public DateTime TimeStamp
         {
-            get { return ts.ToLocalDateTime(); }
+            get { return double.Parse(ts).ToLocalDateTime(); }
         }
     }
 }
