@@ -22,7 +22,7 @@ namespace FineBot.Workers.Jobs
 
             try
             {
-                var startTime = DateTime.Today.AddDays(-1);
+                var startTime = DateTime.Today;
                 fineApi.IssueFinesFromReactions(startTime, ChatRoomType.Channel);
                 fineApi.IssueFinesFromReactions(startTime, ChatRoomType.Group);
             }

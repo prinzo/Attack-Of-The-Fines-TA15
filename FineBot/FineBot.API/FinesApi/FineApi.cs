@@ -118,9 +118,11 @@ namespace FineBot.API.FinesApi
                             .Select(x => userApi.GetUserBySlackId(x.FormatUserId()))
                             .ToList();
 
-                        if (reactionUsers.Any(x =>
-                                    x.DisplayName.Equals(ConfigurationManager.AppSettings["FinesbotName"]) ||
-                                    x.DisplayName.Equals(ConfigurationManager.AppSettings["FinebotsSecondCousinName"])))
+                        if (reactionUsers.Any(x => (
+                                    x.DisplayName != null &&
+                                    x.DisplayName.Equals(ConfigurationManager.AppSettings["FinesbotName"])) ||
+                                    (x.DisplayName != null &&
+                                    x.DisplayName.Equals(ConfigurationManager.AppSettings["FinebotsSecondCousinName"]))))
                         {
                             continue;
                         }
@@ -130,19 +132,19 @@ namespace FineBot.API.FinesApi
                         if (validIssuers != null && validIssuers.Any())
                         {
                             var recipient = userApi.GetUserBySlackId(message.user.FormatUserId());
-                            if (recipient.DisplayName.Equals(ConfigurationManager.AppSettings["FinesbotName"]))
+                            if (recipient.DisplayName != null && recipient.DisplayName.Equals(ConfigurationManager.AppSettings["FinesbotName"]))
                             {
                                 reactionApi.AddReaction(ConfigurationManager.AppSettings["BotKey"], "middle_finger", chatRoomId, message.ts);
                                 continue;
                             }
 
-                            if (recipient.DisplayName.Equals(ConfigurationManager.AppSettings["FinebotsSecondCousinName"]))
+                            if (recipient.DisplayName != null && recipient.DisplayName.Equals(ConfigurationManager.AppSettings["FinebotsSecondCousinName"]))
                             {
                                 reactionApi.AddReaction(ConfigurationManager.AppSettings["SeconderBotKey"], "middle_finger", chatRoomId, message.ts);
                                 continue;
                             }
 
-                            string reason = string.Format("{0} said \"{1}\"", recipient.DisplayName, message.text);
+                            string reason = string.Format("{0} said \"{1}\"", recipient.DisplayName ?? recipient.EmailAddress.LocalPart(), message.text);
 
                             UserModel issuer;
 
@@ -151,7 +153,7 @@ namespace FineBot.API.FinesApi
                                 issuer = validIssuers.First();
                                 this.IssueFine(issuer.Id, recipient.Id, reason);
 
-                                var notification = string.Format("{0} fined you for saying \"{1}\" although no one has seconded it yet.", issuer.DisplayName, message.text);
+                                var notification = string.Format("{0} fined you for saying \"{1}\" although no one has seconded it yet.", issuer.DisplayName ?? issuer.EmailAddress.LocalPart(), message.text);
                                 this.chatApi.PostMessage(ConfigurationManager.AppSettings["BotKey"], recipient.SlackId.CleanSlackId(), notification);
                                 this.reactionApi.AddReaction(ConfigurationManager.AppSettings["BotKey"], "ok_hand", chatRoomId, message.ts);
                             }
@@ -169,9 +171,9 @@ namespace FineBot.API.FinesApi
                                             this.IssueAutoFine(issuer.Id, recipient.Id, seconder.Id, reason);
                                             isFineIssued = true;
 
-                                            var notification = string.Format("{0} (and others) fined you for saying \"{1}\"", issuer.DisplayName, message.text);
-                                            this.chatApi.PostMessage(ConfigurationManager.AppSettings["BotKey"], recipient.SlackId.CleanSlackId(), notification);
+                                            var notification = string.Format("{0} (and others) fined you for saying \"{1}\"", issuer.DisplayName ?? issuer.EmailAddress.LocalPart(), message.text);
                                             this.reactionApi.AddReaction(ConfigurationManager.AppSettings["BotKey"], "ok_hand", chatRoomId, message.ts);
+                                            this.chatApi.PostMessage(ConfigurationManager.AppSettings["BotKey"], recipient.SlackId.CleanSlackId(), notification);
                                         }
                                     }
                                 }
@@ -539,7 +541,7 @@ namespace FineBot.API.FinesApi
                 validationResult.AddMessage(Severity.Error, "A fine requires a reason");
             }
 
-            if (this.userApi.IsValidFineIssuer(fine.IssuerId))
+            if (!this.userApi.IsValidFineIssuer(fine.IssuerId))
             {
                 validationResult.AddMessage(Severity.Error, string.Format("Only {0} fines per user per day can be awarded", int.Parse(ConfigurationManager.AppSettings["MaxFinesPerUserPerDay"])));
             }

@@ -39,8 +39,7 @@ namespace FineBot.Workers
 
             var trigger = TriggerBuilder.Create()
                 .WithIdentity("GreetingTrigger")
-                .StartNow()
-                //.StartAt(new DateTimeOffset(new DateTime(2016, 04, 29, 6, 0, 0)))
+                .StartAt(new DateTimeOffset(new DateTime(2016, 5, 5, 7, 45, 0)))
                 .ForJob(jobDetail)
                 .Build();
 
@@ -57,8 +56,7 @@ namespace FineBot.Workers
 
             var trigger = TriggerBuilder.Create()
                 .WithIdentity("AwardFinesFromReactionTrigger")
-                .StartNow()
-                //.StartAt(DateBuilder.TomorrowAt(0, 0, 0))
+                .StartAt(DateBuilder.TodayAt(20, 0, 0))
                 .WithSimpleSchedule(x => x
                     .WithIntervalInHours(24)
                     .RepeatForever())

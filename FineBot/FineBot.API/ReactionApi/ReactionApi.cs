@@ -23,6 +23,12 @@ namespace FineBot.API.ReactionApi
             var serializer = new JsonSerializer<ReactionResponseModel>();
             var response = serializer.DeserializeFromString(responseString);
 
+            if (response.error != null && response.error.Equals("already_reacted"))
+            {
+                response.ok = true;
+                response.error = null;
+            }
+
             if (!response.ok)
             {
                 throw new SlackApiException(response.error);
@@ -47,6 +53,12 @@ namespace FineBot.API.ReactionApi
 
             var serializer = new JsonSerializer<ReactionResponseModel>();
             var response = serializer.DeserializeFromString(responseString);
+
+            if (response.error != null && response.error.Equals("already_reacted"))
+            {
+                response.ok = true;
+                response.error = null;
+            }
 
             if (!response.ok)
             {

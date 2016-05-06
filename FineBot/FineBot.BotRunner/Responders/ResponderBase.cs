@@ -35,7 +35,7 @@ namespace FineBot.BotRunner.Responders
         {
             this.supportApi.CreateSupportTicketOnTrello(new SupportTicketModel()
                                                 {
-                                                    Message = String.Format("Exception in Bot Runner: {0}", exception.Message),
+                                                    Message = exception.ToString(),
                                                     Subject = "Exception in Bot Runner",
                                                     Status = (int) Status.Open,
                                                     Type = (int) SupportType.Bug
