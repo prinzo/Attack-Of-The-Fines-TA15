@@ -18,5 +18,10 @@ namespace FineBot.API.UsersApi
         public int AwardedFineCount { get; set; }
         public int PendingFineCount { get; set; }
         public List<FineModel> Fines { get; set; }
+
+        public bool IsBotToIgnore()
+        {
+            return this.SlackId.Equals("<@U0DR7JG3G>") || this.SlackId.Equals("<@U0DR7KZNJ>");
+        }
     }
 }

@@ -15,7 +15,7 @@
         public static string LocalPart(this string email)
         {
             var index = email.IndexOf('@');
-            return index == -1 ? email : email.Substring(0, index + 1);
+            return index == -1 ? email : email.Substring(0, index);
         }
     }
 }

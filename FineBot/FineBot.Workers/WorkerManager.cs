@@ -56,7 +56,8 @@ namespace FineBot.Workers
 
             var trigger = TriggerBuilder.Create()
                 .WithIdentity("AwardFinesFromReactionTrigger")
-                .StartAt(DateBuilder.TodayAt(20, 0, 0))
+                //.StartNow()
+                .StartAt(DateBuilder.TodayAt(19, 0, 0))
                 .WithSimpleSchedule(x => x
                     .WithIntervalInHours(24)
                     .RepeatForever())

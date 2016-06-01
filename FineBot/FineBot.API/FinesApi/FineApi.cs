@@ -108,9 +108,12 @@ namespace FineBot.API.FinesApi
                             history.messages.Any() ? history.messages.Last().TimeStamp : DateTime.Now,
                             100);
 
-                    var messagesWithFineReaction = history.messages.Where(x => x.reactions != null && x.reactions.Any(y => y.name.Equals("fine")));
+                    var unacknowledgedMessagesWithFineReaction = history.messages.Where(
+                        x => x.reactions != null 
+                        && x.reactions.Any(y => y.name.Equals("fine"))
+                        && !x.reactions.Any(y => y.name.Equals("ok_hand") && y.users.Any(z => z.Equals("U0DR7JG3G") || z.Equals("U0DR7KZNJ"))));
 
-                    foreach (var message in messagesWithFineReaction)
+                    foreach (var message in unacknowledgedMessagesWithFineReaction)
                     {
                         var fineReaction = message.reactions.First(x => x.name.Equals("fine"));
 
@@ -118,11 +121,7 @@ namespace FineBot.API.FinesApi
                             .Select(x => userApi.GetUserBySlackId(x.FormatUserId()))
                             .ToList();
 
-                        if (reactionUsers.Any(x => (
-                                    x.DisplayName != null &&
-                                    x.DisplayName.Equals(ConfigurationManager.AppSettings["FinesbotName"])) ||
-                                    (x.DisplayName != null &&
-                                    x.DisplayName.Equals(ConfigurationManager.AppSettings["FinebotsSecondCousinName"]))))
+                        if (reactionUsers.Any(x => x.IsBotToIgnore()))
                         {
                             continue;
                         }
@@ -172,6 +171,7 @@ namespace FineBot.API.FinesApi
                                             isFineIssued = true;
 
                                             var notification = string.Format("{0} (and others) fined you for saying \"{1}\"", issuer.DisplayName ?? issuer.EmailAddress.LocalPart(), message.text);
+
                                             this.reactionApi.AddReaction(ConfigurationManager.AppSettings["BotKey"], "ok_hand", chatRoomId, message.ts);
                                             this.chatApi.PostMessage(ConfigurationManager.AppSettings["BotKey"], recipient.SlackId.CleanSlackId(), notification);
                                         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using FineBot.API.Extensions;
 
 namespace FineBot.API.Models
@@ -19,7 +20,10 @@ namespace FineBot.API.Models
 
         public DateTime TimeStamp
         {
-            get { return double.Parse(ts).ToLocalDateTime(); }
+            get
+            {
+                return double.Parse(ts, NumberStyles.Any, CultureInfo.InvariantCulture).ToLocalDateTime();
+            }
         }
     }
 }
