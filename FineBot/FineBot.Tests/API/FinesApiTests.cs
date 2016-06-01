@@ -42,7 +42,7 @@ namespace FineBot.Tests.API
             var userModel = new UserModel();
             userMapper.Stub(x => x.MapToModelShallow(user)).Return(userModel);
 
-            FineApi fineApi = new FineApi(userRepository, paymentRepository, fineMapper, userMapper, paymentMapper, excelExportService);
+            FineApi fineApi = new FineApi(userRepository, paymentRepository, fineMapper, userMapper, paymentMapper, excelExportService, null, null, null, null, null);
 
             // Pre-Assert:
             fine.Pending.Should().Be.True();
@@ -101,7 +101,7 @@ namespace FineBot.Tests.API
                                                             }
                                                         });
 
-            FineApi fineApi = new FineApi(userRepository, paymentRepository, new FineMapper(), new UserMapper(new FineMapper()), MockRepository.GenerateMock<IPaymentMapper>(), excelExportService);
+            FineApi fineApi = new FineApi(userRepository, paymentRepository, new FineMapper(), new UserMapper(new FineMapper()), MockRepository.GenerateMock<IPaymentMapper>(), excelExportService, null, null, null, null, null);
 
             List<FeedFineModel> finesList = fineApi.GetLatestSetOfFines(0, 10);
 
@@ -174,7 +174,7 @@ namespace FineBot.Tests.API
                                                             }
                                                         });
 
-            FineApi fineApi = new FineApi(userRepository, paymentRepository, new FineMapper(), new UserMapper(new FineMapper()), MockRepository.GenerateMock<IPaymentMapper>(), excelExportService);
+            FineApi fineApi = new FineApi(userRepository, paymentRepository, new FineMapper(), new UserMapper(new FineMapper()), MockRepository.GenerateMock<IPaymentMapper>(), excelExportService, null, null, null, null, null);
 
             List<FeedFineModel> finesList = fineApi.GetLatestSetOfFines(0, 10);
 
@@ -245,7 +245,7 @@ namespace FineBot.Tests.API
                                                             }
                                                         });
 
-            FineApi fineApi = new FineApi(userRepository, paymentRepository, new FineMapper(), new UserMapper(new FineMapper()), MockRepository.GenerateMock<IPaymentMapper>(),excelExportService);
+            FineApi fineApi = new FineApi(userRepository, paymentRepository, new FineMapper(), new UserMapper(new FineMapper()), MockRepository.GenerateMock<IPaymentMapper>(), excelExportService, null, null, null, null, null);
 
             List<FeedFineModel> finesList = fineApi.GetLatestSetOfFines(0, 3);
 
