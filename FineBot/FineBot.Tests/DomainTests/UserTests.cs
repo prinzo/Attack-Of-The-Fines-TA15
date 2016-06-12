@@ -90,5 +90,30 @@ namespace FineBot.Tests.DomainTests
             fine.Should().Not.Be.Null();
             fine.Should().Be.EqualTo(oldestFine);
         }
+
+        [Test]
+        public void GivenAUserWithFines_GetNewestPendingFine_ReturnsCorrectFine()
+        {
+            // Arrange:
+            var oldestFine = new Fine { Id = new Guid(), AwardedDate = DateTime.Now };
+            var newestFine = new Fine{AwardedDate = DateTime.Now.AddHours(1)};
+
+            User user = new User()
+            {
+                Fines = new List<Fine>
+                                    {
+                                        oldestFine,
+                                        newestFine,
+                                        new Fine{SeconderId = new Guid()}
+                                    }
+            };
+
+            // Act:
+            var fine = user.GetNewestPendingFine();
+
+            // Assert:
+            fine.Should().Not.Be.Null();
+            fine.Should().Be.EqualTo(newestFine);
+        }
     }
 }
