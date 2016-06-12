@@ -4,7 +4,6 @@ using System.Configuration;
 using System.Linq;
 using FineBot.Abstracts;
 using FineBot.API.Extensions;
-using FineBot.API.FinesApi;
 using FineBot.API.Mappers.Interfaces;
 using FineBot.API.MemberInfo;
 using FineBot.DataAccess.DataModels;
@@ -167,11 +166,11 @@ namespace FineBot.API.UsersApi
 
       
 
-        public List<UserModel> GetLeaderboard(int number)
+        public List<UserModel> GetLeaderboardAllTime(int number)
         {
             return Enumerable.ToList<UserModel>(this.userRepository
                 .GetAll()
-                .OrderByDescending(x => x.Fines.Count)
+                .OrderByDescending(x => x.Fines.Count(y => !y.Pending))
                 .Take(number)
                 .Select(x => this.userMapper.MapToModelShallow(x)));
         }
@@ -180,8 +179,8 @@ namespace FineBot.API.UsersApi
         {
             return Enumerable.ToList<UserModel>(this.userRepository
                 .GetAll()
-                .Where(x => x.Fines.Any(c => c.AwardedDate >= DateTime.Today))
-                .OrderByDescending(x => x.Fines.Count)
+                .Where(x => x.Fines.Any(c => !c.Pending && c.AwardedDate >= DateTime.Today))
+                .OrderByDescending(x => x.Fines.Count(c => !c.Pending && c.AwardedDate >= DateTime.Today))
                 .Take(number)
                 .Select(y => this.userMapper.MapToModelWithDate(y)));
         }
@@ -190,8 +189,8 @@ namespace FineBot.API.UsersApi
         {
             return Enumerable.ToList<UserModel>(this.userRepository
                 .GetAll()
-                .Where(x => x.Fines.Any(c => c.AwardedDate >= DateTime.Now.StartOfWeek()))
-                .OrderByDescending(x => x.Fines.Count)
+                .Where(x => x.Fines.Any(c => !c.Pending && c.AwardedDate >= DateTime.Now.StartOfWeek()))
+                .OrderByDescending(x => x.Fines.Count(c => !c.Pending && c.AwardedDate >= DateTime.Now.StartOfWeek()))
                 .Take(number)
                 .Select(x => this.userMapper.MapToModelForThisWeek(x)));
         }
@@ -200,8 +199,8 @@ namespace FineBot.API.UsersApi
         {
             return Enumerable.ToList<UserModel>(this.userRepository
                 .GetAll()
-                .Where(x => x.Fines.Any(c => c.AwardedDate >= DateTime.Now.StartOfMonth()))
-                .OrderByDescending(x => x.Fines.Count)
+                .Where(x => x.Fines.Any(c => !c.Pending && c.AwardedDate >= DateTime.Now.StartOfMonth()))
+                .OrderByDescending(x => x.Fines.Count(c => !c.Pending && c.AwardedDate >= DateTime.Now.StartOfMonth()))
                 .Take(number)
                 .Select(x => this.userMapper.MapToModelForThisMonth(x)));
         }
@@ -210,8 +209,8 @@ namespace FineBot.API.UsersApi
         {
             return Enumerable.ToList<UserModel>(this.userRepository
                 .GetAll()
-                .Where(x => x.Fines.Any(c => c.AwardedDate >= DateTime.Now.StartOfYear()))
-                .OrderByDescending(x => x.Fines.Count)
+                .Where(x => x.Fines.Any(y => !y.Pending && y.AwardedDate >= DateTime.Now.StartOfYear()))
+                .OrderByDescending(x => x.Fines.Count(y => !y.Pending && y.AwardedDate >= DateTime.Now.StartOfYear()))
                 .Take(number)
                 .Select(x => this.userMapper.MapToModelForThisYear(x)));
         } 

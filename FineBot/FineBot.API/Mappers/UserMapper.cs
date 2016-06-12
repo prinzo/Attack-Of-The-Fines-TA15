@@ -52,7 +52,7 @@ namespace FineBot.API.Mappers
                 EmailAddress = user.EmailAddress,
                 DisplayName = user.DisplayName,
                 Image = user.Image,
-                AwardedFineCount = user.Fines.Count(x => x.AwardedDate >= DateTime.Today)
+                AwardedFineCount = user.Fines.Count(x => !x.Pending && x.AwardedDate >= DateTime.Today)
             };
         }
 
@@ -67,7 +67,7 @@ namespace FineBot.API.Mappers
                 EmailAddress = user.EmailAddress,
                 DisplayName = user.DisplayName,
                 Image = user.Image,
-                AwardedFineCount = user.Fines.Count(x => x.AwardedDate >= DateTime.Now.StartOfWeek())
+                AwardedFineCount = user.Fines.Count(x => !x.Pending && x.AwardedDate >= DateTime.Now.StartOfWeek())
             };
         }
 
@@ -82,7 +82,7 @@ namespace FineBot.API.Mappers
                 EmailAddress = user.EmailAddress,
                 DisplayName = user.DisplayName,
                 Image = user.Image,
-                AwardedFineCount = user.Fines.Count(x => x.AwardedDate >= DateTime.Now.StartOfMonth())
+                AwardedFineCount = user.Fines.Count(x => !x.Pending && x.AwardedDate >= DateTime.Now.StartOfMonth())
             };
         }
 
@@ -97,7 +97,7 @@ namespace FineBot.API.Mappers
                 EmailAddress = user.EmailAddress,
                 DisplayName = user.DisplayName,
                 Image = user.Image,
-                AwardedFineCount = user.Fines.Count(x => x.AwardedDate >= DateTime.Now.StartOfYear())
+                AwardedFineCount = user.Fines.Count(x => !x.Pending && x.AwardedDate >= DateTime.Now.StartOfYear())
             };
         }
 

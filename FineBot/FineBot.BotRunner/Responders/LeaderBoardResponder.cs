@@ -63,10 +63,15 @@ namespace FineBot.BotRunner.Responders
                     builder.AppendLine("Fines Leaderboard for this year");
                     leaderboard = userApi.GetLeaderboardForThisYear(sizeOfLeaderBoard);
                 }
-                else
+                else if (text.Contains("all time"))
                 {
                     builder.AppendLine("Fines Leaderboard All Time:");
-                    leaderboard = userApi.GetLeaderboard(sizeOfLeaderBoard);
+                    leaderboard = userApi.GetLeaderboardAllTime(sizeOfLeaderBoard);
+                }
+                else
+                {
+                    builder.AppendLine("Fines Leaderboard for this year");
+                    leaderboard = userApi.GetLeaderboardForThisYear(sizeOfLeaderBoard);
                 }
 
                 foreach(var userModel in leaderboard)
