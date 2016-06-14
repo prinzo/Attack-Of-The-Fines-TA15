@@ -267,7 +267,9 @@ namespace FineBot.API.FinesApi
 
             var fineToBeSeconded = userWithNewestPendingFine.GetNewestPendingFine();
             fineToBeSeconded.Second(userId);
-            this.userRepository.Save(userWithNewestPendingFine);
+
+            var saveSync = new Task(() => userRepository.Save(userWithNewestPendingFine));
+            saveSync.RunSynchronously();
 
             return this.fineMapper.MapToModelWithUser(fineToBeSeconded, this.userMapper.MapToModelShallow(userWithNewestPendingFine));
         }
