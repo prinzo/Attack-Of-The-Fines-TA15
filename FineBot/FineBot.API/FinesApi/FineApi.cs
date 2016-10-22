@@ -195,8 +195,7 @@ namespace FineBot.API.FinesApi
             var user = userRepository.Get(recipientId);
             var fine = user.IssueFine(issuerId, reason, PlatformType.Slack);
 
-            var saveSync = new Task(() => userRepository.Save(user));
-            saveSync.RunSynchronously();
+            userRepository.Save(user);
 
             var seconder = userRepository.Get(seconderId);
             SecondNewestPendingFine(seconder.Id);
@@ -268,8 +267,7 @@ namespace FineBot.API.FinesApi
             var fineToBeSeconded = userWithNewestPendingFine.GetNewestPendingFine();
             fineToBeSeconded.Second(userId);
 
-            var saveSync = new Task(() => userRepository.Save(userWithNewestPendingFine));
-            saveSync.RunSynchronously();
+            userRepository.Save(userWithNewestPendingFine);
 
             return this.fineMapper.MapToModelWithUser(fineToBeSeconded, this.userMapper.MapToModelShallow(userWithNewestPendingFine));
         }
