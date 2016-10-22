@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Castle.Windsor;
 using FineBot.Workers.DI;
 using FineBot.Workers.Jobs;
@@ -13,7 +14,7 @@ namespace FineBot.Workers
 
         public WorkerManager(IWindsorContainer container)
         {
-            this.scheduler = StdSchedulerFactory.GetDefaultScheduler();
+            this.scheduler = StdSchedulerFactory.GetDefaultScheduler().Result;
             this.scheduler.JobFactory = new WindsorJobFactory(container);
         }
 
@@ -57,7 +58,7 @@ namespace FineBot.Workers
             var trigger = TriggerBuilder.Create()
                 .WithIdentity("AwardFinesFromReactionTrigger")
                 //.StartNow()
-                .StartAt(DateBuilder.TodayAt(19, 0, 0))
+                .StartAt(DateBuilder.TodayAt(18, 0, 0))
                 .WithSimpleSchedule(x => x
                     .WithIntervalInHours(24)
                     .RepeatForever())

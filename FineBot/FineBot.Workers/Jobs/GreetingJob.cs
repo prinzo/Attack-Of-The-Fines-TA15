@@ -2,6 +2,7 @@
 using FineBot.API.ChatApi;
 using Quartz;
 using System.Configuration;
+using System.Threading.Tasks;
 using FineBot.API.SupportApi;
 
 namespace FineBot.Workers.Jobs
@@ -16,7 +17,7 @@ namespace FineBot.Workers.Jobs
             this.chatApi = chatApi;
         }
 
-        public void Execute(IJobExecutionContext context)
+        public Task Execute(IJobExecutionContext context)
         {
             Console.WriteLine("Greeting job running {0}", DateTime.Now);
 
@@ -29,6 +30,8 @@ namespace FineBot.Workers.Jobs
                 var message = this.LogException(exception);
                 Console.WriteLine(message + ": " + exception.Message);
             }
+
+            return null;
         }
 
         public void Dispose()

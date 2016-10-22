@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using FineBot.API.FinesApi;
 using FineBot.API.SupportApi;
 using FineBot.Enums;
@@ -16,7 +17,7 @@ namespace FineBot.Workers.Jobs
             this.fineApi = fineApi;
         }
 
-        public void Execute(IJobExecutionContext context)
+        public Task Execute(IJobExecutionContext context)
         {
             Console.WriteLine("Award Fines From Reaction running {0}", DateTime.Now);
 
@@ -31,6 +32,7 @@ namespace FineBot.Workers.Jobs
                 var message = this.LogException(exception);
                 Console.WriteLine(message + ": " + exception.Message);
             }
+            return null;
         }
 
         public void Dispose()

@@ -170,7 +170,7 @@ namespace FineBot.API.FinesApi
                                             this.IssueAutoFine(issuer.Id, recipient.Id, seconder.Id, reason);
                                             isFineIssued = true;
 
-                                            var notification = string.Format("{0} (and others) fined you for saying \"{1}\"", issuer.DisplayName ?? issuer.EmailAddress.LocalPart(), message.text);
+                                            var notification = string.Format("{0} (and {2} others) fined you for saying \"{1}\"", issuer.DisplayName ?? issuer.EmailAddress.LocalPart(), message.text, validIssuers.Count - 1);
 
                                             this.reactionApi.AddReaction(ConfigurationManager.AppSettings["BotKey"], "ok_hand", chatRoomId, message.ts);
                                             this.chatApi.PostMessage(ConfigurationManager.AppSettings["BotKey"], recipient.SlackId.CleanSlackId(), notification);
